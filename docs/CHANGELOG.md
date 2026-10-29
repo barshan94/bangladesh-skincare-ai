@@ -58,3 +58,22 @@
 - Added docs/UX_SCREEN_SPEC.md with first-run, five-area, returning-user, error-state and review-gate flows.
 - Qualified skincare/formulation review and Bangladesh legal/privacy review remain required.
 - No app code, scaffolding or implementation files created.
+
+
+## 2026-10-29 — Documentation baseline expanded for implementation readiness
+
+- Added testable functional/nonfunctional requirements in docs/REQUIREMENTS.md.
+- Added local-first logical data model and deletion/migration rules in docs/DATA_MODEL.md.
+- Added reviewed knowledge governance and individual DIY formula dossier requirements in docs/KNOWLEDGE_BASE_SPEC.md.
+- Added hazard register/release blockers in docs/SAFETY_CASE.md and privacy/security threats in docs/THREAT_MODEL.md.
+- Added layered test strategy and quality gates in docs/TEST_STRATEGY.md.
+- Added milestone-by-milestone implementation backlog in docs/IMPLEMENTATION_BACKLOG.md.
+- Added private APK release/rollback procedure in docs/RELEASE_RUNBOOK.md.
+- Added Bangla/English localization and accessibility requirements in docs/LOCALIZATION_ACCESSIBILITY.md.
+- Added knowledge package update/rollback protocol in docs/KNOWLEDGE_UPDATE_PROTOCOL.md.
+- Added durable source-of-truth and session handoff routine in docs/PROJECT_STATE.md.
+- Added proposed visual design system and consent copy draft in docs/DESIGN_SYSTEM.md and docs/CONSENT_COPY_DRAFT.md.
+- Updated technical architecture and engineering defaults; no backend, cloud AI or skin-condition model selected by default.
+- Updated README documentation index and roadmap status.
+- All documentation is a planning baseline, not proof of legal compliance, clinical safety or model validity. Qualified reviews and feature-specific validation remain mandatory.
+- No application code or scaffolding created.
