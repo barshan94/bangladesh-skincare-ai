@@ -28,7 +28,7 @@ The five-area navigation is approved as the planning structure. Screen-level flo
 
 The user approved these choices for planning on 2026-10-29: broader scope with gated features; adults only initially; photo tracking and validated capture checks first, with skin-condition analysis only after validation; only individually reviewed and validated DIY formulas; and the five navigation areas. This does not authorize implementation or mean every proposed feature is release-ready.
 
-## 3. Platform and distribution
+## 4. Platform and distribution
 
 - Android only for the initial release.
 - Native Kotlin + Jetpack Compose is the leading architecture candidate.
@@ -38,7 +38,7 @@ The user approved these choices for planning on 2026-10-29: broader scope with g
 - On-device analysis first, if candidate models meet quality and performance requirements.
 - Optional accounts for features that genuinely need sync; basic features should work without an account where feasible.
 
-## 4. Supported concerns: proposed initial scope
+## 5. Supported concerns: proposed initial scope
 
 Candidate first-release areas, subject to evidence and safety review:
 
@@ -50,7 +50,7 @@ Candidate first-release areas, subject to evidence and safety review:
 
 Do not infer that every listed concern will be supported at launch. The exact first-release list is an open decision. If a concern is outside the supported scope, explain the limitation and suggest appropriate professional advice when warranted.
 
-## 5. Adaptive questionnaire
+## 6. Adaptive questionnaire
 
 Ask only what is needed to personalize guidance and apply safety rules. Prefer plain-language Bangla/English multiple-choice questions and checklists, with optional free text.
 
@@ -64,7 +64,7 @@ Potential fields:
 
 Ask age, pregnancy/breastfeeding, medications, diagnosed conditions or other sensitive details only where necessary for a specific safety decision. Explain why the information is needed.
 
-## 6. Recommendation pipeline
+## 7. Recommendation pipeline
 
 1. Collect relevant questionnaire answers and, only where useful, validated image observations.
 2. Apply hard safety and eligibility rules. Safety is never traded off for lower price or greater predicted benefit.
@@ -75,13 +75,13 @@ Ask age, pregnancy/breastfeeding, medications, diagnosed conditions or other sen
 
 Every actionable recommendation should explain why it was selected, what to use, amount/frequency/order, realistic timeline, what to avoid, stop conditions, substitutions, cost and its date/source, evidence/review status, and knowledge version. Avoid unnecessary products.
 
-## 7. Home-prepared options
+## 8. Home-prepared options
 
 Offer home preparation only when a specific formulation has appropriate evidence and formulation/safety review. A validated formula needs documented ingredient identity/specification, exact composition, preparation, packaging, storage, use-by limit and relevant stability/microbiology support.
 
 Do not generate recipes freely with AI. Do not recommend unvalidated water-based creams stored without suitable preservation and testing. If a safe validated DIY option is unavailable, explain this and offer an appropriate ready-made alternative or no substitute.
 
-## 8. Replacement workflow
+## 9. Replacement workflow
 
 For “Can't find this?”:
 1. Ask which product, ingredient, concentration, brand, size or price is missing.
@@ -94,7 +94,7 @@ For “Can't find this?”:
 
 Never replace a validated cosmetic ingredient with a kitchen ingredient solely because it is cheap or natural. If no suitable alternative exists, say so.
 
-## 9. Selfie analysis and progress
+## 10. Selfie analysis and progress
 
 Selfies support tracking of validated visible changes; they do not diagnose disease or score beauty.
 
@@ -110,13 +110,13 @@ Candidate features require separate validation: image quality, facial-region ali
 
 Poor or incomparable photos must trigger a retake or an inconclusive result. Do not claim percentage improvement unless the measure has been validated for that use. New, changing, painful, bleeding or concerning lesions should be directed to appropriate professional care.
 
-## 10. Knowledge updates
+## 11. Knowledge updates
 
 Use versioned, reviewed knowledge releases. Check for updates when the app opens and at appropriate opportunities; eligible background updates may run when Android permits. Do not promise immediate Wi-Fi-triggered background sync.
 
 Verify integrity, approval, compatibility and metadata before activation. General knowledge can update automatically within policy. Material changes to a user's active routine require explanation and confirmation. Critical safety notices should be prominent; affected unsafe recommendations may need to be disabled without waiting for confirmation.
 
-## 11. Out of scope for MVP
+## 12. Out of scope for MVP
 
 - Diagnosis of skin disease from selfies.
 - Unvalidated clinical severity scoring.
@@ -126,19 +126,20 @@ Verify integrity, approval, compatibility and metadata before activation. Genera
 - Automatic upload of photos.
 - Any image feature that has not passed its own validation gate.
 
-## 12. Open product decisions
+## 13. Remaining decisions and evidence gates
 
-- Exact initial concern list.
+- Exact initial concern list and which reviewed content entries are approved for the first release.
 - Which visual features meet validation criteria.
 - Measurement reference methods and numeric acceptance thresholds.
-- Minimum Android version and supported device matrix.
-- Whether optional cloud processing is justified.
-- Expert review ownership for skincare claims and formulations.
-- Backend and price/availability data sources, if needed.
+- Confirm provisional minimum Android API and supported device matrix at first build.
+- Whether optional cloud processing is justified; default is no backend for core functionality.
+- Reviewer ownership for skincare claims, formulas and safety reports.
+- Bangladeshi price/availability sources, if needed.
 - Current Bangladesh regulatory requirements and review pathway.
-- Final screen-by-screen UX and visual design.
+- Final visual design and usability validation against the documented UX/design-system drafts.
+- Knowledge package integrity/signature implementation and key management before remote updates are enabled.
 
-## 13. Safety, legal and release reviews still required
+## 14. Safety, legal and release reviews still required
 
 - Qualified Bangladesh legal/privacy review of applicable data protection, consent, retention/deletion, backups, cloud/cross-border processing, age eligibility, cosmetic claims, consumer protection and obligations related to recommending formulations. The existing compliance checklist is preliminary, not a legal opinion.
 - Qualified dermatology/skincare review of supported concerns, routine guidance, claims, exclusions and escalation language.
@@ -147,6 +148,6 @@ Verify integrity, approval, compatibility and metadata before activation. Genera
 - Bangla language, accessibility and usability review with adult Bangladeshi users.
 - Confirm repository visibility and actual data flows before release.
 
-## 14. Approval rule
+## 15. Approval rule
 
 The choices in Section 3 are approved product-planning decisions. Detailed requirements, UX, evidence, safety, legal/privacy, feasibility and architecture gates remain open. Application code, scaffolding and implementation-file changes must not begin until the remaining planning gates are reviewed and the user separately gives explicit implementation approval.
