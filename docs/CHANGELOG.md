@@ -1,5 +1,16 @@
 # Project Change Log
 
+## 2026-10-29 — Functional offline MVP screens started
+- **Type:** Feature / Domain / Localization / Privacy
+- Added deterministic non-diagnostic guidance rules with safety-first handling for concerning changes and broken skin; added unit tests for the core branches.
+- Replaced placeholder tabs with an interactive self-reported check-in, routine checklist, text-only progress timeline with add/delete, ingredient education search, and profile language/budget/local-data controls.
+- Added interim device-local persistence for routine completion, progress notes and preferences. This uses app-private SharedPreferences/JSON as a prototype; Room migrations and lifecycle hardening remain required before release.
+- Added English and Bangla resources for the new controls and corrected stale placeholder copy.
+- No photos, AI image analysis, account, network service, cloud sync, or DIY formula recommendations were added. The ingredient summaries explicitly say expert review is pending.
+- CI for the new feature code is queued at [run 40912123852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40912123852) at the time of this update; compile/test success is not yet verified.
+- **Next:** inspect build/unit-test results, diagnose the emulator instrumentation crash, and fix any code issues before claiming the MVP milestone.
+
+
 ## 2026-10-29 — Compose navigation smoke tests
 - **Type:** Testing / CI / Accessibility
 - Added Android instrumentation test dependencies for Jetpack Compose UI tests.
