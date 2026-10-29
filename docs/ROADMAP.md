@@ -1,6 +1,6 @@
 # Roadmap
 
-**Status:** Planning and feasibility research. Implementation has not started.
+**Status:** Planning and feasibility research. Implementation has not started.  
 **Last updated:** 2026-10-29
 
 Progress estimates are planning estimates, not claims of completed engineering. A phase is complete only when its deliverables and acceptance checks are reviewed.
@@ -23,14 +23,14 @@ Progress estimates are planning estimates, not claims of completed engineering. 
 
 - [x] Identify face detection, segmentation and custom-model paths for evaluation.
 - [x] Identify risks around skin-tone fairness, dataset licensing and false confidence.
-- [ ] Research current official model/runtime documentation and exact licences.
-- [ ] Inventory candidate models, supported tasks, model size and Android compatibility.
-- [ ] Design representative evaluation data and appropriate reference methods.
-- [ ] Define numeric acceptance thresholds before evaluating results.
+- [x] Draft a feature-specific measurement validation plan.
+- [ ] Verify candidate models, official documentation, exact licences and model/data provenance.
+- [ ] Design representative evaluation data and appropriate reference methods with expert review.
+- [ ] Approve numeric acceptance thresholds before evaluating holdout results.
 - [ ] Benchmark latency, memory, battery and app-size impact on target devices.
 - [ ] Make a per-feature go/no-go decision.
 
-**Exit gate:** written feasibility report, reviewed licensing, test protocol, thresholds and feature-specific decisions.
+**Exit gate:** reviewed feasibility report, licensing, test protocol, thresholds and feature-specific decisions.
 
 ## Phase 2 — Knowledge base and evidence review
 
@@ -47,21 +47,21 @@ Progress estimates are planning estimates, not claims of completed engineering. 
 
 **Exit gate:** every actionable recommendation has an evidence, eligibility, safety and review pathway.
 
-## Phase 3 — Product UX and architecture approval
+## Phase 3 — Product UX, compliance and architecture approval
 
 **Status: Not started**
 
 - [ ] Map first-time, returning, inconclusive scan and safety-warning journeys.
 - [ ] Design screen-by-screen UX in Bangla and English.
 - [ ] Specify consent and permission timing.
-- [ ] Define device-only storage and deletion behavior.
-- [ ] Decide whether optional account/cloud features are justified.
+- [ ] Define device-only storage, Android backup and deletion behavior.
+- [ ] Decide whether optional account/cloud features are justified and map any third-party/cross-border data flow.
 - [ ] Define offline behavior, knowledge sync, integrity checks and rollback.
 - [ ] Confirm Android minimum version and device matrix.
-- [ ] Review applicable Bangladesh requirements with appropriate expertise.
+- [ ] Complete qualified review of applicable Bangladesh privacy, cosmetics, claims and related requirements.
 - [ ] Obtain explicit approval of UX and architecture.
 
-**Exit gate:** signed-off product/UX/architecture baseline. No coding before this gate.
+**Exit gate:** signed-off product, compliance, UX and architecture baseline. No coding before this gate.
 
 ## Phase 4 — Implementation planning
 
@@ -106,7 +106,7 @@ Implement in small milestones only after approval. Each milestone requires tests
 
 ## Release blockers
 
-No critical safety defect may be waived. A feature that fails validation stays disabled. If privacy, licensing, evidence, performance or fairness cannot be established, reduce scope rather than weaken acceptance criteria.
+No critical safety defect may be waived. A feature that fails validation stays disabled. If privacy, licensing, evidence, performance, fairness or regulatory compliance cannot be established, reduce scope rather than weaken acceptance criteria.
 
 ## Progress reporting convention
 
