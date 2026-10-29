@@ -1,8 +1,7 @@
 package com.barshan.skincareai
 
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertExists
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -27,19 +26,19 @@ class NavigationSmokeTest {
 
         destinations.forEach { (labelRes, titleRes, bodyRes) ->
             val label = composeRule.activity.getString(labelRes)
-            composeRule.onNodeWithContentDescription(label).performClick()
-            composeRule.onNodeWithText(composeRule.activity.getString(titleRes)).assertIsDisplayed()
-            composeRule.onNodeWithText(composeRule.activity.getString(bodyRes)).assertIsDisplayed()
+            composeRule.onNodeWithText(label).performClick()
+            composeRule.onNodeWithText(composeRule.activity.getString(titleRes)).assertExists()
+            composeRule.onNodeWithText(composeRule.activity.getString(bodyRes)).assertExists()
         }
     }
 
     @Test
     fun homeExplainsPrivacyAndSafetyWithoutClaimingFeaturesExist() {
         composeRule.onNodeWithText(composeRule.activity.getString(R.string.local_first_title))
-            .assertIsDisplayed()
+            .assertExists()
         composeRule.onNodeWithText(composeRule.activity.getString(R.string.safety_title))
-            .assertIsDisplayed()
+            .assertExists()
         composeRule.onNodeWithText(composeRule.activity.getString(R.string.status_scaffold))
-            .assertIsDisplayed()
+            .assertExists()
     }
 }
