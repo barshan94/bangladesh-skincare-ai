@@ -1,7 +1,7 @@
 # Product Specification
 
-- **Version:** 3.0 baseline, carried forward from planning conversations
-- **Status:** Draft baseline for review; not final implementation approval
+- **Version:** 3.1 planning baseline
+- **Status:** Product-scope choices approved by the user for planning; implementation and final release scope are not approved
 - **Last updated:** 2026-10-29
 - **Platform:** Android-first
 - **Implementation status:** Not started
@@ -22,7 +22,11 @@ Five main areas are proposed:
 4. **Ingredients and Alternatives:** reviewed ingredients/products, validated DIY options, local cost estimates and substitutions.
 5. **Profile and Privacy:** questionnaire, language, budget, storage, consent, optional account and data deletion.
 
-Navigation and visual design are not yet approved.
+The five-area navigation is approved as the planning structure. Screen-level flows and visual design remain drafts.
+
+## 3. Approved scope decisions
+
+The user approved these choices for planning on 2026-10-29: broader scope with gated features; adults only initially; photo tracking and validated capture checks first, with skin-condition analysis only after validation; only individually reviewed and validated DIY formulas; and the five navigation areas. This does not authorize implementation or mean every proposed feature is release-ready.
 
 ## 3. Platform and distribution
 
@@ -134,6 +138,15 @@ Verify integrity, approval, compatibility and metadata before activation. Genera
 - Current Bangladesh regulatory requirements and review pathway.
 - Final screen-by-screen UX and visual design.
 
-## 13. Approval rule
+## 13. Safety, legal and release reviews still required
 
-This document is the current planning baseline, not permission to begin implementation. Changes to goals, supported concerns, safety boundaries, privacy, or distribution must be recorded and reviewed. Implementation begins only after the user explicitly approves the relevant specification and design gates.
+- Qualified Bangladesh legal/privacy review of applicable data protection, consent, retention/deletion, backups, cloud/cross-border processing, age eligibility, cosmetic claims, consumer protection and obligations related to recommending formulations. The existing compliance checklist is preliminary, not a legal opinion.
+- Qualified dermatology/skincare review of supported concerns, routine guidance, claims, exclusions and escalation language.
+- Individual qualified formulation, preservation/stability and microbiological review for every DIY formula as applicable.
+- Independent validation for each photo-quality or skin-analysis feature, including device/lighting/skin-tone robustness, reference methods, uncertainty and pre-defined acceptance criteria.
+- Bangla language, accessibility and usability review with adult Bangladeshi users.
+- Confirm repository visibility and actual data flows before release.
+
+## 14. Approval rule
+
+The choices in Section 3 are approved product-planning decisions. Detailed requirements, UX, evidence, safety, legal/privacy, feasibility and architecture gates remain open. Application code, scaffolding and implementation-file changes must not begin until the remaining planning gates are reviewed and the user separately gives explicit implementation approval.
