@@ -135,3 +135,8 @@ Each state explains what happened, whether data was retained and the next reason
 - Final data-flow, offline/update/rollback and deletion behavior review.
 - User approval of detailed flows and visual design.
 - No application implementation until the user separately authorizes it.
+
+
+## Acceptance criteria
+
+Screen-level pass/fail criteria for the journeys and states in this document are maintained in [SCREEN_ACCEPTANCE_CRITERIA.md](SCREEN_ACCEPTANCE_CRITERIA.md). The criteria are implementation tests to be verified, not proof that the UI has been built or validated with users.
