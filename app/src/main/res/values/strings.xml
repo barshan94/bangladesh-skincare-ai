@@ -80,7 +80,7 @@
     <string name="progress_delete">Delete this entry</string>
     <string name="progress_tolerance_saved">Tolerance: %1$s</string>
     <string name="progress_privacy_note">Entries can be deleted individually or cleared from Profile. Export and photo tracking are not available in this build.</string>
-    <string name="ingredients_intro">A small educational catalogue. Learn the purpose and limitations of common skincare ingredients—this is not a product endorsement.</string>
+    <string name="ingredients_intro">A small educational catalogue. Learn about common skincare ingredients and their limitations; this is not a product endorsement.</string>
     <string name="ingredients_search">Search ingredients</string>
     <string name="ingredient_glycerin">Glycerin</string>
     <string name="ingredient_glycerin_body">A humectant used in many moisturizers to help attract and hold water in the outer skin layer.</string>
