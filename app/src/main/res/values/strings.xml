@@ -100,7 +100,7 @@
     <string name="ingredient_sunscreen">Broad-spectrum sunscreen</string>
     <string name="ingredient_sunscreen_body">A finished sunscreen labelled broad-spectrum helps protect against UVA and UVB when used as directed.</string>
     <string name="ingredient_sunscreen_caution">Caution: use enough and reapply as directed on the label; shade and clothing also help. Availability and prices are not verified here.</string>
-    <string name="ingredients_review_note">These entries are basic educational summaries and have not yet passed the project's formal expert-review gate. No local prices or brands are claimed.</string>
+    <string name="ingredients_review_note">These entries are basic educational summaries and have not yet passed the project&apos;s formal expert-review gate. No local prices or brands are claimed.</string>
     <string name="profile_language">App language</string>
     <string name="language_system">System</string>
     <string name="profile_budget">Monthly skincare budget (optional)</string>
