@@ -77,3 +77,13 @@
 - Updated README documentation index and roadmap status.
 - All documentation is a planning baseline, not proof of legal compliance, clinical safety or model validity. Qualified reviews and feature-specific validation remain mandatory.
 - No application code or scaffolding created.
+
+
+## 2026-10-29 — Durable project handoff and documentation-first working rule
+
+- Recorded D-010 in docs/DECISIONS.md: GitHub documentation, roadmap, changelog and project state must be updated during meaningful project work; implementation remains blocked until explicit authorization.
+- Rewrote docs/ROADMAP.md to distinguish documentation coverage from unresolved professional/validation gates.
+- Updated docs/PROJECT_STATE.md index and handoff instructions.
+- Final documentation index is linked from README.md.
+- Repository still needs visibility confirmation; a prior check reported public visibility.
+- No application code or scaffolding created.
