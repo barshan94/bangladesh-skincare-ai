@@ -13,6 +13,7 @@
 - [x] Record product specification, scope proposal, roadmap and decision log.
 - [x] Record user-approved product decisions: broad scope with feature gates, adults-only initial audience, validated photo tracking first, individually reviewed DIY formulas only, five-area navigation.
 - [x] Draft screen-by-screen UX and visual design direction.
+- [x] Define screen-level acceptance criteria across 29 documented screens.
 - [x] Define testable requirements and logical data model.
 - [x] Define architecture defaults, engineering standards and implementation backlog.
 - [x] Define safety case, privacy/security threat model, content governance and knowledge-update protocol.
