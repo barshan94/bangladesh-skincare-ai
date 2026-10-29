@@ -69,9 +69,40 @@ jobs:
           api-level: 34
           arch: x86_64
           profile: pixel_2
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 2048
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 3072
           script: |
             set +e
+            echo "Checking that Android system services are ready before installing test APKs."
+            package_ready=0
+            for attempt in $(seq 1 30); do
+              if adb shell service check package 2>/dev/null | grep -qi "found"; then
+                package_ready=1
+                break
+              fi
+              sleep 5
+            done
+
+            if [ "$package_ready" -ne 1 ]; then
+              echo "Package Manager is unavailable after emulator startup; rebooting the emulator once."
+              adb reboot
+              adb wait-for-device
+              for attempt in $(seq 1 60); do
+                boot_completed=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+                if [ "$boot_completed" = "1" ] && adb shell service check package 2>/dev/null | grep -qi "found"; then
+                  package_ready=1
+                  break
+                fi
+                sleep 5
+              done
+            fi
+
+            if [ "$package_ready" -ne 1 ]; then
+              echo "Android Package Manager did not become ready; collecting emulator diagnostics."
+              adb shell getprop || true
+              adb logcat -d -v time | grep -E "SystemServer|PackageManager|FATAL EXCEPTION|AndroidRuntime|am_crash" | tail -n 400 || true
+              exit 1
+            fi
+
             gradle --no-daemon :app:connectedDebugAndroidTest
             test_exit=$?
             if [ "$test_exit" -ne 0 ]; then
