@@ -98,3 +98,10 @@
 - Re-fetched README, roadmap, project state, decisions and changelog from GitHub after updates.
 - Repository metadata still reports public visibility; the available GitHub connection does not expose a repository-visibility setting action. Owner must change it in GitHub Settings if private visibility is desired.
 - No application code or scaffolding created.
+
+
+## 2026-10-29 — Screen acceptance criteria added
+
+- Added docs/SCREEN_ACCEPTANCE_CRITERIA.md covering all 29 documented screens and cross-screen privacy, safety, localization and failure-state criteria.
+- Linked screen acceptance criteria from README.md and PROJECT_STATE.md.
+- No application code or scaffolding created.
