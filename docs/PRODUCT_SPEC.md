@@ -1,7 +1,7 @@
 # Product Specification
 
 - **Version:** 3.1 planning baseline
-- **Status:** Product-scope choices approved by the user for planning; implementation and final release scope are not approved
+- **Status:** Product-planning choices approved; user explicitly authorized implementation on 2026-10-29. Final release remains gated by expert, privacy, safety and validation review.
 - **Last updated:** 2026-10-29
 - **Platform:** Android-first
 - **Implementation status:** Not started
@@ -150,4 +150,4 @@ Verify integrity, approval, compatibility and metadata before activation. Genera
 
 ## 15. Approval rule
 
-The choices in Section 3 are approved product-planning decisions. Detailed requirements, UX, evidence, safety, legal/privacy, feasibility and architecture gates remain open. Application code, scaffolding and implementation-file changes must not begin until the remaining planning gates are reviewed and the user separately gives explicit implementation approval.
+The choices in Section 3 are approved product-planning decisions. Detailed requirements, UX, evidence, safety, legal/privacy, feasibility and architecture gates remain open. Implementation has been explicitly authorized by the user. Open safety, expert, legal/privacy and validation gates remain release blockers; implementation must preserve these limits and must not claim gated features are approved.
