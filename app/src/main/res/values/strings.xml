@@ -19,17 +19,17 @@
     <string name="scan_body">Photo capture and skin analysis are not available yet. Any future analysis will need its own evidence, accuracy, privacy, and device-performance checks before release.</string>
     <string name="scan_status">Not available in this build</string>
     <string name="routine_title">Your routine, on your terms</string>
-    <string name="routine_body">Routine planning is being designed around your preferences and safety needs. No products or treatments are being recommended by this build.</string>
-    <string name="routine_status">Recommendations disabled pending review</string>
+    <string name="routine_body">A simple educational morning/evening checklist is available and saved on this device. It is not a personalized treatment plan.</string>
+    <string name="routine_status">General checklist only · personalized recommendations disabled</string>
     <string name="progress_title">Track change thoughtfully</string>
-    <string name="progress_body">A private progress timeline is planned. This version does not save photos, skin notes, or progress history, and it will not infer improvement from images alone.</string>
-    <string name="progress_status">Local tracking not implemented</string>
+    <string name="progress_body">You can save and delete private text check-ins on this device. Photo tracking is not available, and notes do not prove improvement.</string>
+    <string name="progress_status">Local text check-ins available · photo tracking unavailable</string>
     <string name="ingredients_title">Understand ingredients</string>
-    <string name="ingredients_body">The ingredient catalogue is not active yet. Entries will need traceable sources, review dates, and clear safety limits before appearing here.</string>
-    <string name="ingredients_status">Reviewed catalogue not available yet</string>
+    <string name="ingredients_body">A small educational ingredient guide is available. Entries are not yet formally expert-reviewed, and no local prices or brands are claimed.</string>
+    <string name="ingredients_status">Educational guide only · expert review pending</string>
     <string name="profile_title">Privacy and preferences</string>
-    <string name="profile_body">Language and privacy controls will be added before personal data features. This build has no account, analytics, or cloud sync.</string>
-    <string name="profile_status">Settings are not implemented yet</string>
+    <string name="profile_body">Language choice, budget preference, local data clearing, and local-only storage information are available. This build has no account, analytics, or cloud sync.</string>
+    <string name="profile_status">Local preferences available · no account or cloud sync</string>
 
     <string name="scan_feel_prompt">How does your skin usually feel?</string>
     <string name="feel_dry">Dry</string>
