@@ -2,8 +2,9 @@
 
 - Last updated: 2026-10-29
 - Overall state: Documentation baseline assembled; implementation underway on implementation/m0-android-baseline.
-- M0 baseline build: **Verified green** on run 40871345852.
-- Current milestone: Phase 2 app-shell and localization polish; latest UI/string CI runs pending.
+- M0 Android baseline: **Verified green** on run 40871345852.
+- App shell/localization: **Verified green** on run 40874506742 for compilation, unit-test task and artifact upload.
+- Current milestone: localization-key CI guard added; its CI run is pending verification.
 - Progress measures implementation only, not clinical safety or model validity.
 
 ## Phase 0 — Product baseline and documentation
@@ -23,10 +24,11 @@
 - [x] Pin JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21 and SDK baseline.
 - [x] Add manifest with no permissions, no network capability and automatic backup disabled.
 - [x] Add five-area navigation and safe placeholder UI.
-- [x] Add initial English and Bangla string resources.
+- [x] Add English and Bangla string resources.
 - [x] Add GitHub Actions workflow for debug APK build, unit-test task and temporary artifact upload.
 - [x] Verify CI run 40871345852 succeeded and APK artifact was uploaded.
-- [ ] Verify latest app-shell/localization commits build.
+- [x] Verify app-shell/localization commit via run 40874506742.
+- [ ] Verify localization guard's own CI run.
 - [ ] Add meaningful UI/navigation tests and open PR review.
 - [ ] Confirm build reproducibility on a target Android device.
 
@@ -38,6 +40,7 @@
 - [x] Use localized string resources for section content in English and Bangla.
 - [x] Add navigation icon content descriptions.
 - [x] Correct photo privacy wording to distinguish future intent from current capability.
+- [x] Add a CI check for duplicate/mismatched English and Bangla resource keys (new check pending its first run).
 - [ ] Verify English and Bangla layout on a target device.
 - [ ] Review Bangla translations with native users.
 - [ ] Add accessibility labels, scalable text and contrast checks.
