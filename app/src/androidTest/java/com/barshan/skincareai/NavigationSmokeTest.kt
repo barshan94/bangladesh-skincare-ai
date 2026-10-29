@@ -1,7 +1,7 @@
 package com.barshan.skincareai
 
-import androidx.compose.ui.test.assertExists
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -13,6 +13,13 @@ import org.junit.runner.RunWith
 class NavigationSmokeTest {
     @get:Rule
     val composeRule = createAndroidComposeRule<MainActivity>()
+
+    private fun assertTextExists(text: String) {
+        composeRule.waitForIdle()
+        val nodes = composeRule.onAllNodesWithText(text, useUnmergedTree = true)
+            .fetchSemanticsNodes()
+        assert(nodes.isNotEmpty()) { "Expected text to exist in the UI semantics tree: $text" }
+    }
 
     @Test
     fun everyBottomNavigationDestinationOpensItsOwnContent() {
@@ -27,18 +34,15 @@ class NavigationSmokeTest {
         destinations.forEach { (labelRes, titleRes, bodyRes) ->
             val label = composeRule.activity.getString(labelRes)
             composeRule.onNodeWithText(label).performClick()
-            composeRule.onNodeWithText(composeRule.activity.getString(titleRes)).assertExists()
-            composeRule.onNodeWithText(composeRule.activity.getString(bodyRes)).assertExists()
+            assertTextExists(composeRule.activity.getString(titleRes))
+            assertTextExists(composeRule.activity.getString(bodyRes))
         }
     }
 
     @Test
-    fun homeExplainsPrivacyAndSafetyWithoutClaimingFeaturesExist() {
-        composeRule.onNodeWithText(composeRule.activity.getString(R.string.local_first_title))
-            .assertExists()
-        composeRule.onNodeWithText(composeRule.activity.getString(R.string.safety_title))
-            .assertExists()
-        composeRule.onNodeWithText(composeRule.activity.getString(R.string.status_scaffold))
-            .assertExists()
+    fun homeContainsPrivacyAndSafetyGuidance() {
+        assertTextExists(composeRule.activity.getString(R.string.local_first_title))
+        assertTextExists(composeRule.activity.getString(R.string.safety_title))
+        assertTextExists(composeRule.activity.getString(R.string.status_scaffold))
     }
 }
