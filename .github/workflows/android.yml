@@ -5,6 +5,7 @@ on:
     branches: [main, "implementation/**"]
     paths:
       - "app/**"
+      - "scripts/check_localization.py"
       - "*.gradle.kts"
       - "gradle/**"
       - ".github/workflows/android.yml"
@@ -12,6 +13,7 @@ on:
     branches: [main]
     paths:
       - "app/**"
+      - "scripts/check_localization.py"
       - "*.gradle.kts"
       - "gradle/**"
       - ".github/workflows/android.yml"
@@ -34,6 +36,9 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+      - name: Validate English/Bangla resource parity
+        run: python3 scripts/check_localization.py
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
