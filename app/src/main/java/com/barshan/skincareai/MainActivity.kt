@@ -216,6 +216,7 @@ private fun SkinCheckInScreen() {
     }
     result?.let { GuidanceResultCard(it) }
     InfoCard(stringResource(R.string.safety_title), stringResource(R.string.safety_body), Icons.Outlined.TipsAndUpdates)
+    Text(stringResource(R.string.status_scaffold), color = Sage, fontSize = 12.sp, fontWeight = FontWeight.Medium, modifier = Modifier.align(Alignment.CenterHorizontally))
 }
 
 @Composable
@@ -345,12 +346,17 @@ private fun IngredientsScreen() {
     )
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
     OutlinedTextField(value = query, onValueChange = { query = it }, label = { Text(stringResource(R.string.ingredients_search)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
-    items.filter { query.isBlank() || stringResource(it.title).contains(query, ignoreCase = true) || stringResource(it.body).contains(query, ignoreCase = true) }.forEach { item ->
-        Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
-            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(item.title), fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
-                Text(stringResource(item.body), color = Color(0xFF5D6962))
-                Text(stringResource(item.caution), color = Color(0xFF8B4B31), fontSize = 13.sp)
+    items.forEach { item ->
+        val title = stringResource(item.title)
+        val body = stringResource(item.body)
+        val caution = stringResource(item.caution)
+        if (query.isBlank() || title.contains(query, ignoreCase = true) || body.contains(query, ignoreCase = true)) {
+            Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
+                Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(title, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+                    Text(body, color = Color(0xFF5D6962))
+                    Text(caution, color = Color(0xFF8B4B31), fontSize = 13.sp)
+                }
             }
         }
     }
