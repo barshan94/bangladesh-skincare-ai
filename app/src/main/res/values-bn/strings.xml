@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">বাংলাদেশ স্কিনকেয়ার AI</string>
+    <string name="nav_scan">ত্বক দেখুন</string>
+    <string name="nav_routine">আমার রুটিন</string>
+    <string name="nav_progress">অগ্রগতি</string>
+    <string name="nav_ingredients">উপাদান</string>
+    <string name="nav_profile">প্রোফাইল</string>
+    <string name="welcome_title">যত্নের সঙ্গে আপনার ত্বককে বুঝুন।</string>
+    <string name="welcome_body">ব্যক্তিগত রুটিন, নিজের অগ্রগতি সংরক্ষণ এবং প্রমাণভিত্তিক তথ্যের জন্য একটি ব্যক্তিগত স্কিনকেয়ার সহায়ক।</string>
+    <string name="local_first_title">গোপনীয়তা প্রথম</string>
+    <string name="local_first_body">এই প্রাথমিক সংস্করণে আপনার ছবি এই ডিভাইসেই থাকবে। কোনো ছবি আপলোড করা হয় না।</string>
+    <string name="safety_title">সতর্কভাবে শুরু</string>
+    <string name="safety_body">এই অ্যাপ ত্বকের রোগ নির্ণয় করে না বা ত্বক ফর্সা করার প্রতিশ্রুতি দেয় না। যথাযথ পর্যালোচনার পরেই পরামর্শ যুক্ত করা হবে।</string>
+    <string name="status_scaffold">প্রাথমিক সংস্করণ · ভিত্তি তৈরি হচ্ছে</string>
+    <string name="coming_soon">এই অংশটি তৈরি হচ্ছে। এখনো ত্বক বিশ্লেষণ বা চিকিৎসার পরামর্শ চালু নেই।</string>
+</resources>
