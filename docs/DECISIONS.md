@@ -82,3 +82,12 @@ This file records durable decisions and the rationale behind them. Proposed or p
 - **Impact:** Update product specification and screen-by-screen UX plan. Implementation remains blocked until planning gates are reviewed and the user separately authorizes it.
 - **Follow-up:** Define adult eligibility; finalize concern boundaries; obtain qualified skincare/formulation and Bangladesh legal/privacy review; validate each image feature; define formula governance.
 - **Approver:** User, explicitly in conversation on 2026-10-29.
+
+
+## 2026-10-29 — D-010: GitHub documentation is the durable project handoff
+
+- **Status:** Approved working instruction from the user.
+- **Decision:** For each meaningful project work session, update the relevant GitHub documentation, roadmap, changelog and project-state handoff; fetch the current files before relying on remembered state and verify updates after writing. Keep coding blocked until the user separately authorizes implementation.
+- **Rationale:** Prevent lost context and make the project recoverable across chats without relying on conversational memory alone.
+- **Operational limit:** This is a session workflow, not a background process. It cannot update GitHub when no project work is happening or guarantee that a future chat automatically runs it.
+- **Approval:** User instruction on 2026-10-29.
