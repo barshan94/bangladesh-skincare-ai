@@ -4,26 +4,29 @@
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Default branch: main
 - Active branch: implementation/m0-android-baseline
-- Stage: M0 build verified; Phase 2 app-shell/localization work underway.
+- Stage: Android baseline and app-shell build verified; localization consistency guard added, awaiting its CI run.
 - Source of truth: this repository.
 
 ## Verified milestone — M0 Android baseline
-GitHub Actions run [40871345852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40871345852) completed successfully on commit 634902a6203d0f0041a822b89ea7965cd2060dae. The workflow steps for Android command-line tools/SDK setup, debug APK compilation, unit-test task, and APK artifact upload all reported success. The debug artifact was uploaded; this is a development APK, not a signed release.
+GitHub Actions run [40871345852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40871345852) completed successfully on commit 634902a6203d0f0041a822b89ea7965cd2060dae. Android SDK setup, debug APK compilation, the unit-test task, and APK artifact upload all succeeded. This is a development APK, not a signed release.
+
+## Verified milestone — app shell and English/Bangla copy
+GitHub Actions run [40874506742](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40874506742) completed successfully with debug compilation, unit-test task, and APK artifact upload. The tested commit includes the five-section UI and expanded English/Bangla strings.
 
 Implemented:
-- Native Kotlin/Jetpack Compose project and pinned Gradle/plugin/dependency versions.
-- Manifest with no requested permissions, no network permission and Android automatic backup disabled.
-- Five-area bottom navigation and first home screen.
-- English and Bangla resources.
-- GitHub Actions workflow to compile a debug APK, run unit tests and upload a 14-day artifact.
+- Native Kotlin/Jetpack Compose project with pinned Gradle/plugin/dependency versions.
+- Manifest with no requested permissions, no network permission, and Android automatic backup disabled.
+- Five-area bottom navigation: Skin Scan, My Routine, Progress, Ingredients, Profile.
+- Distinct section copy/statuses, navigation icon descriptions, and privacy/safety cards.
+- English and Bangla resource files.
+- GitHub Actions workflow for debug APK compilation, unit-test task, artifact upload, and now a localization-key consistency check.
+- Python standard-library script `scripts/check_localization.py` detects duplicate resource names and mismatched English/Bangla keys.
 - Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1
 
-## Current work — app shell and localization
-Updated the five sections to have distinct, accurate explanatory content and explicit status labels. Improved navigation icon content descriptions and replaced icon-like text symbols with Material icons. Expanded English and Bangla strings. Corrected the privacy copy: this version does not capture/import/save photos; local-first photo storage is a design intention for a future feature, not an implemented capability.
+## Latest change — localization guard
+Added a CI check that requires English and Bangla Android resource keys to match and rejects duplicate resource names. The workflow now runs this check before Android setup/build. The CI run triggered by this guard has not yet been verified; do not claim that run passed until its result is checked.
 
-CI runs for these latest UI/string commits are pending at the time of this update. Do not claim those commits build until the latest run succeeds.
-
-No skincare analysis, treatment recommendation, DIY formula, photo capture/import, persistence, backend, analytics or cloud processing is active.
+The current app does not analyze skin, recommend treatments, provide DIY formulas, capture/import/save photos, or implement persistence, backend, analytics, or cloud processing. Local-first photo storage remains a future design intention.
 
 ## Approved decisions
 1. Adults only initially.
@@ -33,7 +36,7 @@ No skincare analysis, treatment recommendation, DIY formula, photo capture/impor
 5. Android-first, private APK initial distribution, Bangla/English, free at launch.
 6. Photos/progress on-device by default; cloud storage, cloud analysis and model training require separate affirmative consent.
 7. Safety rules are deterministic and cannot be overridden by generative AI.
-8. No diagnosis from selfies, beauty/fairness scores, guaranteed whitening, unreviewed recipes or photo-triggered automatic treatment changes.
+8. No diagnosis from selfies, beauty/fairness scores, guaranteed whitening, unreviewed recipes, or photo-triggered automatic treatment changes.
 
 ## External gates not to fake as completed
 - Confirm repository visibility/access expectations; GitHub metadata reports public visibility.
@@ -57,4 +60,4 @@ At each meaningful session:
 9. Report exactly what changed and any failure. Never claim background sync.
 
 ## Next action
-Verify CI for the latest UI/localization commits. If green, add meaningful automated coverage for navigation/accessible labels, then continue local-first persistence only after the shell is reviewed. Keep high-risk features disabled.
+Verify the CI run for the localization guard. Then add a genuine navigation/UI smoke test once the instrumentation dependencies and emulator workflow are configured; do not count a successful compilation as a UI test. Keep high-risk features disabled.
