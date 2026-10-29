@@ -4,7 +4,7 @@
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Default branch: main
 - Active branch: implementation/m0-android-baseline
-- Stage: Android baseline and app-shell build verified; localization consistency guard added, awaiting its CI run.
+- Stage: Android baseline and app-shell verified; localization guard passed; emulator-based navigation tests added, awaiting CI verification.
 - Source of truth: this repository.
 
 ## Verified milestone — M0 Android baseline
@@ -25,6 +25,8 @@ Implemented:
 
 ## Latest change — localization guard
 Added a CI check that requires English and Bangla Android resource keys to match and rejects duplicate resource names. The workflow now runs this check before Android setup/build. The CI run triggered by this guard has not yet been verified; do not claim that run passed until its result is checked.
+
+Added Compose instrumentation smoke tests for all five bottom-navigation destinations and the home privacy/safety statements. CI now launches an API 35 Pixel_2 emulator and runs `:app:connectedDebugAndroidTest`. This new emulator workflow has not yet been verified green.
 
 The current app does not analyze skin, recommend treatments, provide DIY formulas, capture/import/save photos, or implement persistence, backend, analytics, or cloud processing. Local-first photo storage remains a future design intention.
 
@@ -60,4 +62,4 @@ At each meaningful session:
 9. Report exactly what changed and any failure. Never claim background sync.
 
 ## Next action
-Verify the CI run for the localization guard. Then add a genuine navigation/UI smoke test once the instrumentation dependencies and emulator workflow are configured; do not count a successful compilation as a UI test. Keep high-risk features disabled.
+Verify CI for the emulator-based navigation tests. Fix any dependency, emulator, or assertion failures before moving to local-first persistence. Keep high-risk features disabled.
