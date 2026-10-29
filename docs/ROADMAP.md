@@ -1,10 +1,10 @@
 # Roadmap and Readiness Gates
 
 - Last updated: 2026-10-29
-- Overall state: Documentation baseline assembled; Android implementation has started on a dedicated branch.
-- Active milestone: M0 — Android project/build baseline.
-- CI: Workflow triggered and was observed queued; compile/test result still pending.
-- Progress estimates describe implementation status only, not clinical safety or model validity.
+- Overall state: Documentation baseline assembled; implementation underway on implementation/m0-android-baseline.
+- M0 baseline build: **Verified green** on run 40871345852.
+- Current milestone: Phase 2 app-shell and localization polish; latest UI/string CI runs pending.
+- Progress measures implementation only, not clinical safety or model validity.
 
 ## Phase 0 — Product baseline and documentation
 **Status: Documentation baseline assembled**
@@ -14,29 +14,35 @@
 - [x] Test strategy, localization/accessibility, consent draft and release runbook.
 - [x] Project state, changelog and handoff/update routine.
 - [x] Verify README document links against docs directory.
-- [ ] Owner to confirm/change repository visibility; GitHub currently reports public.
+- [ ] Owner to confirm/change repository visibility; GitHub currently reports public visibility.
 
 ## Phase 1 — M0 Android project/build baseline
-**Status: Implemented on branch; CI verification pending**
+**Status: Build and unit-test task verified green**
 - [x] Create branch implementation/m0-android-baseline.
 - [x] Add native Kotlin/Jetpack Compose Android app module.
-- [x] Pin JDK/Gradle/Android Gradle Plugin/Kotlin/SDK baseline in project configuration/workflow.
+- [x] Pin JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21 and SDK baseline.
 - [x] Add manifest with no permissions, no network capability and automatic backup disabled.
 - [x] Add five-area navigation and safe placeholder UI.
 - [x] Add initial English and Bangla string resources.
-- [x] Add GitHub Actions workflow for debug APK build, unit tests and temporary artifact upload.
-- [ ] Verify CI compile/test results and fix errors.
-- [ ] Add smoke/unit tests and open pull request.
+- [x] Add GitHub Actions workflow for debug APK build, unit-test task and temporary artifact upload.
+- [x] Verify CI run 40871345852 succeeded and APK artifact was uploaded.
+- [ ] Verify latest app-shell/localization commits build.
+- [ ] Add meaningful UI/navigation tests and open PR review.
 - [ ] Confirm build reproducibility on a target Android device.
 
 **Exit gate:** reproducible debug build, passing tests, no secrets, documented toolchain. This is not a releasable skincare app.
 
 ## Phase 2 — App shell, localization and accessibility
-- [ ] Complete navigation semantics and screen-level state handling.
+**Status: In progress**
+- [x] Give all five areas distinct, honest descriptions and implementation status.
+- [x] Use localized string resources for section content in English and Bangla.
+- [x] Add navigation icon content descriptions.
+- [x] Correct photo privacy wording to distinguish future intent from current capability.
+- [ ] Verify English and Bangla layout on a target device.
 - [ ] Review Bangla translations with native users.
 - [ ] Add accessibility labels, scalable text and contrast checks.
-- [ ] Implement loading/empty/error/offline/unavailable states consistently.
 - [ ] Add UI smoke tests for all five areas.
+- [ ] Implement loading/empty/error/offline/unavailable states consistently.
 
 ## Phase 3 — Local-first persistence and privacy
 - [ ] Implement structured local data and migrations.
