@@ -36,6 +36,7 @@ An Android-first, local-first skincare companion for adult women in Bangladesh. 
 - [First-release scope and feature gates](docs/FIRST_RELEASE_SCOPE.md)
 - [Testable product requirements](docs/REQUIREMENTS.md)
 - [Screen-by-screen UX specification](docs/UX_SCREEN_SPEC.md)
+- [Screen-level acceptance criteria](docs/SCREEN_ACCEPTANCE_CRITERIA.md)
 - [Visual design system](docs/DESIGN_SYSTEM.md)
 - [Bangla/English localization and accessibility](docs/LOCALIZATION_ACCESSIBILITY.md)
 - [Consent/privacy copy draft — not legal-approved](docs/CONSENT_COPY_DRAFT.md)
