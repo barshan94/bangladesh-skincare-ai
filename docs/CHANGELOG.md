@@ -1,5 +1,13 @@
 # Project Change Log
 
+## 2026-10-29 — First-release scope proposal drafted
+
+- Added `docs/FIRST_RELEASE_SCOPE.md` to separate proposed MVP features from gated research and excluded features.
+- Proposed core focus: reviewed routine guidance, adaptive safety questionnaire, local/private progress timeline, transparent ingredient/product knowledge, privacy controls and safe knowledge updates.
+- Automated skin-feature analysis remains gated by independent validation; diagnosis, fairness scores and unreviewed DIY formulas are excluded from the proposed MVP.
+- Recorded five decisions requiring user review before the product scope can be finalized.
+- This is a proposal only; no implementation approval is implied.
+
 ## 2026-10-29 — Bangladesh compliance checklist added
 
 - Added `docs/BANGLADESH_COMPLIANCE_REVIEW.md` with an initial checklist based on official sources for the Personal Data Protection Act, 2026 and Drugs and Cosmetics Act, 2023.
