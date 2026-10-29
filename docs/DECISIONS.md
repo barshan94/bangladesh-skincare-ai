@@ -70,3 +70,15 @@ This file records durable decisions and the rationale behind them. Proposed or p
 - **Impact on scope, safety, privacy, architecture or roadmap:**
 - **Follow-up actions:**
 - **Approver:**
+
+
+## 2026-10-29 — D-009: Product scope decisions approved
+
+- **Status:** Approved by the user for planning; not implementation authorization.
+- **Decision:** Broader scope with gated features; adults only initially; photo tracking and validated capture checks first, skin-condition analysis only after feature-specific validation; DIY formulas only when individually reviewed and validated; use the five proposed navigation areas.
+- **Rationale:** Preserve a broad product ambition without exposing users to unvalidated analysis or unsafe formulas.
+- **Approved navigation:** Skin Scan; My Routine; Progress; Ingredients and Alternatives; Profile and Privacy.
+- **Scope interpretation:** Broad planning scope does not mean every feature is included in the first release. Each concern, model, formula and claim must pass applicable evidence, safety, legal/privacy, feasibility and UX gates.
+- **Impact:** Update product specification and screen-by-screen UX plan. Implementation remains blocked until planning gates are reviewed and the user separately authorizes it.
+- **Follow-up:** Define adult eligibility; finalize concern boundaries; obtain qualified skincare/formulation and Bangladesh legal/privacy review; validate each image feature; define formula governance.
+- **Approver:** User, explicitly in conversation on 2026-10-29.
