@@ -1,5 +1,12 @@
 # Project Change Log
 
+## 2026-10-29 — Localization consistency guard
+- **Type:** Test / CI / Localization
+- Added `scripts/check_localization.py`, a standard-library Python check that parses English and Bangla Android resource XML, detects duplicate resource names, and requires matching resource keys.
+- Added the check to the Android workflow before SDK installation/build and included the script in workflow path filters.
+- The guard's first CI run is not yet verified; no green status is claimed for this change until that run completes.
+- **Why:** prevents an added/renamed UI string from silently falling back to a missing key in one supported locale.
+
 ## 2026-10-29 — App shell and localization iteration
 - **Type:** UI / Accessibility / Localization / Privacy copy
 - Replaced generic non-home placeholder content with distinct descriptions/statuses for Skin Scan, My Routine, Progress, Ingredients, and Profile.
@@ -7,12 +14,12 @@
 - Added localized header and hero labels.
 - Added meaningful navigation icon content descriptions and Material icons for privacy/safety cards.
 - Corrected privacy copy: no photo capture/import/storage exists in this build; local-first storage is a future design intent, not current behavior.
-- CI runs for the latest commits were pending at the time this entry was written.
+- GitHub Actions run [40874506742](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40874506742) passed debug compilation, unit-test task and APK artifact upload for the app-shell/localization code.
 - **Safety:** No treatment recommendation, skin analysis, DIY formula, photo, persistence or cloud feature enabled.
 
 ## 2026-10-29 — M0 Android baseline verified
 - **Type:** Build / CI
-- GitHub Actions run 40871345852 succeeded on commit 634902a6203d0f0041a822b89ea7965cd2060dae.
+- GitHub Actions run [40871345852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40871345852) succeeded on commit 634902a6203d0f0041a822b89ea7965cd2060dae.
 - Android SDK setup, debug APK compilation, unit-test task and artifact upload steps all passed.
 - Debug APK artifact was uploaded with 14-day retention. This is a development build, not a signed release.
 - Draft PR #1 remains open for review; do not merge until latest app-shell commits pass CI.
@@ -32,36 +39,5 @@
 
 ## 2026-10-29 — First-release scope proposal drafted
 - Added docs/FIRST_RELEASE_SCOPE.md to separate proposed MVP features from gated research and excluded features.
-- Proposed core focus: reviewed routine guidance, adaptive safety questionnaire, local/private progress timeline, transparent ingredient/product knowledge, privacy controls and safe knowledge updates.
-- Automated skin-feature analysis remains gated by independent validation; diagnosis, fairness scores and unreviewed DIY formulas are excluded from the proposed MVP.
-
-## 2026-10-29 — Bangladesh compliance checklist added
-- Added docs/BANGLADESH_COMPLIANCE_REVIEW.md with an initial checklist based on official sources for the Personal Data Protection Act, 2026 and Drugs and Cosmetics Act, 2023.
-- Recorded privacy, consent, retention/deletion, backup, third-party processing, cosmetic claims and DIY-formula review questions for qualified Bangladesh counsel and relevant experts.
-- This is a preliminary checklist, not legal advice or a compliance determination.
-
-## 2026-10-29 — Measurement validation and AI feasibility documented
-- Added docs/MEASUREMENT_VALIDATION_PLAN.md and docs/AI_MODEL_FEASIBILITY.md.
-- Clarified that face geometry/capture assistance is distinct from validated skin-condition measurement.
-- No candidate feature is approved or validated.
-
-## 2026-10-29 — Documentation baseline expanded
-- Added testable requirements, local-first logical data model, knowledge governance, safety case, threat model, test strategy, implementation backlog, release runbook, localization/accessibility and knowledge update protocol.
-- Updated architecture/engineering defaults, design system, consent-copy draft, README index, roadmap and project handoff.
-- All documentation remains a planning baseline, not proof of legal compliance, clinical safety or model validity.
-
-## 2026-10-29 — Final documentation consistency pass
-- Verified README document links against the GitHub docs directory and refreshed project-state/roadmap records.
-- GitHub metadata reported repository visibility as public. Owner action is required if private visibility is desired.
-- Screen acceptance criteria were added and linked from the UX specification.
-
-## Change-entry template
-### YYYY-MM-DD — Short title
-- **Type:** Goal / Scope / Feature / Safety / Privacy / AI / Architecture / Roadmap / Release
-- **Previous state:**
-- **New state:**
-- **Reason/evidence:**
-- **Approval status:** Proposed / Approved / Rejected
-- **Affected documents:**
-- **Roadmap impact:**
-- **Follow-up actions:**
+- Proposed core focus: reviewed routine guidance, adaptive safety questionnaire, local/private progress timeline, transparent ingredient/product knowledge, privacy-first architecture, and validated AI features only after safety gates.
+- Explicitly excluded guaranteed whitening, beauty/fairness scores, diagnosis from selfies, unreviewed DIY recipes and automatic treatment changes based on photos.
