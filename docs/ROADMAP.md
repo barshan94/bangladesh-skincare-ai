@@ -12,10 +12,10 @@ Progress estimates are planning estimates, not claims of completed engineering. 
 - [x] Create dedicated GitHub repository.
 - [x] Establish README and initial specification/roadmap documents.
 - [ ] Confirm repository visibility and access expectations.
-- [ ] Review the documented baseline and resolve material ambiguities.
+- [x] Record approved product choices in decision log and product specification.\n- [x] Draft screen-by-screen UX and visual/accessibility direction.\n- [x] Add testable requirements, data model, safety case, threat model, content governance, test strategy, backlog and release runbook.\n- [x] Add durable project-state/session-handoff routine.\n- [ ] Review cross-document consistency and confirm repository visibility.
 - [ ] Keep a dated decision and change log.
 
-**Exit gate:** project goals, constraints and documentation workflow agreed.
+**Exit gate:** core documentation is coherent, repository visibility is confirmed, and implementation can begin only after explicit user authorization. External expert/legal/model reviews remain attached to relevant feature gates.
 
 ## Phase 1 — AI model feasibility
 
@@ -65,7 +65,7 @@ Progress estimates are planning estimates, not claims of completed engineering. 
 
 ## Phase 4 — Implementation planning
 
-**Status: Blocked pending approval**
+**Status: Backlog documented; blocked only on explicit implementation authorization and first-build environment checks**
 
 - [ ] Break approved scope into small, testable milestones.
 - [ ] Define repository structure, build pipeline, test strategy and release signing.
