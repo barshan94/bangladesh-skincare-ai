@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bangladesh Skincare AI</string>
+    <string name="nav_scan">Skin Scan</string>
+    <string name="nav_routine">My Routine</string>
+    <string name="nav_progress">Progress</string>
+    <string name="nav_ingredients">Ingredients</string>
+    <string name="nav_profile">Profile</string>
+    <string name="welcome_title">Your skin, understood with care.</string>
+    <string name="welcome_body">A private skincare companion built around thoughtful routines, personal tracking, and evidence-led guidance.</string>
+    <string name="local_first_title">Private by design</string>
+    <string name="local_first_body">Your photos stay on this device in this initial version. Nothing is uploaded.</string>
+    <string name="safety_title">A careful first step</string>
+    <string name="safety_body">This app does not diagnose skin conditions or promise skin whitening. Helpful guidance will be added only after appropriate review.</string>
+    <string name="status_scaffold">Early access · Foundation build</string>
+    <string name="coming_soon">This area is being built. No skin analysis or treatment recommendations are active yet.</string>
+</resources>
