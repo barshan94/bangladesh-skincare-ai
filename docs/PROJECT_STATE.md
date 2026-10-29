@@ -2,64 +2,42 @@
 
 - Last updated: 2026-10-29
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
-- Default branch: main
 - Active branch: implementation/m0-android-baseline
-- Stage: Android baseline and app-shell verified; localization guard passed; emulator-based navigation tests added, awaiting CI verification.
-- Source of truth: this repository.
+- Current stage: first usable MVP implementation in progress; latest CI is queued and the emulator test issue remains unresolved.
+- Source of truth: this repository. No background sync is assumed.
 
-## Verified milestone — M0 Android baseline
-GitHub Actions run [40871345852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40871345852) completed successfully on commit 634902a6203d0f0041a822b89ea7965cd2060dae. Android SDK setup, debug APK compilation, the unit-test task, and APK artifact upload all succeeded. This is a development APK, not a signed release.
+## Implemented in the current branch
 
-## Verified milestone — app shell and English/Bangla copy
-GitHub Actions run [40874506742](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40874506742) completed successfully with debug compilation, unit-test task, and APK artifact upload. The tested commit includes the five-section UI and expanded English/Bangla strings.
+- Native Kotlin/Jetpack Compose app with five tabs: Skin Scan, My Routine, Progress, Ingredients, Profile.
+- A deterministic, non-diagnostic self-reported check-in engine with safety-first paths for concerning changes and broken skin.
+- General education for basic care, dryness and roughness; dark-mark and acne requests remain explicitly limited rather than diagnosed or promised to improve.
+- A basic routine checklist with locally saved completion ticks.
+- A text-only progress timeline with save/delete, tolerance notes and timestamps.
+- A small ingredient education catalogue with search; it explicitly states formal expert review is pending and makes no local price or brand claims.
+- English/Bangla resources for the functional screens and a language preference.
+- Optional budget preference, local-data clearing, no account, no analytics and no cloud sync.
+- Unit tests for the deterministic guidance rules.
+- Existing Compose navigation smoke tests are still not verified green.
 
-Implemented:
-- Native Kotlin/Jetpack Compose project with pinned Gradle/plugin/dependency versions.
-- Manifest with no requested permissions, no network permission, and Android automatic backup disabled.
-- Five-area bottom navigation: Skin Scan, My Routine, Progress, Ingredients, Profile.
-- Distinct section copy/statuses, navigation icon descriptions, and privacy/safety cards.
-- English and Bangla resource files.
-- GitHub Actions workflow for debug APK compilation, unit-test task, artifact upload, and now a localization-key consistency check.
-- Python standard-library script `scripts/check_localization.py` detects duplicate resource names and mismatched English/Bangla keys.
-- Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1
+## Storage limitation that must remain visible
 
-## Latest change — localization guard
-Added a CI check that requires English and Bangla Android resource keys to match and rejects duplicate resource names. The workflow now runs this check before Android setup/build. The CI run triggered by this guard has not yet been verified; do not claim that run passed until its result is checked.
+The prototype currently stores routine ticks, text notes and simple preferences in app-private SharedPreferences using JSON for the progress list. This is an interim implementation, not the final structured storage design. Before release, migrate to Room with tested schema migrations, review backup/restore behavior, and test deletion. No photos are captured, imported or stored. No internet permission, AI model, backend or photo upload is implemented.
 
-Added Compose instrumentation smoke tests for all five bottom-navigation destinations and the home privacy/safety statements. CI now launches an API 35 Pixel_2 emulator and runs `:app:connectedDebugAndroidTest`. This new emulator workflow has not yet been verified green.
+## Verification
 
-The current app does not analyze skin, recommend treatments, provide DIY formulas, capture/import/save photos, or implement persistence, backend, analytics, or cloud processing. Local-first photo storage remains a future design intention.
+- Earlier verified baseline build/artifact runs: [40871345852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40871345852), [40874506742](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40874506742), and localization guard [40875940316](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40875940316).
+- Emulator run [40902300999](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40902300999) failed because the instrumentation process crashed before starting tests (reported 0 tests). The root cause is not yet confirmed.
+- Latest code/localization workflow: [40912123852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40912123852), queued at the last check. Do not claim the new code compiles until this run completes successfully.
+- Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. Do not merge while verification is red or pending.
 
-## Approved decisions
-1. Adults only initially.
-2. Photo tracking and validated capture-quality checks first; skin-condition analysis only after feature-specific validation.
-3. DIY formulas only when individually reviewed and validated.
-4. Five areas: Skin Scan; My Routine; Progress; Ingredients and Alternatives; Profile and Privacy.
-5. Android-first, private APK initial distribution, Bangla/English, free at launch.
-6. Photos/progress on-device by default; cloud storage, cloud analysis and model training require separate affirmative consent.
-7. Safety rules are deterministic and cannot be overridden by generative AI.
-8. No diagnosis from selfies, beauty/fairness scores, guaranteed whitening, unreviewed recipes, or photo-triggered automatic treatment changes.
+## Safety and external release gates
 
-## External gates not to fake as completed
-- Confirm repository visibility/access expectations; GitHub metadata reports public visibility.
-- Qualified Bangladesh legal/privacy review of applicable data protection, adult eligibility, consent, retention/deletion, backups, cloud/cross-border processing, cosmetics/consumer claims and other applicable obligations.
-- Qualified skincare/dermatology review of actionable guidance and escalation copy.
-- Individual qualified formulation review for each DIY formula.
-- Model/data licences, reference methods, pre-approved thresholds, independent validation and subgroup results for each image feature.
-- Bangla terminology, accessibility and usability review.
-- Final privacy backup/deletion/export behavior based on actual implementation.
+The app is educational and non-diagnostic. It does not provide selfie-based diagnosis, whitening promises, individualized medication advice, or homemade formula recipes. The guidance catalogue has not completed qualified expert review. A release still requires qualified skincare/dermatology review, Bangladesh legal/privacy review, Bangla usability review, storage/backup/deletion verification, and validation gates for any future image feature.
 
-## Session handoff/update routine
-At each meaningful session:
-1. Fetch current PROJECT_STATE.md, DECISIONS.md, ROADMAP.md and CHANGELOG.md.
-2. Treat GitHub as authoritative; memory is a pointer.
-3. Record decisions with date, rationale, status and impact.
-4. Update affected specs/requirements/UX/architecture/test docs in the same session.
-5. Update ROADMAP.md with evidence-backed status only.
-6. Append CHANGELOG.md.
-7. Update this file with milestone, commits, evidence and next action.
-8. Re-fetch changed files and verify actual GitHub contents.
-9. Report exactly what changed and any failure. Never claim background sync.
+## Next implementation actions
 
-## Next action
-Verify CI for the emulator-based navigation tests. Fix any dependency, emulator, or assertion failures before moving to local-first persistence. Keep high-risk features disabled.
+1. Inspect the newest build/unit-test result and fix any compile/test failures.
+2. Diagnose emulator instrumentation process crashes with captured logcat/report artifacts.
+3. Continue local persistence hardening and tests, then implement photo progress only with a safe private-storage and deletion flow.
+4. Keep image analysis and DIY formulas disabled unless their individual review/validation gates are met.
+5. Update this file, ROADMAP and CHANGELOG with verified facts after each meaningful milestone.
