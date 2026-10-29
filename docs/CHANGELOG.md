@@ -49,3 +49,12 @@
 - **Affected documents:**
 - **Roadmap impact:**
 - **Follow-up actions:**
+
+
+## 2026-10-29 — User-approved product decisions and UX draft
+
+- Recorded user approval for broader scope with gated features, adults-only initial audience, photo tracking and validated capture checks first, skin analysis only after validation, individually reviewed/validated DIY formulas only, and five-area navigation.
+- Updated docs/PRODUCT_SPEC.md to version 3.1 planning baseline.
+- Added docs/UX_SCREEN_SPEC.md with first-run, five-area, returning-user, error-state and review-gate flows.
+- Qualified skincare/formulation review and Bangladesh legal/privacy review remain required.
+- No app code, scaffolding or implementation files created.
