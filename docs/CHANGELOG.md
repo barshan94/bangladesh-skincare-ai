@@ -1,5 +1,13 @@
 # Project Change Log
 
+## 2026-10-29 — Compose navigation smoke tests
+- **Type:** Testing / CI / Accessibility
+- Added Android instrumentation test dependencies for Jetpack Compose UI tests.
+- Added `app/src/androidTest/java/com/barshan/skincareai/NavigationSmokeTest.kt` to visit all five bottom-navigation destinations and assert each has its own title/body. It also checks the home privacy/safety statements remain visible.
+- Updated GitHub Actions to run the instrumentation tests on an API 35 Pixel_2 emulator using `connectedDebugAndroidTest`.
+- The emulator-based CI result is pending; the test implementation is not yet claimed to have passed.
+- **Next:** verify the full workflow and correct any emulator or UI assertion failures before starting persistence.
+
 ## 2026-10-29 — Localization consistency guard
 - **Type:** Test / CI / Localization
 - Added `scripts/check_localization.py`, a standard-library Python check that parses English and Bangla Android resource XML, detects duplicate resource names, and requires matching resource keys.
