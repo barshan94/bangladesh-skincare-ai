@@ -1,120 +1,140 @@
-# Roadmap
+# Roadmap and Readiness Gates
 
-**Status:** Planning and feasibility research. Implementation has not started.  
-**Last updated:** 2026-10-29
+- Last updated: 2026-10-29
+- Overall state: Documentation baseline assembled; feasibility, qualified review and repository-visibility checks remain open.
+- Implementation: Not started and not authorized.
+- Progress estimates are planning estimates only; they are not claims of working software or validated skincare features.
 
-Progress estimates are planning estimates, not claims of completed engineering. A phase is complete only when its deliverables and acceptance checks are reviewed.
+## Phase 0 — Product baseline and documentation
 
-## Phase 0 — Project baseline and documentation
+**Status: Documentation baseline assembled; one project-control check remains**
 
-**Status: In progress**
+- [x] Create dedicated GitHub repository and README.
+- [x] Record product specification, scope proposal, roadmap and decision log.
+- [x] Record user-approved product decisions: broad scope with feature gates, adults-only initial audience, validated photo tracking first, individually reviewed DIY formulas only, five-area navigation.
+- [x] Draft screen-by-screen UX and visual design direction.
+- [x] Define testable requirements and logical data model.
+- [x] Define architecture defaults, engineering standards and implementation backlog.
+- [x] Define safety case, privacy/security threat model, content governance and knowledge-update protocol.
+- [x] Define test strategy, localization/accessibility, consent-copy draft and release runbook.
+- [x] Establish durable project-state/session-handoff and documentation-update routine.
+- [x] Refresh README documentation index and changelog.
+- [ ] Confirm repository visibility and access expectations; earlier check reported it public.
+- [ ] Finish final consistency pass after documentation expansion.
 
-- [x] Create dedicated GitHub repository.
-- [x] Establish README and initial specification/roadmap documents.
-- [ ] Confirm repository visibility and access expectations.
-- [x] Record approved product choices in decision log and product specification.\n- [x] Draft screen-by-screen UX and visual/accessibility direction.\n- [x] Add testable requirements, data model, safety case, threat model, content governance, test strategy, backlog and release runbook.\n- [x] Add durable project-state/session-handoff routine.\n- [ ] Review cross-document consistency and confirm repository visibility.
-- [ ] Keep a dated decision and change log.
-
-**Exit gate:** core documentation is coherent, repository visibility is confirmed, and implementation can begin only after explicit user authorization. External expert/legal/model reviews remain attached to relevant feature gates.
+**Exit gate:** documentation is coherent and linked; repository visibility is known; the user separately authorizes implementation. Documentation completion is not a substitute for professional reviews.
 
 ## Phase 1 — AI model feasibility
 
-**Status: In progress; no final model selected**
+**Status: In progress; no model selected and no feature validated**
 
-- [x] Identify face detection, segmentation and custom-model paths for evaluation.
-- [x] Identify risks around skin-tone fairness, dataset licensing and false confidence.
-- [x] Draft a feature-specific measurement validation plan.
+- [x] Identify face-detection, segmentation and custom-model candidate paths.
+- [x] Document skin-tone fairness, data licensing and false-confidence risks.
+- [x] Draft feature-specific measurement validation plan.
 - [ ] Verify candidate models, official documentation, exact licences and model/data provenance.
-- [ ] Design representative evaluation data and appropriate reference methods with expert review.
-- [ ] Approve numeric acceptance thresholds before evaluating holdout results.
-- [ ] Benchmark latency, memory, battery and app-size impact on target devices.
-- [ ] Make a per-feature go/no-go decision.
+- [ ] Design representative evaluation data and reference methods with qualified review.
+- [ ] Approve numeric acceptance thresholds before locked evaluation.
+- [ ] Benchmark latency, memory, battery and package-size impact on target devices.
+- [ ] Record feature-specific go/no-go decisions.
 
-**Exit gate:** reviewed feasibility report, licensing, test protocol, thresholds and feature-specific decisions.
+**Exit gate:** evidence, licences, protocol, pre-approved thresholds and per-feature decisions documented. Capture checks and skin measurements are not enabled merely because a library exists.
 
-## Phase 2 — Knowledge base and evidence review
+## Phase 2 — Skincare knowledge and evidence
 
-**Status: Not started**
+**Status: Governance documented; reviewed content catalogue not complete**
 
-- [ ] Finalize supported first-release concerns.
-- [ ] Establish source hierarchy and evidence grading.
-- [ ] Define reviewed ingredient/product records and exclusions.
-- [ ] Establish review ownership for safety, cosmetic claims and formulations.
-- [ ] Design provenance, last-checked date and version metadata.
-- [ ] Establish Bangladeshi price/availability data collection and uncertainty rules.
-- [ ] Define approved alternatives and safe substitution rules.
-- [ ] Approve any home-preparation options only where formulation and safety evidence supports them.
+- [x] Define knowledge-entry fields, source hierarchy, approval lifecycle and expiry concepts.
+- [x] Define deterministic recommendation pipeline and hard safety filters.
+- [x] Define individual DIY formula dossier and review requirements.
+- [x] Define local-price provenance and safe replacement workflow.
+- [ ] Finalize concern-by-concern content boundaries with qualified skincare review.
+- [ ] Build evidence-reviewed ingredient/product entries with sources and review dates.
+- [ ] Establish Bangladeshi price/availability sources and freshness rules.
+- [ ] Approve any home-preparation option individually after formulation validation.
+- [ ] Assign reviewer roles, review cadence and adverse-report ownership.
 
-**Exit gate:** every actionable recommendation has an evidence, eligibility, safety and review pathway.
+**Exit gate:** every actionable recommendation has source provenance, safety/eligibility rules and required review. An empty/disabled catalogue is acceptable until content is approved.
 
-## Phase 3 — Product UX, compliance and architecture approval
+## Phase 3 — UX, privacy, compliance and architecture
 
-**Status: Not started**
+**Status: Documentation drafted; qualified reviews and user validation remain**
 
-- [ ] Map first-time, returning, inconclusive scan and safety-warning journeys.
-- [ ] Design screen-by-screen UX in Bangla and English.
-- [ ] Specify consent and permission timing.
-- [ ] Define device-only storage, Android backup and deletion behavior.
-- [ ] Decide whether optional account/cloud features are justified and map any third-party/cross-border data flow.
-- [ ] Define offline behavior, knowledge sync, integrity checks and rollback.
-- [ ] Confirm Android minimum version and device matrix.
-- [ ] Complete qualified review of applicable Bangladesh privacy, cosmetics, claims and related requirements.
-- [ ] Obtain explicit approval of UX and architecture.
+- [x] Map onboarding, returning-user, scan, routine, progress, catalogue, privacy and error-state flows.
+- [x] Document consent/permission timing and local-first storage intentions.
+- [x] Document logical data model, deletion/migration and backup questions.
+- [x] Define provisional architecture and engineering defaults.
+- [x] Define accessibility/localization and visual design direction.
+- [ ] Confirm repository visibility.
+- [ ] Confirm supported Android API/device matrix at first build.
+- [ ] Review adult-eligibility method with qualified Bangladesh legal/privacy counsel.
+- [ ] Complete qualified review of applicable Bangladesh privacy, data protection, cosmetics, consumer claims and relevant obligations.
+- [ ] Review actual data flows, backup/deletion semantics and any optional cloud/cross-border processing before those features are enabled.
+- [ ] Test Bangla terminology and UX with adult Bangladeshi users.
+- [ ] Obtain qualified skincare/formulation review for actionable content.
 
-**Exit gate:** signed-off product, compliance, UX and architecture baseline. No coding before this gate.
+**Exit gate:** user-facing product flows and architecture are ready to implement; legal/clinical/formula/model reviews remain mandatory before their affected content/features ship.
 
-## Phase 4 — Implementation planning
+## Phase 4 — Implementation authorization and first-build setup
 
-**Status: Backlog documented; blocked only on explicit implementation authorization and first-build environment checks**
+**Status: Backlog ready; waiting for explicit user authorization**
 
-- [ ] Break approved scope into small, testable milestones.
-- [ ] Define repository structure, build pipeline, test strategy and release signing.
-- [ ] Define acceptance criteria for every feature.
-- [ ] Plan security, privacy and failure-mode tests.
+- [x] Break future implementation into small milestones.
+- [x] Define acceptance criteria and test layers.
+- [x] Define release signing, privacy/security and failure-mode checks.
+- [ ] User explicitly authorizes coding.
+- [ ] Confirm local build environment and exact stable toolchain versions.
+- [ ] Verify package identifier, repository access and protected signing-key process.
 
-**Exit gate:** user explicitly authorizes implementation.
+**Exit gate:** explicit user authorization plus a reproducible first-build environment. Do not treat “finish documentation” as authorization to code.
 
 ## Phase 5 — Incremental implementation
 
 **Status: Not started**
 
-Implement in small milestones only after approval. Each milestone requires tests, review, documentation updates and a usable deliverable. Never enable an unvalidated AI feature just to complete a milestone.
+Recommended sequence in IMPLEMENTATION_BACKLOG.md:
+1. Repository/toolchain and app shell.
+2. Navigation, localization and accessible components.
+3. Local persistence, photo storage, deletion and privacy.
+4. Questionnaire and deterministic safety/domain engine.
+5. Private photo tracking and only validated capture checks.
+6. Progress and routine workflows.
+7. Reviewed knowledge catalogue and alternatives.
+8. Integrity-checked knowledge updates and rollback.
+9. Optional constrained AI explanation only if justified and approved.
+10. Feature-specific image analysis only after validation.
+11. Hardening, pilot and private APK.
+
+Every milestone needs tests, documentation update, a usable deliverable and review. Do not enable unvalidated features to complete a milestone.
 
 ## Phase 6 — Independent evaluation and private pilot
 
 **Status: Not started**
 
-- [ ] Test measurement repeatability and agreement with reference methods.
-- [ ] Evaluate across relevant skin tones, Android devices, lighting and supported areas.
-- [ ] Measure false positives/negatives, uncertainty and inconclusive-result rates.
-- [ ] Test Bangla and English safety flows.
-- [ ] Test privacy, data deletion, offline behavior, update integrity and rollback.
-- [ ] Run a consented pilot with varied users/devices/budgets and a process for adverse-event reporting.
+- [ ] Test measurement repeatability/reference agreement.
+- [ ] Evaluate relevant skin-tone, device, lighting and supported-area subgroups.
+- [ ] Measure false positives/negatives, uncertainty and inconclusive rates.
+- [ ] Test Bangla/English safety flows.
+- [ ] Test privacy, deletion, backup, offline behavior, update integrity and rollback.
+- [ ] Run a consented adult pilot only after appropriate review and consent.
+- [ ] Establish and exercise adverse-event reporting.
 - [ ] Resolve all critical safety defects.
 
-**Exit gate:** pre-defined criteria pass; limitations and incident response documented.
+**Exit gate:** predefined criteria pass and limitations/incident response are documented.
 
 ## Phase 7 — Private APK release
 
 **Status: Not started**
 
-- [ ] Build signed, versioned APK.
-- [ ] Verify signing-key protection and release traceability.
-- [ ] Test fresh install, upgrade, rollback and data migration.
-- [ ] Publish known limitations and support/incident process.
+- [ ] Build signed/versioned APK from traceable source commit.
+- [ ] Verify signing-key protection and artifact hash.
+- [ ] Test clean install, upgrade, rollback and migration.
+- [ ] Publish known limitations, supported devices and support/reporting route.
 - [ ] Obtain release approval.
 
 ## Release blockers
 
-No critical safety defect may be waived. A feature that fails validation stays disabled. If privacy, licensing, evidence, performance, fairness or regulatory compliance cannot be established, reduce scope rather than weaken acceptance criteria.
+No critical safety defect may be waived. A feature that fails validation stays disabled. If privacy, licensing, evidence, performance, fairness or regulatory compliance cannot be established, reduce scope rather than weaken acceptance criteria. No unreviewed DIY formula or fabricated local price is allowed.
 
-## Progress reporting convention
+## Project update convention
 
-For future project updates, report:
-- current phase and estimated overall progress;
-- completed deliverables and evidence;
-- current blocker and next smallest action;
-- whether the day's scope is sufficient or becoming excessive;
-- any change to goals, features, risks or timeline.
-
-Do not inflate progress for research that has not been documented or decisions that remain open.
+At each meaningful project session, update PROJECT_STATE.md, ROADMAP.md and CHANGELOG.md, plus all affected documents. Fetch the latest GitHub versions first and verify updates afterward. Report phase, actual evidence, blockers, next action and whether the scope is sufficient for the day. Never inflate progress or claim background synchronization.
