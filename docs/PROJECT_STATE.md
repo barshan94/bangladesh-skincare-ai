@@ -39,6 +39,9 @@ If documents conflict, do not silently choose. Record the conflict and resolve a
 - docs/FIRST_RELEASE_SCOPE.md
 - docs/REQUIREMENTS.md
 - docs/UX_SCREEN_SPEC.md
+- docs/DESIGN_SYSTEM.md
+- docs/CONSENT_COPY_DRAFT.md
+- docs/ENGINEERING_STANDARDS.md
 - docs/TECHNICAL_ARCHITECTURE.md
 - docs/DATA_MODEL.md
 - docs/SAFETY_AND_PRIVACY.md
@@ -88,7 +91,7 @@ Whenever project work is performed:
 This routine is a working agreement for future project sessions; it does not itself run automatically in the background.
 
 ## Current milestone
-Documentation coverage has been expanded to include requirements, logical data model, knowledge governance, safety case, threat model, testing, implementation backlog, release runbook, localization/accessibility and knowledge-update protocol. README, roadmap, engineering standards and documentation index have been updated. Next: verify all newly created/updated files, resolve any broken/missing links, confirm repository visibility, then wait for explicit implementation authorization. Do not claim external legal, clinical, formula or model gates are complete.
+Documentation coverage has been expanded to include requirements, logical data model, knowledge governance, safety case, threat model, testing, implementation backlog, release runbook, localization/accessibility and knowledge-update protocol. README, roadmap, engineering standards, design system, consent-copy draft and documentation index have been updated. The full file inventory was re-fetched from GitHub. Next: finish the consistency pass and confirm repository visibility, then wait for explicit implementation authorization. Do not claim external legal, clinical, formula or model gates are complete.
 
 ## Implementation readiness
 The documentation should make initial engineering tasks executable without reopening product strategy. Before first code change: confirm repo visibility/branch access, target device/toolchain defaults, architecture choices needed for the first milestone, acceptance criteria/tests, and explicit user authorization. External expert gates remain attached to relevant feature activation and release.
