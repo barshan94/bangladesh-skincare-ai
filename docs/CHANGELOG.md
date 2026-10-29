@@ -1,12 +1,18 @@
 # Project Change Log
 
+## 2026-10-29 — Bangladesh compliance checklist added
+
+- Added `docs/BANGLADESH_COMPLIANCE_REVIEW.md` with an initial checklist based on official sources for the Personal Data Protection Act, 2026 and Drugs and Cosmetics Act, 2023.
+- Recorded privacy, consent, retention/deletion, backup, third-party processing, cosmetic claims and DIY-formula review questions for qualified Bangladesh counsel and relevant experts.
+- This is a preliminary checklist, not legal advice or a compliance determination.
+- No app code or public release approved.
+
 ## 2026-10-29 — Measurement validation plan proposed
 
 - Added `docs/MEASUREMENT_VALIDATION_PLAN.md` as a proposed protocol for capture-quality checks, face alignment and a narrowly defined pigmentation/dark-mark research candidate.
 - Defined candidate metrics, dataset/consent requirements, reference-method expectations, test phases and release gates.
 - Added provisional engineering targets for discussion only. Skin-feature agreement thresholds remain unset until expert review and a pre-registered statistical plan.
 - No candidate feature is approved or validated. No model or app code has been selected or implemented.
-- Updated README documentation links were attempted but the repository update was not confirmed; verify the index links separately.
 
 ## 2026-10-29 — Initial AI model feasibility assessment
 
