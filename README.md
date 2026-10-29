@@ -36,11 +36,14 @@ An Android-first, safety-first skincare companion for Bangladeshi women. The pro
 
 Established mobile vision components may support face detection, landmarks, capture checks, or region segmentation. These capabilities do not, by themselves, validate pigmentation, acne, texture, oiliness, or skin-improvement measurements. The project has not selected a final skin-analysis model. Every candidate needs a licence review, task-specific evaluation, subgroup testing across skin tones, device/lighting robustness checks, and on-device performance benchmarks.
 
+The initial model/runtime comparison and feature-by-feature go/no-go recommendations are recorded in the [AI model feasibility assessment](docs/AI_MODEL_FEASIBILITY.md). This is desk research, not proof of model validity.
+
 ## Documentation map
 
 - [Product specification](docs/PRODUCT_SPEC.md)
 - [Roadmap and gates](docs/ROADMAP.md)
 - [AI feasibility and validation](docs/AI_FEASIBILITY.md)
+- [AI model feasibility assessment](docs/AI_MODEL_FEASIBILITY.md)
 - [Safety and privacy requirements](docs/SAFETY_AND_PRIVACY.md)
 - [Proposed technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
 - [Decision log](docs/DECISIONS.md)
@@ -58,7 +61,7 @@ Established mobile vision components may support face detection, landmarks, capt
 
 ## Current next milestone
 
-Complete the AI model feasibility assessment and design a defensible measurement-validation plan. Then finalize the first-release concern list and screen-by-screen UX. **No app code should be started until the product specification, safety boundaries, validation plan, and UX/architecture have been reviewed and explicitly approved.**
+Use the feasibility assessment to approve the initial automated feature candidates and define the measurement-validation protocol, reference methods, representative test data and pass/fail thresholds. Then finalize the first-release concern list and screen-by-screen UX. **No app code should be started until the product specification, safety boundaries, validation plan, and UX/architecture have been reviewed and explicitly approved.**
 
 ## Disclaimer
 
