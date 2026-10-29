@@ -3,7 +3,6 @@ package com.barshan.skincareai
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,8 +21,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Insights
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.Spa
+import androidx.compose.material.icons.outlined.TipsAndUpdates
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -42,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -54,15 +56,33 @@ private val SoftSage = Color(0xFFE8EFE8)
 
 private data class AppDestination(
     val labelRes: Int,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector
+    val icon: ImageVector,
+    val headlineRes: Int,
+    val descriptionRes: Int,
+    val statusRes: Int
 )
 
 private val destinations = listOf(
-    AppDestination(R.string.nav_scan, Icons.Outlined.Face),
-    AppDestination(R.string.nav_routine, Icons.Outlined.FavoriteBorder),
-    AppDestination(R.string.nav_progress, Icons.Outlined.Insights),
-    AppDestination(R.string.nav_ingredients, Icons.Outlined.Spa),
-    AppDestination(R.string.nav_profile, Icons.Outlined.PersonOutline)
+    AppDestination(
+        R.string.nav_scan, Icons.Outlined.Face, R.string.scan_title,
+        R.string.scan_body, R.string.scan_status
+    ),
+    AppDestination(
+        R.string.nav_routine, Icons.Outlined.FavoriteBorder, R.string.routine_title,
+        R.string.routine_body, R.string.routine_status
+    ),
+    AppDestination(
+        R.string.nav_progress, Icons.Outlined.Insights, R.string.progress_title,
+        R.string.progress_body, R.string.progress_status
+    ),
+    AppDestination(
+        R.string.nav_ingredients, Icons.Outlined.Spa, R.string.ingredients_title,
+        R.string.ingredients_body, R.string.ingredients_status
+    ),
+    AppDestination(
+        R.string.nav_profile, Icons.Outlined.PersonOutline, R.string.profile_title,
+        R.string.profile_body, R.string.profile_status
+    )
 )
 
 class MainActivity : ComponentActivity() {
@@ -93,6 +113,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun SkincareApp() {
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
+    val destination = destinations[selectedTab]
 
     Scaffold(
         containerColor = Canvas,
@@ -102,14 +123,19 @@ private fun SkincareApp() {
                 contentColor = Sage,
                 modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
             ) {
-                destinations.forEachIndexed { index, destination ->
+                destinations.forEachIndexed { index, item ->
                     NavigationBarItem(
                         selected = selectedTab == index,
                         onClick = { selectedTab = index },
-                        icon = { Icon(destination.icon, contentDescription = null) },
+                        icon = {
+                            Icon(
+                                imageVector = item.icon,
+                                contentDescription = stringResource(item.labelRes)
+                            )
+                        },
                         label = {
                             Text(
-                                text = stringResource(destination.labelRes),
+                                text = stringResource(item.labelRes),
                                 fontSize = 10.sp,
                                 maxLines = 1
                             )
@@ -132,28 +158,24 @@ private fun SkincareApp() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column {
+                Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(
-                        text = "SKINCARE, WITH CARE",
+                        text = stringResource(R.string.header_eyebrow),
                         color = Sage,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.5.sp
                     )
-                    Spacer(Modifier.height(5.dp))
                     Text(
-                        text = stringResource(destinations[selectedTab].labelRes),
+                        text = stringResource(destination.labelRes),
                         color = Ink,
                         fontSize = 27.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                Surface(
-                    shape = RoundedCornerShape(18.dp),
-                    color = SoftSage
-                ) {
+                Surface(shape = RoundedCornerShape(18.dp), color = SoftSage) {
                     Icon(
-                        imageVector = destinations[selectedTab].icon,
+                        imageVector = destination.icon,
                         contentDescription = null,
                         tint = Sage,
                         modifier = Modifier.padding(13.dp)
@@ -166,12 +188,12 @@ private fun SkincareApp() {
                 InfoCard(
                     title = stringResource(R.string.local_first_title),
                     body = stringResource(R.string.local_first_body),
-                    icon = "●"
+                    icon = Icons.Outlined.Lock
                 )
                 InfoCard(
                     title = stringResource(R.string.safety_title),
                     body = stringResource(R.string.safety_body),
-                    icon = "✓"
+                    icon = Icons.Outlined.TipsAndUpdates
                 )
                 Text(
                     text = stringResource(R.string.status_scaffold),
@@ -181,26 +203,12 @@ private fun SkincareApp() {
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             } else {
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    shape = RoundedCornerShape(24.dp)
-                ) {
-                    Column(Modifier.padding(22.dp)) {
-                        Text(
-                            text = stringResource(destinations[selectedTab].labelRes),
-                            color = Ink,
-                            fontSize = 21.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Spacer(Modifier.height(8.dp))
-                        Text(
-                            text = stringResource(R.string.coming_soon),
-                            color = Color(0xFF5D6962),
-                            fontSize = 14.sp,
-                            lineHeight = 21.sp
-                        )
-                    }
-                }
+                SectionCard(
+                    title = stringResource(destination.headlineRes),
+                    body = stringResource(destination.descriptionRes),
+                    status = stringResource(destination.statusRes),
+                    icon = destination.icon
+                )
             }
         }
     }
@@ -215,12 +223,11 @@ private fun WelcomeCard() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Sage)
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "01  /  YOUR SKIN JOURNEY",
+                text = stringResource(R.string.hero_eyebrow),
                 color = Color(0xFFDDE9DD),
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
@@ -244,7 +251,7 @@ private fun WelcomeCard() {
 }
 
 @Composable
-private fun InfoCard(title: String, body: String, icon: String) {
+private fun InfoCard(title: String, body: String, icon: ImageVector) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = RoundedCornerShape(22.dp)
@@ -256,20 +263,50 @@ private fun InfoCard(title: String, body: String, icon: String) {
             horizontalArrangement = Arrangement.spacedBy(14.dp),
             verticalAlignment = Alignment.Top
         ) {
-            Surface(
-                shape = RoundedCornerShape(12.dp),
-                color = SoftSage
-            ) {
-                Text(
-                    text = icon,
-                    color = Sage,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp)
+            Surface(shape = RoundedCornerShape(12.dp), color = SoftSage) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = Sage,
+                    modifier = Modifier.padding(11.dp)
                 )
             }
             Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 Text(title, color = Ink, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                 Text(body, color = Color(0xFF5D6962), fontSize = 13.sp, lineHeight = 20.sp)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SectionCard(title: String, body: String, status: String, icon: ImageVector) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = RoundedCornerShape(24.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(22.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp)
+        ) {
+            Surface(shape = RoundedCornerShape(16.dp), color = SoftSage) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = Sage,
+                    modifier = Modifier.padding(14.dp)
+                )
+            }
+            Text(title, color = Ink, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
+            Text(body, color = Color(0xFF5D6962), fontSize = 14.sp, lineHeight = 22.sp)
+            Surface(shape = RoundedCornerShape(12.dp), color = SoftSage) {
+                Text(
+                    text = status,
+                    color = Sage,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp)
+                )
             }
         }
     }
