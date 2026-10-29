@@ -2,6 +2,17 @@
 
 Record meaningful changes to project goals, feature scope, safety/privacy requirements, architecture, model choices, release plans and milestone status. This is a product change log, not a substitute for Git commit history.
 
+## 2026-10-29 — Initial AI model feasibility assessment
+
+- Added `docs/AI_MODEL_FEASIBILITY.md` with an initial desk assessment of ML Kit, MediaPipe Face Landmarker and LiteRT.
+- Clarified that face geometry/capture assistance is distinct from validated skin-condition measurement.
+- Proposed capture-quality checks and face alignment as first technical candidates; pigmentation/dark-mark analysis remains gated research.
+- Recommended deferring automated hydration/oiliness/pores/fine-line claims and excluding beauty/fairness scores and selfie-based diagnosis from the MVP.
+- Added requirements for reference methods, repeatability, cross-device/lighting robustness, skin-tone subgroup evaluation, model/data license review and pre-defined thresholds.
+- Updated README to link the detailed report.
+- No model selected, no feature declared validated, and no application code or implementation scaffolding created.
+- Next milestone: define and approve the measurement-validation protocol and initial automated feature shortlist.
+
 ## 2026-10-29 — Initial repository baseline
 
 - Created the dedicated `bangladesh-skincare-ai` repository.
