@@ -4,7 +4,7 @@
 - Overall state: Documentation baseline assembled; implementation underway on implementation/m0-android-baseline.
 - M0 Android baseline: **Verified green** on run 40871345852.
 - App shell/localization: **Verified green** on run 40874506742 for compilation, unit-test task and artifact upload.
-- Current milestone: localization-key CI guard added; its CI run is pending verification.
+- Current milestone: Compose navigation smoke tests added; emulator CI verification is pending.
 - Progress measures implementation only, not clinical safety or model validity.
 
 ## Phase 0 — Product baseline and documentation
@@ -28,8 +28,9 @@
 - [x] Add GitHub Actions workflow for debug APK build, unit-test task and temporary artifact upload.
 - [x] Verify CI run 40871345852 succeeded and APK artifact was uploaded.
 - [x] Verify app-shell/localization commit via run 40874506742.
-- [ ] Verify localization guard's own CI run.
-- [ ] Add meaningful UI/navigation tests and open PR review.
+- [x] Verify localization guard passed in run 40875940316.
+- [x] Add Compose instrumentation smoke tests for all five destinations and home safety/privacy copy.
+- [ ] Verify emulator-based `connectedDebugAndroidTest` workflow passes.
 - [ ] Confirm build reproducibility on a target Android device.
 
 **Exit gate:** reproducible debug build, passing tests, no secrets, documented toolchain. This is not a releasable skincare app.
@@ -44,7 +45,8 @@
 - [ ] Verify English and Bangla layout on a target device.
 - [ ] Review Bangla translations with native users.
 - [ ] Add accessibility labels, scalable text and contrast checks.
-- [ ] Add UI smoke tests for all five areas.
+- [x] Add UI smoke tests for all five areas (CI run pending).
+- [ ] Verify emulator tests on API 35.
 - [ ] Implement loading/empty/error/offline/unavailable states consistently.
 
 ## Phase 3 — Local-first persistence and privacy
