@@ -2,11 +2,12 @@
 
 - Last updated: 2026-10-30
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
-- Active branch: implementation/m0-android-baseline
-- Current stage: functional offline MVP screens implemented; CI build, unit-test task, Compose navigation instrumentation and local-store instrumentation have passed on the latest commit.
+- Active work branch: `implementation/m2-room-legacy-migration`
+- Baseline branch: `implementation/m0-android-baseline`
+- Current stage: offline MVP screens are implemented and CI-verified; Room migration work has started in an isolated branch.
 - Source of truth: this repository. No background sync is assumed.
 
-## Implemented in the current branch
+## Implemented in the baseline branch
 
 - Native Kotlin/Jetpack Compose app with five tabs: Skin Scan, My Routine, Progress, Ingredients, Profile.
 - Deterministic, non-diagnostic self-reported check-in engine with safety-first paths for concerning changes and broken skin.
@@ -20,18 +21,23 @@
 - Compose navigation instrumentation test covering all five destinations.
 - LocalStore instrumentation tests covering routine save/clear, progress create/read/delete, and user-data clearing while retaining language preference.
 
-## Storage limitation that must remain visible
+## Room migration work in progress
 
-The prototype stores routine ticks, text notes and simple preferences in app-private SharedPreferences, with JSON for the progress list. This is interim storage, not the final structured design. Before release, migrate to Room with tested schema migrations, review backup/restore behavior, and test deletion. No photos are captured, imported or stored. No internet permission, AI model, backend or photo upload is implemented.
+- Existing Room database schema includes routine completions, progress notes and migration metadata.
+- New `LegacyPreferencesMigration` imports the old routine JSON and progress JSON into Room inside one database transaction.
+- A migration marker makes the import idempotent and prevents duplicate imports after process restarts.
+- The original SharedPreferences JSON is deliberately retained after import as a rollback copy; a failed/malformed import does not set the marker or delete the source.
+- Instrumentation tests cover successful import, idempotency, and malformed-data preservation.
+- **Not complete yet:** connect the importer to app startup, switch Routine and Progress UI/repository reads and writes to Room, and test actual on-device upgrade from the existing app version. Do not describe the app as Room-migrated until those steps pass.
+- Profile language/budget preferences remain in SharedPreferences by design for this migration; only routine/progress data are being moved to Room.
 
 ## Verification
 
-- Latest implementation commit: `cf8048453634e014d6a90f7875abcf314ca9b879`.
+- Baseline implementation commit: `cf8048453634e014d6a90f7875abcf314ca9b879`.
 - CI run [#102](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015483767) passed.
-- CI run [#103](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015490522) passed on the same commit.
-- These workflows include localization parity, debug APK compilation, unit tests, Compose navigation instrumentation, local-store instrumentation and APK artifact upload.
-- Earlier navigation assertion fixes are verified by runs [#100](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41011174011) and [#101](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41011179610).
-- Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. Do not merge until remaining storage, privacy, content and release gates are addressed.
+- CI run [#103](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015490522) passed on the same baseline commit.
+- Room migration branch has new commits; its CI verification is pending.
+- Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. Do not merge until storage, privacy, content and release gates are addressed.
 
 ## Safety and external release gates
 
@@ -39,8 +45,8 @@ The app is educational and non-diagnostic. It does not provide selfie-based diag
 
 ## Next implementation actions
 
-1. Replace interim SharedPreferences/JSON persistence with a structured local database and tested migrations.
-2. Add process-restart, malformed-data, deletion and reset tests around the new repository.
+1. Finish wiring the Room importer into application startup and switch Routine/Progress to Room-backed state.
+2. Add real upgrade tests against seeded legacy SharedPreferences, process restart, deletion and reset.
 3. Review Android backup/data-extraction behavior and confirm target-device behavior.
 4. Only then implement private photo progress with explicit selection, safe EXIF handling and verified deletion.
 5. Keep image analysis and DIY formulas disabled unless their individual review/validation gates are met.
