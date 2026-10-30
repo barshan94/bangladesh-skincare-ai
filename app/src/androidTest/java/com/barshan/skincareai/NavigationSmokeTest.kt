@@ -4,6 +4,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
@@ -67,9 +68,14 @@ class NavigationSmokeTest {
             composeRule.activity.getString(R.string.scan_get_guidance)
         ).performClick()
 
-        composeRule.onNodeWithText(
-            composeRule.activity.getString(R.string.scan_save_to_progress)
-        ).performClick()
+        val saveLabel = composeRule.activity.getString(R.string.scan_save_to_progress)
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(saveLabel, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.onNodeWithText(saveLabel, useUnmergedTree = true)
+            .performScrollTo()
+            .performClick()
 
         composeRule.waitUntil(timeoutMillis = 10_000) {
             composeRule.onAllNodesWithText(
