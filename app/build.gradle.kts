@@ -45,11 +45,11 @@ android {
 }
 
 ksp {
-    arg("room.schemaLocation", "$" + "projectDir/schemas")
+    arg("room.schemaLocation", projectDir.resolve("schemas").absolutePath)
 }
 
 android {
-    sourceSets.getByName("androidTest").assets.srcDir("$" + "projectDir/schemas")
+    sourceSets.getByName("androidTest").assets.srcDir(projectDir.resolve("schemas"))
 }
 
 dependencies {
