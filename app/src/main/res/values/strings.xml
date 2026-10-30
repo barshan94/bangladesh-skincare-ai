@@ -120,6 +120,7 @@
     <string name="ingredient_risk_caution">Formulation and individual tolerance matter</string>
     <string name="ingredient_risk_avoid_direct">Avoid direct skin application</string>
     <string name="ingredient_risk_finished_sunscreen">Use only in a tested, labelled sunscreen</string>
+    <string name="ingredient_sources">Evidence and publisher sources (opens browser)</string>
     <string name="ingredient_review_pending">Expert review pending</string>
     <string name="ingredient_metadata">%1$s · %2$s · %3$s</string>
     <string name="ingredient_hyaluronic_acid">Hyaluronic acid</string>
