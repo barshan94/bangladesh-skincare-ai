@@ -201,7 +201,7 @@ private fun SkincareApp(repository: RoomSkincareRepository) {
             }
 
             when (selectedTab) {
-                0 -> SkinCheckInScreen()
+                0 -> SkinCheckInScreen(repository)
                 1 -> RoutineScreen(repository)
                 2 -> ProgressScreen(repository)
                 3 -> IngredientsScreen()
@@ -212,7 +212,10 @@ private fun SkincareApp(repository: RoomSkincareRepository) {
 }
 
 @Composable
-private fun SkinCheckInScreen() {
+private fun SkinCheckInScreen(repository: RoomSkincareRepository) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var savedToProgress by rememberSaveable { mutableStateOf(false) }
     var skinFeel by rememberSaveable { mutableStateOf(SkinFeel.UNSURE) }
     var goal by rememberSaveable { mutableStateOf(SkinGoal.BASIC_CARE) }
     var reaction by rememberSaveable { mutableStateOf(false) }
@@ -234,7 +237,7 @@ private fun SkinCheckInScreen() {
         ),
         selected = skinFeel,
         label = { stringResource(it) },
-        onSelect = { skinFeel = it; result = null }
+        onSelect = { skinFeel = it; result = null; savedToProgress = false }
     )
     Text(stringResource(R.string.scan_goal_prompt), fontWeight = FontWeight.SemiBold)
     ChipChoices(
@@ -248,15 +251,57 @@ private fun SkinCheckInScreen() {
         ),
         selected = goal,
         label = { stringResource(it) },
-        onSelect = { goal = it; result = null }
+        onSelect = { goal = it; result = null; savedToProgress = false }
     )
-    CheckRow(stringResource(R.string.scan_reaction_question), reaction) { reaction = it; result = null }
-    CheckRow(stringResource(R.string.scan_broken_skin_question), brokenSkin) { brokenSkin = it; result = null }
-    CheckRow(stringResource(R.string.scan_concerning_change_question), concerningChange) { concerningChange = it; result = null }
-    Button(onClick = { result = SkincareGuidance.create(CheckIn(skinFeel, goal, reaction, brokenSkin, concerningChange)) }, modifier = Modifier.fillMaxWidth()) {
+    CheckRow(stringResource(R.string.scan_reaction_question), reaction) { reaction = it; result = null; savedToProgress = false }
+    CheckRow(stringResource(R.string.scan_broken_skin_question), brokenSkin) { brokenSkin = it; result = null; savedToProgress = false }
+    CheckRow(stringResource(R.string.scan_concerning_change_question), concerningChange) { concerningChange = it; result = null; savedToProgress = false }
+    Button(onClick = { result = SkincareGuidance.create(CheckIn(skinFeel, goal, reaction, brokenSkin, concerningChange)); savedToProgress = false }, modifier = Modifier.fillMaxWidth()) {
         Text(stringResource(R.string.scan_get_guidance))
     }
-    result?.let { GuidanceResultCard(it) }
+    result?.let { guidance ->
+        GuidanceResultCard(guidance)
+        Button(
+            onClick = {
+                val details = context.getString(
+                    R.string.scan_saved_details,
+                    context.getString(when (skinFeel) {
+                        SkinFeel.DRY -> R.string.feel_dry
+                        SkinFeel.OILY -> R.string.feel_oily
+                        SkinFeel.COMBINATION -> R.string.feel_combination
+                        SkinFeel.SENSITIVE -> R.string.feel_sensitive
+                        SkinFeel.UNSURE -> R.string.feel_unsure
+                    }),
+                    context.getString(when (goal) {
+                        SkinGoal.BASIC_CARE -> R.string.goal_basic
+                        SkinGoal.DRYNESS -> R.string.goal_dryness
+                        SkinGoal.ROUGHNESS -> R.string.goal_roughness
+                        SkinGoal.DARK_MARKS -> R.string.goal_dark_marks
+                        SkinGoal.ACNE -> R.string.goal_acne
+                        SkinGoal.OTHER -> R.string.goal_other
+                    }),
+                    context.getString(if (reaction) R.string.scan_yes else R.string.scan_no),
+                    context.getString(if (brokenSkin) R.string.scan_yes else R.string.scan_no),
+                    context.getString(if (concerningChange) R.string.scan_yes else R.string.scan_no)
+                )
+                scope.launch {
+                    repository.addProgressNote(
+                        context.getString(R.string.scan_saved_concern),
+                        details,
+                        "unsure"
+                    )
+                    savedToProgress = true
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = !savedToProgress
+        ) {
+            Text(stringResource(R.string.scan_save_to_progress))
+        }
+        if (savedToProgress) {
+            Text(stringResource(R.string.scan_saved_to_progress), color = Sage, fontWeight = FontWeight.Medium)
+        }
+    }
     InfoCard(stringResource(R.string.safety_title), stringResource(R.string.safety_body), Icons.Outlined.TipsAndUpdates)
     Text(stringResource(R.string.status_scaffold), color = Sage, fontSize = 12.sp, fontWeight = FontWeight.Medium, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
 }
