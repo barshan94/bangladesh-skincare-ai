@@ -1,5 +1,12 @@
 # Project Change Log
 
+## 2026-10-30 — Skin Scan save reliability and UI persistence test
+- **Type:** Reliability / QA / Localization
+- Prevented rapid repeat taps from creating duplicate Skin Scan progress entries.
+- Added localized saving and failure states.
+- Added emulator UI coverage for explicitly saving a self-reported check-in and finding it in Room-backed Progress history.
+- Latest commits require a fresh complete CI result.
+
 ## 2026-10-30 — Ingredient publisher references and source links
 - **Type:** Knowledge governance / UX / Localization
 - Added per-entry source metadata to all 11 ingredient records, drawing on AAD, DermNet, MedlinePlus, ASCIA and peer-reviewed/open-access review material.
