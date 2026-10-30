@@ -26,6 +26,28 @@ class IngredientCatalogTest {
     }
 
     @Test
+    fun everyIngredientHasAtLeastOnePublisherSourceWithHttpsUrl() {
+        assertTrue(
+            IngredientCatalog.entries.all { entry ->
+                entry.sources.isNotEmpty() &&
+                    entry.sources.all { source ->
+                        source.title.isNotBlank() && source.url.startsWith("https://")
+                    }
+            }
+        )
+    }
+
+    @Test
+    fun sourceReferencesAreUniqueWithinEachIngredient() {
+        IngredientCatalog.entries.forEach { entry ->
+            assertEquals(
+                entry.sources.size,
+                entry.sources.map { it.url }.toSet().size
+            )
+        }
+    }
+
+    @Test
     fun householdLemonAndRawUvFilterHaveStricterSafetyClassification() {
         val lemon = IngredientCatalog.entries.single { it.id == "lemon_juice" }
         val zincOxide = IngredientCatalog.entries.single { it.id == "zinc_oxide" }
