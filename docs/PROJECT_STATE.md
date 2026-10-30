@@ -1,34 +1,37 @@
 # Project State and Session Handoff
 
-- Last updated: 2026-10-29
+- Last updated: 2026-10-30
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Active branch: implementation/m0-android-baseline
-- Current stage: first usable MVP implementation in progress; latest CI is queued and the emulator test issue remains unresolved.
+- Current stage: functional offline MVP screens implemented; CI build, unit-test task, Compose navigation instrumentation and local-store instrumentation have passed on the latest commit.
 - Source of truth: this repository. No background sync is assumed.
 
 ## Implemented in the current branch
 
 - Native Kotlin/Jetpack Compose app with five tabs: Skin Scan, My Routine, Progress, Ingredients, Profile.
-- A deterministic, non-diagnostic self-reported check-in engine with safety-first paths for concerning changes and broken skin.
+- Deterministic, non-diagnostic self-reported check-in engine with safety-first paths for concerning changes and broken skin.
 - General education for basic care, dryness and roughness; dark-mark and acne requests remain explicitly limited rather than diagnosed or promised to improve.
-- A basic routine checklist with locally saved completion ticks.
-- A text-only progress timeline with save/delete, tolerance notes and timestamps.
-- A small ingredient education catalogue with search; it explicitly states formal expert review is pending and makes no local price or brand claims.
-- English/Bangla resources for the functional screens and a language preference.
+- Routine checklist with locally saved completion ticks.
+- Text-only progress timeline with save/delete, tolerance notes and timestamps.
+- Ingredient education catalogue with search; formal expert review is pending and no local price or brand claims are made.
+- English/Bangla resources for functional screens and a language preference.
 - Optional budget preference, local-data clearing, no account, no analytics and no cloud sync.
-- Unit tests for the deterministic guidance rules.
-- Existing Compose navigation smoke tests are still not verified green.
+- Unit tests for deterministic guidance rules.
+- Compose navigation instrumentation test covering all five destinations.
+- LocalStore instrumentation tests covering routine save/clear, progress create/read/delete, and user-data clearing while retaining language preference.
 
 ## Storage limitation that must remain visible
 
-The prototype currently stores routine ticks, text notes and simple preferences in app-private SharedPreferences using JSON for the progress list. This is an interim implementation, not the final structured storage design. Before release, migrate to Room with tested schema migrations, review backup/restore behavior, and test deletion. No photos are captured, imported or stored. No internet permission, AI model, backend or photo upload is implemented.
+The prototype stores routine ticks, text notes and simple preferences in app-private SharedPreferences, with JSON for the progress list. This is interim storage, not the final structured design. Before release, migrate to Room with tested schema migrations, review backup/restore behavior, and test deletion. No photos are captured, imported or stored. No internet permission, AI model, backend or photo upload is implemented.
 
 ## Verification
 
-- Earlier verified baseline build/artifact runs: [40871345852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40871345852), [40874506742](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40874506742), and localization guard [40875940316](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40875940316).
-- Emulator run [40902300999](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40902300999) failed because the instrumentation process crashed before starting tests (reported 0 tests). The root cause is not yet confirmed.
-- Latest code/localization workflow: [40912123852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40912123852), queued at the last check. Do not claim the new code compiles until this run completes successfully.
-- Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. Do not merge while verification is red or pending.
+- Latest implementation commit: `cf8048453634e014d6a90f7875abcf314ca9b879`.
+- CI run [#102](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015483767) passed.
+- CI run [#103](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015490522) passed on the same commit.
+- These workflows include localization parity, debug APK compilation, unit tests, Compose navigation instrumentation, local-store instrumentation and APK artifact upload.
+- Earlier navigation assertion fixes are verified by runs [#100](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41011174011) and [#101](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41011179610).
+- Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. Do not merge until remaining storage, privacy, content and release gates are addressed.
 
 ## Safety and external release gates
 
@@ -36,8 +39,8 @@ The app is educational and non-diagnostic. It does not provide selfie-based diag
 
 ## Next implementation actions
 
-1. Inspect the newest build/unit-test result and fix any compile/test failures.
-2. Diagnose emulator instrumentation process crashes with captured logcat/report artifacts.
-3. Continue local persistence hardening and tests, then implement photo progress only with a safe private-storage and deletion flow.
-4. Keep image analysis and DIY formulas disabled unless their individual review/validation gates are met.
-5. Update this file, ROADMAP and CHANGELOG with verified facts after each meaningful milestone.
+1. Replace interim SharedPreferences/JSON persistence with a structured local database and tested migrations.
+2. Add process-restart, malformed-data, deletion and reset tests around the new repository.
+3. Review Android backup/data-extraction behavior and confirm target-device behavior.
+4. Only then implement private photo progress with explicit selection, safe EXIF handling and verified deletion.
+5. Keep image analysis and DIY formulas disabled unless their individual review/validation gates are met.
