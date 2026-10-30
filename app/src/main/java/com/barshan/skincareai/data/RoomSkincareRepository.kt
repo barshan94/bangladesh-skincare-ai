@@ -71,7 +71,7 @@ class RoomSkincareRepository(private val database: SkincareDatabase) {
             database.routineDao().clear()
             database.progressNoteDao().clear()
         }
-        // Also remove the retained legacy copies and profile data after Room clears.
+        // Also remove the retained legacy snapshot and profile data after Room clears.
         LocalStore.clearUserData(context)
     }
 }
