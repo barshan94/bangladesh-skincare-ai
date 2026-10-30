@@ -2,6 +2,8 @@ package com.barshan.skincareai
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -458,6 +460,19 @@ private fun IngredientsScreen() {
                     )
                     Text(body, color = Color(0xFF5D6962))
                     Text(caution, color = Color(0xFF8B4B31), fontSize = 13.sp)
+                    Text(stringResource(R.string.ingredient_sources), fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+                    item.sources.forEach { source ->
+                        TextButton(
+                            onClick = {
+                                runCatching {
+                                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(source.url)))
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(source.title, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
+                        }
+                    }
                 }
             }
         }
