@@ -427,6 +427,7 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
 
 @Composable
 private fun IngredientsScreen() {
+    val context = LocalContext.current
     var query by rememberSaveable { mutableStateOf("") }
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
     OutlinedTextField(value = query, onValueChange = { query = it }, label = { Text(stringResource(R.string.ingredients_search)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
