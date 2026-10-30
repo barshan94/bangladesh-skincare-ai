@@ -40,6 +40,9 @@ interface RoutineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(items: List<RoutineCompletionEntity>)
 
+    @Query("DELETE FROM routine_completions WHERE routineId = :routineId")
+    suspend fun deleteById(routineId: String)
+
     @Query("DELETE FROM routine_completions")
     suspend fun clear()
 }
