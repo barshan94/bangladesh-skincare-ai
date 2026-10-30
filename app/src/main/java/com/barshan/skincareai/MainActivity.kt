@@ -461,6 +461,8 @@ private fun ProfileScreen(repository: RoomSkincareRepository) {
     var budget by remember { mutableStateOf(LocalStore.budget(context)) }
     var showClearDialog by remember { mutableStateOf(false) }
     var clearedMessage by remember { mutableStateOf(false) }
+    var clearingData by remember { mutableStateOf(false) }
+    var clearError by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     SectionHeading(stringResource(R.string.profile_title), stringResource(R.string.profile_body))
@@ -479,8 +481,15 @@ private fun ProfileScreen(repository: RoomSkincareRepository) {
     )
     InfoCard(stringResource(R.string.profile_local_title), stringResource(R.string.profile_local_body), Icons.Outlined.Lock)
     InfoCard(stringResource(R.string.profile_no_account_title), stringResource(R.string.profile_no_account_body), Icons.Outlined.TipsAndUpdates)
-    Button(onClick = { showClearDialog = true }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.profile_clear_data)) }
+    Button(
+        onClick = { showClearDialog = true; clearError = false },
+        enabled = !clearingData,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(stringResource(if (clearingData) R.string.profile_clearing_data else R.string.profile_clear_data))
+    }
     if (clearedMessage) Text(stringResource(R.string.profile_data_cleared), color = Sage)
+    if (clearError) Text(stringResource(R.string.profile_clear_error), color = Color(0xFF8B4B31))
     if (showClearDialog) {
         AlertDialog(
             onDismissRequest = { showClearDialog = false },
@@ -488,10 +497,20 @@ private fun ProfileScreen(repository: RoomSkincareRepository) {
             text = { Text(stringResource(R.string.profile_clear_confirm_body)) },
             confirmButton = {
                 TextButton(onClick = {
-                    scope.launch { repository.clearUserData(context) }
-                    budget = "Not set"
-                    clearedMessage = true
+                    clearingData = true
+                    clearError = false
                     showClearDialog = false
+                    scope.launch {
+                        runCatching { repository.clearUserData(context) }
+                            .onSuccess {
+                                budget = "Not set"
+                                clearedMessage = true
+                            }
+                            .onFailure {
+                                clearError = true
+                            }
+                        clearingData = false
+                    }
                 }) { Text(stringResource(R.string.profile_clear_confirm_action)) }
             },
             dismissButton = { TextButton(onClick = { showClearDialog = false }) { Text(stringResource(R.string.cancel)) } }
