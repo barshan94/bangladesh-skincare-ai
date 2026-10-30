@@ -499,6 +499,7 @@ private fun ProfileScreen(repository: RoomSkincareRepository) {
                 TextButton(onClick = {
                     clearingData = true
                     clearError = false
+                    clearedMessage = false
                     showClearDialog = false
                     scope.launch {
                         runCatching { repository.clearUserData(context) }
