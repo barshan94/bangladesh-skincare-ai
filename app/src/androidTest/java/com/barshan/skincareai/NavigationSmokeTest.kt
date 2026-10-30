@@ -13,6 +13,15 @@ class NavigationSmokeTest {
     @get:Rule
     val composeRule = createAndroidComposeRule<MainActivity>()
 
+    private fun waitForAppReady() {
+        composeRule.waitUntil(timeoutMillis = 15_000) {
+            composeRule.onAllNodesWithText(
+                composeRule.activity.getString(R.string.nav_scan),
+                useUnmergedTree = true
+            ).fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
     private fun assertTextExists(text: String) {
         composeRule.waitForIdle()
         val nodes = composeRule.onAllNodesWithText(text, useUnmergedTree = true)
@@ -22,6 +31,7 @@ class NavigationSmokeTest {
 
     @Test
     fun everyBottomNavigationDestinationOpensItsOwnContent() {
+        waitForAppReady()
         // Assert content that each destination actually renders. Some *_title
         // and *_body resources are legacy copy and are not used by these screens.
         val destinations = listOf(
@@ -51,6 +61,7 @@ class NavigationSmokeTest {
 
     @Test
     fun homeContainsPrivacyAndSafetyGuidance() {
+        waitForAppReady()
         assertTextExists(composeRule.activity.getString(R.string.local_first_title))
         assertTextExists(composeRule.activity.getString(R.string.safety_title))
         assertTextExists(composeRule.activity.getString(R.string.status_scaffold))
