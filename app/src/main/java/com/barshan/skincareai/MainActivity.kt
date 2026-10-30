@@ -220,6 +220,8 @@ private fun SkinCheckInScreen(repository: RoomSkincareRepository) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var savedToProgress by rememberSaveable { mutableStateOf(false) }
+    var savingToProgress by remember { mutableStateOf(false) }
+    var saveProgressError by remember { mutableStateOf(false) }
     var skinFeel by rememberSaveable { mutableStateOf(SkinFeel.UNSURE) }
     var goal by rememberSaveable { mutableStateOf(SkinGoal.BASIC_CARE) }
     var reaction by rememberSaveable { mutableStateOf(false) }
@@ -241,7 +243,7 @@ private fun SkinCheckInScreen(repository: RoomSkincareRepository) {
         ),
         selected = skinFeel,
         label = { stringResource(it) },
-        onSelect = { skinFeel = it; result = null; savedToProgress = false }
+        onSelect = { skinFeel = it; result = null; savedToProgress = false; saveProgressError = false }
     )
     Text(stringResource(R.string.scan_goal_prompt), fontWeight = FontWeight.SemiBold)
     ChipChoices(
@@ -260,7 +262,7 @@ private fun SkinCheckInScreen(repository: RoomSkincareRepository) {
     CheckRow(stringResource(R.string.scan_reaction_question), reaction) { reaction = it; result = null; savedToProgress = false }
     CheckRow(stringResource(R.string.scan_broken_skin_question), brokenSkin) { brokenSkin = it; result = null; savedToProgress = false }
     CheckRow(stringResource(R.string.scan_concerning_change_question), concerningChange) { concerningChange = it; result = null; savedToProgress = false }
-    Button(onClick = { result = SkincareGuidance.create(CheckIn(skinFeel, goal, reaction, brokenSkin, concerningChange)); savedToProgress = false }, modifier = Modifier.fillMaxWidth()) {
+    Button(onClick = { result = SkincareGuidance.create(CheckIn(skinFeel, goal, reaction, brokenSkin, concerningChange)); savedToProgress = false; saveProgressError = false }, modifier = Modifier.fillMaxWidth()) {
         Text(stringResource(R.string.scan_get_guidance))
     }
     result?.let { guidance ->
@@ -288,22 +290,33 @@ private fun SkinCheckInScreen(repository: RoomSkincareRepository) {
                     context.getString(if (brokenSkin) R.string.scan_yes else R.string.scan_no),
                     context.getString(if (concerningChange) R.string.scan_yes else R.string.scan_no)
                 )
+                savingToProgress = true
+                saveProgressError = false
                 scope.launch {
-                    repository.addProgressNote(
-                        context.getString(R.string.scan_saved_concern),
-                        details,
-                        "unsure"
-                    )
-                    savedToProgress = true
+                    runCatching {
+                        repository.addProgressNote(
+                            context.getString(R.string.scan_saved_concern),
+                            details,
+                            "unsure"
+                        )
+                    }.onSuccess {
+                        savedToProgress = true
+                    }.onFailure {
+                        saveProgressError = true
+                    }
+                    savingToProgress = false
                 }
             },
             modifier = Modifier.fillMaxWidth(),
-            enabled = !savedToProgress
+            enabled = !savedToProgress && !savingToProgress
         ) {
-            Text(stringResource(R.string.scan_save_to_progress))
+            Text(stringResource(if (savingToProgress) R.string.scan_saving_to_progress else R.string.scan_save_to_progress))
         }
         if (savedToProgress) {
             Text(stringResource(R.string.scan_saved_to_progress), color = Sage, fontWeight = FontWeight.Medium)
+        }
+        if (saveProgressError) {
+            Text(stringResource(R.string.scan_save_error), color = Color(0xFF8B4B31), fontSize = 13.sp)
         }
     }
     InfoCard(stringResource(R.string.safety_title), stringResource(R.string.safety_body), Icons.Outlined.TipsAndUpdates)
