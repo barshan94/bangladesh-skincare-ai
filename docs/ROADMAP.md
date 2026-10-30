@@ -1,7 +1,7 @@
 # Roadmap and Readiness Gates
 
 - Last updated: 2026-10-30
-- Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; CI #143 is pending.
+- Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins to Progress. CI #152 is pending.
 - Percentages refer to implementation only, never clinical safety or model validity.
 
 ## Phase 0 — Product baseline and documentation
@@ -26,12 +26,13 @@
 **Status: MVP implemented; content and real-device QA remain**
 - [x] Interactive self-reported check-in; no photo-based diagnosis.
 - [x] Deterministic safety-first guidance rules and unit tests.
+- [x] Skin Scan can explicitly save selected answers to the local Progress history.
 - [x] Routine checklist with Room-backed completion state.
 - [x] Progress history with Room-backed add/delete and tolerance field.
-- [x] Educational ingredient search catalogue with explicit expert-review limitation.
+- [x] Educational ingredient search catalogue with expert-review limitation.
 - [x] Profile language/budget preferences and local-data clear action.
 - [x] English/Bangla labels for functional controls.
-- [ ] Improve Profile and Skin Scan usability/accessibility.
+- [ ] Improve Profile and Skin Scan accessibility and saved-entry affordances.
 - [ ] Verify translations, accessibility and layouts on physical devices.
 - [ ] Qualified expert review of actionable educational content.
 
@@ -45,8 +46,8 @@
 - [x] Routine and Progress use Room repository/Flow for reads and writes.
 - [x] Tests for import, idempotency, malformed JSON, legacy optional-field defaults.
 - [x] Persistent database close/reopen test and reset/language-retention test authored.
-- [ ] Latest CI #143 passes compile, unit tests, emulator instrumentation and artifact upload.
-- [ ] Test an actual upgrade from a previously installed version containing legacy data.
+- [ ] Latest CI #152 passes compile, unit tests, emulator instrumentation and artifact upload.
+- [ ] Test actual upgrade from a previously installed version containing legacy data.
 - [ ] Confirm Android backup/restore and app-private data deletion semantics on device.
 - [ ] Define export privacy/file handling before implementing export.
 
