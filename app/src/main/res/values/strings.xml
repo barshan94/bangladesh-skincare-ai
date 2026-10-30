@@ -47,6 +47,8 @@
     <string name="scan_reaction_question">Have you had a reaction to a skincare product?</string>
     <string name="scan_broken_skin_question">Is the area currently broken, raw, or open?</string>
     <string name="scan_concerning_change_question">Is there a new, changing, painful, bleeding, or concerning skin change?</string>
+    <string name="scan_saving_to_progress">Saving…</string>
+    <string name="scan_save_error">Could not save this check-in. Please try again.</string>
     <string name="scan_save_to_progress">Save check-in to Progress</string>
     <string name="scan_saved_to_progress">Check-in saved to your local Progress history.</string>
     <string name="scan_saved_concern">Skin check-in</string>
