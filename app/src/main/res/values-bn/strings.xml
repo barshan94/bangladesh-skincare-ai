@@ -118,6 +118,8 @@
     <string name="profile_local_body">রুটিনের চিহ্ন ও অগ্রগতির নোট এই ডিভাইসের স্থানীয় ডেটাবেসে এবং ভাষা ও বাজেটের পছন্দ অ্যাপের ব্যক্তিগত সেটিংসে রাখা হয়। অ্যাকাউন্ট, অ্যানালিটিক্স, ছবি আপলোড বা ক্লাউড সিঙ্ক নেই।</string>
     <string name="profile_no_account_title">অ্যাকাউন্ট লাগবে না</string>
     <string name="profile_no_account_body">এই প্রোটোটাইপ অফলাইনে চলে। অত্যন্ত সংবেদনশীল চিকিৎসা-তথ্য লিখবেন না; এটি ক্লিনিক্যাল রেকর্ড ব্যবস্থা নয়।</string>
+    <string name="profile_clearing_data">স্থানীয় তথ্য মুছে ফেলা হচ্ছে…</string>
+    <string name="profile_clear_error">সব স্থানীয় তথ্য মুছতে পারেনি। আবার চেষ্টা করুন; প্রক্রিয়া চলার সময় অ্যাপ আনইনস্টল করবেন না।</string>
     <string name="profile_clear_data">রুটিন, নোট ও বাজেট মুছুন</string>
     <string name="profile_data_cleared">স্থানীয় রুটিন, নোট ও বাজেট মুছে ফেলা হয়েছে।</string>
     <string name="profile_clear_confirm_title">স্থানীয় তথ্য মুছবেন?</string>
