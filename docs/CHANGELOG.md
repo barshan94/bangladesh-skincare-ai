@@ -1,5 +1,17 @@
 # Project Change Log
 
+## 2026-10-30 — Local persistence instrumentation coverage
+- **Type:** Testing / Persistence / Privacy
+- Added `LocalStoreTest.kt` Android instrumentation tests for routine completion round-trip/clear, progress note create/read/delete, and clearing user data while retaining the language preference.
+- No production storage behavior or UI functionality changed in this test-only commit.
+- CI runs [#102](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015483767) and [#103](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015490522) both passed on commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
+- **Next:** replace interim SharedPreferences/JSON persistence with Room and add migration/lifecycle tests.
+
+## 2026-10-30 — Compose navigation smoke test corrected and verified
+- **Type:** Testing / CI
+- Corrected navigation assertions to inspect the actual text rendered by Routine, Progress and Ingredients screens rather than unused legacy title/body resources.
+- CI runs [#100](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41011174011) and [#101](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41011179610) passed on commit `5961b25da487b5ecf9badc92156142dfd6a096f9`.
+
 ## 2026-10-29 — Functional offline MVP screens started
 - **Type:** Feature / Domain / Localization / Privacy
 - Added deterministic non-diagnostic guidance rules with safety-first handling for concerning changes and broken skin; added unit tests for the core branches.
@@ -7,24 +19,19 @@
 - Added interim device-local persistence for routine completion, progress notes and preferences. This uses app-private SharedPreferences/JSON as a prototype; Room migrations and lifecycle hardening remain required before release.
 - Added English and Bangla resources for the new controls and corrected stale placeholder copy.
 - No photos, AI image analysis, account, network service, cloud sync, or DIY formula recommendations were added. The ingredient summaries explicitly say expert review is pending.
-- CI for the new feature code is queued at [run 40912123852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40912123852) at the time of this update; compile/test success is not yet verified.
-- **Next:** inspect build/unit-test results, diagnose the emulator instrumentation crash, and fix any code issues before claiming the MVP milestone.
-
+- The latest full CI status is recorded in the 2026-10-30 entries above.
 
 ## 2026-10-29 — Compose navigation smoke tests
 - **Type:** Testing / CI / Accessibility
 - Added Android instrumentation test dependencies for Jetpack Compose UI tests.
-- Added `app/src/androidTest/java/com/barshan/skincareai/NavigationSmokeTest.kt` to visit all five bottom-navigation destinations and assert each has its own title/body. It also checks the home privacy/safety statements remain visible.
+- Added `app/src/androidTest/java/com/barshan/skincareai/NavigationSmokeTest.kt` to visit all five bottom-navigation destinations and assert each has its own rendered content. It also checks home privacy/safety statements remain visible.
 - Updated GitHub Actions to run the instrumentation tests on an API 35 Pixel_2 emulator using `connectedDebugAndroidTest`.
-- The emulator-based CI result is pending; the test implementation is not yet claimed to have passed.
-- **Next:** verify the full workflow and correct any emulator or UI assertion failures before starting persistence.
+- Emulator test implementation subsequently passed in runs #100 and #101.
 
 ## 2026-10-29 — Localization consistency guard
 - **Type:** Test / CI / Localization
 - Added `scripts/check_localization.py`, a standard-library Python check that parses English and Bangla Android resource XML, detects duplicate resource names, and requires matching resource keys.
 - Added the check to the Android workflow before SDK installation/build and included the script in workflow path filters.
-- The guard's first CI run is not yet verified; no green status is claimed for this change until that run completes.
-- **Why:** prevents an added/renamed UI string from silently falling back to a missing key in one supported locale.
 
 ## 2026-10-29 — App shell and localization iteration
 - **Type:** UI / Accessibility / Localization / Privacy copy
@@ -34,14 +41,13 @@
 - Added meaningful navigation icon content descriptions and Material icons for privacy/safety cards.
 - Corrected privacy copy: no photo capture/import/storage exists in this build; local-first storage is a future design intent, not current behavior.
 - GitHub Actions run [40874506742](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40874506742) passed debug compilation, unit-test task and APK artifact upload for the app-shell/localization code.
-- **Safety:** No treatment recommendation, skin analysis, DIY formula, photo, persistence or cloud feature enabled.
 
 ## 2026-10-29 — M0 Android baseline verified
 - **Type:** Build / CI
 - GitHub Actions run [40871345852](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/40871345852) succeeded on commit 634902a6203d0f0041a822b89ea7965cd2060dae.
 - Android SDK setup, debug APK compilation, unit-test task and artifact upload steps all passed.
 - Debug APK artifact was uploaded with 14-day retention. This is a development build, not a signed release.
-- Draft PR #1 remains open for review; do not merge until latest app-shell commits pass CI.
+- Draft PR #1 remains open for review; do not merge until remaining storage, privacy and release gates pass.
 
 ## 2026-10-29 — M0 Android implementation started
 - **Type:** Architecture / Implementation / CI
