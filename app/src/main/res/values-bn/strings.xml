@@ -53,7 +53,7 @@
     <string name="guidance_limited">এই বিষয়ে বর্তমান নির্দেশনা নেই</string>
     <string name="guidance_disclaimer">শুধু সাধারণ তথ্য—রোগ নির্ণয় বা ব্যক্তিগত চিকিৎসা পরামর্শ নয়। জ্বালা সৃষ্টি করে এমন কিছু ব্যবহার বন্ধ করুন।</string>
     <string name="routine_intro">প্রাথমিক যত্ন মনে রাখতে সহজ একটি তালিকা। এগুলো শিক্ষামূলক ধাপ, নির্ধারিত চিকিৎসা পরিকল্পনা নয়।</string>
-    <string name="routine_completion">আজ %2$dটির মধ্যে %1$dটি ধাপ চিহ্নিত</string>
+    <string name="routine_completion">%2$dটির মধ্যে %1$dটি ধাপ চিহ্নিত</string>
     <string name="routine_am_cleanse">সকাল · কোমলভাবে পরিষ্কার</string>
     <string name="routine_am_cleanse_body">প্রয়োজন হলে কোমল ক্লিনজার ব্যবহার করুন; ঘষাঘষি করবেন না।</string>
     <string name="routine_am_moisturize">সকাল · ময়েশ্চারাইজার</string>
@@ -109,7 +109,7 @@
     <string name="budget_1500">৳৫০০–৳১৫০০</string>
     <string name="budget_1500_plus">৳১৫০০+</string>
     <string name="profile_local_title">স্থানীয় সংরক্ষণ</string>
-    <string name="profile_local_body">রুটিনের চিহ্ন, পছন্দ ও অগ্রগতির নোট অ্যাপের ব্যক্তিগত স্থানীয় সেটিংসে রাখা হয়। অ্যাকাউন্ট, অ্যানালিটিক্স, ছবি আপলোড বা ক্লাউড সিঙ্ক নেই।</string>
+    <string name="profile_local_body">রুটিনের চিহ্ন ও অগ্রগতির নোট এই ডিভাইসের স্থানীয় ডেটাবেসে এবং ভাষা ও বাজেটের পছন্দ অ্যাপের ব্যক্তিগত সেটিংসে রাখা হয়। অ্যাকাউন্ট, অ্যানালিটিক্স, ছবি আপলোড বা ক্লাউড সিঙ্ক নেই।</string>
     <string name="profile_no_account_title">অ্যাকাউন্ট লাগবে না</string>
     <string name="profile_no_account_body">এই প্রোটোটাইপ অফলাইনে চলে। অত্যন্ত সংবেদনশীল চিকিৎসা-তথ্য লিখবেন না; এটি ক্লিনিক্যাল রেকর্ড ব্যবস্থা নয়।</string>
     <string name="profile_clear_data">রুটিন, নোট ও বাজেট মুছুন</string>
