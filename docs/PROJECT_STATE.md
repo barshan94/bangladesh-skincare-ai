@@ -1,6 +1,6 @@
 # Project State and Session Handoff
 
-- Last updated: 2026-10-30
+- Last updated: 2026-10-31
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Active implementation branch: `implementation/m0-android-baseline`
 - Current stage: Routine and Progress use Room; startup runs the one-time legacy import. Skin Scan can explicitly save a self-reported check-in to Progress. Ingredients now use a structured 11-entry catalogue with safety classifications; all entries remain pending expert review.
@@ -40,7 +40,7 @@
 - Explicit user-data reset clears Room data and legacy routine/progress snapshots; language preference is retained.
 - MainActivity performs migration on IO before showing the app. If migration fails, it displays a safe error and does not clear legacy data.
 - Instrumentation tests cover import, idempotency, malformed JSON, legacy optional-field compatibility, database close/reopen, reset and language retention.
-- **Not yet verified:** CI #175 remains in progress; runs #192/#193 are queued for the later ingredient commits. Do not call Room migration QA-complete until full Android CI and a real-device upgrade check pass.
+- **Not yet verified:** Workflow #214 failed one emulator UI test after compilation and unit tests passed. The test was updated on the latest branch; workflow #218 is pending. Do not call Room migration QA-complete until a green full workflow and a real-device upgrade check pass.
 
 ## Ingredient library safety status
 - Entries are educational summaries, not formulation approvals or personalized recommendations.
@@ -52,8 +52,10 @@
 
 ## Verification
 - Baseline CI runs #102 and #103 passed on baseline commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
-- Latest full run [#175](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41037503937) is compiling; unit and emulator tests are pending.
-- Ingredient changes are queued in [runs #192](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41038124568) and [#193](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41038134621).
+- Full Android workflow [#192](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41038124568) passed on an earlier ingredient update.
+- Workflow [#214](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41077898501) failed only in the new Skin Scan save UI test: the localized save control was not found. Compilation, unit tests, report upload and debug APK upload succeeded.
+- The UI test was hardened to wait for and scroll to the localized save control; Profile preference deletion now requires a successful synchronous commit.
+- Latest full workflow [#218](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41106622029) is pending on commit `520121f28c538c24c7d8dc323a4f351e077ec43f`. Latest source is not yet CI-verified.
 - Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. It remains unmerged.
 
 ## Next actions
