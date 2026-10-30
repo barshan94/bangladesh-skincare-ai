@@ -1,5 +1,15 @@
 # Project Change Log
 
+## 2026-10-30 — Structured ingredient catalogue and safety metadata
+- **Type:** Feature / Domain / Localization / Safety
+- Replaced the six-item UI-local list with a typed catalogue containing 11 educational entries.
+- Added category, caution, risk classification and explicit pending-expert-review metadata to every entry.
+- Added bilingual summaries for hyaluronic acid, petrolatum, panthenol, colloidal oatmeal and zinc oxide.
+- Classified direct lemon-juice application as avoid, and raw zinc oxide as suitable only within a tested, labelled finished sunscreen.
+- Added unit tests for unique IDs, required cautions, pending-review gating and stricter safety classifications.
+- No concentrations, DIY recipes, mixing instructions, or local product claims were added.
+- Runs #192/#193 are queued; full Android build and emulator verification remain pending.
+
 ## 2026-10-30 — Profile reset reliability and CI completion safeguards
 - **Type:** Privacy / UX / CI
 - Profile now displays a clearing state while Room and local preference data are cleared, and only reports success after the operation completes. Failures show a localized error; stale success state is cleared before a retry.
