@@ -23,7 +23,7 @@
 ## 2026-10-30 — Room legacy migration foundation
 - Added Room entities/DAOs and a one-time importer for routine completion and progress-note JSON.
 - Imports both datasets in a single transaction and commits an idempotency marker atomically.
-- Retains legacy preferences as rollback copies until explicit reset.
+- Retains legacy preferences as recovery snapshots until explicit reset.
 - Added successful import, idempotency and malformed-data tests.
 
 ## 2026-10-30 — Local persistence instrumentation coverage
