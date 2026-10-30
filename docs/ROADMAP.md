@@ -41,7 +41,7 @@
 - [x] Room entities/DAOs for routine completion and progress notes.
 - [x] Atomic one-time legacy SharedPreferences importer.
 - [x] Idempotency marker committed in same transaction.
-- [x] Retain old preferences as rollback copy until explicit user reset.
+- [x] Retain old preferences as recovery snapshot until explicit user reset.
 - [x] Startup import before the app displays the main screens.
 - [x] Routine and Progress use Room repository/Flow for reads and writes.
 - [x] Tests for import, idempotency, malformed JSON, legacy optional-field defaults.
