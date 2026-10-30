@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +36,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -46,12 +49,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.barshan.skincareai.data.LegacyPreferencesMigration
+import com.barshan.skincareai.data.RoomSkincareRepository
+import com.barshan.skincareai.data.SkincareDatabase
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -91,6 +102,9 @@ private val destinations = listOf(
 )
 
 class MainActivity : ComponentActivity() {
+    private val startupRepository = mutableStateOf<RoomSkincareRepository?>(null)
+    private val startupError = mutableStateOf(false)
+
     override fun attachBaseContext(newBase: Context) {
         val language = LocalStore.language(newBase)
         if (language == "system") {
@@ -115,14 +129,41 @@ class MainActivity : ComponentActivity() {
                     onSurface = Ink
                 )
             ) {
-                Surface(Modifier.fillMaxSize(), color = Canvas) { SkincareApp() }
+                Surface(Modifier.fillMaxSize(), color = Canvas) {
+                    val repository = startupRepository.value
+                    when {
+                        repository != null -> SkincareApp(repository)
+                        startupError.value -> Text(
+                            "Your existing local data could not be safely opened. No legacy data was deleted. Please restart the app; do not clear app storage.",
+                            modifier = Modifier.padding(24.dp),
+                            color = Ink
+                        )
+                        else -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator()
+                        }
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            runCatching {
+                withContext(Dispatchers.IO) {
+                    val database = SkincareDatabase.getInstance(applicationContext)
+                    LegacyPreferencesMigration.migrateIfNeeded(applicationContext, database)
+                    RoomSkincareRepository(database)
+                }
+            }.onSuccess { repository ->
+                startupRepository.value = repository
+            }.onFailure {
+                startupError.value = true
             }
         }
     }
 }
 
 @Composable
-private fun SkincareApp() {
+private fun SkincareApp(repository: RoomSkincareRepository) {
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
     val destination = destinations[selectedTab]
     Scaffold(
@@ -161,10 +202,10 @@ private fun SkincareApp() {
 
             when (selectedTab) {
                 0 -> SkinCheckInScreen()
-                1 -> RoutineScreen()
-                2 -> ProgressScreen()
+                1 -> RoutineScreen(repository)
+                2 -> ProgressScreen(repository)
                 3 -> IngredientsScreen()
-                4 -> ProfileScreen()
+                4 -> ProfileScreen(repository)
             }
         }
     }
@@ -242,8 +283,9 @@ private fun GuidanceResultCard(result: GuidanceResult) {
 }
 
 @Composable
-private fun RoutineScreen() {
-    val context = LocalContext.current
+private fun RoutineScreen(repository: RoomSkincareRepository) {
+    val scope = rememberCoroutineScope()
+    val done by repository.observeRoutineDone().collectAsState(initial = emptySet())
     val items = listOf(
         RoutineItem("morning_cleanse", R.string.routine_am_cleanse, R.string.routine_am_cleanse_body),
         RoutineItem("morning_moisturize", R.string.routine_am_moisturize, R.string.routine_am_moisturize_body),
@@ -251,15 +293,14 @@ private fun RoutineScreen() {
         RoutineItem("evening_cleanse", R.string.routine_pm_cleanse, R.string.routine_pm_cleanse_body),
         RoutineItem("evening_moisturize", R.string.routine_pm_moisturize, R.string.routine_pm_moisturize_body)
     )
-    var done by remember { mutableStateOf(LocalStore.routineDone(context)) }
     Text(stringResource(R.string.routine_intro), color = Color(0xFF5D6962))
     Text(stringResource(R.string.routine_completion, done.intersect(items.map { it.id }.toSet()).size, items.size), color = Sage, fontWeight = FontWeight.SemiBold)
     items.forEach { item ->
         Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
             Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(checked = item.id in done, onCheckedChange = { checked ->
-                    done = if (checked) done + item.id else done - item.id
-                    LocalStore.setRoutineDone(context, done)
+                    val updated = if (checked) done + item.id else done - item.id
+                    scope.launch { repository.setRoutineDone(updated) }
                 })
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(stringResource(item.title), fontWeight = FontWeight.SemiBold)
@@ -274,13 +315,13 @@ private fun RoutineScreen() {
 private data class RoutineItem(val id: String, val title: Int, val body: Int)
 
 @Composable
-private fun ProgressScreen() {
+private fun ProgressScreen(repository: RoomSkincareRepository) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     var concern by rememberSaveable { mutableStateOf("") }
     var note by rememberSaveable { mutableStateOf("") }
     var tolerance by rememberSaveable { mutableStateOf("comfortable") }
-    var refresh by remember { mutableIntStateOf(0) }
-    val notes = remember(refresh) { LocalStore.progressNotes(context) }
+    val notes by repository.observeProgressNotes().collectAsState(initial = emptyList())
 
     Text(stringResource(R.string.progress_intro), color = Color(0xFF5D6962))
     OutlinedTextField(value = concern, onValueChange = { concern = it }, label = { Text(stringResource(R.string.progress_concern_label)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
@@ -295,10 +336,11 @@ private fun ProgressScreen() {
     Button(
         onClick = {
             if (note.isNotBlank() || concern.isNotBlank()) {
-                LocalStore.addProgressNote(context, concern.trim().ifBlank { context.getString(R.string.progress_general_concern) }, note.trim(), tolerance)
+                val savedConcern = concern.trim().ifBlank { context.getString(R.string.progress_general_concern) }
+                val savedNote = note.trim()
+                scope.launch { repository.addProgressNote(savedConcern, savedNote, tolerance) }
                 concern = ""
                 note = ""
-                refresh++
             }
         },
         enabled = concern.isNotBlank() || note.isNotBlank(),
@@ -317,7 +359,7 @@ private fun ProgressScreen() {
                             Text(item.concern, fontWeight = FontWeight.SemiBold)
                             Text(LocalStore.formatDate(item.createdAt), color = Color(0xFF5D6962), fontSize = 12.sp)
                         }
-                        TextButton(onClick = { LocalStore.deleteProgressNote(context, item.id); refresh++ }) {
+                        TextButton(onClick = { scope.launch { repository.deleteProgressNote(item.id) } }) {
                             Icon(Icons.Outlined.DeleteOutline, contentDescription = stringResource(R.string.progress_delete))
                         }
                     }
@@ -367,13 +409,14 @@ private fun IngredientsScreen() {
 private data class IngredientItem(val title: Int, val body: Int, val caution: Int)
 
 @Composable
-private fun ProfileScreen() {
+private fun ProfileScreen(repository: RoomSkincareRepository) {
     val context = LocalContext.current
     val activity = context as? Activity
     var language by remember { mutableStateOf(LocalStore.language(context)) }
     var budget by remember { mutableStateOf(LocalStore.budget(context)) }
     var showClearDialog by remember { mutableStateOf(false) }
     var clearedMessage by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     SectionHeading(stringResource(R.string.profile_title), stringResource(R.string.profile_body))
     Text(stringResource(R.string.profile_language), fontWeight = FontWeight.SemiBold)
@@ -400,7 +443,7 @@ private fun ProfileScreen() {
             text = { Text(stringResource(R.string.profile_clear_confirm_body)) },
             confirmButton = {
                 TextButton(onClick = {
-                    LocalStore.clearUserData(context)
+                    scope.launch { repository.clearUserData(context) }
                     budget = "Not set"
                     clearedMessage = true
                     showClearDialog = false
