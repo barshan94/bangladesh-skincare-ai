@@ -1,7 +1,7 @@
 # Roadmap and Readiness Gates
 
 - Last updated: 2026-10-30
-- Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins to Progress. CI #175 is compiling; unit and emulator tests are pending.
+- Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins; Ingredients uses a structured 11-entry safety catalogue. CI #175 is in progress; newer catalogue runs #192/#193 are queued.
 - Percentages refer to implementation only, never clinical safety or model validity.
 
 ## Phase 0 — Product baseline and documentation
@@ -16,7 +16,7 @@
 **Status: Implemented; baseline CI passed**
 - [x] Native Kotlin/Jetpack Compose app and five-area navigation.
 - [x] Pinned toolchain and no-permission/no-network manifest.
-- [x] English/Bangla resource parity check.
+- [x] English/Bangla resource parity check, including format-placeholder parity.
 - [x] Debug APK compilation and artifact workflow.
 - [x] Compose navigation smoke test for all five destinations.
 - [x] Baseline full workflow passed (#102/#103).
@@ -29,12 +29,12 @@
 - [x] Skin Scan can explicitly save selected answers to the local Progress history.
 - [x] Routine checklist with Room-backed completion state.
 - [x] Progress history with Room-backed add/delete and tolerance field.
-- [x] Educational ingredient search catalogue with expert-review limitation.
-- [x] Profile language/budget preferences and local-data clear action.
-- [x] English/Bangla labels for functional controls.
+- [x] Profile language/budget preferences and local-data clear success/error states.
+- [x] Structured 11-entry ingredient catalogue with categories, warnings and risk classifications.
+- [x] Every ingredient entry explicitly remains pending qualified expert review.
+- [ ] Add evidence/source metadata and qualified expert review for every ingredient.
 - [ ] Improve Profile and Skin Scan accessibility and saved-entry affordances.
 - [ ] Verify translations, accessibility and layouts on physical devices.
-- [ ] Qualified expert review of actionable educational content.
 
 ## Phase 3 — Storage, privacy and lifecycle
 **Status: Code wired; CI and physical upgrade verification pending**
@@ -46,7 +46,7 @@
 - [x] Routine and Progress use Room repository/Flow for reads and writes.
 - [x] Tests for import, idempotency, malformed JSON, legacy optional-field defaults.
 - [x] Persistent database close/reopen test and reset/language-retention test authored.
-- [ ] Latest CI #175 passes compile, unit tests, emulator instrumentation and artifact upload.
+- [ ] Latest full Android CI passes compile, unit tests, emulator instrumentation and artifact upload.
 - [ ] Test actual upgrade from a previously installed version containing legacy data.
 - [ ] Confirm Android backup/restore and app-private data deletion semantics on device.
 - [ ] Define export privacy/file handling before implementing export.
@@ -59,9 +59,10 @@
 - [ ] Validate capture-quality checks before enabling.
 
 ## Phase 5 — Reviewed ingredient knowledge and safe routine personalization
-- [ ] Replace sample summaries with entries reviewed by qualified skincare/dermatology reviewers.
-- [ ] For each ingredient, document evidence, role, concentration context, skin suitability, known cautions, interactions, exclusions, stop conditions, sources and review date.
-- [ ] Implement structured safety warnings and tests proving unknown safety facts block affected advice.
+- [x] Create structured ingredient metadata with categories, caution text, risk classifications and review status.
+- [ ] Add primary-source references, evidence summaries, exclusions, stop conditions and review dates.
+- [ ] Obtain qualified skincare/dermatology review before treating entries as approved guidance.
+- [ ] Implement deterministic eligibility rules and tests proving unknown safety facts block affected advice.
 - [ ] Add product substitutions only with safety/compatibility evidence and dated Bangladesh price provenance.
 - [ ] Individually review any home-prepared formula; no free-form AI recipes.
 
