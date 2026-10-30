@@ -54,13 +54,13 @@ object LegacyPreferencesMigration {
         val array = JSONArray(raw)
         return (0 until array.length()).map { index ->
             val item = array.getJSONObject(index)
-            val id = item.getString("id")
+            val id = item.optString("id")
             require(id.isNotBlank()) { "Legacy progress note contains a blank ID" }
             ProgressNoteEntity(
                 id = id,
-                createdAt = item.getLong("createdAt"),
-                concern = item.getString("concern"),
-                note = item.getString("note"),
+                createdAt = item.optLong("createdAt", 0L),
+                concern = item.optString("concern"),
+                note = item.optString("note"),
                 tolerance = item.optString("tolerance", "Not recorded")
             )
         }
