@@ -102,11 +102,12 @@ object LocalStore {
         SimpleDateFormat("dd MMM yyyy, h:mm a", Locale.getDefault()).format(Date(timestamp))
 
     fun clearUserData(context: Context) {
-        prefs(context).edit()
+        val committed = prefs(context).edit()
             .remove(ROUTINE_KEY)
             .remove(PROGRESS_KEY)
             .remove(BUDGET_KEY)
             .remove(SKIN_FEEL_KEY)
-            .apply()
+            .commit()
+        check(committed) { "Could not confirm local preference deletion" }
     }
 }
