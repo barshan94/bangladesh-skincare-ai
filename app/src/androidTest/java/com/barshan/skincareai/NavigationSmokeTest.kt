@@ -2,7 +2,6 @@ package com.barshan.skincareai
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -33,7 +32,7 @@ class NavigationSmokeTest {
 
         destinations.forEach { (labelRes, titleRes, bodyRes) ->
             val label = composeRule.activity.getString(labelRes)
-            composeRule.onNodeWithText(label).performClick()
+            composeRule.onAllNodesWithText(label).get(1).performClick()
             assertTextExists(composeRule.activity.getString(titleRes))
             assertTextExists(composeRule.activity.getString(bodyRes))
         }
