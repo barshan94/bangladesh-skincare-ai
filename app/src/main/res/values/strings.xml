@@ -119,7 +119,7 @@
     <string name="profile_no_account_title">No account required</string>
     <string name="profile_no_account_body">This prototype works offline. Do not enter highly sensitive medical information; this is not a clinical record system.</string>
     <string name="profile_clearing_data">Clearing local data…</string>
-    <string name="profile_clear_error">Could not clear all local data. Please try again; do not uninstall while the operation is running.</string>
+    <string name="profile_clear_error">Could not clear local data. Please try again.</string>
     <string name="profile_clear_data">Clear routine, notes, and budget</string>
     <string name="profile_data_cleared">Local routine, notes, and budget were cleared.</string>
     <string name="profile_clear_confirm_title">Clear local data?</string>
