@@ -47,6 +47,8 @@
     <string name="scan_reaction_question">স্কিনকেয়ার পণ্যে আগে কোনো প্রতিক্রিয়া হয়েছে?</string>
     <string name="scan_broken_skin_question">জায়গাটি কি এখন ক্ষতযুক্ত, কাঁচা বা খোলা?</string>
     <string name="scan_concerning_change_question">নতুন, পরিবর্তনশীল, ব্যথাযুক্ত, রক্তপাতযুক্ত বা উদ্বেগজনক কোনো পরিবর্তন আছে?</string>
+    <string name="scan_saving_to_progress">সংরক্ষণ হচ্ছে…</string>
+    <string name="scan_save_error">চেক-ইন সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।</string>
     <string name="scan_save_to_progress">চেক-ইন অগ্রগতিতে সংরক্ষণ করুন</string>
     <string name="scan_saved_to_progress">চেক-ইন আপনার স্থানীয় অগ্রগতির ইতিহাসে সংরক্ষিত হয়েছে।</string>
     <string name="scan_saved_concern">ত্বকের চেক-ইন</string>
