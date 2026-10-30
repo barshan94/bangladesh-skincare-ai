@@ -2,8 +2,9 @@ package com.barshan.skincareai.data
 
 import android.content.Context
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -15,14 +16,15 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class LegacyPreferencesMigrationTest {
-    private val context: Context = ApplicationProvider.getApplicationContext()
+    private val context: Context
+        get() = InstrumentationRegistry.getInstrumentation().targetContext
     private lateinit var database: SkincareDatabase
 
     @Before
     fun setUp() {
-        database = Room.inMemoryDatabaseBuilder(context, SkincareDatabase::class.java).build()
         context.getSharedPreferences("private_skincare_local", Context.MODE_PRIVATE)
             .edit().clear().commit()
+        database = Room.inMemoryDatabaseBuilder(context, SkincareDatabase::class.java).build()
     }
 
     @After
@@ -46,9 +48,9 @@ class LegacyPreferencesMigrationTest {
 
         assertEquals(
             listOf("evening_moisturize", "morning_cleanse"),
-            database.routineDao().observeCompletedIds().firstForTest()
+            database.routineDao().observeCompletedIds().first()
         )
-        val notes = database.progressNoteDao().observeAll().firstForTest()
+        val notes = database.progressNoteDao().observeAll().first()
         assertEquals(1, notes.size)
         assertEquals("note-1", notes.single().id)
         assertEquals("Dryness", notes.single().concern)
@@ -67,7 +69,7 @@ class LegacyPreferencesMigrationTest {
 
         assertEquals(
             listOf("morning_cleanse"),
-            database.routineDao().observeCompletedIds().firstForTest()
+            database.routineDao().observeCompletedIds().first()
         )
     }
 
