@@ -30,6 +30,12 @@
 - [x] Baseline full workflow passed (#102/#103).
 - [ ] Physical-device verification.
 
+## Latest reliability work — 2026-10-30
+- [x] Add per-ingredient publisher references and external source links.
+- [x] Add repeat-tap protection and saving/error UI states to Skin Scan check-in persistence.
+- [x] Add UI instrumentation test for explicit Skin Scan → Progress persistence.
+- [ ] Verify these latest commits with a complete Android workflow before marking them QA-passed.
+
 ## Phase 2 — Functional first-release screens
 **Status: MVP implemented; content and real-device QA remain**
 - [x] Interactive self-reported check-in; no photo-based diagnosis.
