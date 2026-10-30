@@ -7,6 +7,13 @@
 - Latest full CI #175 is still in progress on the previous source snapshot. Newer ingredient commits have queued runs #192/#193; neither has completed.
 - Source of truth: this repository. No background sync is assumed.
 
+## Latest ingredient evidence update — 2026-10-30
+- Added publisher/source links to every ingredient entry (AAD, DermNet, MedlinePlus, ASCIA and peer-reviewed/open-access review sources).
+- Ingredient cards now expose those links and open the selected publisher page in the external browser; English and Bangla labels are included.
+- Unit tests validate that every entry has at least one uniquely listed HTTPS source.
+- Sources support general education only. They do not validate a particular concentration, product, DIY recipe or personalized recommendation. All entries remain pending qualified expert review.
+- Full Android CI runs #175 and #192 passed compilation, unit tests, emulator navigation tests and artifact upload. Run #193 has not yet returned a job result; verify the latest head before treating the source-link change as green.
+
 ## Implemented
 - Native Kotlin/Jetpack Compose app with five tabs: Skin Scan, My Routine, Progress, Ingredients, Profile.
 - Deterministic, non-diagnostic self-reported check-in engine with safety-first paths for concerning changes and broken skin.
