@@ -1,9 +1,18 @@
 # Project Change Log
 
+## 2026-10-30 — Room legacy migration foundation
+- **Type:** Storage / Migration / Data safety
+- Added a one-time importer for the existing SharedPreferences routine-completion JSON and progress-note JSON.
+- Imports both datasets into Room in a single transaction and writes an idempotency marker in that same transaction.
+- Keeps the original preference values as a rollback copy; malformed legacy JSON fails without marking the migration complete or deleting the source.
+- Added instrumentation coverage for successful import, idempotency and malformed-data preservation.
+- **Status:** This is migration groundwork, not a completed app migration. Startup wiring and Routine/Progress UI cutover remain.
+- **Next:** connect migration to app startup, use Room-backed Flows in Routine/Progress, and test an actual upgrade with populated legacy data.
+
 ## 2026-10-30 — Local persistence instrumentation coverage
 - **Type:** Testing / Persistence / Privacy
 - Added `LocalStoreTest.kt` Android instrumentation tests for routine completion round-trip/clear, progress note create/read/delete, and clearing user data while retaining the language preference.
-- No production storage behavior or UI functionality changed in this test-only commit.
+- No production storage behavior or UI functionality changed in that test-only commit.
 - CI runs [#102](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015483767) and [#103](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41015490522) both passed on commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
 - **Next:** replace interim SharedPreferences/JSON persistence with Room and add migration/lifecycle tests.
 
@@ -16,10 +25,10 @@
 - **Type:** Feature / Domain / Localization / Privacy
 - Added deterministic non-diagnostic guidance rules with safety-first handling for concerning changes and broken skin; added unit tests for the core branches.
 - Replaced placeholder tabs with an interactive self-reported check-in, routine checklist, text-only progress timeline with add/delete, ingredient education search, and profile language/budget/local-data controls.
-- Added interim device-local persistence for routine completion, progress notes and preferences. This uses app-private SharedPreferences/JSON as a prototype; Room migrations and lifecycle hardening remain required before release.
+- Added interim device-local persistence for routine completion, progress notes and preferences. This uses app-private SharedPreferences/JSON as a prototype; Room migration and lifecycle hardening remain required before release.
 - Added English and Bangla resources for the new controls and corrected stale placeholder copy.
 - No photos, AI image analysis, account, network service, cloud sync, or DIY formula recommendations were added. The ingredient summaries explicitly say expert review is pending.
-- The latest full CI status is recorded in the 2026-10-30 entries above.
+- The latest full baseline CI status is recorded in the 2026-10-30 entries above.
 
 ## 2026-10-29 — Compose navigation smoke tests
 - **Type:** Testing / CI / Accessibility
@@ -30,7 +39,7 @@
 
 ## 2026-10-29 — Localization consistency guard
 - **Type:** Test / CI / Localization
-- Added `scripts/check_localization.py`, a standard-library Python check that parses English and Bangla Android resource XML, detects duplicate resource names, and requires matching resource keys.
+- Added `scripts/check_localization.py`, a standard-library Python check that parses English and Bangla Android string resources, detects duplicate resource names, and requires matching resource keys.
 - Added the check to the Android workflow before SDK installation/build and included the script in workflow path filters.
 
 ## 2026-10-29 — App shell and localization iteration
