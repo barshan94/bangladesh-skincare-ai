@@ -1,9 +1,9 @@
 # Roadmap and Readiness Gates
 
 - Last updated: 2026-10-30
-- Overall state: functional offline MVP screens implemented on `implementation/m0-android-baseline`; local persistence remains interim.
+- Overall state: functional offline MVP screens implemented; Room migration foundation added, app cutover still pending.
 - Progress percentages refer only to implementation, never clinical safety or model validity.
-- Latest CI status: two successful runs (#102 and #103) on commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
+- Baseline CI runs #102 and #103 passed. Verify the new Room branch commits before marking their tests green.
 
 ## Phase 0 — Product baseline and documentation
 **Status: Planning baseline assembled**
@@ -11,17 +11,16 @@
 - [x] Architecture, data model, engineering standards and implementation backlog.
 - [x] Safety case, privacy/security threat model, knowledge governance and update protocol.
 - [x] Test strategy, localization/accessibility, consent draft and release runbook.
-- [x] Session handoff and changelog conventions.
-- [ ] Confirm repository visibility/access expectations; GitHub has reported public visibility.
+- [ ] Confirm repository visibility/access expectations; GitHub currently reports public visibility.
 
 ## Phase 1 — Android build baseline and navigation
 **Status: Implemented and CI-verified**
 - [x] Native Kotlin/Jetpack Compose project and five-area navigation.
-- [x] Pinned toolchain, Android manifest with no requested permissions or network permission.
+- [x] Pinned toolchain, no-permission/no-network manifest.
 - [x] English/Bangla resource parity check.
 - [x] Debug APK compilation and artifact upload.
 - [x] Compose navigation smoke test visits all five destinations.
-- [x] Latest full workflow passes; see runs #102 and #103.
+- [x] Baseline full workflow passes (#102/#103).
 - [ ] Confirm behavior on a physical target Android device.
 
 ## Phase 2 — Functional first-release screens
@@ -30,21 +29,23 @@
 - [x] Deterministic safety-first guidance rules and unit tests.
 - [x] Routine checklist with local completion state.
 - [x] Text progress timeline with add/delete and tolerance field.
-- [x] Educational ingredient search catalogue with explicit expert-review limitation.
-- [x] Profile language and budget preferences plus local data clear action.
-- [x] English and Bangla labels for new controls.
-- [x] Instrumentation tests for local persistence save/read/delete/reset behavior.
+- [x] Educational ingredient search catalogue with expert-review limitation.
+- [x] Profile language/budget preferences and local-data clear action.
+- [x] English/Bangla labels for functional controls.
 - [ ] Verify translations, accessibility and layouts on physical target devices.
-- [ ] Review all educational content with qualified experts before any actionable content expansion.
+- [ ] Review actionable educational content with qualified experts.
 
 ## Phase 3 — Storage, privacy and lifecycle
-**Status: Interim SharedPreferences/JSON storage; hardening is next**
-- [x] Local routine ticks, profile preferences and text notes saved on device.
-- [x] Instrumentation coverage for routine save/clear, progress create/read/delete and data reset.
-- [ ] Replace interim storage with Room and tested migrations.
-- [ ] Test process death/restart, malformed legacy data, save/delete and reset flows.
+**Status: Room import foundation added; startup wiring and UI cutover remain**
+- [x] Room entities/DAOs for routine completion and progress notes.
+- [x] Atomic one-time importer for legacy SharedPreferences/JSON.
+- [x] Idempotency marker and retention of legacy source values for rollback.
+- [x] Instrumentation tests authored for import, idempotency and malformed-data preservation.
+- [ ] Wire migration into app startup before any Room-backed screen reads data.
+- [ ] Replace Routine and Progress UI reads/writes with Room repository/Flow.
+- [ ] Test actual upgrade with populated legacy values, process death/restart, deletion and reset.
 - [ ] Confirm Android backup/restore and app-private data deletion semantics.
-- [ ] Implement export only after its privacy and file-handling behavior is defined.
+- [ ] Define export privacy/file handling before implementing export.
 
 ## Phase 4 — Guided photo progress (not AI diagnosis)
 - [ ] Add Android Photo Picker and/or CameraX only with explicit user action and clear copy.
