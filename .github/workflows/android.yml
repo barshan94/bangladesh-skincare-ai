@@ -24,7 +24,8 @@ permissions:
 
 concurrency:
   group: android-build-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Let the full build/test matrix finish; rapid documentation and code pushes must not cancel QA.
+  cancel-in-progress: false
 
 jobs:
   debug-build:
