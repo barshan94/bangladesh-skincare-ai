@@ -1,7 +1,7 @@
 # Roadmap and Readiness Gates
 
 - Last updated: 2026-10-30
-- Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins to Progress. CI #152 is pending.
+- Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins to Progress. CI #175 is compiling; unit and emulator tests are pending.
 - Percentages refer to implementation only, never clinical safety or model validity.
 
 ## Phase 0 — Product baseline and documentation
@@ -41,12 +41,12 @@
 - [x] Room entities/DAOs for routine completion and progress notes.
 - [x] Atomic one-time legacy SharedPreferences importer.
 - [x] Idempotency marker committed in same transaction.
-- [x] Retain old preferences as recovery snapshot until explicit user reset.
+- [x] Retain old preferences unchanged as a recovery snapshot until explicit user reset; later Room edits are not dual-written, so this is not a downgrade guarantee.
 - [x] Startup import before the app displays the main screens.
 - [x] Routine and Progress use Room repository/Flow for reads and writes.
 - [x] Tests for import, idempotency, malformed JSON, legacy optional-field defaults.
 - [x] Persistent database close/reopen test and reset/language-retention test authored.
-- [ ] Latest CI #152 passes compile, unit tests, emulator instrumentation and artifact upload.
+- [ ] Latest CI #175 passes compile, unit tests, emulator instrumentation and artifact upload.
 - [ ] Test actual upgrade from a previously installed version containing legacy data.
 - [ ] Confirm Android backup/restore and app-private data deletion semantics on device.
 - [ ] Define export privacy/file handling before implementing export.
