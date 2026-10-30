@@ -1,5 +1,13 @@
 # Project Change Log
 
+## 2026-10-30 — Ingredient publisher references and source links
+- **Type:** Knowledge governance / UX / Localization
+- Added per-entry source metadata to all 11 ingredient records, drawing on AAD, DermNet, MedlinePlus, ASCIA and peer-reviewed/open-access review material.
+- Added source links to ingredient cards with explicit external-browser opening.
+- Added English/Bangla source labels and unit tests for non-empty HTTPS source references.
+- Sources are educational references, not formula approval or personal medical advice; all entries remain pending qualified expert review.
+- Runs #175 and #192 passed full Android workflows; latest run #193 has not yet returned job details.
+
 ## 2026-10-30 — Structured ingredient catalogue and safety metadata
 - **Type:** Feature / Domain / Localization / Safety
 - Replaced the six-item UI-local list with a typed catalogue containing 11 educational entries.
