@@ -12,7 +12,7 @@ RESOURCE_FILES = {
     "English": ROOT / "app/src/main/res/values/strings.xml",
     "Bangla": ROOT / "app/src/main/res/values-bn/strings.xml",
 }
-PLACEHOLDER = re.compile(r"%(\d+)\$[sd]")
+PLACEHOLDER = re.compile(r"%\d+\$[sd]")
 
 
 def load_resources(path: Path) -> tuple[dict[str, ET.Element], list[str]]:
