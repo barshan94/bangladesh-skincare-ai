@@ -68,9 +68,23 @@ class LegacyPreferencesMigrationTest {
     }
 
     @Test
+    fun legacyOptionalProgressFieldsKeepOldLocalStoreDefaults() = runBlocking {
+        val preferences = context.getSharedPreferences("private_skincare_local", Context.MODE_PRIVATE)
+        preferences.edit().putString("progress_notes", """[{"id":"old-note"}]""").commit()
+
+        LegacyPreferencesMigration.migrateIfNeeded(context, database)
+
+        val note = database.progressNoteDao().observeAll().first().single()
+        assertEquals(0L, note.createdAt)
+        assertEquals("", note.concern)
+        assertEquals("", note.note)
+        assertEquals("Not recorded", note.tolerance)
+    }
+
+    @Test
     fun malformedLegacyJsonFailsWithoutMarkingMigrationOrDeletingSource() = runBlocking {
         val preferences = context.getSharedPreferences("private_skincare_local", Context.MODE_PRIVATE)
-        val malformed = """[{"id":"missing-created-at"}]"""
+        val malformed = """[{"id":"""
         preferences.edit().putString("progress_notes", malformed).commit()
 
         assertThrows(Exception::class.java) {
