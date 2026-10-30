@@ -1,98 +1,67 @@
 # Project State and Session Handoff
 
-- Last updated: 2026-10-29 (documentation baseline expansion)
+- Last updated: 2026-10-31
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
-- Default branch: main
-- Stage: Documentation and feasibility planning; application implementation has not started and is not authorized.
-- Source of truth: this repository, not chat history alone.
+- Active implementation branch: `implementation/m0-android-baseline`
+- Current stage: Routine and Progress use Room; startup runs the one-time legacy import. Skin Scan can explicitly save a self-reported check-in to Progress. Ingredients now use a structured 11-entry catalogue with safety classifications; all entries remain pending expert review.
+- Latest full CI #175 is still in progress on the previous source snapshot. Newer ingredient commits have queued runs #192/#193; neither has completed.
+- Source of truth: this repository. No background sync is assumed.
 
-## Approved decisions
-1. Broader product scope with individual feature gates.
-2. Adults only initially.
-3. Photo tracking and validated capture-quality checks first; skin-condition analysis only after feature-specific validation.
-4. DIY formulas only when individually reviewed and validated.
-5. Five areas: Skin Scan; My Routine; Progress; Ingredients and Alternatives; Profile and Privacy.
-6. Android-first, private APK initial distribution, Bangla/English, free at launch.
-7. Photos/progress on-device by default; cloud storage, cloud analysis and model training require separate affirmative consent.
-8. Safety rules are deterministic and cannot be overridden by generative AI.
-9. No diagnosis from selfies, beauty/fairness scores, guaranteed whitening, unreviewed recipes or photo-triggered automatic treatment changes.
-10. No coding until the user separately authorizes implementation.
+## Latest ingredient evidence update — 2026-10-30
+- Added publisher/source links to every ingredient entry (AAD, DermNet, MedlinePlus, ASCIA and peer-reviewed/open-access review sources).
+- Ingredient cards now expose those links and open the selected publisher page in the external browser; English and Bangla labels are included.
+- Unit tests validate that every entry has at least one uniquely listed HTTPS source.
+- Sources support general education only. They do not validate a particular concentration, product, DIY recipe or personalized recommendation. All entries remain pending qualified expert review.
+- Full Android CI runs #175 and #192 passed compilation, unit tests, emulator navigation tests and artifact upload. Run #193 has not yet returned a job result; verify the latest head before treating the source-link change as green.
 
-## Source-of-truth hierarchy
-1. Latest explicit user decisions.
-2. docs/DECISIONS.md — dated decision history and approval status.
-3. docs/PRODUCT_SPEC.md — product scope and principles.
-4. docs/REQUIREMENTS.md — testable functional/nonfunctional requirements.
-5. docs/UX_SCREEN_SPEC.md — screen flows and interaction behavior.
-6. docs/TECHNICAL_ARCHITECTURE.md and docs/DATA_MODEL.md — technical proposals.
-7. docs/SAFETY_CASE.md, docs/SAFETY_AND_PRIVACY.md, docs/THREAT_MODEL.md — risk controls.
-8. docs/KNOWLEDGE_BASE_SPEC.md and docs/KNOWLEDGE_UPDATE_PROTOCOL.md — content governance.
-9. docs/AI_MODEL_FEASIBILITY.md and docs/MEASUREMENT_VALIDATION_PLAN.md — image research/validation gates.
-10. docs/ROADMAP.md, docs/IMPLEMENTATION_BACKLOG.md and docs/RELEASE_RUNBOOK.md — execution/release.
-11. docs/CHANGELOG.md — material change history.
+## Latest reliability work — 2026-10-30
+- Ingredient cards now include per-entry publisher links; all 11 records have HTTPS source metadata and source-reference unit tests.
+- Skin Scan save-to-Progress now disables repeat taps while saving, shows a localized loading state, prevents duplicate rapid submissions, and shows a localized error if persistence fails.
+- Added an emulator UI test that runs a check-in, explicitly saves it, navigates to Progress and asserts the entry appears.
+- The source-link and save-reliability changes are on the active PR branch; a full CI result for the latest head is still required.
 
-If documents conflict, do not silently choose. Record the conflict and resolve against the user's latest explicit decision.
+## Implemented
+- Native Kotlin/Jetpack Compose app with five tabs: Skin Scan, My Routine, Progress, Ingredients, Profile.
+- Deterministic, non-diagnostic self-reported check-in engine with safety-first paths for concerning changes and broken skin.
+- Skin Scan can save selected answers to local Progress only after the user taps the explicit save action.
+- Routine and Progress screens read/write through Room-backed repository flows.
+- App startup opens Room and runs legacy SharedPreferences import before displaying the main app screens.
+- Profile language and budget preferences remain in SharedPreferences; data clearing has loading, success and failure states.
+- Structured ingredient catalogue with 11 entries, categories, caution text, risk classifications and explicit pending-review status.
+- English/Bangla resources and localization placeholder-parity validation.
+- No account, analytics, cloud sync, photo capture/import, photo storage or image diagnosis.
 
-## Documentation index
-- README.md
-- docs/PRODUCT_SPEC.md
-- docs/FIRST_RELEASE_SCOPE.md
-- docs/REQUIREMENTS.md
-- docs/UX_SCREEN_SPEC.md
-- docs/SCREEN_ACCEPTANCE_CRITERIA.md
-- docs/DESIGN_SYSTEM.md
-- docs/CONSENT_COPY_DRAFT.md
-- docs/ENGINEERING_STANDARDS.md
-- docs/TECHNICAL_ARCHITECTURE.md
-- docs/DATA_MODEL.md
-- docs/SAFETY_AND_PRIVACY.md
-- docs/SAFETY_CASE.md
-- docs/THREAT_MODEL.md
-- docs/KNOWLEDGE_BASE_SPEC.md
-- docs/KNOWLEDGE_UPDATE_PROTOCOL.md
-- docs/AI_FEASIBILITY.md
-- docs/AI_MODEL_FEASIBILITY.md
-- docs/MEASUREMENT_VALIDATION_PLAN.md
-- docs/BANGLADESH_COMPLIANCE_REVIEW.md
-- docs/LOCALIZATION_ACCESSIBILITY.md
-- docs/TEST_STRATEGY.md
-- docs/IMPLEMENTATION_BACKLOG.md
-- docs/RELEASE_RUNBOOK.md
-- docs/DECISIONS.md
-- docs/ROADMAP.md
-- docs/CHANGELOG.md
+## Room migration — implementation wired; verification pending
+- Room entities/DAOs exist for routine completions, progress notes and migration metadata.
+- Legacy importer parses old routine/progress JSON and inserts both datasets in one Room transaction.
+- Importer preserves the old LocalStore defaults for optional progress fields.
+- Migration marker is committed atomically to prevent duplicate imports after process restarts.
+- Original preference values are retained unchanged after import as a recovery snapshot. Subsequent Room edits are not mirrored back, so this is not a downgrade guarantee.
+- Explicit user-data reset clears Room data and legacy routine/progress snapshots; language preference is retained.
+- MainActivity performs migration on IO before showing the app. If migration fails, it displays a safe error and does not clear legacy data.
+- Instrumentation tests cover import, idempotency, malformed JSON, legacy optional-field compatibility, database close/reopen, reset and language retention.
+- **Not yet verified:** Workflow #214 failed one emulator UI test after compilation and unit tests passed. The test was updated on the latest branch; workflow #218 is pending. Do not call Room migration QA-complete until a green full workflow and a real-device upgrade check pass.
 
-## External gates not to fake as completed
-- Confirm GitHub repository visibility and access expectations; previous check reported it public.
-- Qualified Bangladesh legal/privacy review of applicable data protection, adult eligibility, consent, retention/deletion, backups, cloud/cross-border processing, cosmetics/consumer claims and other applicable obligations.
-- Qualified skincare/dermatology review of actionable guidance, concern boundaries and escalation copy.
-- Individual qualified formulation review for each DIY formula, including relevant stability/preservation/microbiology evidence.
-- Model/data licences, reference methods, pre-approved thresholds, independent validation and subgroup results for each image feature.
-- Choose target Android API/device matrix based on feasibility.
-- Decide whether any backend/cloud/account feature is justified; local core does not require a backend.
-- Select final inference runtime after technical/licence/validation evaluation.
-- Choose knowledge-package integrity/signature design before remote update implementation.
-- Bangla terminology, accessibility and usability review.
-- Final privacy backup/deletion/export behavior based on actual implementation.
+## Ingredient library safety status
+- Entries are educational summaries, not formulation approvals or personalized recommendations.
+- Each entry carries a category, caution, risk classification and `PENDING_EXPERT_REVIEW` status.
+- Raw lemon juice is classified as avoid direct application; raw zinc oxide is restricted to use in a tested, labelled finished sunscreen.
+- No ingredient concentrations, mixing instructions, DIY formulas or local product-price claims are provided.
+- Catalogue tests enforce unique IDs, non-empty caution references, and expert-review gating.
+- Qualified skincare/dermatology review and source documentation are still required before entries can be treated as approved guidance.
 
-These gates can run alongside engineering where appropriate, but affected high-risk features/content cannot ship until resolved.
+## Verification
+- Baseline CI runs #102 and #103 passed on baseline commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
+- Full Android workflow [#192](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41038124568) passed on an earlier ingredient update.
+- Workflow [#214](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41077898501) failed only in the new Skin Scan save UI test: the localized save control was not found. Compilation, unit tests, report upload and debug APK upload succeeded.
+- The UI test was hardened to wait for and scroll to the localized save control; Profile preference deletion now requires a successful synchronous commit.
+- Latest full workflow [#218](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41106622029) is pending on commit `520121f28c538c24c7d8dc323a4f351e077ec43f`. Latest source is not yet CI-verified.
+- Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. It remains unmerged.
 
-## Session handoff/update routine
-Whenever project work is performed:
-1. Fetch current PROJECT_STATE.md, DECISIONS.md, ROADMAP.md and CHANGELOG.md before relying on memory.
-2. Treat GitHub as authoritative; memory is only a pointer.
-3. Record user decisions with date, rationale, status and impact.
-4. Update affected specification/requirements/UX/architecture/test docs in the same work session.
-5. Update ROADMAP.md with evidence-backed status only.
-6. Append CHANGELOG.md.
-7. Update this file with date, current milestone, latest commits, evidence and next action.
-8. Re-fetch changed files and verify actual GitHub contents.
-9. Tell the user exactly what changed and any failure. Never claim background sync or commits that did not happen.
-
-This routine is a working agreement for future project sessions; it does not itself run automatically in the background.
-
-## Current milestone
-Documentation coverage has been expanded to include requirements, logical data model, knowledge governance, safety case, threat model, testing, implementation backlog, release runbook, localization/accessibility and knowledge-update protocol. README, roadmap, engineering standards, design system, consent-copy draft and documentation index have been updated. The full file inventory was re-fetched from GitHub. The consistency pass is complete for the documentation index, core product/roadmap headings and screen acceptance criteria; all README document links were checked against the GitHub docs directory. Screen-level acceptance criteria are linked from both README and the UX specification. Repository visibility remains public and requires the owner's setting change. Then wait for explicit implementation authorization. Do not claim external legal, clinical, formula or model gates are complete.
-
-## Implementation readiness
-The documentation should make initial engineering tasks executable without reopening product strategy. Before first code change: confirm repo visibility/branch access, target device/toolchain defaults, architecture choices needed for the first milestone, acceptance criteria/tests, and explicit user authorization. External expert gates remain attached to relevant feature activation and release.
+## Next actions
+1. Get the full Android compile, unit and emulator instrumentation suite green on the latest source.
+2. Verify a real app upgrade from an installed pre-Room build with populated routine/progress data.
+3. Review Android backup/data-extraction behavior and test data deletion on a physical device.
+4. Improve Skin Scan and Profile accessibility and saved-history clarity.
+5. Add evidence/source metadata and obtain qualified expert review for the ingredient catalogue.
+6. Only after storage/privacy gates, implement optional private photo progress. Keep image analysis and DIY formulas disabled until their individual validation/review gates pass.

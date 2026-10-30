@@ -1,117 +1,88 @@
 # Project Change Log
 
-## 2026-10-29 — First-release scope proposal drafted
+## 2026-10-30 — Skin Scan save reliability and UI persistence test
+- **Type:** Reliability / QA / Localization
+- Prevented rapid repeat taps from creating duplicate Skin Scan progress entries.
+- Added localized saving and failure states.
+- Added emulator UI coverage for explicitly saving a self-reported check-in and finding it in Room-backed Progress history.
+- Latest commits require a fresh complete CI result.
 
-- Added `docs/FIRST_RELEASE_SCOPE.md` to separate proposed MVP features from gated research and excluded features.
-- Proposed core focus: reviewed routine guidance, adaptive safety questionnaire, local/private progress timeline, transparent ingredient/product knowledge, privacy controls and safe knowledge updates.
-- Automated skin-feature analysis remains gated by independent validation; diagnosis, fairness scores and unreviewed DIY formulas are excluded from the proposed MVP.
-- Recorded five decisions requiring user review before the product scope can be finalized.
-- This is a proposal only; no implementation approval is implied.
+## 2026-10-30 — Ingredient publisher references and source links
+- **Type:** Knowledge governance / UX / Localization
+- Added per-entry source metadata to all 11 ingredient records, drawing on AAD, DermNet, MedlinePlus, ASCIA and peer-reviewed/open-access review material.
+- Added source links to ingredient cards with explicit external-browser opening.
+- Added English/Bangla source labels and unit tests for non-empty HTTPS source references.
+- Sources are educational references, not formula approval or personal medical advice; all entries remain pending qualified expert review.
+- Runs #175 and #192 passed full Android workflows; latest run #193 has not yet returned job details.
 
-## 2026-10-29 — Bangladesh compliance checklist added
+## 2026-10-30 — Structured ingredient catalogue and safety metadata
+- **Type:** Feature / Domain / Localization / Safety
+- Replaced the six-item UI-local list with a typed catalogue containing 11 educational entries.
+- Added category, caution, risk classification and explicit pending-expert-review metadata to every entry.
+- Added bilingual summaries for hyaluronic acid, petrolatum, panthenol, colloidal oatmeal and zinc oxide.
+- Classified direct lemon-juice application as avoid, and raw zinc oxide as suitable only within a tested, labelled finished sunscreen.
+- Added unit tests for unique IDs, required cautions, pending-review gating and stricter safety classifications.
+- No concentrations, DIY recipes, mixing instructions, or local product claims were added.
+- Runs #192/#193 are queued; full Android build and emulator verification remain pending.
 
-- Added `docs/BANGLADESH_COMPLIANCE_REVIEW.md` with an initial checklist based on official sources for the Personal Data Protection Act, 2026 and Drugs and Cosmetics Act, 2023.
-- Recorded privacy, consent, retention/deletion, backup, third-party processing, cosmetic claims and DIY-formula review questions for qualified Bangladesh counsel and relevant experts.
-- This is a preliminary checklist, not legal advice or a compliance determination.
-- No app code or public release approved.
+## 2026-10-30 — Profile reset reliability and CI completion safeguards
+- **Type:** Privacy / UX / CI
+- Profile now displays a clearing state while Room and local preference data are cleared, and only reports success after the operation completes. Failures show a localized error; stale success state is cleared before a retry.
+- Android workflow no longer cancels an active verification run when another push arrives, preventing rapid commits from repeatedly interrupting QA.
+- Strengthened localization validation to compare format placeholder indices and types in addition to resource keys.
+- Updated navigation instrumentation tests to wait for asynchronous Room startup before asserting screen content.
+- Latest full workflow run [#175](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41037503937) is still compiling the debug APK; full verification is pending.
 
-## 2026-10-29 — Measurement validation plan proposed
+## 2026-10-30 — Skin Scan can save self-reported check-ins to Progress
+- **Type:** Feature / UX / Localization / Privacy
+- Added an explicit save action after guidance is generated. It stores the selected answers as a dated Room-backed Progress entry only after the user chooses to save.
+- Added English and Bangla labels, confirmation and saved-detail text.
+- No photo analysis or diagnosis is implied; check-in answers are self-reported.
+- Latest full CI run #175 is compiling the debug APK; unit and emulator tests are pending.
 
-- Added `docs/MEASUREMENT_VALIDATION_PLAN.md` as a proposed protocol for capture-quality checks, face alignment and a narrowly defined pigmentation/dark-mark research candidate.
-- Defined candidate metrics, dataset/consent requirements, reference-method expectations, test phases and release gates.
-- Added provisional engineering targets for discussion only. Skin-feature agreement thresholds remain unset until expert review and a pre-registered statistical plan.
-- No candidate feature is approved or validated. No model or app code has been selected or implemented.
+## 2026-10-30 — Room startup migration and screen cutover
+- **Type:** Storage / Architecture / UI
+- Wired the one-time SharedPreferences-to-Room importer into app startup; the main app is displayed only after import finishes.
+- Replaced Routine and Progress screen persistence with Room-backed repository flows.
+- Kept profile language and budget settings in SharedPreferences.
+- On migration failure, app shows a safe error state and does not clear legacy data.
+- Verification remains pending on the full Android CI and a physical-device upgrade test.
 
-## 2026-10-29 — Initial AI model feasibility assessment
+## 2026-10-30 — Room migration compatibility and lifecycle tests
+- Updated importer parsing to match old LocalStore defaults for optional legacy progress fields.
+- Added tests for optional fields, malformed JSON preservation, database close/reopen, idempotency, reset and language retention.
+- Latest lifecycle test commit `0700bc2411d3139ea3b690aca6ce940a598146eb`; its initial CI run was cancelled by subsequent pushes.
 
-- Added `docs/AI_MODEL_FEASIBILITY.md` comparing ML Kit, MediaPipe Face Landmarker and LiteRT as candidate foundations.
-- Clarified that face geometry/capture assistance is distinct from validated skin-condition measurement.
-- Proposed capture-quality checks and face alignment as first technical candidates; pigmentation/dark-mark analysis remains gated research.
-- Recommended deferring automated hydration/oiliness/pores/fine-line claims and excluding beauty/fairness scores and selfie-based diagnosis from the MVP.
-- No model selected, no feature declared validated, and no application implementation started.
+## 2026-10-30 — Room legacy migration foundation
+- Added Room entities/DAOs and a one-time importer for routine completion and progress-note JSON.
+- Imports both datasets in a single transaction and commits an idempotency marker atomically.
+- Retains legacy preferences unchanged as recovery snapshots until explicit reset; later Room edits are not mirrored back, so the snapshot is not a downgrade guarantee.
+- Added successful import, idempotency and malformed-data tests.
 
-## 2026-10-29 — Initial repository baseline
+## 2026-10-30 — Local persistence instrumentation coverage
+- Added LocalStore instrumentation tests for routine completion round-trip/clear, progress create/read/delete, and clearing user data while retaining language preference.
+- Baseline CI runs #102 and #103 passed on baseline commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
 
-- Created the dedicated `bangladesh-skincare-ai` repository and initial planning-document structure.
-- Recorded Android-first private APK direction, on-device-first analysis, device-only photo storage by default, Bangla/English, free-at-launch and optional accounts where feasible.
-- Added product specification, staged roadmap, AI feasibility, safety/privacy, proposed architecture and decision log.
-- No app code or implementation scaffolding was created.
-- Open issue: GitHub metadata reports repository visibility as public; confirm whether to change it to private.
+## 2026-10-30 — Compose navigation smoke test corrected and verified
+- Corrected navigation assertions to inspect actual rendered Routine, Progress and Ingredients content.
+- CI runs #100 and #101 passed.
 
-## Change-entry template
+## 2026-10-29 — Functional offline MVP screens started
+- Added deterministic non-diagnostic safety-first guidance rules and tests.
+- Added interactive self-reported check-in, routine checklist, text progress timeline with add/delete, ingredient education search and profile language/budget/local-data controls.
+- Added interim SharedPreferences/JSON persistence, now superseded for Routine/Progress by Room.
+- Added English/Bangla resources. No photo capture, image diagnosis, account, network, cloud sync or DIY formulas.
 
-### YYYY-MM-DD — Short title
-- **Type:** Goal / Scope / Feature / Safety / Privacy / AI / Architecture / Roadmap / Release
-- **Previous state:**
-- **New state:**
-- **Reason/evidence:**
-- **Approval status:** Proposed / Approved / Rejected
-- **Affected documents:**
-- **Roadmap impact:**
-- **Follow-up actions:**
+## 2026-10-29 — Compose navigation and localization checks
+- Added five-destination navigation instrumentation tests and English/Bangla resource parity validation.
 
+## 2026-10-29 — M0 Android baseline
+- Created native Kotlin/Jetpack Compose project, pinned Android toolchain, offline/no-permission manifest, five-area navigation and GitHub Actions build/test/APK artifact workflow.
+- Baseline workflow passed. Debug APK is not a signed release.
+- Repository visibility is public; verify settings before adding sensitive material.
 
-## 2026-10-29 — User-approved product decisions and UX draft
-
-- Recorded user approval for broader scope with gated features, adults-only initial audience, photo tracking and validated capture checks first, skin analysis only after validation, individually reviewed/validated DIY formulas only, and five-area navigation.
-- Updated docs/PRODUCT_SPEC.md to version 3.1 planning baseline.
-- Added docs/UX_SCREEN_SPEC.md with first-run, five-area, returning-user, error-state and review-gate flows.
-- Qualified skincare/formulation review and Bangladesh legal/privacy review remain required.
-- No app code, scaffolding or implementation files created.
-
-
-## 2026-10-29 — Documentation baseline expanded for implementation readiness
-
-- Added testable functional/nonfunctional requirements in docs/REQUIREMENTS.md.
-- Added local-first logical data model and deletion/migration rules in docs/DATA_MODEL.md.
-- Added reviewed knowledge governance and individual DIY formula dossier requirements in docs/KNOWLEDGE_BASE_SPEC.md.
-- Added hazard register/release blockers in docs/SAFETY_CASE.md and privacy/security threats in docs/THREAT_MODEL.md.
-- Added layered test strategy and quality gates in docs/TEST_STRATEGY.md.
-- Added milestone-by-milestone implementation backlog in docs/IMPLEMENTATION_BACKLOG.md.
-- Added private APK release/rollback procedure in docs/RELEASE_RUNBOOK.md.
-- Added Bangla/English localization and accessibility requirements in docs/LOCALIZATION_ACCESSIBILITY.md.
-- Added knowledge package update/rollback protocol in docs/KNOWLEDGE_UPDATE_PROTOCOL.md.
-- Added durable source-of-truth and session handoff routine in docs/PROJECT_STATE.md.
-- Added proposed visual design system and consent copy draft in docs/DESIGN_SYSTEM.md and docs/CONSENT_COPY_DRAFT.md.
-- Updated technical architecture and engineering defaults; no backend, cloud AI or skin-condition model selected by default.
-- Updated README documentation index and roadmap status.
-- All documentation is a planning baseline, not proof of legal compliance, clinical safety or model validity. Qualified reviews and feature-specific validation remain mandatory.
-- No application code or scaffolding created.
-
-
-## 2026-10-29 — Durable project handoff and documentation-first working rule
-
-- Recorded D-010 in docs/DECISIONS.md: GitHub documentation, roadmap, changelog and project state must be updated during meaningful project work; implementation remains blocked until explicit authorization.
-- Rewrote docs/ROADMAP.md to distinguish documentation coverage from unresolved professional/validation gates.
-- Updated docs/PROJECT_STATE.md index and handoff instructions.
-- Final documentation index is linked from README.md.
-- Repository still needs visibility confirmation; a prior check reported public visibility.
-- No application code or scaffolding created.
-
-
-## 2026-10-29 — Final documentation consistency pass
-
-- Verified the GitHub docs directory contains 26 documentation files.
-- Verified every README.md documentation link points to an existing file.
-- Corrected product-spec section numbering and clarified remaining evidence/architecture gates.
-- Rewrote the roadmap to distinguish documentation coverage from professional review and model-validation completion.
-- Re-fetched README, roadmap, project state, decisions and changelog from GitHub after updates.
-- Repository metadata still reports public visibility; the available GitHub connection does not expose a repository-visibility setting action. Owner must change it in GitHub Settings if private visibility is desired.
-- No application code or scaffolding created.
-
-
-## 2026-10-29 — Screen acceptance criteria added
-
-- Added docs/SCREEN_ACCEPTANCE_CRITERIA.md covering all 29 documented screens and cross-screen privacy, safety, localization and failure-state criteria.
-- Linked screen acceptance criteria from README.md and PROJECT_STATE.md.
-- No application code or scaffolding created.
-
-
-## 2026-10-29 — Verification after user status check
-
-- Re-fetched repository metadata and documentation index from GitHub.
-- Confirmed 27 files exist under docs/ and all 28 README documentation links resolve to an existing file.
-- Confirmed the five approved product choices are reflected in the decision/specification documents.
-- Linked screen-level acceptance criteria from the UX screen specification and updated roadmap/project-state records.
-- Confirmed repository visibility is still public. The connected GitHub actions do not expose a repository-visibility change operation; owner action is required if private visibility is desired.
-- Implementation remains not started and not authorized.
+## 2026-10-31 — CI failure analysis and privacy deletion hardening
+- Inspected Android workflow #214: resource parity, debug compilation and unit tests passed; one emulator UI test failed because it could not locate the localized Skin Scan save action.
+- Updated the UI test to wait for the save control, inspect the unmerged Compose semantics tree and scroll the control into view before tapping. This is a test-stability correction; it still requires a green rerun.
+- Changed local preference deletion from asynchronous `apply()` to synchronous `commit()` and throw on failure, so Profile does not display success unless Android confirms the preference write.
+- New full Android workflow #218 is pending on commit `520121f28c538c24c7d8dc323a4f351e077ec43f`.

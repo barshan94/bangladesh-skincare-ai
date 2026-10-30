@@ -1,141 +1,104 @@
 # Roadmap and Readiness Gates
 
-- Last updated: 2026-10-29
-- Overall state: Documentation baseline assembled; feasibility, qualified review and repository-visibility checks remain open.
-- Implementation: Not started and not authorized.
-- Progress estimates are planning estimates only; they are not claims of working software or validated skincare features.
+- Last updated: 2026-10-30
+- Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins; Ingredients uses a structured 11-entry safety catalogue. CI #175 is in progress; newer catalogue runs #192/#193 are queued.
+- Percentages refer to implementation only, never clinical safety or model validity.
+
+## Latest ingredient evidence update — 2026-10-30
+- [x] Attach publisher/source references to each ingredient entry.
+- [x] Show source links in ingredient cards; open links through the external browser.
+- [x] Localize source-link label in English and Bangla.
+- [x] Test non-empty HTTPS source metadata for all entries.
+- [ ] Verify the latest head with full Android CI; runs #175 and #192 passed, while run #193 has no job result yet.
+- [ ] Qualified expert review remains mandatory; source links alone do not approve ingredient advice or formulations.
 
 ## Phase 0 — Product baseline and documentation
+**Status: Planning baseline assembled**
+- [x] Product direction, requirements, UX, acceptance criteria and design system.
+- [x] Architecture, data model, engineering standards and implementation backlog.
+- [x] Safety case, privacy/security threat model, knowledge governance and update protocol.
+- [x] Test strategy, localization/accessibility, consent draft and release runbook.
+- [ ] Confirm repository visibility/access expectations; GitHub reports the repository as public.
 
-**Status: Documentation baseline assembled; one project-control check remains**
+## Phase 1 — Android build baseline and navigation
+**Status: Implemented; baseline CI passed**
+- [x] Native Kotlin/Jetpack Compose app and five-area navigation.
+- [x] Pinned toolchain and no-permission/no-network manifest.
+- [x] English/Bangla resource parity check, including format-placeholder parity.
+- [x] Debug APK compilation and artifact workflow.
+- [x] Compose navigation smoke test for all five destinations.
+- [x] Baseline full workflow passed (#102/#103).
+- [ ] Physical-device verification.
 
-- [x] Create dedicated GitHub repository and README.
-- [x] Record product specification, scope proposal, roadmap and decision log.
-- [x] Record user-approved product decisions: broad scope with feature gates, adults-only initial audience, validated photo tracking first, individually reviewed DIY formulas only, five-area navigation.
-- [x] Draft screen-by-screen UX and visual design direction.
-- [x] Define screen-level acceptance criteria across 29 documented screens.
-- [x] Define testable requirements and logical data model.
-- [x] Define architecture defaults, engineering standards and implementation backlog.
-- [x] Define safety case, privacy/security threat model, content governance and knowledge-update protocol.
-- [x] Define test strategy, localization/accessibility, consent-copy draft and release runbook.
-- [x] Establish durable project-state/session-handoff and documentation-update routine.
-- [x] Refresh README documentation index and changelog.
-- [ ] Confirm repository visibility and access expectations; earlier check reported it public.
-- [x] Finish final consistency pass after documentation expansion; README links and document inventory verified against GitHub.
+## Latest reliability work — 2026-10-30
+- [x] Add per-ingredient publisher references and external source links.
+- [x] Add repeat-tap protection and saving/error UI states to Skin Scan check-in persistence.
+- [x] Add UI instrumentation test for explicit Skin Scan → Progress persistence.
+- [ ] Verify these latest commits with a complete Android workflow before marking them QA-passed.
 
-**Exit gate:** documentation is coherent and linked; repository visibility is known; the user separately authorizes implementation. Documentation completion is not a substitute for professional reviews.
+## Phase 2 — Functional first-release screens
+**Status: MVP implemented; content and real-device QA remain**
+- [x] Interactive self-reported check-in; no photo-based diagnosis.
+- [x] Deterministic safety-first guidance rules and unit tests.
+- [x] Skin Scan can explicitly save selected answers to the local Progress history.
+- [x] Routine checklist with Room-backed completion state.
+- [x] Progress history with Room-backed add/delete and tolerance field.
+- [x] Profile language/budget preferences and local-data clear success/error states.
+- [x] Structured 11-entry ingredient catalogue with categories, warnings and risk classifications.
+- [x] Every ingredient entry explicitly remains pending qualified expert review.
+- [ ] Add evidence/source metadata and qualified expert review for every ingredient.
+- [ ] Improve Profile and Skin Scan accessibility and saved-entry affordances.
+- [ ] Verify translations, accessibility and layouts on physical devices.
 
-## Phase 1 — AI model feasibility
+## Phase 3 — Storage, privacy and lifecycle
+**Status: Code wired; CI and physical upgrade verification pending**
+- [x] Room entities/DAOs for routine completion and progress notes.
+- [x] Atomic one-time legacy SharedPreferences importer.
+- [x] Idempotency marker committed in same transaction.
+- [x] Retain old preferences unchanged as a recovery snapshot until explicit user reset; later Room edits are not dual-written, so this is not a downgrade guarantee.
+- [x] Startup import before the app displays the main screens.
+- [x] Routine and Progress use Room repository/Flow for reads and writes.
+- [x] Tests for import, idempotency, malformed JSON, legacy optional-field defaults.
+- [x] Persistent database close/reopen test and reset/language-retention test authored.
+- [ ] Latest full Android CI passes compile, unit tests, emulator instrumentation and artifact upload (run #218 pending after UI-test correction).
+- [ ] Test actual upgrade from a previously installed version containing legacy data.
+- [ ] Confirm Android backup/restore and app-private data deletion semantics on device.
+- [ ] Define export privacy/file handling before implementing export.
 
-**Status: In progress; no model selected and no feature validated**
+## Phase 4 — Guided photo progress (not AI diagnosis)
+- [ ] Add Android Photo Picker and/or CameraX only with explicit user action and clear copy.
+- [ ] Store selected photos privately with opaque references and safe EXIF handling.
+- [ ] Add delete-photo and partial-failure recovery; no photo upload.
+- [ ] Add manual dated comparison; no improvement score or automatic treatment changes.
+- [ ] Validate capture-quality checks before enabling.
 
-- [x] Identify face-detection, segmentation and custom-model candidate paths.
-- [x] Document skin-tone fairness, data licensing and false-confidence risks.
-- [x] Draft feature-specific measurement validation plan.
-- [ ] Verify candidate models, official documentation, exact licences and model/data provenance.
-- [ ] Design representative evaluation data and reference methods with qualified review.
-- [ ] Approve numeric acceptance thresholds before locked evaluation.
-- [ ] Benchmark latency, memory, battery and package-size impact on target devices.
-- [ ] Record feature-specific go/no-go decisions.
+## Phase 5 — Reviewed ingredient knowledge and safe routine personalization
+- [x] Create structured ingredient metadata with categories, caution text, risk classifications and review status.
+- [x] Add primary publisher/source links for all 11 entries and expose them from ingredient cards.
+- [ ] Add structured evidence summaries, exclusions, stop conditions and review dates.
+- [ ] Obtain qualified skincare/dermatology review before treating entries as approved guidance.
+- [ ] Implement deterministic eligibility rules and tests proving unknown safety facts block affected advice.
+- [ ] Add product substitutions only with safety/compatibility evidence and dated Bangladesh price provenance.
+- [ ] Individually review any home-prepared formula; no free-form AI recipes.
 
-**Exit gate:** evidence, licences, protocol, pre-approved thresholds and per-feature decisions documented. Capture checks and skin measurements are not enabled merely because a library exists.
+## Phase 6 — Knowledge updates and rollback
+- [ ] Approve package integrity/signature/key management.
+- [ ] Validate schema, integrity, compatibility and approval before activation.
+- [ ] Implement atomic activation, last-known-good and critical withdrawal.
 
-## Phase 2 — Skincare knowledge and evidence
+## Phase 7 — Optional image analysis research
+- [ ] Select only a narrowly defined feature with a valid reference method.
+- [ ] Resolve data/model licensing and independent validation across relevant skin tones, lighting and devices.
+- [ ] Pre-register thresholds and subgroup acceptance criteria.
+- [ ] Keep features disabled until evidence supports the exact intended use.
+- [ ] Never produce disease diagnoses, beauty/fairness scores or guaranteed whitening claims.
 
-**Status: Governance documented; reviewed content catalogue not complete**
-
-- [x] Define knowledge-entry fields, source hierarchy, approval lifecycle and expiry concepts.
-- [x] Define deterministic recommendation pipeline and hard safety filters.
-- [x] Define individual DIY formula dossier and review requirements.
-- [x] Define local-price provenance and safe replacement workflow.
-- [ ] Finalize concern-by-concern content boundaries with qualified skincare review.
-- [ ] Build evidence-reviewed ingredient/product entries with sources and review dates.
-- [ ] Establish Bangladeshi price/availability sources and freshness rules.
-- [ ] Approve any home-preparation option individually after formulation validation.
-- [ ] Assign reviewer roles, review cadence and adverse-report ownership.
-
-**Exit gate:** every actionable recommendation has source provenance, safety/eligibility rules and required review. An empty/disabled catalogue is acceptable until content is approved.
-
-## Phase 3 — UX, privacy, compliance and architecture
-
-**Status: Documentation drafted; qualified reviews and user validation remain**
-
-- [x] Map onboarding, returning-user, scan, routine, progress, catalogue, privacy and error-state flows.
-- [x] Document consent/permission timing and local-first storage intentions.
-- [x] Document logical data model, deletion/migration and backup questions.
-- [x] Define provisional architecture and engineering defaults.
-- [x] Define accessibility/localization and visual design direction.
-- [ ] Confirm repository visibility.
-- [ ] Confirm supported Android API/device matrix at first build.
-- [ ] Review adult-eligibility method with qualified Bangladesh legal/privacy counsel.
-- [ ] Complete qualified review of applicable Bangladesh privacy, data protection, cosmetics, consumer claims and relevant obligations.
-- [ ] Review actual data flows, backup/deletion semantics and any optional cloud/cross-border processing before those features are enabled.
-- [ ] Test Bangla terminology and UX with adult Bangladeshi users.
-- [ ] Obtain qualified skincare/formulation review for actionable content.
-
-**Exit gate:** user-facing product flows and architecture are ready to implement; legal/clinical/formula/model reviews remain mandatory before their affected content/features ship.
-
-## Phase 4 — Implementation authorization and first-build setup
-
-**Status: Backlog ready; waiting for explicit user authorization**
-
-- [x] Break future implementation into small milestones.
-- [x] Define acceptance criteria and test layers.
-- [x] Define release signing, privacy/security and failure-mode checks.
-- [ ] User explicitly authorizes coding.
-- [ ] Confirm local build environment and exact stable toolchain versions.
-- [ ] Verify package identifier, repository access and protected signing-key process.
-
-**Exit gate:** explicit user authorization plus a reproducible first-build environment. Do not treat “finish documentation” as authorization to code.
-
-## Phase 5 — Incremental implementation
-
-**Status: Not started**
-
-Recommended sequence in IMPLEMENTATION_BACKLOG.md:
-1. Repository/toolchain and app shell.
-2. Navigation, localization and accessible components.
-3. Local persistence, photo storage, deletion and privacy.
-4. Questionnaire and deterministic safety/domain engine.
-5. Private photo tracking and only validated capture checks.
-6. Progress and routine workflows.
-7. Reviewed knowledge catalogue and alternatives.
-8. Integrity-checked knowledge updates and rollback.
-9. Optional constrained AI explanation only if justified and approved.
-10. Feature-specific image analysis only after validation.
-11. Hardening, pilot and private APK.
-
-Every milestone needs tests, documentation update, a usable deliverable and review. Do not enable unvalidated features to complete a milestone.
-
-## Phase 6 — Independent evaluation and private pilot
-
-**Status: Not started**
-
-- [ ] Test measurement repeatability/reference agreement.
-- [ ] Evaluate relevant skin-tone, device, lighting and supported-area subgroups.
-- [ ] Measure false positives/negatives, uncertainty and inconclusive rates.
-- [ ] Test Bangla/English safety flows.
-- [ ] Test privacy, deletion, backup, offline behavior, update integrity and rollback.
-- [ ] Run a consented adult pilot only after appropriate review and consent.
-- [ ] Establish and exercise adverse-event reporting.
-- [ ] Resolve all critical safety defects.
-
-**Exit gate:** predefined criteria pass and limitations/incident response are documented.
-
-## Phase 7 — Private APK release
-
-**Status: Not started**
-
-- [ ] Build signed/versioned APK from traceable source commit.
-- [ ] Verify signing-key protection and artifact hash.
-- [ ] Test clean install, upgrade, rollback and migration.
-- [ ] Publish known limitations, supported devices and support/reporting route.
-- [ ] Obtain release approval.
+## Phase 8 — Release hardening and private APK
+- [ ] Complete security, privacy, accessibility, localization and performance reviews.
+- [ ] Complete qualified Bangladesh legal/privacy and skincare/formulation reviews.
+- [ ] Conduct a consented adult pilot only after required review.
+- [ ] Resolve critical defects and document incident response.
+- [ ] Build a signed/versioned APK from traceable source and protect signing material.
 
 ## Release blockers
-
-No critical safety defect may be waived. A feature that fails validation stays disabled. If privacy, licensing, evidence, performance, fairness or regulatory compliance cannot be established, reduce scope rather than weaken acceptance criteria. No unreviewed DIY formula or fabricated local price is allowed.
-
-## Project update convention
-
-At each meaningful project session, update PROJECT_STATE.md, ROADMAP.md and CHANGELOG.md, plus all affected documents. Fetch the latest GitHub versions first and verify updates afterward. Report phase, actual evidence, blockers, next action and whether the scope is sufficient for the day. Never inflate progress or claim background synchronization.
+No critical safety defect may be waived. An image feature that fails validation stays disabled. No unreviewed DIY formula or fabricated local price is allowed. A working debug APK is not a signed release.

@@ -1,0 +1,91 @@
+name: Android build
+
+on:
+  push:
+    branches: [main, "implementation/**"]
+    paths:
+      - "app/**"
+      - "scripts/check_localization.py"
+      - "*.gradle.kts"
+      - "gradle/**"
+      - ".github/workflows/android.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "scripts/check_localization.py"
+      - "*.gradle.kts"
+      - "gradle/**"
+      - ".github/workflows/android.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-build-${{ github.workflow }}-${{ github.ref }}
+  # Let the full build/test matrix finish; rapid documentation and code pushes must not cancel QA.
+  cancel-in-progress: false
+
+jobs:
+  debug-build:
+    name: Compile debug APK
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Validate English/Bangla resource parity
+        run: python3 scripts/check_localization.py
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.11.1"
+      - name: Install Android command-line tools and SDK packages
+        run: |
+          mkdir -p "$ANDROID_HOME/cmdline-tools" "$RUNNER_TEMP/android-cli"
+          curl --http1.1 --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 2 "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip" -o "$RUNNER_TEMP/android-cli.zip"
+          unzip -q "$RUNNER_TEMP/android-cli.zip" -d "$RUNNER_TEMP/android-cli"
+          mkdir -p "$ANDROID_HOME/cmdline-tools/latest"
+          cp -R "$RUNNER_TEMP/android-cli/cmdline-tools/." "$ANDROID_HOME/cmdline-tools/latest/"
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+      - name: Compile debug APK
+        run: gradle --no-daemon :app:assembleDebug
+      - name: Run unit tests
+        run: gradle --no-daemon :app:testDebugUnitTest
+      - name: Run Android navigation smoke tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          profile: pixel_2
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 4096
+          script: gradle --no-daemon :app:connectedDebugAndroidTest
+      - name: Upload Android test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bangladesh-skincare-ai-test-reports
+          path: |
+            app/build/reports/androidTests/**
+            app/build/outputs/androidTest-results/**
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Upload debug APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bangladesh-skincare-ai-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: ignore
+          retention-days: 14

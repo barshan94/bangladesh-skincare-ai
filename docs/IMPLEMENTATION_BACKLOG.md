@@ -1,8 +1,8 @@
-# Implementation Backlog — Execution After Explicit Authorization
+# Implementation Backlog — Active Implementation Plan
 
-- Version: 1.0
-- Date: 2026-10-29
-- Status: Planned; no code started and implementation not yet authorized.
+- Version: 1.1
+- Date: 2026-10-30
+- Status: Implementation authorized and active on `implementation/m0-android-baseline`.
 
 ## Execution rules
 - Work in small independently testable milestones.
@@ -12,22 +12,22 @@
 - Update PROJECT_STATE, ROADMAP, CHANGELOG and affected technical docs after each milestone.
 - Report files, tests/results, commit/PR, unresolved risks and next step.
 - Never claim model validity from build/demo success.
-- Coding starts only after separate explicit user authorization.
+- User authorized implementation on 2026-10-29; continue in small verified milestones.
 
 ## Milestones
 
 ### M0 — Repository/toolchain baseline
-Confirm visibility/branch policy; choose JDK/Gradle/Android SDK and minimum Android version; create native Kotlin/Jetpack Compose project only after authorization; add formatting/lint/unit tests/CI; define package/build variants/signing process.
-**Acceptance:** reproducible debug build, clean CI, no secrets, documented toolchain.
+**Status: Implemented; CI verified.** Native Kotlin/Jetpack Compose project, pinned toolchain, no-permission/no-network manifest, debug APK workflow and localization guard are in place.
+**Acceptance evidence:** successful CI runs #102 and #103 on commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
 **Dependencies:** repository visibility, target-device matrix, signing-key custody.
 
 ### M1 — App shell and localization
-Five-area navigation, accessible components, Bangla/English resources, onboarding/limits, adult-eligibility flow under approved policy, standard loading/empty/error/offline states.
-**Acceptance:** all areas navigable; localization/accessibility smoke tests; no fake data.
+**Status: Core shell implemented; physical-device/accessibility review remains.** Five-area navigation, Bangla/English resources and navigation instrumentation are implemented. Adult-eligibility remains gated on approved policy.
+**Acceptance evidence:** navigation instrumentation and localization parity pass in CI #102/#103.
 
 ### M2 — Local-first persistence and privacy
-Local database, app-private photo storage, migrations, deletion and backup configuration; local profile/progress/consent records for approved purposes.
-**Acceptance:** save/read/delete, interrupted-delete recovery, migration tests, documented backup behavior.
+**Status: Interim storage implemented; Room migration is next.** Current SharedPreferences/JSON storage has instrumentation coverage for routine save/clear, progress create/read/delete and reset. Next replace it with Room, migrate legacy values safely, test schema upgrades and lifecycle recovery, then verify backup/deletion behavior. Do not add photo files until these guarantees are established.
+**Acceptance:** save/read/delete, one-time legacy migration, migration tests, process restart/corruption handling and documented backup behavior.
 
 ### M3 — Onboarding and deterministic domain engine
 Adaptive questionnaire, versioned answers, eligibility/safety rules independent from UI, routine rendering only from approved structured content.

@@ -2,7 +2,7 @@
 
 - Version: 1.0
 - Last updated: 2026-10-29
-- Status: Recommended engineering baseline for implementation planning. No application code has been started; implementation still requires explicit user authorization.
+- Status: Implementation underway following explicit user authorization on 2026-10-29. This document remains the target architecture; current SharedPreferences/JSON persistence is an interim prototype and must be replaced by Room before release.
 - Companion documents: ENGINEERING_STANDARDS.md, DATA_MODEL.md, REQUIREMENTS.md, KNOWLEDGE_UPDATE_PROTOCOL.md, THREAT_MODEL.md.
 
 ## 1. Platform baseline
