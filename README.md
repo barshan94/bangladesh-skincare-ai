@@ -2,7 +2,7 @@
 
 An Android-first, local-first skincare companion for adults in Bangladesh.
 
-> **Current state:** M0 Android project baseline has been committed on the implementation/m0-android-baseline branch. CI has started; the build is not yet verified.
+> **Current state:** Functional offline MVP screens and five-tab navigation are implemented. Latest CI runs #102 and #103 passed on commit `cf8048453634e014d6a90f7875abcf314ca9b879`. Local persistence still uses interim SharedPreferences/JSON and is not release-hardened.
 > **Source of truth:** This repository. Read [Project State and Session Handoff](docs/PROJECT_STATE.md) before continuing.
 
 ## Approved product decisions
@@ -51,19 +51,19 @@ An Android-first, local-first skincare companion for adults in Bangladesh.
 - [Change log](docs/CHANGELOG.md)
 
 ## Technical baseline
-Native Android with Kotlin and Jetpack Compose. Initial scaffold uses JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21, compile/target SDK 35 and minimum SDK 26. GitHub Actions compiles a debug APK, runs unit tests and stores the APK as a short-lived artifact.
+Native Android with Kotlin and Jetpack Compose. Current toolchain uses JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21, compile/target SDK 35 and minimum SDK 26. GitHub Actions compiles a debug APK, runs unit tests and Android instrumentation tests, then uploads the APK artifact.
 
-The initial UI has five navigable areas and English/Bangla string resources. Non-home areas are placeholder states. No skincare analysis, routine recommendation, DIY formula, photo capture/import, cloud service, analytics or backend is active.
+The current app contains five navigable areas, English/Bangla resources, a self-reported non-diagnostic check-in, a routine checklist, a text progress timeline, ingredient education search and profile preferences. The current data store is an interim app-private SharedPreferences/JSON implementation. No skincare image analysis, photo capture/import, cloud service, analytics or backend is active.
 
 ## Privacy and safety baseline
-The manifest disables Android automatic backup and the initial app requests no permissions and performs no network requests. This is a starting configuration, not a complete privacy audit. Photos, local persistence, consent controls and deletion workflows have not been implemented yet.
+The manifest requests no permissions and has no network permission; Android automatic backup is disabled in the current manifest. This is a starting configuration, not a complete privacy audit. No photos are captured, imported or stored. Routine and progress data are stored locally using interim preferences; Room migration and lifecycle hardening remain.
 
 Every image feature needs its own task definition, reference method, lawful/licensed data, pre-approved criteria, subgroup analysis, uncertainty handling and on-device performance evidence.
 
 ## What is ready and what is not
-**Documented:** product direction, UX, requirements, data model, architecture, safety hazards, threat model, knowledge governance, tests, backlog, release process and localization/accessibility.
+**Implemented and CI-verified:** native project configuration, five-area Compose navigation, offline MVP screens, English/Bangla resource parity, deterministic guidance unit tests, Compose navigation instrumentation, LocalStore persistence instrumentation, debug APK compilation and artifact upload.
 
-**Implemented in M0 (pending CI verification):** native project configuration, Compose app shell, five-area navigation, initial Bangla/English resources, no-permission/no-network manifest and CI workflow.
+**Next implementation milestone:** migrate local persistence to Room with explicit migrations and lifecycle/deletion tests, then verify backup/data-extraction behavior.
 
 **Still requires qualified review/evidence:** Bangladesh legal/privacy and cosmetic-claims interpretation; skincare-content review; individual DIY formula validation; model/data licensing and feature-specific validation; adult eligibility handling; Bangla usability review. A successful build cannot replace these reviews.
 
@@ -79,7 +79,7 @@ Every image feature needs its own task definition, reference method, lawful/lice
 7. A successful build is not evidence of clinical or measurement validity.
 
 ## Next action
-Verify the M0 CI run and fix build errors. Then finish the app-shell milestone with tests, open a pull request, and proceed to localization/navigation polish before local persistence. Keep unreviewed treatment and image-analysis features disabled.
+Complete structured local storage migration and prove data lifecycle behavior before adding photo storage. Keep unreviewed treatment and image-analysis features disabled.
 
 ## Disclaimer
 This project is under research and development; it is not medical advice and does not establish that any proposed AI feature or skincare formula is safe/effective. Actionable skincare content and every home-prepared formula require appropriate evidence and safety review before inclusion.
