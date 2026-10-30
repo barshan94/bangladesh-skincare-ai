@@ -65,10 +65,13 @@ class SkincareRepositoryTest {
 
         repository.addProgressNote(note)
         repository.replaceCompletedRoutineIds(setOf("morning"))
+        database.migrationMetadataDao().put(
+            MigrationMetadataEntity("shared_preferences_v1_import", "complete")
+        )
         repository.clearPersonalRecords()
 
         assertTrue(repository.progressNotes.first().isEmpty())
         assertTrue(repository.completedRoutineIds.first().isEmpty())
-        assertEquals(null, database.migrationMetadataDao().valueFor("shared_preferences_v1_import"))
+        assertEquals("complete", database.migrationMetadataDao().valueFor("shared_preferences_v1_import"))
     }
 }
