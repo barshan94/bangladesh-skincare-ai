@@ -2,6 +2,7 @@ package com.barshan.skincareai
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -57,6 +58,35 @@ class NavigationSmokeTest {
             assertTextExists(composeRule.activity.getString(titleRes))
             assertTextExists(composeRule.activity.getString(bodyRes))
         }
+    }
+
+    @Test
+    fun selfReportedCheckInCanBeExplicitlySavedToRoomProgressHistory() {
+        waitForAppReady()
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.scan_get_guidance)
+        ).performClick()
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.scan_save_to_progress)
+        ).performClick()
+
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(
+                composeRule.activity.getString(R.string.scan_saved_to_progress)
+            ).fetchSemanticsNodes().isNotEmpty()
+        }
+
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_progress)
+        ).get(0).performClick()
+
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(
+                composeRule.activity.getString(R.string.scan_saved_concern)
+            ).fetchSemanticsNodes().isNotEmpty()
+        }
+        assertTextExists(composeRule.activity.getString(R.string.scan_saved_concern))
     }
 
     @Test
