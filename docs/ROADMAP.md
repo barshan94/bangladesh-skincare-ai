@@ -60,7 +60,7 @@
 - [x] Routine and Progress use Room repository/Flow for reads and writes.
 - [x] Tests for import, idempotency, malformed JSON, legacy optional-field defaults.
 - [x] Persistent database close/reopen test and reset/language-retention test authored.
-- [ ] Latest full Android CI passes compile, unit tests, emulator instrumentation and artifact upload.
+- [ ] Latest full Android CI passes compile, unit tests, emulator instrumentation and artifact upload (run #218 pending after UI-test correction).
 - [ ] Test actual upgrade from a previously installed version containing legacy data.
 - [ ] Confirm Android backup/restore and app-private data deletion semantics on device.
 - [ ] Define export privacy/file handling before implementing export.
@@ -74,7 +74,8 @@
 
 ## Phase 5 — Reviewed ingredient knowledge and safe routine personalization
 - [x] Create structured ingredient metadata with categories, caution text, risk classifications and review status.
-- [ ] Add primary-source references, evidence summaries, exclusions, stop conditions and review dates.
+- [x] Add primary publisher/source links for all 11 entries and expose them from ingredient cards.
+- [ ] Add structured evidence summaries, exclusions, stop conditions and review dates.
 - [ ] Obtain qualified skincare/dermatology review before treating entries as approved guidance.
 - [ ] Implement deterministic eligibility rules and tests proving unknown safety facts block affected advice.
 - [ ] Add product substitutions only with safety/compatibility evidence and dated Bangladesh price provenance.
