@@ -1,9 +1,9 @@
 # Roadmap and Readiness Gates
 
-- Last updated: 2026-10-29
-- Overall state: functional MVP coding is underway on `implementation/m0-android-baseline`.
+- Last updated: 2026-10-30
+- Overall state: functional offline MVP screens implemented on `implementation/m0-android-baseline`; local persistence remains interim.
 - Progress percentages refer only to implementation, never clinical safety or model validity.
-- CI status at last update: new code build queued; emulator instrumentation remains unresolved.
+- Latest CI status: two successful runs (#102 and #103) on commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
 
 ## Phase 0 — Product baseline and documentation
 **Status: Planning baseline assembled**
@@ -15,18 +15,17 @@
 - [ ] Confirm repository visibility/access expectations; GitHub has reported public visibility.
 
 ## Phase 1 — Android build baseline and navigation
-**Status: Baseline build verified; current branch needs fresh green CI**
+**Status: Implemented and CI-verified**
 - [x] Native Kotlin/Jetpack Compose project and five-area navigation.
 - [x] Pinned toolchain, Android manifest with no requested permissions or network permission.
 - [x] English/Bangla resource parity check.
-- [x] Initial baseline APK build and artifact upload verified in historical runs.
-- [x] Compose navigation smoke tests authored.
-- [ ] Verify latest full build and unit tests after functional implementation.
-- [ ] Diagnose emulator instrumentation process crash (run 40902300999 reported zero tests).
-- [ ] Confirm build on a target Android device.
+- [x] Debug APK compilation and artifact upload.
+- [x] Compose navigation smoke test visits all five destinations.
+- [x] Latest full workflow passes; see runs #102 and #103.
+- [ ] Confirm behavior on a physical target Android device.
 
 ## Phase 2 — Functional first-release screens
-**Status: In progress**
+**Status: Implemented; expert/content and real-device review remain**
 - [x] Interactive self-reported check-in; no photo-based diagnosis.
 - [x] Deterministic safety-first guidance rules and unit tests.
 - [x] Routine checklist with local completion state.
@@ -34,14 +33,16 @@
 - [x] Educational ingredient search catalogue with explicit expert-review limitation.
 - [x] Profile language and budget preferences plus local data clear action.
 - [x] English and Bangla labels for new controls.
-- [ ] Verify full build, tests, translations and real-device layouts.
-- [ ] Improve accessibility, loading/empty/error states and UI polish after functionality is stable.
+- [x] Instrumentation tests for local persistence save/read/delete/reset behavior.
+- [ ] Verify translations, accessibility and layouts on physical target devices.
+- [ ] Review all educational content with qualified experts before any actionable content expansion.
 
 ## Phase 3 — Storage, privacy and lifecycle
-**Status: Interim local storage exists; hardening not complete**
+**Status: Interim SharedPreferences/JSON storage; hardening is next**
 - [x] Local routine ticks, profile preferences and text notes saved on device.
-- [ ] Replace interim SharedPreferences/JSON data with Room and tested migrations.
-- [ ] Test process death, restart, corrupted data, save/delete and reset flows.
+- [x] Instrumentation coverage for routine save/clear, progress create/read/delete and data reset.
+- [ ] Replace interim storage with Room and tested migrations.
+- [ ] Test process death/restart, malformed legacy data, save/delete and reset flows.
 - [ ] Confirm Android backup/restore and app-private data deletion semantics.
 - [ ] Implement export only after its privacy and file-handling behavior is defined.
 
@@ -63,7 +64,6 @@
 - [ ] Approve package integrity/signature/key management.
 - [ ] Validate schema, integrity, compatibility and approval before activation.
 - [ ] Implement atomic activation, last-known-good and critical withdrawal.
-- [ ] Test tampering, interruption and rollback.
 
 ## Phase 7 — Optional image analysis research
 - [ ] Select only a narrowly defined feature with a valid reference method.
