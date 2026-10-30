@@ -1,10 +1,7 @@
 package com.barshan.skincareai
 
-import androidx.compose.ui.test.hasClickAction
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onAllNodes
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -35,7 +32,18 @@ class NavigationSmokeTest {
 
         destinations.forEach { (labelRes, titleRes, bodyRes) ->
             val label = composeRule.activity.getString(labelRes)
-            composeRule.onAllNodes(hasText(label) and hasClickAction()).onFirst().performClick()
+            composeRule.waitForIdle()
+            val matchingNodes = composeRule.onAllNodesWithText(label)
+                .fetchSemanticsNodes()
+            assert(matchingNodes.isNotEmpty()) {
+                "Expected bottom navigation label to exist: $label"
+            }
+            // The selected screen heading can duplicate the first tab label.
+            // Choosing the last matching text node selects the navigation item
+            // when duplicated, and still works when the label appears only once.
+            composeRule.onAllNodesWithText(label)
+                .get(matchingNodes.lastIndex)
+                .performClick()
             assertTextExists(composeRule.activity.getString(titleRes))
             assertTextExists(composeRule.activity.getString(bodyRes))
         }
