@@ -14,6 +14,12 @@
 - Sources support general education only. They do not validate a particular concentration, product, DIY recipe or personalized recommendation. All entries remain pending qualified expert review.
 - Full Android CI runs #175 and #192 passed compilation, unit tests, emulator navigation tests and artifact upload. Run #193 has not yet returned a job result; verify the latest head before treating the source-link change as green.
 
+## Latest reliability work — 2026-10-30
+- Ingredient cards now include per-entry publisher links; all 11 records have HTTPS source metadata and source-reference unit tests.
+- Skin Scan save-to-Progress now disables repeat taps while saving, shows a localized loading state, prevents duplicate rapid submissions, and shows a localized error if persistence fails.
+- Added an emulator UI test that runs a check-in, explicitly saves it, navigates to Progress and asserts the entry appears.
+- The source-link and save-reliability changes are on the active PR branch; a full CI result for the latest head is still required.
+
 ## Implemented
 - Native Kotlin/Jetpack Compose app with five tabs: Skin Scan, My Routine, Progress, Ingredients, Profile.
 - Deterministic, non-diagnostic self-reported check-in engine with safety-first paths for concerning changes and broken skin.
