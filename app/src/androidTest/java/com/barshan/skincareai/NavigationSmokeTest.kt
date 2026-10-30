@@ -22,11 +22,13 @@ class NavigationSmokeTest {
 
     @Test
     fun everyBottomNavigationDestinationOpensItsOwnContent() {
+        // Assert content that each destination actually renders. Some *_title
+        // and *_body resources are legacy copy and are not used by these screens.
         val destinations = listOf(
             Triple(R.string.nav_scan, R.string.scan_title, R.string.scan_body),
-            Triple(R.string.nav_routine, R.string.routine_title, R.string.routine_body),
-            Triple(R.string.nav_progress, R.string.progress_title, R.string.progress_body),
-            Triple(R.string.nav_ingredients, R.string.ingredients_title, R.string.ingredients_body),
+            Triple(R.string.nav_routine, R.string.nav_routine, R.string.routine_intro),
+            Triple(R.string.nav_progress, R.string.nav_progress, R.string.progress_intro),
+            Triple(R.string.nav_ingredients, R.string.nav_ingredients, R.string.ingredients_intro),
             Triple(R.string.nav_profile, R.string.profile_title, R.string.profile_body)
         )
 
@@ -39,8 +41,6 @@ class NavigationSmokeTest {
                 "Expected bottom navigation label to exist: $label"
             }
             // The selected screen heading can duplicate the first tab label.
-            // Choosing the last matching text node selects the navigation item
-            // when duplicated, and still works when the label appears only once.
             composeRule.onAllNodesWithText(label)
                 .get(matchingNodes.lastIndex)
                 .performClick()
