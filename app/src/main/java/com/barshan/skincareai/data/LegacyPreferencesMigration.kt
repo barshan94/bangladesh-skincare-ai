@@ -7,9 +7,10 @@ import org.json.JSONArray
 /**
  * Imports the pre-Room SharedPreferences payload exactly once.
  *
- * Legacy values are deliberately retained after import. This gives us a rollback
- * window and ensures a successful database write never destroys the only copy
- * of a user's old data. They are removed only by the explicit user-data reset.
+ * Legacy values are retained unchanged after import as a recovery snapshot.
+ * They are not dual-written after migration, so this is not a guarantee that
+ * downgrading after later Room edits will preserve those newer edits. They are
+ * removed only by the explicit user-data reset.
  */
 object LegacyPreferencesMigration {
     private const val PREFS_NAME = "private_skincare_local"
