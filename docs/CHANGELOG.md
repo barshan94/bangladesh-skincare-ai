@@ -80,3 +80,9 @@
 - Created native Kotlin/Jetpack Compose project, pinned Android toolchain, offline/no-permission manifest, five-area navigation and GitHub Actions build/test/APK artifact workflow.
 - Baseline workflow passed. Debug APK is not a signed release.
 - Repository visibility is public; verify settings before adding sensitive material.
+
+## 2026-10-31 — CI failure analysis and privacy deletion hardening
+- Inspected Android workflow #214: resource parity, debug compilation and unit tests passed; one emulator UI test failed because it could not locate the localized Skin Scan save action.
+- Updated the UI test to wait for the save control, inspect the unmerged Compose semantics tree and scroll the control into view before tapping. This is a test-stability correction; it still requires a green rerun.
+- Changed local preference deletion from asynchronous `apply()` to synchronous `commit()` and throw on failure, so Profile does not display success unless Android confirms the preference write.
+- New full Android workflow #218 is pending on commit `520121f28c538c24c7d8dc323a4f351e077ec43f`.
