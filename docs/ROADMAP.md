@@ -4,6 +4,14 @@
 - Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins; Ingredients uses a structured 11-entry safety catalogue. CI #175 is in progress; newer catalogue runs #192/#193 are queued.
 - Percentages refer to implementation only, never clinical safety or model validity.
 
+## Latest ingredient evidence update — 2026-10-30
+- [x] Attach publisher/source references to each ingredient entry.
+- [x] Show source links in ingredient cards; open links through the external browser.
+- [x] Localize source-link label in English and Bangla.
+- [x] Test non-empty HTTPS source metadata for all entries.
+- [ ] Verify the latest head with full Android CI; runs #175 and #192 passed, while run #193 has no job result yet.
+- [ ] Qualified expert review remains mandatory; source links alone do not approve ingredient advice or formulations.
+
 ## Phase 0 — Product baseline and documentation
 **Status: Planning baseline assembled**
 - [x] Product direction, requirements, UX, acceptance criteria and design system.
