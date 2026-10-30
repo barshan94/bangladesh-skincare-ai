@@ -78,6 +78,8 @@ import com.barshan.skincareai.domain.SkinFeel
 import com.barshan.skincareai.domain.SkinGoal
 import com.barshan.skincareai.domain.SkincareGuidance
 import com.barshan.skincareai.domain.GuidanceResult
+import com.barshan.skincareai.domain.IngredientCatalog
+import com.barshan.skincareai.domain.IngredientRisk
 import java.util.Locale
 
 private val Sage = Color(0xFF486B5A)
@@ -424,24 +426,36 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
 @Composable
 private fun IngredientsScreen() {
     var query by rememberSaveable { mutableStateOf("") }
-    val items = listOf(
-        IngredientItem(R.string.ingredient_glycerin, R.string.ingredient_glycerin_body, R.string.ingredient_glycerin_caution),
-        IngredientItem(R.string.ingredient_ceramides, R.string.ingredient_ceramides_body, R.string.ingredient_ceramides_caution),
-        IngredientItem(R.string.ingredient_niacinamide, R.string.ingredient_niacinamide_body, R.string.ingredient_niacinamide_caution),
-        IngredientItem(R.string.ingredient_fragrance, R.string.ingredient_fragrance_body, R.string.ingredient_fragrance_caution),
-        IngredientItem(R.string.ingredient_lemon, R.string.ingredient_lemon_body, R.string.ingredient_lemon_caution),
-        IngredientItem(R.string.ingredient_sunscreen, R.string.ingredient_sunscreen_body, R.string.ingredient_sunscreen_caution)
-    )
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
     OutlinedTextField(value = query, onValueChange = { query = it }, label = { Text(stringResource(R.string.ingredients_search)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
-    items.forEach { item ->
-        val title = stringResource(item.title)
-        val body = stringResource(item.body)
-        val caution = stringResource(item.caution)
-        if (query.isBlank() || title.contains(query, ignoreCase = true) || body.contains(query, ignoreCase = true)) {
+    IngredientCatalog.entries.forEach { item ->
+        val title = stringResource(item.titleRes)
+        val category = stringResource(item.categoryRes)
+        val body = stringResource(item.descriptionRes)
+        val caution = stringResource(item.cautionRes)
+        val risk = stringResource(when (item.risk) {
+            IngredientRisk.GENERAL_CAUTION -> R.string.ingredient_risk_caution
+            IngredientRisk.AVOID_DIRECT_APPLICATION -> R.string.ingredient_risk_avoid_direct
+            IngredientRisk.FINISHED_SUNSCREEN_ONLY -> R.string.ingredient_risk_finished_sunscreen
+        })
+        val review = stringResource(R.string.ingredient_review_pending)
+        if (
+            query.isBlank() ||
+            title.contains(query, ignoreCase = true) ||
+            category.contains(query, ignoreCase = true) ||
+            body.contains(query, ignoreCase = true) ||
+            caution.contains(query, ignoreCase = true) ||
+            risk.contains(query, ignoreCase = true)
+        ) {
             Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
                 Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(title, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+                    Text(
+                        stringResource(R.string.ingredient_metadata, category, risk, review),
+                        color = Sage,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium
+                    )
                     Text(body, color = Color(0xFF5D6962))
                     Text(caution, color = Color(0xFF8B4B31), fontSize = 13.sp)
                 }
@@ -450,8 +464,6 @@ private fun IngredientsScreen() {
     }
     Text(stringResource(R.string.ingredients_review_note), color = Color(0xFF5D6962), fontSize = 12.sp)
 }
-
-private data class IngredientItem(val title: Int, val body: Int, val caution: Int)
 
 @Composable
 private fun ProfileScreen(repository: RoomSkincareRepository) {
