@@ -120,6 +120,7 @@
     <string name="ingredient_risk_caution">ফর্মুলা ও ব্যক্তিগত সহনশীলতা গুরুত্বপূর্ণ</string>
     <string name="ingredient_risk_avoid_direct">সরাসরি ত্বকে লাগাবেন না</string>
     <string name="ingredient_risk_finished_sunscreen">শুধু পরীক্ষিত ও লেবেলযুক্ত সানস্ক্রিনে ব্যবহারযোগ্য</string>
+    <string name="ingredient_sources">তথ্যসূত্র ও প্রকাশকের লিংক (ব্রাউজারে খুলবে)</string>
     <string name="ingredient_review_pending">বিশেষজ্ঞ পর্যালোচনা বাকি</string>
     <string name="ingredient_metadata">%1$s · %2$s · %3$s</string>
     <string name="ingredient_hyaluronic_acid">হায়ালুরোনিক অ্যাসিড</string>
