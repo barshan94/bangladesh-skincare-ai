@@ -1,11 +1,19 @@
 # Project Change Log
 
+## 2026-10-30 — Profile reset reliability and CI completion safeguards
+- **Type:** Privacy / UX / CI
+- Profile now displays a clearing state while Room and local preference data are cleared, and only reports success after the operation completes. Failures show a localized error; stale success state is cleared before a retry.
+- Android workflow no longer cancels an active verification run when another push arrives, preventing rapid commits from repeatedly interrupting QA.
+- Strengthened localization validation to compare format placeholder indices and types in addition to resource keys.
+- Updated navigation instrumentation tests to wait for asynchronous Room startup before asserting screen content.
+- Latest full workflow run [#175](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41037503937) is still compiling the debug APK; full verification is pending.
+
 ## 2026-10-30 — Skin Scan can save self-reported check-ins to Progress
 - **Type:** Feature / UX / Localization / Privacy
 - Added an explicit save action after guidance is generated. It stores the selected answers as a dated Room-backed Progress entry only after the user chooses to save.
 - Added English and Bangla labels, confirmation and saved-detail text.
 - No photo analysis or diagnosis is implied; check-in answers are self-reported.
-- Latest CI run #152 is pending.
+- Latest full CI run #175 is compiling the debug APK; unit and emulator tests are pending.
 
 ## 2026-10-30 — Room startup migration and screen cutover
 - **Type:** Storage / Architecture / UI
@@ -23,7 +31,7 @@
 ## 2026-10-30 — Room legacy migration foundation
 - Added Room entities/DAOs and a one-time importer for routine completion and progress-note JSON.
 - Imports both datasets in a single transaction and commits an idempotency marker atomically.
-- Retains legacy preferences as recovery snapshots until explicit reset.
+- Retains legacy preferences unchanged as recovery snapshots until explicit reset; later Room edits are not mirrored back, so the snapshot is not a downgrade guarantee.
 - Added successful import, idempotency and malformed-data tests.
 
 ## 2026-10-30 — Local persistence instrumentation coverage
