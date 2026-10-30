@@ -53,7 +53,7 @@
     <string name="guidance_limited">This concern is outside current guidance</string>
     <string name="guidance_disclaimer">General information only—not a diagnosis or individualized medical advice. Stop anything that irritates you.</string>
     <string name="routine_intro">A simple checklist to help you remember the basics. These are educational steps, not a prescribed treatment plan.</string>
-    <string name="routine_completion">%1$d of %2$d steps checked today</string>
+    <string name="routine_completion">%1$d of %2$d steps checked</string>
     <string name="routine_am_cleanse">Morning · Gentle cleanse</string>
     <string name="routine_am_cleanse_body">Use a gentle cleanser when needed; avoid scrubbing.</string>
     <string name="routine_am_moisturize">Morning · Moisturize</string>
@@ -109,7 +109,7 @@
     <string name="budget_1500">৳500–৳1500</string>
     <string name="budget_1500_plus">৳1500+</string>
     <string name="profile_local_title">Local storage</string>
-    <string name="profile_local_body">Routine ticks, preferences, and progress notes are saved in app-private local preferences. No account, analytics, photo upload, or cloud sync is implemented.</string>
+    <string name="profile_local_body">Routine ticks and progress notes are saved in a local database on this device; language and budget preferences use app-private preferences. No account, analytics, photo upload, or cloud sync is implemented.</string>
     <string name="profile_no_account_title">No account required</string>
     <string name="profile_no_account_body">This prototype works offline. Do not enter highly sensitive medical information; this is not a clinical record system.</string>
     <string name="profile_clear_data">Clear routine, notes, and budget</string>
