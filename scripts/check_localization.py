@@ -15,7 +15,7 @@ RESOURCE_FILES = {
 PLACEHOLDER = re.compile(r"%(\d+)\$[sd]")
 
 
-def load_resources(path: Path) -> dict[str, ET.Element]:
+def load_resources(path: Path) -> tuple[dict[str, ET.Element], list[str]]:
     try:
         root = ET.parse(path).getroot()
     except (ET.ParseError, OSError) as error:
@@ -31,9 +31,7 @@ def load_resources(path: Path) -> dict[str, ET.Element]:
         resources.setdefault(name, element)
 
     duplicates = sorted(name for name, count in Counter(names).items() if count > 1)
-    if duplicates:
-        print(f"ERROR: Duplicate resource names in {path.relative_to(ROOT)}: {', '.join(duplicates)}")
-    return resources
+    return resources, duplicates
 
 
 def placeholders(element: ET.Element) -> Counter[str]:
@@ -43,11 +41,16 @@ def placeholders(element: ET.Element) -> Counter[str]:
 
 
 def main() -> int:
-    resources = {
+    loaded = {
         locale: load_resources(path)
         for locale, path in RESOURCE_FILES.items()
     }
+    resources = {locale: item[0] for locale, item in loaded.items()}
     failed = False
+    for locale, (_, duplicates) in loaded.items():
+        if duplicates:
+            failed = True
+            print(f"ERROR: Duplicate resource names in {locale}: {', '.join(duplicates)}")
 
     english = set(resources["English"])
     bangla = set(resources["Bangla"])
