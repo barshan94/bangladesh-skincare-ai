@@ -169,4 +169,11 @@
     <string name="profile_clear_confirm_action">তথ্য মুছুন</string>
     <string name="cancel">বাতিল</string>
 
+    <string name="ingredients_filter_label">সতর্কতার ধরন অনুযায়ী বাছাই</string>
+    <string name="ingredients_filter_all">সব</string>
+    <string name="ingredients_filter_caution">সাধারণ সতর্কতা</string>
+    <string name="ingredients_filter_avoid">সরাসরি ব্যবহার এড়িয়ে চলুন</string>
+    <string name="ingredients_filter_sunscreen_only">শুধু প্রস্তুত সানস্ক্রিনে</string>
+    <string name="ingredients_no_results">আপনার অনুসন্ধান ও ফিল্টারের সঙ্গে মেলে এমন উপাদান নেই।</string>
+
 </resources>
