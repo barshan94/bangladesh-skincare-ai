@@ -519,9 +519,61 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
 private fun IngredientsScreen() {
     val context = LocalContext.current
     var query by rememberSaveable { mutableStateOf("") }
+    var selectedRisk by rememberSaveable { mutableStateOf<IngredientRisk?>(null) }
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
-    OutlinedTextField(value = query, onValueChange = { query = it }, label = { Text(stringResource(R.string.ingredients_search)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
-    IngredientCatalog.entries.forEach { item ->
+    OutlinedTextField(
+        value = query,
+        onValueChange = { query = it },
+        label = { Text(stringResource(R.string.ingredients_search)) },
+        modifier = Modifier.fillMaxWidth(),
+        singleLine = true
+    )
+    Text(stringResource(R.string.ingredients_filter_label), fontWeight = FontWeight.SemiBold)
+    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        FilterChip(
+            selected = selectedRisk == null,
+            onClick = { selectedRisk = null },
+            label = { Text(stringResource(R.string.ingredients_filter_all)) }
+        )
+        FilterChip(
+            selected = selectedRisk == IngredientRisk.GENERAL_CAUTION,
+            onClick = { selectedRisk = IngredientRisk.GENERAL_CAUTION },
+            label = { Text(stringResource(R.string.ingredients_filter_caution)) }
+        )
+        FilterChip(
+            selected = selectedRisk == IngredientRisk.AVOID_DIRECT_APPLICATION,
+            onClick = { selectedRisk = IngredientRisk.AVOID_DIRECT_APPLICATION },
+            label = { Text(stringResource(R.string.ingredients_filter_avoid)) }
+        )
+    }
+    FilterChip(
+        selected = selectedRisk == IngredientRisk.FINISHED_SUNSCREEN_ONLY,
+        onClick = { selectedRisk = IngredientRisk.FINISHED_SUNSCREEN_ONLY },
+        label = { Text(stringResource(R.string.ingredients_filter_sunscreen_only)) }
+    )
+    val filteredEntries = IngredientCatalog.entries.filter { item ->
+        val title = context.getString(item.titleRes)
+        val category = context.getString(item.categoryRes)
+        val body = context.getString(item.descriptionRes)
+        val caution = context.getString(item.cautionRes)
+        val risk = context.getString(when (item.risk) {
+            IngredientRisk.GENERAL_CAUTION -> R.string.ingredient_risk_caution
+            IngredientRisk.AVOID_DIRECT_APPLICATION -> R.string.ingredient_risk_avoid_direct
+            IngredientRisk.FINISHED_SUNSCREEN_ONLY -> R.string.ingredient_risk_finished_sunscreen
+        })
+        val matchesQuery = query.isBlank() ||
+            title.contains(query.trim(), ignoreCase = true) ||
+            category.contains(query.trim(), ignoreCase = true) ||
+            body.contains(query.trim(), ignoreCase = true) ||
+            caution.contains(query.trim(), ignoreCase = true) ||
+            risk.contains(query.trim(), ignoreCase = true) ||
+            item.sources.any { it.title.contains(query.trim(), ignoreCase = true) }
+        matchesQuery && (selectedRisk == null || item.risk == selectedRisk)
+    }
+    if (filteredEntries.isEmpty()) {
+        Text(stringResource(R.string.ingredients_no_results), color = Color(0xFF5D6962))
+    }
+    filteredEntries.forEach { item ->
         val title = stringResource(item.titleRes)
         val category = stringResource(item.categoryRes)
         val body = stringResource(item.descriptionRes)
@@ -532,37 +584,28 @@ private fun IngredientsScreen() {
             IngredientRisk.FINISHED_SUNSCREEN_ONLY -> R.string.ingredient_risk_finished_sunscreen
         })
         val review = stringResource(R.string.ingredient_review_pending)
-        if (
-            query.isBlank() ||
-            title.contains(query, ignoreCase = true) ||
-            category.contains(query, ignoreCase = true) ||
-            body.contains(query, ignoreCase = true) ||
-            caution.contains(query, ignoreCase = true) ||
-            risk.contains(query, ignoreCase = true)
-        ) {
-            Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
-                Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(title, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
-                    Text(
-                        stringResource(R.string.ingredient_metadata, category, risk, review),
-                        color = Sage,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(body, color = Color(0xFF5D6962))
-                    Text(caution, color = Color(0xFF8B4B31), fontSize = 13.sp)
-                    Text(stringResource(R.string.ingredient_sources), fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
-                    item.sources.forEach { source ->
-                        TextButton(
-                            onClick = {
-                                runCatching {
-                                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(source.url)))
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(source.title, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
-                        }
+        Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(title, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+                Text(
+                    stringResource(R.string.ingredient_metadata, category, risk, review),
+                    color = Sage,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(body, color = Color(0xFF5D6962))
+                Text(caution, color = Color(0xFF8B4B31), fontSize = 13.sp)
+                Text(stringResource(R.string.ingredient_sources), fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+                item.sources.forEach { source ->
+                    TextButton(
+                        onClick = {
+                            runCatching {
+                                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(source.url)))
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(source.title, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
                     }
                 }
             }
