@@ -79,6 +79,7 @@
 - [x] Create structured ingredient metadata with categories, caution text, risk classifications and review status.
 - [x] Add primary publisher/source links for all 11 entries and expose them from ingredient cards.
 - [x] Add bilingual ingredient risk filters, publisher-title search matching and a localized no-results state.
+- [x] Configure CI to publish generated Room schema JSON as a review artifact, enabling a grounded migration fixture rather than hand-creating schema metadata.
 - [ ] Add structured evidence summaries, exclusions, stop conditions and review dates.
 - [ ] Obtain qualified skincare/dermatology review before treating entries as approved guidance.
 - [ ] Implement deterministic eligibility rules and tests proving unknown safety facts block affected advice.
