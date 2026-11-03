@@ -1,6 +1,6 @@
 # Project State and Session Handoff
 
-- Last updated: 2026-10-31
+- Last updated: 2026-11-03
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Active implementation branch: `implementation/m0-android-baseline`
 - Current stage: Routine and Progress use Room; startup runs the one-time legacy import. Skin Scan can explicitly save a self-reported check-in to Progress. Ingredients now use a structured 11-entry catalogue with safety classifications; all entries remain pending expert review.
@@ -17,6 +17,9 @@
 ## Latest reliability work — 2026-10-30
 - Ingredient cards now include per-entry publisher links; all 11 records have HTTPS source metadata and source-reference unit tests.
 - Skin Scan save-to-Progress now disables repeat taps while saving, shows a localized loading state, prevents duplicate rapid submissions, and shows a localized error if persistence fails.
+- Progress manual-note saving now preserves the draft until Room confirms the insert, disables duplicate submission while saving, and exposes localized saving/failure feedback.
+- Progress deletion now requires explicit confirmation, disables concurrent delete actions, and exposes localized deletion/failure feedback.
+- Added an emulator UI test for Progress create → history display → confirmed delete. Latest Progress UI/test commits still need a full green Android workflow.
 - Added an emulator UI test that runs a check-in, explicitly saves it, navigates to Progress and asserts the entry appears.
 - The source-link and save-reliability changes are on the active PR branch; a full CI result for the latest head is still required.
 
@@ -55,13 +58,14 @@
 - Full Android workflow [#192](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41038124568) passed on an earlier ingredient update.
 - Workflow [#214](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41077898501) failed only in the new Skin Scan save UI test: the localized save control was not found. Compilation, unit tests, report upload and debug APK upload succeeded.
 - The UI test was hardened to wait for and scroll to the localized save control; Profile preference deletion now requires a successful synchronous commit.
-- Latest full workflow [#218](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41106622029) is pending on commit `520121f28c538c24c7d8dc323a4f351e077ec43f`. Latest source is not yet CI-verified.
+- Workflow [#218](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41106622029) was pending on an earlier commit; it does not verify the latest Progress changes.
+- The Android workflow is configured to run on pushes to `implementation/**` when app files change. The connector's commit-run lookup has not returned a PR-triggered run for the latest head; latest Progress changes remain unverified until an actual green workflow result is available.
 - Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. It remains unmerged.
 
 ## Next actions
-1. Get the full Android compile, unit and emulator instrumentation suite green on the latest source.
+1. Get the full Android compile, unit and emulator instrumentation suite green on the latest source, including the new Progress save/delete UI test.
 2. Verify a real app upgrade from an installed pre-Room build with populated routine/progress data.
 3. Review Android backup/data-extraction behavior and test data deletion on a physical device.
-4. Improve Skin Scan and Profile accessibility and saved-history clarity.
+4. Improve Skin Scan and Profile accessibility and saved-history clarity; finish Progress failure-state and deletion confirmation QA.
 5. Add evidence/source metadata and obtain qualified expert review for the ingredient catalogue.
 6. Only after storage/privacy gates, implement optional private photo progress. Keep image analysis and DIY formulas disabled until their individual validation/review gates pass.
