@@ -42,6 +42,7 @@ Guided capture/photo picker, private photo timeline and quality feedback. Begin 
 **Acceptance:** non-comparable photos never produce improvement claims; photo alone never changes routine.
 
 ### M6 — Reviewed knowledge catalogue and alternatives
+**Status: Educational catalogue UI implemented; risk filters and source-title search added.** All entries remain pending qualified review. Product concept briefs are deferred until Room schema v1 is tracked and a tested forward migration is available.
 Versioned structured content, provenance, stale-price behavior and safety-filtered replacement. Ship only reviewed entries.
 **Acceptance:** draft/expired/withdrawn entries cannot be actionable; no fabricated prices.
 
