@@ -412,7 +412,8 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
         options = listOf("comfortable" to R.string.tolerance_comfortable, "irritated" to R.string.tolerance_irritated, "unsure" to R.string.tolerance_unsure),
         selected = tolerance,
         label = { stringResource(it) },
-        onSelect = { tolerance = it }
+        onSelect = { tolerance = it },
+        enabled = !saving
     )
     Button(
         onClick = {
@@ -474,16 +475,20 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
             }
         }
     }
-    if (deleteError) {
-        Text(stringResource(R.string.progress_delete_error), color = Color(0xFF8B4B31), fontSize = 13.sp)
-    }
     Text(stringResource(R.string.progress_privacy_note), color = Color(0xFF5D6962), fontSize = 12.sp)
 
     deleteCandidate?.let { selected ->
         AlertDialog(
             onDismissRequest = { if (!deleting) deleteCandidate = null },
             title = { Text(stringResource(R.string.progress_delete_confirm_title)) },
-            text = { Text(stringResource(R.string.progress_delete_confirm_body)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.progress_delete_confirm_body))
+                    if (deleteError) {
+                        Text(stringResource(R.string.progress_delete_error), color = Color(0xFF8B4B31), fontSize = 13.sp)
+                    }
+                }
+            },
             confirmButton = {
                 TextButton(
                     enabled = !deleting,
@@ -679,13 +684,14 @@ private fun <T> ChipChoices(
     options: List<Pair<T, Int>>,
     selected: T,
     label: @Composable (Int) -> String,
-    onSelect: (T) -> Unit
+    onSelect: (T) -> Unit,
+    enabled: Boolean = true
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         options.chunked(2).forEach { pair ->
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 pair.forEach { (value, textRes) ->
-                    FilterChip(selected = selected == value, onClick = { onSelect(value) }, label = { Text(label(textRes)) })
+                    FilterChip(selected = selected == value, onClick = { onSelect(value) }, enabled = enabled, label = { Text(label(textRes)) })
                 }
             }
         }
