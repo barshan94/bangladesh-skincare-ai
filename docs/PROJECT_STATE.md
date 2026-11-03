@@ -63,10 +63,16 @@
 - The Android workflow is configured to run on pushes to `implementation/**` when app files change. The connector's commit-run lookup has not returned a PR-triggered run for the latest head; latest Progress changes remain unverified until an actual green workflow result is available.
 - Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. It remains unmerged.
 
+## 2026-11-03 — Ingredient catalogue usability
+- Added localized risk-class filters: all, general caution, avoid direct application, and finished-sunscreen-only.
+- Ingredient search now also matches publisher/source titles and shows a localized empty state when no entry matches.
+- Added emulator UI tests for risk filtering and no-result search behavior. These are not verified until the latest full workflow completes.
+- Product concept/formulation workspace is not implemented. Room schema export v1 is absent from the tracked repository, so no unverified database schema bump was made; a forward-only migration fixture and tests are required before adding new persisted entities.
+
 ## Next actions
-1. Get the full Android compile, unit and emulator instrumentation suite green on the latest source, including the new Progress save/delete UI test.
+1. Get the full Android compile, unit and emulator instrumentation suite green on the latest source, including Progress and ingredient filter/search UI tests.
 2. Verify a real app upgrade from an installed pre-Room build with populated routine/progress data.
 3. Review Android backup/data-extraction behavior and test data deletion on a physical device.
-4. Improve Skin Scan and Profile accessibility and saved-history clarity; finish Progress failure-state and deletion confirmation QA.
+4. Improve Skin Scan and Profile accessibility and saved-history clarity; finish Progress and ingredient filtering UI QA.
 5. Add evidence/source metadata and obtain qualified expert review for the ingredient catalogue.
 6. Only after storage/privacy gates, implement optional private photo progress. Keep image analysis and DIY formulas disabled until their individual validation/review gates pass.
