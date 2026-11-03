@@ -169,4 +169,11 @@
     <string name="profile_clear_confirm_action">Clear data</string>
     <string name="cancel">Cancel</string>
 
+    <string name="ingredients_filter_label">Filter by safety note</string>
+    <string name="ingredients_filter_all">All</string>
+    <string name="ingredients_filter_caution">General caution</string>
+    <string name="ingredients_filter_avoid">Avoid direct use</string>
+    <string name="ingredients_filter_sunscreen_only">Finished sunscreen only</string>
+    <string name="ingredients_no_results">No ingredients match your search and filter.</string>
+
 </resources>
