@@ -60,7 +60,10 @@
 - [x] Routine and Progress use Room repository/Flow for reads and writes.
 - [x] Tests for import, idempotency, malformed JSON, legacy optional-field defaults.
 - [x] Persistent database close/reopen test and reset/language-retention test authored.
-- [ ] Latest full Android CI passes compile, unit tests, emulator instrumentation and artifact upload (run #218 pending after UI-test correction).
+- [ ] Latest full Android CI passes compile, unit tests, emulator instrumentation and artifact upload (run #218 relates to an earlier source snapshot; new Progress UI/test changes need a fresh confirmed run).
+- [x] Add recoverable Progress save behavior: retain drafts until Room insert succeeds, prevent duplicate submission and localize failure/loading states.
+- [x] Add explicit confirmation before deleting a Progress entry, plus deletion loading/failure states.
+- [x] Add emulator UI coverage for Progress save/history/delete flow.
 - [ ] Test actual upgrade from a previously installed version containing legacy data.
 - [ ] Confirm Android backup/restore and app-private data deletion semantics on device.
 - [ ] Define export privacy/file handling before implementing export.
