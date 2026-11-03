@@ -383,11 +383,30 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
     var concern by rememberSaveable { mutableStateOf("") }
     var note by rememberSaveable { mutableStateOf("") }
     var tolerance by rememberSaveable { mutableStateOf("comfortable") }
+    var saving by remember { mutableStateOf(false) }
+    var saveError by remember { mutableStateOf(false) }
+    var deleteCandidate by remember { mutableStateOf<ProgressNote?>(null) }
+    var deleting by remember { mutableStateOf(false) }
+    var deleteError by remember { mutableStateOf(false) }
     val notes by repository.observeProgressNotes().collectAsState(initial = emptyList())
 
     Text(stringResource(R.string.progress_intro), color = Color(0xFF5D6962))
-    OutlinedTextField(value = concern, onValueChange = { concern = it }, label = { Text(stringResource(R.string.progress_concern_label)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
-    OutlinedTextField(value = note, onValueChange = { note = it }, label = { Text(stringResource(R.string.progress_note_label)) }, modifier = Modifier.fillMaxWidth(), minLines = 3)
+    OutlinedTextField(
+        value = concern,
+        onValueChange = { concern = it; saveError = false },
+        label = { Text(stringResource(R.string.progress_concern_label)) },
+        modifier = Modifier.fillMaxWidth(),
+        singleLine = true,
+        enabled = !saving
+    )
+    OutlinedTextField(
+        value = note,
+        onValueChange = { note = it; saveError = false },
+        label = { Text(stringResource(R.string.progress_note_label)) },
+        modifier = Modifier.fillMaxWidth(),
+        minLines = 3,
+        enabled = !saving
+    )
     Text(stringResource(R.string.progress_tolerance_label), fontWeight = FontWeight.SemiBold)
     ChipChoices(
         options = listOf("comfortable" to R.string.tolerance_comfortable, "irritated" to R.string.tolerance_irritated, "unsure" to R.string.tolerance_unsure),
@@ -397,17 +416,34 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
     )
     Button(
         onClick = {
-            if (note.isNotBlank() || concern.isNotBlank()) {
+            if (!saving && (note.isNotBlank() || concern.isNotBlank())) {
                 val savedConcern = concern.trim().ifBlank { context.getString(R.string.progress_general_concern) }
                 val savedNote = note.trim()
-                scope.launch { repository.addProgressNote(savedConcern, savedNote, tolerance) }
-                concern = ""
-                note = ""
+                saving = true
+                saveError = false
+                scope.launch {
+                    runCatching {
+                        repository.addProgressNote(savedConcern, savedNote, tolerance)
+                    }.onSuccess {
+                        // Clear the draft only after Room confirms the insert.
+                        concern = ""
+                        note = ""
+                    }.onFailure {
+                        // Keep the user's text intact so a retry does not lose it.
+                        saveError = true
+                    }
+                    saving = false
+                }
             }
         },
-        enabled = concern.isNotBlank() || note.isNotBlank(),
+        enabled = !saving && (concern.isNotBlank() || note.isNotBlank()),
         modifier = Modifier.fillMaxWidth()
-    ) { Text(stringResource(R.string.progress_save)) }
+    ) {
+        Text(stringResource(if (saving) R.string.progress_saving else R.string.progress_save))
+    }
+    if (saveError) {
+        Text(stringResource(R.string.progress_save_error), color = Color(0xFF8B4B31), fontSize = 13.sp)
+    }
 
     Text(stringResource(R.string.progress_history), fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
     if (notes.isEmpty()) {
@@ -421,7 +457,10 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
                             Text(item.concern, fontWeight = FontWeight.SemiBold)
                             Text(LocalStore.formatDate(item.createdAt), color = Color(0xFF5D6962), fontSize = 12.sp)
                         }
-                        TextButton(onClick = { scope.launch { repository.deleteProgressNote(item.id) } }) {
+                        TextButton(
+                            onClick = { deleteCandidate = item; deleteError = false },
+                            enabled = !deleting
+                        ) {
                             Icon(Icons.Outlined.DeleteOutline, contentDescription = stringResource(R.string.progress_delete))
                         }
                     }
@@ -435,7 +474,40 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
             }
         }
     }
+    if (deleteError) {
+        Text(stringResource(R.string.progress_delete_error), color = Color(0xFF8B4B31), fontSize = 13.sp)
+    }
     Text(stringResource(R.string.progress_privacy_note), color = Color(0xFF5D6962), fontSize = 12.sp)
+
+    deleteCandidate?.let { selected ->
+        AlertDialog(
+            onDismissRequest = { if (!deleting) deleteCandidate = null },
+            title = { Text(stringResource(R.string.progress_delete_confirm_title)) },
+            text = { Text(stringResource(R.string.progress_delete_confirm_body)) },
+            confirmButton = {
+                TextButton(
+                    enabled = !deleting,
+                    onClick = {
+                        deleting = true
+                        deleteError = false
+                        scope.launch {
+                            runCatching { repository.deleteProgressNote(selected.id) }
+                                .onSuccess { deleteCandidate = null }
+                                .onFailure { deleteError = true }
+                            deleting = false
+                        }
+                    }
+                ) {
+                    Text(stringResource(if (deleting) R.string.progress_deleting else R.string.progress_delete_confirm_action))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { deleteCandidate = null }, enabled = !deleting) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
+    }
 }
 
 @Composable
