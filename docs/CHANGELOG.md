@@ -99,3 +99,7 @@
 - Expanded search to publisher/source titles and added a localized no-results state.
 - Added emulator UI coverage for risk filtering and empty search results; full CI verification is pending.
 - Deferred persisted product-concept briefs until a tracked Room v1 schema fixture and forward migration tests are available. No unsafe schema shortcut or recipe generation was introduced.
+
+## 2026-11-03 — Room schema migration preparation
+- CI now uploads generated Room schema JSON separately from the APK and test reports.
+- This provides the actual Room-generated v1 schema needed to review and test any future forward-only migration; no database version was changed in this step.
