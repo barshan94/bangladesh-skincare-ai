@@ -80,6 +80,13 @@
     <string name="tolerance_comfortable">Comfortable</string>
     <string name="tolerance_irritated">Irritated</string>
     <string name="tolerance_unsure">Not sure</string>
+    <string name="progress_saving">Saving…</string>
+    <string name="progress_save_error">Could not save this check-in. Your draft is still here; please try again.</string>
+    <string name="progress_delete_confirm_title">Delete this check-in?</string>
+    <string name="progress_delete_confirm_body">This entry will be permanently removed from this device.</string>
+    <string name="progress_delete_confirm_action">Delete entry</string>
+    <string name="progress_deleting">Deleting…</string>
+    <string name="progress_delete_error">Could not delete this entry. Please try again.</string>
     <string name="progress_save">Save check-in on this device</string>
     <string name="progress_history">Your history</string>
     <string name="progress_general_concern">General check-in</string>
