@@ -18,7 +18,8 @@
 - Ingredient cards now include per-entry publisher links; all 11 records have HTTPS source metadata and source-reference unit tests.
 - Skin Scan save-to-Progress now disables repeat taps while saving, shows a localized loading state, prevents duplicate rapid submissions, and shows a localized error if persistence fails.
 - Progress manual-note saving now preserves the draft until Room confirms the insert, disables duplicate submission while saving, and exposes localized saving/failure feedback.
-- Progress deletion now requires explicit confirmation, disables concurrent delete actions, and exposes localized deletion/failure feedback.
+- Progress deletion now requires explicit confirmation, disables concurrent delete actions, and exposes localized deletion/failure feedback inside the confirmation dialog.
+- Progress tolerance choices are disabled during an active save so the persisted entry cannot disagree with the visible selection.
 - Added an emulator UI test for Progress create → history display → confirmed delete. Latest Progress UI/test commits still need a full green Android workflow.
 - Added an emulator UI test that runs a check-in, explicitly saves it, navigates to Progress and asserts the entry appears.
 - The source-link and save-reliability changes are on the active PR branch; a full CI result for the latest head is still required.
