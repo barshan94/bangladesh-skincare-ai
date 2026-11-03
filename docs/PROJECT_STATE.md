@@ -58,9 +58,9 @@
 - Baseline CI runs #102 and #103 passed on baseline commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
 - Full Android workflow [#192](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41038124568) passed on an earlier ingredient update.
 - Workflow [#214](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41077898501) failed only in the new Skin Scan save UI test: the localized save control was not found. Compilation, unit tests, report upload and debug APK upload succeeded.
-- The UI test was hardened to wait for and scroll to the localized save control; Profile preference deletion now requires a successful synchronous commit.
-- Workflow [#218](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/41106622029) was pending on an earlier commit; it does not verify the latest Progress changes.
-- The Android workflow is configured to run on pushes to `implementation/**` when app files change. The connector's commit-run lookup has not returned a PR-triggered run for the latest head; latest Progress changes remain unverified until an actual green workflow result is available.
+- The Skin Scan test now waits for the guidance result before finding and scrolling to its save action. The Progress deletion test now asserts the confirmation dialog before invoking its action and searches the unmerged semantics tree. Profile preference deletion requires a successful synchronous commit.
+- Latest workflow #244 passed resource parity, debug compilation and unit tests, and was running emulator instrumentation when last checked. Workflow #246 was still compiling. Both predate the newest test-hardening commit `eed6932`; a fresh full workflow on that commit is required.
+- The Android workflow is configured to run on pushes to `implementation/**` when app files change. The newest test-hardening commit is `eed6932ff775e47db16f85c2d217d8c307267076`. No full green workflow is claimed yet.
 - Draft PR #1: https://github.com/barshan94/bangladesh-skincare-ai/pull/1. It remains unmerged.
 
 ## 2026-11-03 — Ingredient catalogue usability
@@ -69,7 +69,7 @@
 - Added emulator UI tests for risk filtering and no-result search behavior. These are not verified until the latest full workflow completes.
 - Product concept/formulation workspace is not implemented. Room schema export v1 is absent from the tracked repository, so no unverified database schema bump was made; a forward-only migration fixture and tests are required before adding new persisted entities.
 
-- Latest PR workflow #245 is queued on head `e0429e4c6c5257615c0f54ecb54a67a980d8362b`; push workflow #244 is also queued. Earlier workflow #234 is still reported in the emulator instrumentation step, with compile and unit tests complete. No green result for the current head is claimed.
+- Latest test changes specifically address both failures observed in #234. The result of these changes is pending CI.
 
 ## Next actions
 1. Get the full Android compile, unit and emulator instrumentation suite green on the latest source, including Progress and ingredient filter/search UI tests.
