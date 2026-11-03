@@ -69,6 +69,8 @@
 - Added emulator UI tests for risk filtering and no-result search behavior. These are not verified until the latest full workflow completes.
 - Product concept/formulation workspace is not implemented. Room schema export v1 is absent from the tracked repository, so no unverified database schema bump was made; a forward-only migration fixture and tests are required before adding new persisted entities.
 
+- Latest PR workflow #245 is queued on head `e0429e4c6c5257615c0f54ecb54a67a980d8362b`; push workflow #244 is also queued. Earlier workflow #234 is still reported in the emulator instrumentation step, with compile and unit tests complete. No green result for the current head is claimed.
+
 ## Next actions
 1. Get the full Android compile, unit and emulator instrumentation suite green on the latest source, including Progress and ingredient filter/search UI tests.
 2. Verify a real app upgrade from an installed pre-Room build with populated routine/progress data.
