@@ -142,4 +142,40 @@ class NavigationSmokeTest {
         assertTextExists(composeRule.activity.getString(R.string.safety_title))
         assertTextExists(composeRule.activity.getString(R.string.status_scaffold))
     }
+
+    @Test
+    fun ingredientRiskFilterShowsOnlyMatchingSafetyClass() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_ingredients)
+        ).get(0).performClick()
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.ingredients_filter_avoid)
+        ).performClick()
+
+        assertTextExists(composeRule.activity.getString(R.string.ingredient_lemon))
+        val generalIngredient = composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.ingredient_glycerin),
+            useUnmergedTree = true
+        ).fetchSemanticsNodes()
+        assert(generalIngredient.isEmpty()) {
+            "Avoid-direct-use filter must not show general-caution ingredients."
+        }
+    }
+
+    @Test
+    fun ingredientSearchShowsLocalizedEmptyStateWhenNothingMatches() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_ingredients)
+        ).get(0).performClick()
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.ingredients_search)
+        ).performTextInput("no ingredient should match this phrase")
+
+        assertTextExists(composeRule.activity.getString(R.string.ingredients_no_results))
+    }
+
 }
