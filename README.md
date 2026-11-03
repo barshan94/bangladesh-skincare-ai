@@ -1,36 +1,20 @@
 # Bangladesh Skincare AI
 
-An Android-first, local-first skincare companion for adult women in Bangladesh. The product combines evidence-reviewed skincare guidance, affordable locally relevant options, private progress tracking and carefully gated AI-assisted observations.
+An Android-first, local-first skincare companion for adults in Bangladesh.
 
-> **Current state:** Documentation and feasibility planning. No application code/scaffolding has been created or authorized.
->
-> **Source of truth:** This repository. See [Project State and Session Handoff](docs/PROJECT_STATE.md) at the start of future work.
+> **Current state:** Functional offline MVP screens and five-tab navigation are implemented. Latest CI runs #102 and #103 passed on commit `cf8048453634e014d6a90f7875abcf314ca9b879`. Local persistence still uses interim SharedPreferences/JSON and is not release-hardened.
+> **Source of truth:** This repository. Read [Project State and Session Handoff](docs/PROJECT_STATE.md) before continuing.
 
 ## Approved product decisions
-
-- Broader product ambition with individual feature gates.
 - Adults only for the initial audience.
-- Photo tracking and validated capture checks first; skin-condition analysis only after feature-specific validation.
+- Photo tracking first; skin-condition analysis only after feature-specific validation.
 - DIY formulas only if individually reviewed and validated.
-- Five main areas: Skin Scan, My Routine, Progress, Ingredients and Alternatives, Profile and Privacy.
+- Five areas: Skin Scan, My Routine, Progress, Ingredients and Alternatives, Profile and Privacy.
 - Android-first, private installable APK, Bangla and English, free at launch.
-- Photos/history stored on-device by default. Cloud storage, cloud analysis and model training require separate informed consent.
-- No diagnosis from selfies, no beauty/fairness scores, no guaranteed whitening, no AI-generated formulas, and no photo-triggered automatic treatment changes.
-
-## Product principles
-
-- Prioritize safe, evidence-supported and realistic improvement for the user's chosen concern.
-- Natural darker skin is not a defect.
-- “Natural” does not automatically mean safe; synthetic does not automatically mean harmful.
-- Safety decisions are deterministic and grounded in reviewed knowledge. Generative AI cannot override safety rules.
-- New, changing, painful, bleeding or otherwise concerning findings require appropriate professional-care guidance, not AI diagnosis.
-- Enable every image feature only after independent, feature-specific validation.
-- Inconclusive/poor-quality photos must not produce confident claims.
-- Do not invent Bangladeshi prices, availability, evidence or formula details.
-- No critical safety defect may be waived to meet a release date.
+- Photos/history on-device by default. Cloud storage, cloud analysis and model training require separate informed consent.
+- No selfie diagnosis, beauty/fairness scores, guaranteed whitening, AI-generated formulas, or photo-triggered automatic treatment changes.
 
 ## Documentation index
-
 ### Product and UX
 - [Product specification](docs/PRODUCT_SPEC.md)
 - [First-release scope and feature gates](docs/FIRST_RELEASE_SCOPE.md)
@@ -66,35 +50,36 @@ An Android-first, local-first skincare companion for adult women in Bangladesh. 
 - [Decision log](docs/DECISIONS.md)
 - [Change log](docs/CHANGELOG.md)
 
-## Technical direction
+## Technical baseline
+Native Android with Kotlin and Jetpack Compose. Current toolchain uses JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21, compile/target SDK 35 and minimum SDK 26. GitHub Actions compiles a debug APK, runs unit tests and Android instrumentation tests, then uploads the APK artifact.
 
-Recommended baseline: native Android with Kotlin and Jetpack Compose, a local-first app, structured local data, app-private photo storage, deterministic safety/routine logic and reviewed versioned knowledge. No backend, account provider, analytics SDK, cloud inference or skin-condition model is selected by default. See the architecture and engineering standards for provisional defaults and remaining gates.
+The current app contains five navigable areas, English/Bangla resources, a self-reported non-diagnostic check-in, a routine checklist, a text progress timeline, ingredient education search and profile preferences. The current data store is an interim app-private SharedPreferences/JSON implementation. No skincare image analysis, photo capture/import, cloud service, analytics or backend is active.
 
-Face detection/landmarks do not validate skin-condition measurement. Capture checks must be validated for target devices/conditions. Any skin-feature measurement requires a defined task, suitable reference method, lawful/licensed data, pre-approved criteria, subgroup analysis, uncertainty handling and on-device performance evidence.
+## Privacy and safety baseline
+The manifest requests no permissions and has no network permission; Android automatic backup is disabled in the current manifest. This is a starting configuration, not a complete privacy audit. No photos are captured, imported or stored. Routine and progress data are stored locally using interim preferences; Room migration and lifecycle hardening remain.
+
+Every image feature needs its own task definition, reference method, lawful/licensed data, pre-approved criteria, subgroup analysis, uncertainty handling and on-device performance evidence.
 
 ## What is ready and what is not
+**Implemented and CI-verified:** native project configuration, five-area Compose navigation, offline MVP screens, English/Bangla resource parity, deterministic guidance unit tests, Compose navigation instrumentation, LocalStore persistence instrumentation, debug APK compilation and artifact upload.
 
-**Documented:** approved product direction, screen flows, requirements, data model, architecture baseline, engineering standards, knowledge/formula governance, safety hazards, threat model, tests, backlog, release process, localization/accessibility and session handoff.
+**Next implementation milestone:** migrate local persistence to Room with explicit migrations and lifecycle/deletion tests, then verify backup/data-extraction behavior.
 
-**Still requires qualified external evidence/review:** applicable Bangladesh legal/privacy and cosmetic-claims interpretation; skincare-content review; individual DIY formula validation; image-model licences/data provenance and feature-specific validation; adult eligibility handling; Bangla usability review. Documentation cannot replace these reviews.
+**Still requires qualified review/evidence:** Bangladesh legal/privacy and cosmetic-claims interpretation; skincare-content review; individual DIY formula validation; model/data licensing and feature-specific validation; adult eligibility handling; Bangla usability review. A successful build cannot replace these reviews.
 
-**Repository visibility:** A prior GitHub check reported this repository as public although private visibility was previously preferred. Verify and change the setting if needed before adding sensitive material.
+**Repository visibility:** GitHub currently reports this repository as public. Change it in repository Settings if private visibility is desired; do not add sensitive data.
 
 ## Working agreement
-
 1. GitHub is the source of truth; fetch current docs before relying on chat memory.
-2. Update affected docs, roadmap, changelog and project state whenever decisions or work change.
+2. Update affected docs, roadmap, changelog and project state during each meaningful work session.
 3. Record decisions with date, rationale, status and impact.
-4. Do not claim a feature validated until pre-defined acceptance criteria pass.
-5. Do not commit private data, identifiable skin photos, credentials, signing keys or unlicensed datasets.
-6. Do not claim background synchronization: documentation updates happen when project work is performed and the GitHub update succeeds.
-7. No application code or scaffolding until the user explicitly authorizes implementation.
-8. A successful build is not evidence of clinical or measurement validity.
+4. Do not claim a feature is validated until acceptance criteria pass.
+5. Never commit private data, identifiable skin photos, credentials, signing keys or unlicensed datasets.
+6. Updates happen when project work is performed and GitHub writes succeed; there is no background sync.
+7. A successful build is not evidence of clinical or measurement validity.
 
 ## Next action
-
-The documentation baseline has been assembled. Next, perform a final consistency/readability pass and confirm repository visibility. Then implementation can begin after the user's explicit authorization, following the backlog. External safety/legal/model gates remain mandatory before enabling the affected content or features.
+Complete structured local storage migration and prove data lifecycle behavior before adding photo storage. Keep unreviewed treatment and image-analysis features disabled.
 
 ## Disclaimer
-
 This project is under research and development; it is not medical advice and does not establish that any proposed AI feature or skincare formula is safe/effective. Actionable skincare content and every home-prepared formula require appropriate evidence and safety review before inclusion.
