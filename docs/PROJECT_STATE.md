@@ -67,7 +67,7 @@
 - Added localized risk-class filters: all, general caution, avoid direct application, and finished-sunscreen-only.
 - Ingredient search now also matches publisher/source titles and shows a localized empty state when no entry matches.
 - Added emulator UI tests for risk filtering and no-result search behavior. These are not verified until the latest full workflow completes.
-- Product concept/formulation workspace is not implemented. Room schema export v1 is absent from the tracked repository, so no unverified database schema bump was made; a forward-only migration fixture and tests are required before adding new persisted entities.
+- Product concept/formulation workspace is not implemented. Room schema export v1 is absent from the tracked repository, so no unverified database schema bump was made. CI now uploads generated Room schema JSON as a separate artifact for review; a verified v1 fixture and forward-only migration tests are still required before adding new persisted entities.
 
 - Latest test changes specifically address both failures observed in #234. The result of these changes is pending CI.
 
