@@ -89,6 +89,7 @@
 
 ## 2026-11-03 — Progress workflow reliability
 - Progress manual saves now keep the user's draft until the Room insert succeeds; duplicate submissions are disabled while saving and localized saving/error states are displayed.
-- Progress entry deletion now asks for confirmation, disables overlapping deletion, and displays localized failure feedback.
+- Progress entry deletion now asks for confirmation, disables overlapping deletion, and displays localized failure feedback inside the dialog.
+- Tolerance choices are disabled during persistence to prevent the visible choice changing while a save is in flight.
 - Added an emulator UI test covering manual entry creation, history appearance and confirmed deletion.
 - Latest UI and test changes require a fresh full Android workflow; no green result is claimed yet.
