@@ -5,6 +5,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
@@ -93,6 +94,44 @@ class NavigationSmokeTest {
             ).fetchSemanticsNodes().isNotEmpty()
         }
         assertTextExists(composeRule.activity.getString(R.string.scan_saved_concern))
+    }
+
+
+    @Test
+    fun progressDraftIsSavedAndDeletionRequiresConfirmation() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_progress)
+        ).get(0).performClick()
+
+        val uniqueConcern = "Progress UI test entry"
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_concern_label)
+        ).performTextInput(uniqueConcern)
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_note_label)
+        ).performTextInput("A temporary entry used to verify save and delete actions.")
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_save)
+        ).performClick()
+
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(uniqueConcern, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
+        composeRule.onNodeWithContentDescription(
+            composeRule.activity.getString(R.string.progress_delete)
+        ).performClick()
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_delete_confirm_action)
+        ).performClick()
+
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(uniqueConcern, useUnmergedTree = true)
+                .fetchSemanticsNodes().isEmpty()
+        }
     }
 
     @Test
