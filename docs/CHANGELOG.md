@@ -86,3 +86,9 @@
 - Updated the UI test to wait for the save control, inspect the unmerged Compose semantics tree and scroll the control into view before tapping. This is a test-stability correction; it still requires a green rerun.
 - Changed local preference deletion from asynchronous `apply()` to synchronous `commit()` and throw on failure, so Profile does not display success unless Android confirms the preference write.
 - New full Android workflow #218 is pending on commit `520121f28c538c24c7d8dc323a4f351e077ec43f`.
+
+## 2026-11-03 — Progress workflow reliability
+- Progress manual saves now keep the user's draft until the Room insert succeeds; duplicate submissions are disabled while saving and localized saving/error states are displayed.
+- Progress entry deletion now asks for confirmation, disables overlapping deletion, and displays localized failure feedback.
+- Added an emulator UI test covering manual entry creation, history appearance and confirmed deletion.
+- Latest UI and test changes require a fresh full Android workflow; no green result is claimed yet.
