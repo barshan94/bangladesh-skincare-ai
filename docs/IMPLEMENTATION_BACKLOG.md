@@ -26,7 +26,7 @@
 **Acceptance evidence:** navigation instrumentation and localization parity pass in CI #102/#103.
 
 ### M2 — Local-first persistence and privacy
-**Status: Interim storage implemented; Room migration is next.** Current SharedPreferences/JSON storage has instrumentation coverage for routine save/clear, progress create/read/delete and reset. Next replace it with Room, migrate legacy values safely, test schema upgrades and lifecycle recovery, then verify backup/deletion behavior. Do not add photo files until these guarantees are established.
+**Status: Room migration implemented; full latest-head CI, physical upgrade and backup/deletion verification remain open.** Current SharedPreferences/JSON storage has instrumentation coverage for routine save/clear, progress create/read/delete and reset. Next replace it with Room, migrate legacy values safely, test schema upgrades and lifecycle recovery, then verify backup/deletion behavior. Do not add photo files until these guarantees are established.
 **Acceptance:** save/read/delete, one-time legacy migration, migration tests, process restart/corruption handling and documented backup behavior.
 
 ### M3 — Onboarding and deterministic domain engine
@@ -38,7 +38,7 @@ Guided capture/photo picker, private photo timeline and quality feedback. Begin 
 **Acceptance:** denied-permission/poor-photo states safe; no photo network upload; deletion verified.
 
 ### M5 — Progress and routine workflows
-Manual progress, dated photo comparison, optional adherence/tolerance, reaction report and material-change confirmation.
+**Status: Core text progress and routine checklist implemented; reliability UI states and delete confirmation added.** Manual progress, dated photo comparison, optional adherence/tolerance, reaction report and material-change confirmation.
 **Acceptance:** non-comparable photos never produce improvement claims; photo alone never changes routine.
 
 ### M6 — Reviewed knowledge catalogue and alternatives
