@@ -529,28 +529,32 @@ private fun IngredientsScreen() {
         singleLine = true
     )
     Text(stringResource(R.string.ingredients_filter_label), fontWeight = FontWeight.SemiBold)
-    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-        FilterChip(
-            selected = selectedRisk == null,
-            onClick = { selectedRisk = null },
-            label = { Text(stringResource(R.string.ingredients_filter_all)) }
-        )
-        FilterChip(
-            selected = selectedRisk == IngredientRisk.GENERAL_CAUTION,
-            onClick = { selectedRisk = IngredientRisk.GENERAL_CAUTION },
-            label = { Text(stringResource(R.string.ingredients_filter_caution)) }
-        )
-        FilterChip(
-            selected = selectedRisk == IngredientRisk.AVOID_DIRECT_APPLICATION,
-            onClick = { selectedRisk = IngredientRisk.AVOID_DIRECT_APPLICATION },
-            label = { Text(stringResource(R.string.ingredients_filter_avoid)) }
-        )
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            FilterChip(
+                selected = selectedRisk == null,
+                onClick = { selectedRisk = null },
+                label = { Text(stringResource(R.string.ingredients_filter_all)) }
+            )
+            FilterChip(
+                selected = selectedRisk == IngredientRisk.GENERAL_CAUTION,
+                onClick = { selectedRisk = IngredientRisk.GENERAL_CAUTION },
+                label = { Text(stringResource(R.string.ingredients_filter_caution)) }
+            )
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            FilterChip(
+                selected = selectedRisk == IngredientRisk.AVOID_DIRECT_APPLICATION,
+                onClick = { selectedRisk = IngredientRisk.AVOID_DIRECT_APPLICATION },
+                label = { Text(stringResource(R.string.ingredients_filter_avoid)) }
+            )
+            FilterChip(
+                selected = selectedRisk == IngredientRisk.FINISHED_SUNSCREEN_ONLY,
+                onClick = { selectedRisk = IngredientRisk.FINISHED_SUNSCREEN_ONLY },
+                label = { Text(stringResource(R.string.ingredients_filter_sunscreen_only)) }
+            )
+        }
     }
-    FilterChip(
-        selected = selectedRisk == IngredientRisk.FINISHED_SUNSCREEN_ONLY,
-        onClick = { selectedRisk = IngredientRisk.FINISHED_SUNSCREEN_ONLY },
-        label = { Text(stringResource(R.string.ingredients_filter_sunscreen_only)) }
-    )
     val filteredEntries = IngredientCatalog.entries.filter { item ->
         val title = context.getString(item.titleRes)
         val category = context.getString(item.categoryRes)
