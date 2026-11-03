@@ -93,3 +93,9 @@
 - Tolerance choices are disabled during persistence to prevent the visible choice changing while a save is in flight.
 - Added an emulator UI test covering manual entry creation, history appearance and confirmed deletion.
 - Latest UI and test changes require a fresh full Android workflow; no green result is claimed yet.
+
+## 2026-11-03 — Ingredient catalogue navigation and filtering
+- Added English/Bangla risk filters for general caution, avoid-direct-application and finished-sunscreen-only entries.
+- Expanded search to publisher/source titles and added a localized no-results state.
+- Added emulator UI coverage for risk filtering and empty search results; full CI verification is pending.
+- Deferred persisted product-concept briefs until a tracked Room v1 schema fixture and forward migration tests are available. No unsafe schema shortcut or recipe generation was introduced.
