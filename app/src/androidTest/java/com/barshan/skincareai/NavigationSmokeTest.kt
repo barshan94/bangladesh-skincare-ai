@@ -2,6 +2,7 @@ package com.barshan.skincareai
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -121,9 +122,9 @@ class NavigationSmokeTest {
                 .fetchSemanticsNodes().isNotEmpty()
         }
 
-        composeRule.onNodeWithContentDescription(
+        composeRule.onAllNodesWithContentDescription(
             composeRule.activity.getString(R.string.progress_delete)
-        ).performClick()
+        ).get(0).performClick()
         composeRule.onNodeWithText(
             composeRule.activity.getString(R.string.progress_delete_confirm_action)
         ).performClick()
