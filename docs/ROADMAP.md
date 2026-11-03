@@ -78,6 +78,7 @@
 ## Phase 5 — Reviewed ingredient knowledge and safe routine personalization
 - [x] Create structured ingredient metadata with categories, caution text, risk classifications and review status.
 - [x] Add primary publisher/source links for all 11 entries and expose them from ingredient cards.
+- [x] Add bilingual ingredient risk filters, publisher-title search matching and a localized no-results state.
 - [ ] Add structured evidence summaries, exclusions, stop conditions and review dates.
 - [ ] Obtain qualified skincare/dermatology review before treating entries as approved guidance.
 - [ ] Implement deterministic eligibility rules and tests proving unknown safety facts block affected advice.
