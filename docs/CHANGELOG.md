@@ -6,7 +6,7 @@
 - Updates retain the original entry ID and creation timestamp, preventing duplicate records and preserving the historical date.
 - Failed updates keep the draft and edit target available for retry; users can cancel editing.
 - Added English/Bangla labels and an emulator regression test for editing an existing entry.
-- Verification is pending: runs for intermediate commits were cancelled before returning test results. The workflow now prioritizes the newest PR commit and enforces a 45-minute job timeout; run #278 is queued.
+- Verification is pending: run #280 passed 21/22 emulator tests; the only failure was the delete-confirmation UI test. The delete control now uses an accessible IconButton and the test targets its merged semantics. Run #283 is checking the fix.
 
 ## 2026-11-17 — CI duplication reduction
 - Restricted push-triggered Android CI to `main`; implementation branches are verified by their pull-request workflow. This prevents every development commit from launching both a push and pull-request emulator suite.
