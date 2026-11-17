@@ -6,6 +6,11 @@
 - Added English and Bangla labels and an emulator UI test for updating an existing entry in place.
 - Android run #270 passed localization parity, debug APK compilation, unit tests and Room schema artifact export, but its emulator navigation step remains in progress on an older commit. Run #273 for the latest edit-test commit was cancelled before any job result was returned. The edit flow is therefore not yet CI-verified; a fresh successful full run is required.
 
+## 2026-11-17 — CI queue correction
+- Implementation branches are tested through pull requests, not duplicate push workflows.
+- GitHub concurrency keeps only one pending run per concurrency group; with `cancel-in-progress: false`, rapid commits could leave the latest test waiting behind a stale emulator run while intermediate pending runs were cancelled.
+- Changed the Android workflow to prioritize the newest PR commit and added a 45-minute job timeout. Run #278 is queued on the workflow-change commit; no latest-head green result is claimed.
+
 ## 2026-11-17 — CI duplication reduction
 - Restricted push-triggered Android CI to `main`; implementation branches are verified by their pull-request workflow. This prevents every development commit from launching both a push and pull-request emulator suite.
 - Manual workflow dispatch remains available for branch checks without a pull request.
