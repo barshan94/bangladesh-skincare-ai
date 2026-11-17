@@ -394,6 +394,7 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
     var tolerance by rememberSaveable { mutableStateOf("comfortable") }
     var saving by remember { mutableStateOf(false) }
     var saveError by remember { mutableStateOf(false) }
+    var editingNote by remember { mutableStateOf<ProgressNote?>(null) }
     var deleteCandidate by remember { mutableStateOf<ProgressNote?>(null) }
     var deleting by remember { mutableStateOf(false) }
     var deleteError by remember { mutableStateOf(false) }
@@ -429,17 +430,23 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
             if (!saving && (note.isNotBlank() || concern.isNotBlank())) {
                 val savedConcern = concern.trim().ifBlank { context.getString(R.string.progress_general_concern) }
                 val savedNote = note.trim()
+                val target = editingNote
                 saving = true
                 saveError = false
                 scope.launch {
                     runCatching {
-                        repository.addProgressNote(savedConcern, savedNote, tolerance)
+                        if (target == null) {
+                            repository.addProgressNote(savedConcern, savedNote, tolerance)
+                        } else {
+                            repository.updateProgressNote(target, savedConcern, savedNote, tolerance)
+                        }
                     }.onSuccess {
-                        // Clear the draft only after Room confirms the insert.
                         concern = ""
                         note = ""
+                        editingNote = null
+                        tolerance = "comfortable"
                     }.onFailure {
-                        // Keep the user's text intact so a retry does not lose it.
+                        // Keep the draft and edit target intact so a retry cannot lose the entry.
                         saveError = true
                     }
                     saving = false
@@ -449,7 +456,24 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
         enabled = !saving && (concern.isNotBlank() || note.isNotBlank()),
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(stringResource(if (saving) R.string.progress_saving else R.string.progress_save))
+        Text(stringResource(when {
+            saving && editingNote != null -> R.string.progress_updating
+            saving -> R.string.progress_saving
+            editingNote != null -> R.string.progress_update
+            else -> R.string.progress_save
+        }))
+    }
+    if (editingNote != null && !saving) {
+        TextButton(
+            onClick = {
+                editingNote = null
+                concern = ""
+                note = ""
+                tolerance = "comfortable"
+                saveError = false
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) { Text(stringResource(R.string.progress_cancel_edit)) }
     }
     if (saveError) {
         Text(stringResource(R.string.progress_save_error), color = Color(0xFF8B4B31), fontSize = 13.sp)
@@ -468,8 +492,18 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
                             Text(LocalStore.formatDate(item.createdAt), color = Color(0xFF5D6962), fontSize = 12.sp)
                         }
                         TextButton(
+                            onClick = {
+                                editingNote = item
+                                concern = item.concern
+                                note = item.note
+                                tolerance = item.tolerance
+                                saveError = false
+                            },
+                            enabled = !saving && !deleting
+                        ) { Text(stringResource(R.string.progress_edit)) }
+                        TextButton(
                             onClick = { deleteCandidate = item; deleteError = false },
-                            enabled = !deleting
+                            enabled = !deleting && editingNote?.id != item.id
                         ) {
                             Icon(Icons.Outlined.DeleteOutline, contentDescription = stringResource(R.string.progress_delete))
                         }
@@ -506,7 +540,14 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
                         deleteError = false
                         scope.launch {
                             runCatching { repository.deleteProgressNote(selected.id) }
-                                .onSuccess { deleteCandidate = null }
+                                .onSuccess {
+                                    if (editingNote?.id == selected.id) {
+                                        editingNote = null
+                                        concern = ""
+                                        note = ""
+                                    }
+                                    deleteCandidate = null
+                                }
                                 .onFailure { deleteError = true }
                             deleting = false
                         }
@@ -523,7 +564,6 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
         )
     }
 }
-
 @Composable
 private fun IngredientsScreen() {
     val context = LocalContext.current
