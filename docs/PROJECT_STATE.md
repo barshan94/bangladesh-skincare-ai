@@ -4,7 +4,7 @@
 - Added local editing for saved Progress check-ins. Updates reuse the original entry ID and timestamp, so editing does not create a duplicate or move the entry to a new date.
 - The edit form keeps the user's draft and selected entry if Room reports a save failure; users can cancel editing without changing the saved record.
 - Added English and Bangla labels and an emulator UI test for updating an existing entry in place.
-- Android run #270 passed localization parity, debug APK compilation, unit tests and Room schema artifact export; emulator navigation tests are still running. Run #273 is queued for the latest edit-test commit. Do not mark the edit flow verified until that run completes successfully.
+- Android run #270 passed localization parity, debug APK compilation, unit tests and Room schema artifact export, but its emulator navigation step remains in progress on an older commit. Run #273 for the latest edit-test commit was cancelled before any job result was returned. The edit flow is therefore not yet CI-verified; a fresh successful full run is required.
 
 ## 2026-11-17 — CI duplication reduction
 - Restricted push-triggered Android CI to `main`; implementation branches are verified by their pull-request workflow. This prevents every development commit from launching both a push and pull-request emulator suite.
