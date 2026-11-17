@@ -1,3 +1,12 @@
+## 2026-11-17 — Accessible checkbox semantics and full CI verification
+
+- **Type:** Accessibility / QA / Localization
+- Made Routine checklist rows and Skin Scan self-report questions single toggleable checkbox controls whose accessible semantics include the descriptive label.
+- Added `selfReportAndRoutineCheckboxesExposeCombinedAccessibleLabels` instrumentation coverage for the Skin Scan questions and a Routine item.
+- Fixed the missing Compose `toggleable` import found by inspecting the failed compiler output from run #293.
+- Full Android workflow [#294](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44085236566) passed on `212b7e837a74bc6f76291bc36863eff4d8be92b4`: English/Bangla resource parity, debug APK compilation, unit tests, Room schema export, emulator navigation tests and artifact uploads.
+- This verifies automated semantics and emulator behavior only. Physical-device TalkBack traversal, contrast, text scaling, touch targets and bilingual layout checks remain outstanding; the APK is still a debug build, not a signed private release.
+
 ## 2026-11-17 — Reset failure recovery verified
 
 - **Type:** Reliability / Privacy / QA / Documentation
