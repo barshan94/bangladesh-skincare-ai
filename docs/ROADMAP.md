@@ -4,7 +4,7 @@
 - [x] Add an in-place edit path for saved local Progress notes, preserving their ID and original timestamp.
 - [x] Keep edit drafts on persistence failure and provide a cancel-edit action.
 - [x] Add bilingual edit/update/cancel labels and an emulator regression test.
-- [ ] Verify the edit flow and all existing emulator tests on the latest PR head (run #278 is queued after changing CI concurrency and timeout behavior).
+- [ ] Verify the Progress delete-confirmation fix and all emulator tests on the latest PR head (run #283 is executing; run #280 had 21/22 tests pass, with the single failure isolated to the delete-confirmation UI test).
 
 ## Personal-use functional priorities
 - [x] Make routine completion daily rather than carrying checked items indefinitely across days (CI verification pending).
