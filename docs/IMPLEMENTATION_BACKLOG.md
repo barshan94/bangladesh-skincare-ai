@@ -1,74 +1,49 @@
-# Implementation Backlog — Active Implementation Plan
+# Implementation Backlog — Current Status
 
-- Version: 1.1
-- Date: 2026-10-30
-- Status: Implementation authorized and active on `implementation/m0-android-baseline`.
+- Last reviewed: 2026-11-17
+- Active branch: `implementation/m0-android-baseline`
+- Latest full CI: [run #295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039), passed on `375fd5dcea7ceac5bdc94bdd1404b7150d0ec965`.
 
-## Execution rules
-- Work in small independently testable milestones.
-- Do not implement unapproved scope or real skincare content.
-- Build UI/data plumbing with safe empty states until reviewed content exists.
-- Link each task to requirements, tests and documentation.
-- Update PROJECT_STATE, ROADMAP, CHANGELOG and affected technical docs after each milestone.
-- Report files, tests/results, commit/PR, unresolved risks and next step.
-- Never claim model validity from build/demo success.
-- User authorized implementation on 2026-10-29; continue in small verified milestones.
+## Product boundary
 
-## Milestones
+Personal-use, offline-first Android tracker. Do not implement commercial/client workflows, accounts, cloud sync, analytics, photo capture/analysis, AI prescriptions or DIY whitening recipes under the current authorization.
 
-### M0 — Repository/toolchain baseline
-**Status: Implemented; CI verified.** Native Kotlin/Jetpack Compose project, pinned toolchain, no-permission/no-network manifest, debug APK workflow and localization guard are in place.
-**Acceptance evidence:** successful CI runs #102 and #103 on commit `cf8048453634e014d6a90f7875abcf314ca9b879`.
-**Dependencies:** repository visibility, target-device matrix, signing-key custody.
+## Completed and CI-verified
 
-### M1 — App shell and localization
-**Status: Core shell implemented; physical-device/accessibility review remains.** Five-area navigation, Bangla/English resources and navigation instrumentation are implemented. Adult-eligibility remains gated on approved policy.
-**Acceptance evidence:** navigation instrumentation and localization parity pass in CI #102/#103.
+- **M0 — Android baseline:** Kotlin, Jetpack Compose, Gradle toolchain, debug APK workflow and localization parity check.
+- **M1 — App shell/localization:** five sections (Skin Scan, My Routine, Progress, Ingredients, Profile), English and Bangla resources.
+- **M2 — Local persistence:** Room-backed Routine and Progress, one-time/idempotent legacy SharedPreferences import, schema v1 export, database lifecycle and reset tests.
+- **M3 — Routine and Progress workflows:** daily completion keys, create/edit/delete, confirmation, localized failure feedback and regression coverage.
+- **M4 — Self-reported Skin Scan:** non-diagnostic questions, explicit save to Progress and safety-first deterministic guidance; no image processing.
+- **M5 — Educational ingredient catalogue:** 11 entries, search, risk filters and source links. All entries remain pending qualified review.
+- **M6 — Accessibility semantics baseline:** checkbox labels are exposed as toggleable controls; automated semantics test passes.
+- **Reliability:** reset clears legacy snapshot before Room transaction; forced Room reset failure regression verifies primary records survive and reset can be retried.
 
-### M2 — Local-first persistence and privacy
-**Status: Room migration implemented; full latest-head CI, physical upgrade and backup/deletion verification remain open.** Current SharedPreferences/JSON storage has instrumentation coverage for routine save/clear, progress create/read/delete and reset. Next replace it with Room, migrate legacy values safely, test schema upgrades and lifecycle recovery, then verify backup/deletion behavior. Do not add photo files until these guarantees are established.
-**Acceptance:** save/read/delete, one-time legacy migration, migration tests, process restart/corruption handling and documented backup behavior.
+Full CI #295 passed localization validation, debug compilation, unit tests, Room schema export, emulator instrumentation and artifact uploads.
 
-### M3 — Onboarding and deterministic domain engine
-Adaptive questionnaire, versioned answers, eligibility/safety rules independent from UI, routine rendering only from approved structured content.
-**Acceptance:** missing/unknown safety facts block affected advice; safety property tests pass.
+## Remaining release gates — not implementable from GitHub alone
 
-### M4 — Skin Scan: private tracking and capture checks
-Guided capture/photo picker, private photo timeline and quality feedback. Begin with tracking; automated checks only after validation.
-**Acceptance:** denied-permission/poor-photo states safe; no photo network upload; deletion verified.
+1. **Legacy installation upgrade test:** install a prior version with populated legacy preferences, upgrade without clearing app data, verify import once, restart persistence and no duplicates.
+2. **Physical reset test:** clear Routine/Progress, verify legacy snapshot removal and retention of language preference.
+3. **Backup/data-extraction test:** verify device/OS behavior; manifest currently sets `android:allowBackup="false"`.
+4. **Physical accessibility/layout review:** TalkBack focus and announcements, font scaling, contrast, touch targets and Bangla/English overflow.
+5. **Device compatibility:** at least one lower-memory device and one current Android device.
+6. **Professional content review:** qualified skincare/dermatology reviewer must approve or request corrections to the 11 educational entries and sources.
+7. **Signed private release:** only after preceding gates, use owner-controlled signing key, verify signature/package/version/permissions/hash and test clean install plus upgrade.
 
-### M5 — Progress and routine workflows
-**Status: Core text progress and routine checklist implemented; reliability UI states and delete confirmation added.** Manual progress, dated photo comparison, optional adherence/tolerance, reaction report and material-change confirmation.
-**Acceptance:** non-comparable photos never produce improvement claims; photo alone never changes routine.
+These checks cannot honestly be marked complete using emulator CI alone. Physical device access, a qualified reviewer and owner-controlled signing key are required.
 
-### M6 — Reviewed knowledge catalogue and alternatives
-**Status: Educational catalogue UI implemented; risk filters and source-title search added.** All entries remain pending qualified review. Product concept briefs are deferred until Room schema v1 is tracked and a tested forward migration is available.
-Versioned structured content, provenance, stale-price behavior and safety-filtered replacement. Ship only reviewed entries.
-**Acceptance:** draft/expired/withdrawn entries cannot be actionable; no fabricated prices.
+## Deferred / explicitly out of scope
 
-### M7 — Knowledge update and rollback
-Package schema, integrity/signature scheme, compatibility, staging, atomic activation, safe last-known-good and withdrawal.
-**Acceptance:** tamper/interruption tests pass; no partial activation.
+- Photo capture, gallery import, photo timeline and image analysis.
+- AI model integration or automated diagnosis/scoring.
+- Cloud/backend/account/analytics features.
+- Product marketplace, pricing/availability and commercial workflows.
+- DIY formulation recipes, concentrations, mixing steps or personalized treatment claims.
+- Knowledge package updater and remote content rollback.
 
-### M8 — Optional AI explanation
-Only if justified and approved; constrained to approved content. May be omitted if deterministic offline copy is sufficient.
-**Acceptance:** adversarial tests cannot produce unsupported actionable instructions; privacy reviewed.
+Reconsider only through a separately approved scope and appropriate safety, privacy, licensing and validation evidence.
 
-### M9 — Feature-specific image analysis
-Integrate one selected/licensed model/runtime for one approved task at a time. Feature stays disabled until validation evidence and release approval.
-**Acceptance:** feature thresholds pass, subgroup/uncertainty/device results reviewed, disable/rollback tested. No need to implement every candidate.
+## Definition of done
 
-### M10 — Hardening, pilot and APK
-Security/privacy, accessibility, localization, performance, migration, offline and incident response; private pilot only after expert/legal gates; signed APK and release notes.
-**Acceptance:** all gates in RELEASE_RUNBOOK pass.
-
-## External workstreams not to fabricate
-Bangladesh legal/privacy review; qualified skincare review; individual DIY formula validation; reference method/protocol approval for each image feature; lawful/consented/representative evaluation data; Bangla terminology/usability review; local price/availability sources.
-
-Use empty/disabled states while these remain unresolved.
-
-## Definition of Done per task
-Requirements linked; implementation/tests complete; no safety/privacy regression; accessibility/localization reviewed; failure/offline behavior verified; docs/state updated; diff reviewed; commit/PR linked; user receives concise completion summary.
-
-## Definition of Done for implementation readiness
-Approved spec/UX; architecture defaults accepted; repo visibility confirmed; no unresolved decision needed for first task; toolchain available; acceptance criteria defined; explicit user authorization. Expert gates remain attached to relevant feature activation and release.
+A task is complete only when implementation, automated tests, failure/offline behavior, localization/accessibility impact, documentation and source-control evidence are recorded. A release is complete only after all owner/device/professional gates and signed-artifact verification pass.
