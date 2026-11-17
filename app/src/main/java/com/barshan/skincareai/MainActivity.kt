@@ -338,11 +338,11 @@ private fun GuidanceResultCard(result: GuidanceResult) {
     Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(22.dp)) {
         Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(title, color = Sage, fontWeight = FontWeight.Bold, fontSize = 17.sp)
-            Text(result.summary, color = Ink)
+            Text(stringResource(result.summaryRes), color = Ink)
             result.cards.forEach { card ->
-                Text(card.title, fontWeight = FontWeight.SemiBold)
-                Text(card.explanation, color = Color(0xFF5D6962))
-                card.caution?.let { Text(it, color = Color(0xFF8B4B31), fontWeight = FontWeight.Medium) }
+                Text(stringResource(card.titleRes), fontWeight = FontWeight.SemiBold)
+                Text(stringResource(card.explanationRes), color = Color(0xFF5D6962))
+                card.cautionRes?.let { Text(stringResource(it), color = Color(0xFF8B4B31), fontWeight = FontWeight.Medium) }
             }
             Text(stringResource(R.string.guidance_disclaimer), color = Color(0xFF5D6962), fontSize = 12.sp)
         }
