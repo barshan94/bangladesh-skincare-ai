@@ -80,6 +80,10 @@
     <string name="tolerance_comfortable">Comfortable</string>
     <string name="tolerance_irritated">Irritated</string>
     <string name="tolerance_unsure">Not sure</string>
+    <string name="progress_edit">Edit</string>
+    <string name="progress_update">Update check-in</string>
+    <string name="progress_updating">Updating…</string>
+    <string name="progress_cancel_edit">Cancel editing</string>
     <string name="progress_saving">Saving…</string>
     <string name="progress_save_error">Could not save this check-in. Your draft is still here; please try again.</string>
     <string name="progress_delete_confirm_title">Delete this check-in?</string>
