@@ -1,5 +1,12 @@
 # Project State and Session Handoff
 
+## 2026-11-17 — Daily routine tracking
+- Routine completions are now stored with the user's local calendar date, so yesterday's checked items do not appear completed in today's checklist.
+- The existing database version remains 1; this change reuses the existing routine ID column and requires no schema migration.
+- Older un-dated legacy completion IDs are not treated as today's completions and are not deleted by this display change.
+- Added a bilingual explanation and an emulator test that seeds an old dated completion and expects today's count to remain zero. Full CI verification is pending.
+
+
 - Last updated: 2026-11-03
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Active implementation branch: `implementation/m0-android-baseline`
