@@ -1,53 +1,40 @@
-# Personal-use roadmap and readiness gates
+# Personal-use roadmap and readiness
 
 Last reviewed: 2026-11-17  
 Active branch: `implementation/m0-android-baseline`  
-Latest source commit: `e25a94c30d016166f28d43e9a960bb10e3b5985b` (documentation-only updates; CI pending).
+Latest full CI: [run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330) — success.
 
 ## Scope
 
-This is a personal-use, offline-first Android app. Prioritize safe local record keeping and understandable educational content. Do not build commercial, multi-tenant, customer-support, monetization, cloud-sync, photo-diagnosis, or DIY formulation features unless the owner explicitly changes scope.
+Offline-first Android skincare tracker for personal use. Prioritize private record keeping and general education. No cloud accounts, analytics, photo diagnosis, treatment prescriptions, DIY whitening formulas or commercial workflows.
 
-## Implemented and CI-verified
+## Implemented
 
-- [x] Native Kotlin + Jetpack Compose app with Skin Scan, My Routine, Progress, Ingredients and Profile.
-- [x] English and Bangla resources with CI placeholder/key parity validation.
-- [x] Self-reported, non-diagnostic skin check-in; saving to Progress requires an explicit user action.
-- [x] Room-backed Routine and Progress storage with one-time legacy SharedPreferences import.
-- [x] Import idempotency, malformed legacy data handling, database reopen coverage and local reset coverage.
-- [x] Daily routine completion keys so yesterday's completion does not carry into today's checklist.
-- [x] Progress create, edit-in-place, delete confirmation, failure handling and localized feedback.
-- [x] Ingredient search, risk filters and publisher links for the 11 educational entries; all entries remain pending expert review.
-- [x] Room v1 schema fixture checked into source control; no schema version change was made.
-- [x] User-data reset clears the legacy snapshot first, then clears Room transactionally.
-- [x] Regression test proves primary Room records survive a forced reset failure and can be cleared on retry.
-- [x] Routine and Skin Scan checkbox rows expose combined accessible labels and checkbox toggle semantics.
-- [x] Accessibility semantics instrumentation test passed in full CI [run #294](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44085236566).
-- [x] Latest complete CI [run #294](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44085236566) passed: localization parity, debug compilation, unit tests, Room schema export, emulator instrumentation and artifact uploads.
+- [x] Native Kotlin + Jetpack Compose app with five sections.
+- [x] English/Bangla resources and CI parity validation.
+- [x] Self-reported Skin Scan check-in with deterministic non-diagnostic general guidance.
+- [x] Room-backed Routine and Progress with one-time legacy preference import.
+- [x] Import idempotency, malformed legacy data handling and database reopen coverage.
+- [x] Daily routine completion keys.
+- [x] Progress create/edit/delete, confirmation and failure handling.
+- [x] Ingredient catalogue with 11 general educational entries, search, filters and source links.
+- [x] Room schema export and reset recovery regression test.
+- [x] Accessible checkbox semantics for Skin Scan and Routine.
+- [x] Latest complete CI [run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330) passed, including emulator instrumentation and artifacts.
 
-## Remaining owner/device checks
+## Owner phone acceptance
 
-- [ ] Install an earlier build containing legacy SharedPreferences routine/progress data, upgrade to the current build, and verify import, restart persistence and no duplicate import.
-- [ ] On a physical device, verify reset removes all routine/progress records and legacy snapshots while retaining language preference.
-- [ ] Review Android backup/data-extraction behavior on-device; confirm no unintended personal skin/progress data is backed up.
-- [ ] Accessibility review on a physical device: TalkBack semantics and traversal, font scaling, contrast, touch targets, and English/Bangla layout overflow.
-- [ ] Check app behavior on at least one lower-memory Android device and one current Android version.
-- [ ] Only after these checks, produce and verify a signed private APK. Keep the signing key outside GitHub/repository history and document owner-controlled key backup.
+- [ ] Install the CI debug APK and smoke-test all five sections.
+- [ ] If migrating from a prior installed version, verify import once and data persistence after restart; do not clear app storage before this test.
+- [ ] Verify Profile reset clears Routine/Progress and preserves language preference.
+- [ ] Check TalkBack, large font, touch targets and Bangla/English overflow.
+- [ ] Check airplane-mode launch and permission prompts.
+- [ ] If a stable signed APK is desired, sign with an owner-controlled key and verify install/upgrade.
 
-## Content safety gates
+## Safety boundary
 
-- [ ] Keep Skin Scan clearly self-reported and non-diagnostic; no disease diagnosis, beauty/fairness score, or guaranteed whitening claim.
-- [ ] Keep ingredient entries educational and marked pending review until a qualified skincare/dermatology professional reviews the wording and sources.
-- [ ] Do not add concentrations, mixing instructions, home-prepared formulas or personalized treatment claims.
-- [ ] Any future content change must have traceable sources, clear stop conditions and bilingual review.
-
-## Explicitly out of scope for this personal-use release
-
-- Cloud accounts, cloud sync, analytics, advertising, monetization and multi-user administration.
-- Photo upload, remote storage, AI image diagnosis or automated skin scoring.
-- Free-form AI skincare prescriptions or DIY whitening recipes.
-- Product marketplace, commercial product substitutions/pricing, and client/customer workflows.
+The ingredient list is general education, not a clinically reviewed treatment guide. This is not a blocker to personal use as long as the app remains non-diagnostic and non-prescriptive. Do not add individualized treatment, strong active protocols, DIY formulations or clinical claims without qualified review. Public/commercial distribution needs separate review.
 
 ## Release decision
 
-**Not yet ready to call a signed private release.** The current source passes the full automated Android workflow, but a green emulator run does not replace the real-device upgrade, reset, accessibility and signing checks above. The available debug APK is for testing only; do not distribute it as a signed release.
+**Software implementation for the current personal-use scope is complete and CI-green.** Physical phone acceptance has not yet been reported. A signed private APK has not yet been produced. Do not describe either of those two items as complete.
