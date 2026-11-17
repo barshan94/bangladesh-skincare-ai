@@ -80,6 +80,10 @@
     <string name="tolerance_comfortable">স্বস্তিকর</string>
     <string name="tolerance_irritated">জ্বালা হয়েছে</string>
     <string name="tolerance_unsure">নিশ্চিত নই</string>
+    <string name="progress_edit">সম্পাদনা</string>
+    <string name="progress_update">চেক-ইন হালনাগাদ</string>
+    <string name="progress_updating">হালনাগাদ হচ্ছে…</string>
+    <string name="progress_cancel_edit">সম্পাদনা বাতিল</string>
     <string name="progress_saving">সংরক্ষণ হচ্ছে…</string>
     <string name="progress_save_error">চেক-ইন সংরক্ষণ করা যায়নি। আপনার লেখা এখানেই আছে; আবার চেষ্টা করুন।</string>
     <string name="progress_delete_confirm_title">এই চেক-ইন মুছবেন?</string>
