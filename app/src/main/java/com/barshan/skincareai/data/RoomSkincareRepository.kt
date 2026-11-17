@@ -84,11 +84,13 @@ class RoomSkincareRepository(private val database: SkincareDatabase) {
     }
 
     suspend fun clearUserData(context: Context) {
+        // Room is the primary source of truth after migration. Clear the legacy
+        // recovery snapshot first, then clear Room atomically. If the Room
+        // transaction fails, the primary records remain available for retry.
+        LocalStore.clearUserData(context)
         database.withTransaction {
             database.routineDao().clear()
             database.progressNoteDao().clear()
         }
-        // Also remove the retained legacy snapshot and profile data after Room clears.
-        LocalStore.clearUserData(context)
     }
 }
