@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-11-17  
 Active branch: `implementation/m0-android-baseline`  
-Latest verified commit: `eb70ebcfc9c512dde510612498588073f610c2b1`
+Latest verified commit: `212b7e837a74bc6f76291bc36863eff4d8be92b4`
 
 ## Scope
 
@@ -21,7 +21,9 @@ This is a personal-use, offline-first Android app. Prioritize safe local record 
 - [x] Room v1 schema fixture checked into source control; no schema version change was made.
 - [x] User-data reset clears the legacy snapshot first, then clears Room transactionally.
 - [x] Regression test proves primary Room records survive a forced reset failure and can be cleared on retry.
-- [x] Latest complete CI [run #289](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44077648148) passed, including emulator instrumentation and artifact upload.
+- [x] Routine and Skin Scan checkbox rows expose combined accessible labels and checkbox toggle semantics.
+- [x] Accessibility semantics instrumentation test passed in full CI [run #294](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44085236566).
+- [x] Latest complete CI [run #294](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44085236566) passed: localization parity, debug compilation, unit tests, Room schema export, emulator instrumentation and artifact uploads.
 
 ## Remaining owner/device checks
 
