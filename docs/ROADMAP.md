@@ -1,5 +1,12 @@
 # Roadmap and Readiness Gates
 
+## Personal-use functional priorities
+- [x] Make routine completion daily rather than carrying checked items indefinitely across days (CI verification pending).
+- [ ] Add a clear dated routine history only if it is useful without adding unnecessary complexity.
+- [ ] Continue improving local progress capture, editing, and deletion reliability.
+- [ ] Evaluate private on-device photo progress storage only after storage/deletion behavior is tested; no cloud upload or image diagnosis.
+
+
 - Last updated: 2026-10-30
 - Overall state: five-screen offline MVP implemented. Routine/Progress Room cutover and startup import are coded; Skin Scan can explicitly save check-ins; Ingredients uses a structured 11-entry safety catalogue. CI #175 is in progress; newer catalogue runs #192/#193 are queued.
 - Percentages refer to implementation only, never clinical safety or model validity.
