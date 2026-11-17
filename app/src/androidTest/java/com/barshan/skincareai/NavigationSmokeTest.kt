@@ -8,9 +8,12 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.barshan.skincareai.data.RoomSkincareRepository
+import com.barshan.skincareai.data.SkincareDatabase
 
 @RunWith(AndroidJUnit4::class)
 class NavigationSmokeTest {
@@ -61,6 +64,27 @@ class NavigationSmokeTest {
             assertTextExists(composeRule.activity.getString(titleRes))
             assertTextExists(composeRule.activity.getString(bodyRes))
         }
+    }
+
+
+    @Test
+    fun routineDoesNotCarryYesterdayCompletionIntoToday() {
+        waitForAppReady()
+        val repository = RoomSkincareRepository(
+            SkincareDatabase.getInstance(composeRule.activity.applicationContext)
+        )
+        runBlocking {
+            repository.setRoutineDone(setOf("1900-01-01:morning_cleanse"))
+        }
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_routine)
+        ).get(0).performClick()
+        val expectedTodayCount = composeRule.activity.getString(R.string.routine_completion, 0, 5)
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(expectedTodayCount, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        assertTextExists(expectedTodayCount)
     }
 
     @Test
