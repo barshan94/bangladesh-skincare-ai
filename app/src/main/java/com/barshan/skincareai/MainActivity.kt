@@ -72,6 +72,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -369,11 +370,18 @@ private fun RoutineScreen(repository: RoomSkincareRepository) {
     items.forEach { item ->
         val datedId = "$todayPrefix:${item.id}"
         Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
-            Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(checked = item.id in todayDoneIds, onCheckedChange = { checked ->
-                    val updated = if (checked) done + datedId else done - datedId
-                    scope.launch { repository.setRoutineDone(updated) }
-                })
+            Row(
+                Modifier.fillMaxWidth().toggleable(
+                    value = item.id in todayDoneIds,
+                    role = Role.Checkbox,
+                    onValueChange = { checked ->
+                        val updated = if (checked) done + datedId else done - datedId
+                        scope.launch { repository.setRoutineDone(updated) }
+                    }
+                ).padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(checked = item.id in todayDoneIds, onCheckedChange = null)
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(stringResource(item.title), fontWeight = FontWeight.SemiBold)
                     Text(stringResource(item.body), color = Color(0xFF5D6962), fontSize = 13.sp)
@@ -770,8 +778,15 @@ private fun InfoCard(title: String, body: String, icon: ImageVector) {
 
 @Composable
 private fun CheckRow(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
-    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        Checkbox(checked = checked, onCheckedChange = onCheckedChange)
+    Row(
+        Modifier.fillMaxWidth().toggleable(
+            value = checked,
+            role = Role.Checkbox,
+            onValueChange = onCheckedChange
+        ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(checked = checked, onCheckedChange = null)
         Text(label, modifier = Modifier.weight(1f), color = Ink)
     }
 }
