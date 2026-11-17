@@ -180,4 +180,40 @@
     <string name="ingredients_filter_sunscreen_only">Finished sunscreen only</string>
     <string name="ingredients_no_results">No ingredients match your search and filter.</string>
 
+
+    <string name="guidance_summary_concerning_change">A new, changing, painful, bleeding, or otherwise concerning skin change needs an in-person assessment.</string>
+    <string name="guidance_pause_experimentation_title">Pause experimentation</string>
+    <string name="guidance_pause_experimentation_body">Do not try to treat an unexplained change with homemade mixtures or new active ingredients.</string>
+    <string name="guidance_get_help_title">Get appropriate help</string>
+    <string name="guidance_get_help_body">Arrange an assessment with a qualified healthcare professional. Seek urgent care for severe or rapidly worsening symptoms.</string>
+    <string name="guidance_summary_broken_skin">Broken or open skin needs gentle care rather than cosmetic experimentation.</string>
+    <string name="guidance_keep_care_simple_title">Keep care simple</string>
+    <string name="guidance_keep_care_simple_body">Avoid scrubs, lemon juice, bleaching products, and active ingredients on broken skin.</string>
+    <string name="guidance_watch_worsening_title">Watch for worsening</string>
+    <string name="guidance_watch_worsening_body">Seek medical advice if the area worsens, becomes increasingly painful, warm, swollen, or shows signs of infection.</string>
+    <string name="guidance_cleanse_title">Cleanse gently</string>
+    <string name="guidance_cleanse_body">Use a gentle cleanser when needed; avoid harsh scrubbing and stop products that sting or irritate.</string>
+    <string name="guidance_moisturize_title">Moisturize</string>
+    <string name="guidance_moisturize_dry_body">A fragrance-free cream or ointment may help reduce dryness; apply to slightly damp skin.</string>
+    <string name="guidance_moisturize_oily_body">A light, non-comedogenic moisturizer can still be useful; oily skin can also become dehydrated or irritated.</string>
+    <string name="guidance_moisturize_combination_body">Use a comfortable lightweight moisturizer and adjust the amount by area.</string>
+    <string name="guidance_moisturize_sensitive_body">Prefer a short ingredient list and fragrance-free products; introduce one new product at a time.</string>
+    <string name="guidance_moisturize_unsure_body">Choose a simple moisturizer that feels comfortable and does not cause irritation.</string>
+    <string name="guidance_sun_title">Protect from sunlight</string>
+    <string name="guidance_sun_body">When outdoors, use shade, clothing, and a broad-spectrum sunscreen labelled SPF 30 or higher if available and suitable.</string>
+    <string name="guidance_prior_reaction_title">Prior reaction reported</string>
+    <string name="guidance_prior_reaction_body">Avoid the product or ingredient linked to the reaction. Do not deliberately re-test it on your face.</string>
+    <string name="guidance_prior_reaction_caution">If the reaction was severe or recurrent, ask a qualified clinician or pharmacist for advice.</string>
+    <string name="guidance_summary_basic">Start with a simple routine and change only one thing at a time.</string>
+    <string name="guidance_summary_dryness_roughness">These are general comfort-focused steps, not a diagnosis. Give a simple routine time and stop anything that irritates.</string>
+    <string name="guidance_summary_dark_marks">This release cannot assess the cause of dark marks or promise skin-lightening results.</string>
+    <string name="guidance_dark_marks_title">Avoid risky lightening methods</string>
+    <string name="guidance_dark_marks_body">Do not apply lemon juice, household bleach, unknown fairness creams, or unreviewed homemade mixtures. Sun protection can help reduce further darkening.</string>
+    <string name="guidance_summary_acne">This release does not diagnose or grade acne and does not provide an individualized acne treatment plan.</string>
+    <string name="guidance_acne_title">Keep irritation low</string>
+    <string name="guidance_acne_body">Avoid squeezing spots and harsh scrubs. Seek professional advice for painful, scarring, persistent, or worsening acne.</string>
+    <string name="guidance_summary_other">This concern is not covered by the current guidance set. Avoid experimenting with strong actives or homemade treatments.</string>
+    <string name="guidance_other_title">Get tailored advice</string>
+    <string name="guidance_other_body">A qualified skincare professional can help assess the concern and suitable options.</string>
+
 </resources>
