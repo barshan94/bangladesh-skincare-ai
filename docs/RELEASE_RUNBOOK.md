@@ -1,40 +1,44 @@
 # Private Android APK Release Runbook
 
-- Version: 1.0
-- Date: 2026-10-29
-- Status: Procedure draft; not authorization to build or distribute.
+- Last reviewed: 2026-11-17
+- Status: Procedure only. **Not yet cleared for release.**
 
-## Release channels
-- Development: local/debug builds and test data.
-- Internal QA: controlled testers, pre-release label, no unvalidated actionable content.
-- Private pilot: consented adult participants only after safety, privacy, legal, content and enabled-feature gates pass.
-- Private release: signed/versioned APK, release notes, limitations and support/incident route.
+## Current build status
 
-## Prerequisites
-Product owner approves scope; repository visibility/branch policy verified; qualified Bangladesh legal/privacy review recorded; skincare knowledge and each DIY dossier approved; every enabled image feature has its own validation report; no critical/high release blockers; privacy/consent/deletion/backup tests pass; model/dependency/content licences recorded; source commit/build toolchain traceable; incident owner and rollback process assigned.
+Latest full CI [#295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039) passed and uploaded a debug APK. The debug artifact is for controlled testing only; it is not a signed private release.
 
-## Build procedure
-1. Select reviewed commit and tag candidate.
-2. Start from clean working tree and pinned documented toolchain.
-3. Run formatting, lint, static analysis, unit/integration/UI tests.
-4. Run dependency/licence/secret checks.
-5. Build release artifact with approved Gradle variant.
-6. Sign through protected process; never commit keystore/passwords.
-7. Verify package ID, version, signature, permissions, network behavior and artifact hash.
-8. Install clean and upgrade from prior supported version.
-9. Test offline behavior, migration, deletion and knowledge rollback.
-10. Record artifact hash, source commit, build environment, tests and approvers.
+## Release prerequisites
 
-Exact commands/package IDs are deferred until the Android project/toolchain is approved and created.
+Do not start signing/distribution until all conditions are true:
 
-## Pilot safety
-Recruit eligible adults under reviewed consent. Explain experimental features, local storage and collection. External photo review requires separate consent and approved handling. Provide safety/privacy/crash reporting. Assign triage owner and response target. Pilot feedback is not clinical proof without appropriate study design.
+- Physical upgrade from an earlier installed build with populated legacy SharedPreferences data passes; import is one-time and restart persistence is confirmed.
+- Physical reset clears Routine/Progress and legacy snapshots while retaining language preference.
+- Android backup/data-extraction behavior has been checked on supported devices.
+- TalkBack traversal, font scaling, contrast, touch targets and English/Bangla layouts have been reviewed on real devices.
+- At least one lower-memory and one current Android device pass smoke tests.
+- All 11 ingredient entries and sources receive qualified skincare/dermatology review; rejected or uncertain content is corrected or removed.
+- Product owner approves release scope and release notes.
+- No critical/high unresolved defects; dependency/secret/permission review is complete.
 
-## Rollback/withdrawal
-Keep prior signed APK and known-good knowledge metadata. If a model/content/formula is unsafe, disable it where supported and issue clear notice. Never roll back to a package containing a known withdrawn hazard. For software defects, check migrations/safety before restoring. For suspected privacy exposure, stop affected transfers, preserve minimal evidence and follow approved incident/legal process. Record versions, impact, mitigation, communications and corrective action.
+## Owner-controlled signing
 
-## Release notes
-Include version/date, user-visible changes, supported Android range, enabled/disabled experimental features, storage/network behavior, limitations, knowledge version, support route and migration/backup caveats.
+1. Generate or select an Android upload/release keystore on an owner-controlled secure device.
+2. Back up the keystore and recovery information securely. Never send the keystore or passwords in chat.
+3. Never commit keystore files, signing passwords or private keys to GitHub.
+4. Configure signing secrets only in the owner's protected build environment; prefer local release signing if CI secret handling has not been reviewed.
+5. Build the release variant from a clean, reviewed commit using the pinned toolchain.
+6. Verify application ID, version code/name, signature certificate fingerprint, permissions, network behavior and artifact SHA-256.
+7. Install the signed APK cleanly and upgrade from the prior supported signed version; test local migration, reset and offline behavior.
+8. Record source commit, build environment, signer fingerprint, artifact hash, test evidence and approval date. Do not publish the keystore or its passwords.
 
-## Post-release
-Review crash/error reports without raw photos or unnecessary sensitive data; monitor sources/prices/safety notices; review adverse reports with qualified personnel; track dependency/model changes; maintain review dates and rollback/disable capability.
+## Release record
+
+Record: app version, source commit, CI run, artifact hash, signing certificate fingerprint, supported Android versions, review approvals, known limitations, migration behavior, backup caveats, support/incident contact and rollback plan.
+
+## Rollback and incident response
+
+Retain the prior signed APK and its hash. Do not roll back to content known to contain a safety issue. If a content defect is found, withdraw/correct it with qualified review. For suspected privacy exposure, stop affected distribution, preserve only necessary evidence and follow the approved legal/privacy incident process.
+
+## Current decision
+
+**Not ready for signed private release.** CI success is necessary but does not replace physical-device testing, professional content review or signing verification.
