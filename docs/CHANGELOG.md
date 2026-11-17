@@ -1,3 +1,11 @@
+## 2026-11-17 — Documentation reconciliation after full CI
+
+- **Type:** Documentation / Release readiness
+- Full CI [#295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039) passed on source commit `375fd5dcea7ceac5bdc94bdd1404b7150d0ec965`.
+- Reconciled README, implementation backlog, technical architecture, project state and release runbook with the actual implemented personal-use app.
+- Removed obsolete claims that the current app still uses interim SharedPreferences/JSON as its primary Routine/Progress store or that photo capture/image analysis are part of the current implementation.
+- Explicitly documented the remaining physical-device, qualified content-review and signed-APK release gates. No release-readiness claim is made.
+
 ## 2026-11-17 — Accessible checkbox semantics and full CI verification
 
 - **Type:** Accessibility / QA / Localization
