@@ -180,4 +180,40 @@
     <string name="ingredients_filter_sunscreen_only">শুধু প্রস্তুত সানস্ক্রিনে</string>
     <string name="ingredients_no_results">আপনার অনুসন্ধান ও ফিল্টারের সঙ্গে মেলে এমন উপাদান নেই।</string>
 
+
+    <string name="guidance_summary_concerning_change">ত্বকে নতুন, পরিবর্তনশীল, ব্যথাযুক্ত, রক্তপাতযুক্ত বা অন্য কোনো উদ্বেগজনক পরিবর্তন হলে সরাসরি স্বাস্থ্যকর্মীর মূল্যায়ন প্রয়োজন।</string>
+    <string name="guidance_pause_experimentation_title">নতুন কিছু ব্যবহার আপাতত বন্ধ রাখুন</string>
+    <string name="guidance_pause_experimentation_body">কারণ না জানা কোনো পরিবর্তনের চিকিৎসায় ঘরোয়া মিশ্রণ বা নতুন সক্রিয় উপাদান ব্যবহার করবেন না।</string>
+    <string name="guidance_get_help_title">উপযুক্ত সহায়তা নিন</string>
+    <string name="guidance_get_help_body">যোগ্য স্বাস্থ্যসেবা পেশাজীবীর পরামর্শ নিন। গুরুতর বা দ্রুত বাড়তে থাকা উপসর্গ হলে জরুরি চিকিৎসা নিন।</string>
+    <string name="guidance_summary_broken_skin">ত্বকে ক্ষত বা খোলা অংশ থাকলে প্রসাধনী পরীক্ষা-নিরীক্ষার বদলে কোমল যত্ন প্রয়োজন।</string>
+    <string name="guidance_keep_care_simple_title">যত্ন সহজ রাখুন</string>
+    <string name="guidance_keep_care_simple_body">ক্ষতযুক্ত ত্বকে স্ক্রাব, লেবুর রস, ব্লিচিং পণ্য বা সক্রিয় উপাদান ব্যবহার করবেন না।</string>
+    <string name="guidance_watch_worsening_title">অবস্থা খারাপ হচ্ছে কি না দেখুন</string>
+    <string name="guidance_watch_worsening_body">অবস্থা খারাপ হলে, ব্যথা বা গরমভাব বাড়লে, ফুলে গেলে বা সংক্রমণের লক্ষণ দেখা দিলে চিকিৎসকের পরামর্শ নিন।</string>
+    <string name="guidance_cleanse_title">কোমলভাবে পরিষ্কার করুন</string>
+    <string name="guidance_cleanse_body">প্রয়োজন হলে কোমল ক্লিনজার ব্যবহার করুন; জোরে ঘষবেন না এবং জ্বালা করে এমন পণ্য বন্ধ করুন।</string>
+    <string name="guidance_moisturize_title">ময়েশ্চারাইজার ব্যবহার</string>
+    <string name="guidance_moisturize_dry_body">শুষ্কতা কমাতে সুগন্ধিবিহীন ক্রিম বা মলম সহায়ক হতে পারে; সামান্য ভেজা ত্বকে লাগান।</string>
+    <string name="guidance_moisturize_oily_body">তৈলাক্ত ত্বকেও হালকা, নন-কমেডোজেনিক ময়েশ্চারাইজার উপকারী হতে পারে; তৈলাক্ত ত্বকেও পানিশূন্যতা বা জ্বালা হতে পারে।</string>
+    <string name="guidance_moisturize_combination_body">আরামদায়ক হালকা ময়েশ্চারাইজার ব্যবহার করুন এবং ত্বকের অংশ অনুযায়ী পরিমাণ ঠিক করুন।</string>
+    <string name="guidance_moisturize_sensitive_body">উপাদানের তালিকা ছোট এবং সুগন্ধিবিহীন পণ্য বেছে নিন; একবারে একটি নতুন পণ্য ব্যবহার শুরু করুন।</string>
+    <string name="guidance_moisturize_unsure_body">যে সাধারণ ময়েশ্চারাইজার আরামদায়ক এবং জ্বালা সৃষ্টি করে না, সেটি বেছে নিন।</string>
+    <string name="guidance_sun_title">সূর্যের আলো থেকে সুরক্ষা</string>
+    <string name="guidance_sun_body">বাইরে থাকলে ছায়া ও পোশাক ব্যবহার করুন; উপযুক্ত হলে SPF ৩০ বা তার বেশি ব্রড-স্পেকট্রাম সানস্ক্রিন ব্যবহার করুন।</string>
+    <string name="guidance_prior_reaction_title">আগের প্রতিক্রিয়ার তথ্য</string>
+    <string name="guidance_prior_reaction_body">যে পণ্য বা উপাদানে প্রতিক্রিয়া হয়েছিল তা এড়িয়ে চলুন। ইচ্ছা করে মুখে আবার পরীক্ষা করবেন না।</string>
+    <string name="guidance_prior_reaction_caution">প্রতিক্রিয়া গুরুতর বা বারবার হলে যোগ্য চিকিৎসক বা ফার্মাসিস্টের পরামর্শ নিন।</string>
+    <string name="guidance_summary_basic">সহজ রুটিন দিয়ে শুরু করুন এবং একবারে একটি পরিবর্তন করুন।</string>
+    <string name="guidance_summary_dryness_roughness">এগুলো সাধারণ আরামদায়ক যত্নের তথ্য, রোগ নির্ণয় নয়। সহজ রুটিন অনুসরণ করুন এবং জ্বালা করে এমন কিছু বন্ধ করুন।</string>
+    <string name="guidance_summary_dark_marks">এই সংস্করণ কালো দাগের কারণ নির্ধারণ করতে পারে না বা ত্বক ফর্সা করার ফলের প্রতিশ্রুতি দেয় না।</string>
+    <string name="guidance_dark_marks_title">ঝুঁকিপূর্ণ ফর্সাকারী পদ্ধতি এড়িয়ে চলুন</string>
+    <string name="guidance_dark_marks_body">ত্বকে লেবুর রস, ঘরোয়া ব্লিচ, অজানা ফেয়ারনেস ক্রিম বা অপরীক্ষিত ঘরোয়া মিশ্রণ লাগাবেন না। সূর্য থেকে সুরক্ষা আরও কালচে হওয়া কমাতে সাহায্য করতে পারে।</string>
+    <string name="guidance_summary_acne">এই সংস্করণ ব্রণের রোগ নির্ণয় বা মাত্রা নির্ধারণ করে না এবং ব্যক্তিগত ব্রণ-চিকিৎসা পরিকল্পনা দেয় না।</string>
+    <string name="guidance_acne_title">জ্বালা কম রাখুন</string>
+    <string name="guidance_acne_body">ব্রণ খোঁটাবেন না বা শক্ত স্ক্রাব ব্যবহার করবেন না। ব্যথাযুক্ত, দাগ তৈরি করছে, দীর্ঘস্থায়ী বা বাড়তে থাকা ব্রণের জন্য পেশাদার পরামর্শ নিন।</string>
+    <string name="guidance_summary_other">এই বিষয়ের জন্য বর্তমান নির্দেশনা নেই। শক্তিশালী সক্রিয় উপাদান বা ঘরোয়া চিকিৎসা নিয়ে পরীক্ষা করবেন না।</string>
+    <string name="guidance_other_title">ব্যক্তিগত পরামর্শ নিন</string>
+    <string name="guidance_other_body">যোগ্য স্কিনকেয়ার পেশাজীবী সমস্যাটি এবং উপযুক্ত বিকল্প মূল্যায়নে সাহায্য করতে পারেন।</string>
+
 </resources>
