@@ -1,114 +1,57 @@
-# Technical Architecture and Implementation Baseline
+# Technical Architecture — Implemented Personal-Use App
 
-- Version: 1.0
-- Last updated: 2026-10-29
-- Status: Implementation underway following explicit user authorization on 2026-10-29. This document remains the target architecture; current SharedPreferences/JSON persistence is an interim prototype and must be replaced by Room before release.
-- Companion documents: ENGINEERING_STANDARDS.md, DATA_MODEL.md, REQUIREMENTS.md, KNOWLEDGE_UPDATE_PROTOCOL.md, THREAT_MODEL.md.
+- Last reviewed: 2026-11-17
+- Status: Core Android app implemented; CI #295 passed. Physical-device and signed-release gates remain.
+- Scope: personal-use, offline-first tracker. This document describes the implemented app, not the earlier broader photo-analysis product concept.
 
-## 1. Platform baseline
+## 1. Platform
 
 - Native Android, Kotlin and Jetpack Compose.
-- Single activity with feature-based UI packages and ViewModel/state-driven UI.
-- Local-first; no backend, account provider, analytics SDK, LLM service or cloud photo processing by default.
-- Room/SQLite candidate for structured records; app-private files for originals; DataStore only for small preferences.
-- Android Photo Picker for import; CameraX only if guided in-app capture is needed.
-- WorkManager only for deferrable background work; Android may defer it.
-- Provisional minimum API 26 (Android 8.0), subject to a short device/dependency compatibility check before first build.
-- Exact stable toolchain/dependency versions are recorded when implementation is authorized and the repository is created.
+- Single-activity app with five navigable sections.
+- JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21.
+- Compile/target SDK 35; minimum SDK 26 (device coverage still needs validation).
+- Room/SQLite for Routine and Progress records; SharedPreferences used for small preferences and legacy migration source.
 
-## 2. Component boundaries
+## 2. App boundaries
 
-1. Presentation: accessible Bangla/English Compose screens and navigation.
-2. Domain: questionnaire interpretation, eligibility/safety rules, ranking and change confirmation as deterministic/testable logic.
-3. Knowledge: versioned approved entries, evidence, exclusions, price provenance, alternatives and formula metadata.
-4. Local data: repositories for structured records and app-private photo files.
-5. Photo pipeline: capture guidance, orientation/quality checks and comparability; each automated check separately gated.
-6. Optional validated inference: task-specific model/runtime only after licence, validation, subgroup and performance gates.
-7. Knowledge updater: staged package, integrity/approval/schema checks, atomic activation and rollback.
-8. Optional explanation layer: not required for the initial core; if added, may explain approved content only.
-9. Optional backend: not selected and not required for core local-first experience.
+1. **Presentation:** Compose screens, English/Bangla resources and accessible controls.
+2. **Skin Scan:** self-reported, non-diagnostic questionnaire with deterministic safety-first explanatory copy; saving a check-in requires explicit user action.
+3. **Routine:** local checklist with date-qualified completion IDs.
+4. **Progress:** local check-ins/notes, edit-in-place, confirmed deletion and localized failure states.
+5. **Ingredients:** bundled educational catalogue of 11 entries, search, risk filters and publisher links; content is pending qualified review.
+6. **Profile:** language/budget preferences and local data reset.
+7. **Persistence:** Room repository, transactional one-time legacy SharedPreferences import and reset behavior.
 
-## 3. Local-first privacy boundary
+## 3. Privacy and security
 
-- Original images/progress history stay on-device by default.
-- No automatic photo upload, cloud inference or model training.
-- No raw photos in analytics/crash reports.
-- Ask camera/photo permissions only when needed; no location permission.
-- Cloud storage, cloud analysis and model training require separate affirmative consent if ever added.
-- Document and test OS backup/device transfer behavior before claiming “device-only.”
-- Basic functionality should not require account creation.
-- Optional network services require a data-flow map, security review, legal/privacy review and consent design.
+- No network permission, account, analytics, cloud sync, photo upload or remote inference.
+- No runtime permissions requested by the current manifest.
+- Android backup is disabled using `android:allowBackup="false"`.
+- Routine and Progress data remain in app-private local storage.
+- Never commit user records, identifiable skin images, credentials, API keys or signing keys.
+- Device-level backup/data-extraction and reset behavior still require physical-device verification; do not overstate privacy guarantees based solely on manifest configuration.
 
-## 4. Image pipeline
+## 4. Data lifecycle
 
-1. User sees purpose, limitations and privacy disclosure.
-2. Guided capture or supported photo picker.
-3. Validate orientation/format and reject malformed inputs.
-4. Provide capture guidance; automated quality checks remain disabled until their validation gate passes.
-5. Save a user-selected original locally after review.
-6. Compare sessions only if capture conditions are sufficiently comparable.
-7. Run a validated feature only when enabled by approved feature metadata.
-8. Return available, inconclusive or failed state with uncertainty; never fabricate a result.
-9. Never change a routine automatically from a photo alone.
+- Room schema v1 is checked into `app/schemas/com.barshan.skincareai.data.SkincareDatabase/1.json`.
+- Legacy SharedPreferences records are imported once and idempotently.
+- Migration and repository lifecycle behavior have instrumentation coverage.
+- User reset clears the legacy snapshot before deleting Room data transactionally. A forced Room failure test verifies primary records survive and reset can be retried.
+- Real upgrade from an installed legacy build and physical-device reset remain release gates.
 
-Face detection/landmarks do not validate skin-condition measurement. Avoid image enhancement/white-balance changes that could be mistaken for biological change.
+## 5. Safety/content boundary
 
-## 5. Deterministic recommendation engine
+- No skin-condition diagnosis, image-based assessment, whitening score/guarantee or automated treatment recommendation.
+- No DIY formulas, concentrations or mixing instructions.
+- Ingredient entries are educational references, not individualized medical advice; all 11 need qualified professional review before being presented as approved guidance.
+- Any future expansion into photo capture, image analysis, AI or remote content requires separate authorization and task-specific safety, privacy, licensing and validation review.
 
-1. Validate questionnaire/schema.
-2. Resolve supported concern and user eligibility.
-3. Apply hard safety/contraindication filters.
-4. Exclude draft, expired, withdrawn, incompatible or unsupported knowledge.
-5. Rank eligible options by documented relevance, evidence, realistic benefit, affordability, verified availability and simplicity.
-6. Render only structured approved instructions.
-7. Explain rationale, uncertainty, costs and source dates.
-8. Require confirmation for material changes.
-9. Record routine version and acceptance/decline.
+## 6. CI and release engineering
 
-Generative AI cannot make independent safety decisions or create actionable formulas.
+GitHub Actions validates English/Bangla resource parity, compiles a debug APK, runs unit tests, exports the Room schema, runs Android emulator instrumentation and uploads APK/test artifacts. Latest complete run: [#295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039), passed.
 
-## 6. Knowledge versioning
+CI does not replace physical-device compatibility/accessibility testing, qualified content review or signed-release verification. The current artifact is a debug APK. The signing key must remain outside the repository and be controlled by the owner.
 
-- Every knowledge package has a release ID, schema version, compatibility, approval/provenance metadata and integrity/signature metadata.
-- Until the signing scheme and key management are approved, ship bundled reviewed content or disable remote updates. Do not ship an insecure remote JSON feed.
-- Stage and verify package before activation.
-- Activate atomically; reject malformed, incompatible, unapproved or integrity-failing packages.
-- Keep last-known-good content only while it remains safe; safety withdrawal overrides generic rollback.
-- Show current version and last successful update.
-- General reviewed content may update under policy; material active-routine changes require confirmation.
-- Never promise immediate background synchronization.
+## 7. Deliberately deferred
 
-## 7. Local data model
-
-See DATA_MODEL.md. Logical entities include LocalProfile, QuestionnaireResponse, PhotoSession, ImageFeatureResult, ProgressEntry, Routine/RoutineVersion, RoutineEvent, KnowledgeRelease, KnowledgeEntry, FormulaRecord, ConsentRecord and optional SyncState. No raw photos in cloud records by default.
-
-## 8. Security and release engineering
-
-- Keep API keys, credentials, keystores and signing keys out of Git.
-- Review dependency/model/data licences and provenance.
-- Restrict sensitive logs and inspect network behavior.
-- Test deletion, migration, offline errors, update integrity and rollback.
-- Produce signed, versioned APKs traceable to source commit and toolchain.
-- Use maintained platform cryptography; do not implement custom cryptography.
-- See THREAT_MODEL.md, TEST_STRATEGY.md and RELEASE_RUNBOOK.md.
-
-## 9. Proposed first implementation sequence
-
-Use IMPLEMENTATION_BACKLOG.md. The first milestone is repository/toolchain baseline and app shell, not skin analysis. Follow with localization/navigation, local persistence/privacy, deterministic questionnaire/safety domain, photo tracking, progress, reviewed knowledge, update protocol and release hardening. Any AI feature is a later independently gated milestone.
-
-## 10. Decisions intentionally provisional
-
-- Minimum API 26 is a provisional default, not a verified market-wide compatibility result.
-- Final camera approach and supported device matrix.
-- Final model/runtime; no model selected.
-- Remote knowledge signing/key-management scheme.
-- Whether a backend/cloud/account is justified.
-- Encryption/backup policy and age-eligibility method.
-- Price/availability sources.
-- Legal/privacy requirements and qualified content approvals.
-
-These should be resolved by the appropriate feasibility or professional review before the affected capability ships. They do not justify inventing data or enabling unvalidated features.
-
-## 11. Approval rule
-
-This document and ENGINEERING_STANDARDS.md provide a proposed baseline to reduce planning overhead. No code, scaffolding or implementation-file changes may begin until the user separately gives explicit implementation approval. External safety/legal/model gates remain binding for the relevant features and release.
+Photo capture/import/storage, image-quality checks, skin measurement/model inference, AI explanation, backend/cloud sync, knowledge-package updater, product marketplace and commercial/customer workflows are not implemented and are out of scope for the current personal-use release.
