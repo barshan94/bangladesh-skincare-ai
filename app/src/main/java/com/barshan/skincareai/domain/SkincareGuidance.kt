@@ -1,12 +1,13 @@
 package com.barshan.skincareai.domain
 
+import com.barshan.skincareai.R
+
 /**
- * Deterministic, non-diagnostic guidance for the first offline release.
- * This layer deliberately does not infer a condition from photographs.
+ * Deterministic, non-diagnostic guidance for the offline personal-use release.
+ * All user-visible text is stored in Android resources so Bangla mode is complete.
  */
 enum class SkinFeel { DRY, OILY, COMBINATION, SENSITIVE, UNSURE }
 enum class SkinGoal { BASIC_CARE, DRYNESS, ROUGHNESS, DARK_MARKS, ACNE, OTHER }
-enum class SafetyFlag { NONE, REACTION_HISTORY, OPEN_OR_BROKEN_SKIN, SUDDEN_OR_CONCERNING_CHANGE }
 
 data class CheckIn(
     val skinFeel: SkinFeel,
@@ -17,14 +18,14 @@ data class CheckIn(
 )
 
 data class GuidanceCard(
-    val title: String,
-    val explanation: String,
-    val caution: String? = null
+    val titleRes: Int,
+    val explanationRes: Int,
+    val cautionRes: Int? = null
 )
 
 data class GuidanceResult(
     val status: Status,
-    val summary: String,
+    val summaryRes: Int,
     val cards: List<GuidanceCard>,
     val seekProfessionalCare: Boolean
 ) {
@@ -36,16 +37,10 @@ object SkincareGuidance {
         if (checkIn.concerningChange) {
             return GuidanceResult(
                 status = GuidanceResult.Status.SAFETY_FIRST,
-                summary = "A new, changing, painful, bleeding, or otherwise concerning skin change needs an in-person assessment.",
+                summaryRes = R.string.guidance_summary_concerning_change,
                 cards = listOf(
-                    GuidanceCard(
-                        title = "Pause experimentation",
-                        explanation = "Do not try to treat an unexplained change with homemade mixtures or new active ingredients."
-                    ),
-                    GuidanceCard(
-                        title = "Get appropriate help",
-                        explanation = "Arrange an assessment with a qualified healthcare professional. Seek urgent care for severe or rapidly worsening symptoms."
-                    )
+                    GuidanceCard(R.string.guidance_pause_experimentation_title, R.string.guidance_pause_experimentation_body),
+                    GuidanceCard(R.string.guidance_get_help_title, R.string.guidance_get_help_body)
                 ),
                 seekProfessionalCare = true
             )
@@ -54,91 +49,82 @@ object SkincareGuidance {
         if (checkIn.brokenSkin) {
             return GuidanceResult(
                 status = GuidanceResult.Status.SAFETY_FIRST,
-                summary = "Broken or open skin needs gentle care rather than cosmetic experimentation.",
+                summaryRes = R.string.guidance_summary_broken_skin,
                 cards = listOf(
-                    GuidanceCard(
-                        title = "Keep care simple",
-                        explanation = "Avoid scrubs, lemon juice, bleaching products, and active ingredients on broken skin."
-                    ),
-                    GuidanceCard(
-                        title = "Watch for worsening",
-                        explanation = "Seek medical advice if the area worsens, becomes increasingly painful, warm, swollen, or shows signs of infection."
-                    )
+                    GuidanceCard(R.string.guidance_keep_care_simple_title, R.string.guidance_keep_care_simple_body),
+                    GuidanceCard(R.string.guidance_watch_worsening_title, R.string.guidance_watch_worsening_body)
                 ),
                 seekProfessionalCare = true
             )
         }
 
         val cards = mutableListOf(
+            GuidanceCard(R.string.guidance_cleanse_title, R.string.guidance_cleanse_body),
             GuidanceCard(
-                title = "Cleanse gently",
-                explanation = "Use a gentle cleanser when needed; avoid harsh scrubbing and stop products that sting or irritate."
-            ),
-            GuidanceCard(
-                title = "Moisturize",
-                explanation = when (checkIn.skinFeel) {
-                    SkinFeel.DRY -> "A fragrance-free cream or ointment may help reduce dryness; apply to slightly damp skin."
-                    SkinFeel.OILY -> "A light, non-comedogenic moisturizer can still be useful; oily skin can also become dehydrated or irritated."
-                    SkinFeel.COMBINATION -> "Use a comfortable lightweight moisturizer and adjust the amount by area."
-                    SkinFeel.SENSITIVE -> "Prefer a short ingredient list and fragrance-free products; introduce one new product at a time."
-                    SkinFeel.UNSURE -> "Choose a simple moisturizer that feels comfortable and does not cause irritation."
+                R.string.guidance_moisturize_title,
+                when (checkIn.skinFeel) {
+                    SkinFeel.DRY -> R.string.guidance_moisturize_dry_body
+                    SkinFeel.OILY -> R.string.guidance_moisturize_oily_body
+                    SkinFeel.COMBINATION -> R.string.guidance_moisturize_combination_body
+                    SkinFeel.SENSITIVE -> R.string.guidance_moisturize_sensitive_body
+                    SkinFeel.UNSURE -> R.string.guidance_moisturize_unsure_body
                 }
             ),
-            GuidanceCard(
-                title = "Protect from sunlight",
-                explanation = "When outdoors, use shade, clothing, and a broad-spectrum sunscreen labelled SPF 30 or higher if available and suitable."
-            )
+            GuidanceCard(R.string.guidance_sun_title, R.string.guidance_sun_body)
         )
 
         if (checkIn.knownReaction) {
             cards.add(
                 0,
                 GuidanceCard(
-                    title = "Prior reaction reported",
-                    explanation = "Avoid the product or ingredient linked to the reaction. Do not deliberately re-test it on your face.",
-                    caution = "If the reaction was severe or recurrent, ask a qualified clinician or pharmacist for advice."
+                    R.string.guidance_prior_reaction_title,
+                    R.string.guidance_prior_reaction_body,
+                    R.string.guidance_prior_reaction_caution
                 )
             )
         }
 
-        val (status, summary, scope) = when (checkIn.goal) {
-            SkinGoal.BASIC_CARE -> Triple(
+        val (status, summary, scope, needsCare) = when (checkIn.goal) {
+            SkinGoal.BASIC_CARE -> Quadruple(
                 GuidanceResult.Status.GENERAL_EDUCATION,
-                "Start with a simple routine and change only one thing at a time.",
-                null
+                R.string.guidance_summary_basic,
+                null,
+                false
             )
-            SkinGoal.DRYNESS, SkinGoal.ROUGHNESS -> Triple(
+            SkinGoal.DRYNESS, SkinGoal.ROUGHNESS -> Quadruple(
                 GuidanceResult.Status.GENERAL_EDUCATION,
-                "These are general comfort-focused steps, not a diagnosis. Give a simple routine time and stop anything that irritates.",
-                null
+                R.string.guidance_summary_dryness_roughness,
+                null,
+                false
             )
-            SkinGoal.DARK_MARKS -> Triple(
+            SkinGoal.DARK_MARKS -> Quadruple(
                 GuidanceResult.Status.OUT_OF_SCOPE,
-                "This release cannot assess the cause of dark marks or promise skin-lightening results.",
-                GuidanceCard(
-                    title = "Avoid risky lightening methods",
-                    explanation = "Do not apply lemon juice, household bleach, unknown fairness creams, or unreviewed homemade mixtures. Sun protection can help reduce further darkening."
-                )
+                R.string.guidance_summary_dark_marks,
+                GuidanceCard(R.string.guidance_dark_marks_title, R.string.guidance_dark_marks_body),
+                false
             )
-            SkinGoal.ACNE -> Triple(
+            SkinGoal.ACNE -> Quadruple(
                 GuidanceResult.Status.OUT_OF_SCOPE,
-                "This release does not diagnose or grade acne and does not provide an individualized acne treatment plan.",
-                GuidanceCard(
-                    title = "Keep irritation low",
-                    explanation = "Avoid squeezing spots and harsh scrubs. Seek professional advice for painful, scarring, persistent, or worsening acne."
-                )
+                R.string.guidance_summary_acne,
+                GuidanceCard(R.string.guidance_acne_title, R.string.guidance_acne_body),
+                true
             )
-            SkinGoal.OTHER -> Triple(
+            SkinGoal.OTHER -> Quadruple(
                 GuidanceResult.Status.OUT_OF_SCOPE,
-                "This concern is not covered by the current guidance set. Avoid experimenting with strong actives or homemade treatments.",
-                GuidanceCard(
-                    title = "Get tailored advice",
-                    explanation = "A qualified skincare professional can help assess the concern and suitable options."
-                )
+                R.string.guidance_summary_other,
+                GuidanceCard(R.string.guidance_other_title, R.string.guidance_other_body),
+                true
             )
         }
 
         if (scope != null) cards.add(scope)
-        return GuidanceResult(status, summary, cards, checkIn.goal == SkinGoal.ACNE || checkIn.goal == SkinGoal.OTHER)
+        return GuidanceResult(status, summary, cards, needsCare)
     }
+
+    private data class Quadruple<A, B, C, D>(
+        val first: A,
+        val second: B,
+        val third: C,
+        val fourth: D
+    )
 }
