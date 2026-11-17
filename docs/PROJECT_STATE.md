@@ -1,5 +1,10 @@
 # Project State and Session Handoff
 
+## 2026-11-17 — CI duplication reduction
+- Restricted push-triggered Android CI to `main`; implementation branches are verified by their pull-request workflow. This prevents every development commit from launching both a push and pull-request emulator suite.
+- Manual workflow dispatch remains available for branch checks without a pull request.
+
+
 ## 2026-11-17 — Daily routine tracking
 - Routine completions are now stored with the user's local calendar date, so yesterday's checked items do not appear completed in today's checklist.
 - The existing database version remains 1; this change reuses the existing routine ID column and requires no schema migration.
