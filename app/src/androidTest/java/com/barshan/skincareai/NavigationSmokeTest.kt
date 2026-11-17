@@ -151,9 +151,9 @@ class NavigationSmokeTest {
                 .fetchSemanticsNodes().isNotEmpty()
         }
 
-        composeRule.onNodeWithContentDescription(
+        composeRule.onAllNodesWithContentDescription(
             composeRule.activity.getString(R.string.progress_delete)
-        ).performScrollTo().performClick()
+        ).get(0).performScrollTo().performClick()
 
         val confirmationTitle = composeRule.activity.getString(R.string.progress_delete_confirm_title)
         composeRule.waitUntil(timeoutMillis = 15_000) {
