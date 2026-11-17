@@ -24,13 +24,14 @@ permissions:
 
 concurrency:
   group: android-build-${{ github.workflow }}-${{ github.ref }}
-  # Let the full build/test matrix finish; rapid documentation and code pushes must not cancel QA.
-  cancel-in-progress: false
+  # Test the newest PR commit instead of leaving stale emulator runs ahead of it.
+  cancel-in-progress: true
 
 jobs:
   debug-build:
     name: Compile debug APK
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     env:
       ANDROID_HOME: /usr/local/lib/android/sdk
       ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
