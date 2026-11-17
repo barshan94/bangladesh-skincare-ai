@@ -9,7 +9,17 @@
 ## 2026-11-17 — CI queue correction
 - Implementation branches are tested through pull requests, not duplicate push workflows.
 - GitHub concurrency keeps only one pending run per concurrency group; with `cancel-in-progress: false`, rapid commits could leave the latest test waiting behind a stale emulator run while intermediate pending runs were cancelled.
-- Changed the Android workflow to prioritize the newest PR commit and added a 45-minute job timeout. Run #278 is queued on the workflow-change commit; no latest-head green result is claimed.
+- Changed the Android workflow to prioritize the newest PR commit and added a 45-minute job timeout.
+
+## 2026-11-17 — Progress delete test investigation
+- Latest completed full emulator run #280 compiled the debug APK, passed unit tests and ran 22 emulator tests; 21 passed and one failed.
+- The failure was isolated to `progressDraftIsSavedAndDeletionRequiresConfirmation`: the test could not find the confirmation dialog after tapping the delete control. The new Progress edit test and daily routine reset test both passed in that run.
+- Replaced the delete control with an accessible Material `IconButton` and changed the test to target its merged accessible semantics and scroll it into view. Latest run #283 is executing this fix; it is not yet verified.
+
+## 2026-11-17 — CI queue correction
+- Implementation branches are tested through pull requests, not duplicate push workflows.
+- GitHub concurrency keeps only one pending run per concurrency group; with `cancel-in-progress: false`, rapid commits could leave the latest test waiting behind a stale emulator run while intermediate pending runs were cancelled.
+- Changed the Android workflow to prioritize the newest PR commit and added a 45-minute job timeout.
 
 ## 2026-11-17 — CI duplication reduction
 - Restricted push-triggered Android CI to `main`; implementation branches are verified by their pull-request workflow. This prevents every development commit from launching both a push and pull-request emulator suite.
