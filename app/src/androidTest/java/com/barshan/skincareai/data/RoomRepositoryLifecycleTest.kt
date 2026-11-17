@@ -42,6 +42,52 @@ class RoomRepositoryLifecycleTest {
         Room.databaseBuilder(context, SkincareDatabase::class.java, databaseName).build()
 
     @Test
+    fun failedRoomResetKeepsPrimaryRecordsAndCanBeRetried() = runBlocking {
+        val preferences = context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
+        assertEquals(true, preferences.edit()
+            .putString("language", "bn")
+            .putString("budget", "৳500–৳1500")
+            .putString("skin_feel", "oily")
+            .putString("routine_done", """["morning_cleanse"]""")
+            .putString("progress_notes", """[{"id":"legacy","createdAt":1,"concern":"Dryness"}]""")
+            .commit())
+
+        database.routineDao().insertAll(listOf(RoutineCompletionEntity("morning_cleanse")))
+        database.progressNoteDao().insert(
+            ProgressNoteEntity("primary-note", 1700000000000L, "Dryness", "Keep this record", "comfortable")
+        )
+        val repository = RoomSkincareRepository(database)
+
+        // Force the Room transaction to abort on its first delete. This models
+        // a storage failure while keeping the existing database file intact.
+        database.openHelper.writableDatabase.execSQL(
+            """CREATE TRIGGER fail_routine_clear
+                BEFORE DELETE ON routine_completions
+                BEGIN SELECT RAISE(ABORT, 'forced reset failure'); END"""
+        )
+
+        val failedAttempt = runCatching { repository.clearUserData(context) }
+        assertEquals(true, failedAttempt.isFailure)
+
+        // Preference cleanup is confirmed first, but failed Room transaction
+        // rolls back and leaves the primary records intact for a retry.
+        assertNull(preferences.getString("routine_done", null))
+        assertNull(preferences.getString("progress_notes", null))
+        assertNull(preferences.getString("budget", null))
+        assertNull(preferences.getString("skin_feel", null))
+        assertEquals("bn", LocalStore.language(context))
+        assertEquals(setOf("morning_cleanse"), repository.observeRoutineDone().first().toSet())
+        assertEquals("Keep this record", repository.observeProgressNotes().first().single().note)
+
+        database.openHelper.writableDatabase.execSQL("DROP TRIGGER fail_routine_clear")
+        repository.clearUserData(context)
+
+        assertEquals(emptySet<String>(), repository.observeRoutineDone().first().toSet())
+        assertEquals(emptyList<Any>(), repository.observeProgressNotes().first())
+        assertEquals("bn", LocalStore.language(context))
+    }
+
+    @Test
     fun migratedDataSurvivesDatabaseReopenAndExplicitResetPreservesLanguage() = runBlocking {
         val preferences = context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
         preferences.edit()
