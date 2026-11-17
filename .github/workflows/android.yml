@@ -75,13 +75,30 @@ jobs:
       - name: Run Android navigation smoke tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 35
           arch: x86_64
           profile: pixel_2
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 4096
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 2048 -cores 2
           emulator-boot-timeout: 900
-          script: >-
-            for attempt in $(seq 1 60); do if adb shell service check package 2>/dev/null | grep -q "found"; then break; fi; sleep 5; done; adb shell cmd package list packages >/dev/null; gradle --no-daemon :app:connectedDebugAndroidTest
+          script: |
+            set -eu
+            adb wait-for-device
+            # Wait for Android boot and repeatedly verify Package Manager before installing test APKs.
+            for attempt in $(seq 1 120); do
+              boot_state="$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')"
+              package_state="$(adb shell service check package 2>/dev/null || true)"
+              if [ "$boot_state" = "1" ] && printf '%s' "$package_state" | grep -q "found"; then
+                if adb shell cmd package list packages >/dev/null 2>&1; then
+                  sleep 10
+                  if adb shell cmd package list packages >/dev/null 2>&1; then
+                    break
+                  fi
+                fi
+              fi
+              sleep 5
+            done
+            adb shell cmd package list packages >/dev/null
+            gradle --no-daemon :app:connectedDebugAndroidTest
       - name: Upload Android test reports
         if: always()
         uses: actions/upload-artifact@v4
