@@ -1,6 +1,7 @@
 package com.barshan.skincareai
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.assertIsToggleable
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -215,6 +216,28 @@ class NavigationSmokeTest {
                 composeRule.onAllNodesWithText(originalConcern, useUnmergedTree = true)
                     .fetchSemanticsNodes().isEmpty()
         }
+    }
+
+    @Test
+    fun selfReportAndRoutineCheckboxesExposeCombinedAccessibleLabels() {
+        waitForAppReady()
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.scan_reaction_question)
+        ).assertIsToggleable()
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.scan_broken_skin_question)
+        ).assertIsToggleable()
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.scan_concerning_change_question)
+        ).assertIsToggleable()
+
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_routine)
+        ).get(0).performClick()
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.routine_am_cleanse)
+        ).assertIsToggleable()
     }
 
     @Test
