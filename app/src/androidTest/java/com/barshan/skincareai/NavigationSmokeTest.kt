@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextClearance
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -168,6 +169,52 @@ class NavigationSmokeTest {
         composeRule.waitUntil(timeoutMillis = 10_000) {
             composeRule.onAllNodesWithText(uniqueConcern, useUnmergedTree = true)
                 .fetchSemanticsNodes().isEmpty()
+        }
+    }
+
+    @Test
+    fun progressEntryCanBeEditedWithoutCreatingADuplicate() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_progress)
+        ).get(0).performClick()
+
+        val originalConcern = "Progress edit test original"
+        val updatedConcern = "Progress edit test updated"
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_concern_label)
+        ).performTextInput(originalConcern)
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_note_label)
+        ).performTextInput("A temporary note used to verify editing.")
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_save)
+        ).performScrollTo().performClick()
+
+        composeRule.waitUntil(timeoutMillis = 15_000) {
+            composeRule.onAllNodesWithText(originalConcern, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_edit)
+        ).performScrollTo().performClick()
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_concern_label)
+        ).performTextClearance()
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_concern_label)
+        ).performTextInput(updatedConcern)
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.progress_update)
+        ).performScrollTo().performClick()
+
+        composeRule.waitUntil(timeoutMillis = 15_000) {
+            composeRule.onAllNodesWithText(updatedConcern, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty() &&
+                composeRule.onAllNodesWithText(originalConcern, useUnmergedTree = true)
+                    .fetchSemanticsNodes().isEmpty()
         }
     }
 
