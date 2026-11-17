@@ -151,10 +151,9 @@ class NavigationSmokeTest {
                 .fetchSemanticsNodes().isNotEmpty()
         }
 
-        composeRule.onAllNodesWithContentDescription(
-            composeRule.activity.getString(R.string.progress_delete),
-            useUnmergedTree = true
-        ).get(0).performScrollTo().performClick()
+        composeRule.onNodeWithContentDescription(
+            composeRule.activity.getString(R.string.progress_delete)
+        ).performScrollTo().performClick()
 
         val confirmationTitle = composeRule.activity.getString(R.string.progress_delete_confirm_title)
         composeRule.waitUntil(timeoutMillis = 15_000) {
