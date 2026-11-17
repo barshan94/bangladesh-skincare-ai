@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-11-17  
 Active branch: `implementation/m0-android-baseline`  
-Latest verified commit: `212b7e837a74bc6f76291bc36863eff4d8be92b4`
+Latest source commit: `e25a94c30d016166f28d43e9a960bb10e3b5985b` (documentation-only updates; CI pending).
 
 ## Scope
 
