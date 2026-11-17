@@ -60,7 +60,7 @@
     <string name="guidance_safety">Safety comes first</string>
     <string name="guidance_limited">This concern is outside current guidance</string>
     <string name="guidance_disclaimer">General information only—not a diagnosis or individualized medical advice. Stop anything that irritates you.</string>
-    <string name="routine_intro">A simple checklist to help you remember the basics. These are educational steps, not a prescribed treatment plan.</string>
+    <string name="routine_intro">A simple daily checklist to help you remember the basics. It starts fresh each day; use Progress for dated notes. These are educational steps, not a prescribed treatment plan.</string>
     <string name="routine_completion">%1$d of %2$d steps checked</string>
     <string name="routine_am_cleanse">Morning · Gentle cleanse</string>
     <string name="routine_am_cleanse_body">Use a gentle cleanser when needed; avoid scrubbing.</string>
