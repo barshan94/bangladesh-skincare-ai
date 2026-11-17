@@ -1,3 +1,12 @@
+## 2026-11-17 — Reset failure recovery verified
+
+- **Type:** Reliability / Privacy / QA / Documentation
+- Changed local reset ordering to clear the legacy preference snapshot first, then clear Room in a database transaction.
+- Added an instrumentation regression test that deliberately aborts a Room delete, verifies primary Room records survive the failed transaction, then retries and verifies the records are removed.
+- Full Android workflow [#289](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44077648148) passed on `eb70ebcfc9c512dde510612498588073f610c2b1`: localization parity, debug APK compilation, unit tests, Room schema export, emulator navigation tests and artifact uploads.
+- The reset change is CI-verified; physical-device upgrade/reset, accessibility and signed private APK checks remain outstanding.
+- Updated the roadmap to reflect personal-use scope and remove commercial/productization assumptions.
+
 # Project Change Log
 
 ## 2026-11-17 — Edit saved Progress check-ins
