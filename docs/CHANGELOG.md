@@ -1,5 +1,13 @@
 # Project Change Log
 
+## 2026-11-17 — Edit saved Progress check-ins
+- **Type:** Personal-use feature / Storage / UX / Localization / QA
+- Added an edit action for each local Progress entry.
+- Updates retain the original entry ID and creation timestamp, preventing duplicate records and preserving the historical date.
+- Failed updates keep the draft and edit target available for retry; users can cancel editing.
+- Added English/Bangla labels and an emulator regression test for editing an existing entry.
+- Verification is pending: the latest PR workflow run is queued behind an older emulator test run.
+
 ## 2026-11-17 — CI duplication reduction
 - Restricted push-triggered Android CI to `main`; implementation branches are verified by their pull-request workflow. This prevents every development commit from launching both a push and pull-request emulator suite.
 - Manual workflow dispatch remains available for branch checks without a pull request.
