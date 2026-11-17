@@ -1,5 +1,10 @@
 # Project Change Log
 
+## 2026-11-17 — CI duplication reduction
+- Restricted push-triggered Android CI to `main`; implementation branches are verified by their pull-request workflow. This prevents every development commit from launching both a push and pull-request emulator suite.
+- Manual workflow dispatch remains available for branch checks without a pull request.
+
+
 ## 2026-11-17 — Daily routine reset
 - **Type:** Personal-use feature / UX / Localization
 - Routine completion keys now include the local calendar date, preventing yesterday's checked tasks from appearing complete today.
