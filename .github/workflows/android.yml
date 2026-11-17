@@ -79,7 +79,17 @@ jobs:
           arch: x86_64
           profile: pixel_2
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 4096
-          script: gradle --no-daemon :app:connectedDebugAndroidTest
+          emulator-boot-timeout: 900
+          script: |
+            # The emulator can report boot completion before Package Manager is ready.
+            for attempt in $(seq 1 60); do
+              if adb shell service check package 2>/dev/null | grep -q "found"; then
+                break
+              fi
+              sleep 5
+            done
+            adb shell cmd package list packages >/dev/null
+            gradle --no-daemon :app:connectedDebugAndroidTest
       - name: Upload Android test reports
         if: always()
         uses: actions/upload-artifact@v4
