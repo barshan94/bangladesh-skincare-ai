@@ -2,56 +2,60 @@
 
 A private, offline-first Android skincare tracker for personal use.
 
-> **Current status (2026-11-17):** The five-section Android app is implemented. Full CI run [#295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039) passed on commit `375fd5dcea7ceac5bdc94bdd1404b7150d0ec965`. This is a **debug APK**, not a signed release. Physical-device checks and qualified content review remain required.
+> **Verified status (2026-11-17):** The latest branch head before this documentation update, `4fc6e8992e50f8a1fc78a52a31bcef56d3c1aa2d`, passed full Android CI in [run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330). The workflow produced a debug APK and test reports. This is not a signed release APK.
 
-## Current app
+## What the app actually does
 
-- **Skin Scan:** self-reported check-in only; no photo capture, image analysis or diagnosis.
-- **My Routine:** local daily checklist.
-- **Progress:** local notes/check-ins with edit and confirmed delete.
-- **Ingredients:** 11 educational entries with search, risk filters and publisher sources. Entries remain pending qualified expert review.
-- **Profile:** English/Bangla preference, budget preference and local data reset.
+- **Skin Scan:** self-reported check-in with deterministic, general educational guidance. It does not scan skin, use a camera, diagnose, or use an AI model.
+- **My Routine:** local morning/evening reminder checklist.
+- **Progress:** private local text check-ins with edit and confirmed delete.
+- **Ingredients:** 11 educational ingredient summaries, safety notes, search, filters and publisher links. The entries are not professionally reviewed and are not treatment recommendations.
+- **Profile:** English/Bangla language preference, optional budget preference and local data reset.
 
-## Technology and privacy
+The word “AI” is currently the product name only; AI functionality is not implemented. Do not rely on this app for diagnosis or individualized treatment.
 
-Native Android, Kotlin, Jetpack Compose, Room/SQLite and SharedPreferences for small preferences/legacy import. JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21, compile/target SDK 35 and minimum SDK 26.
+## Privacy and technology
 
-The app is offline-first. It requests no runtime permissions and has no network permission, account, analytics, cloud sync or photo upload. Android backup is disabled in the manifest. These are implementation facts, not a substitute for device-level privacy verification.
+Native Android, Kotlin, Jetpack Compose, Room/SQLite and SharedPreferences for small preferences and legacy migration. JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21, compile/target SDK 35 and minimum SDK 26.
 
-## Verification
+The app works offline and currently has no account, analytics, cloud sync, photo upload, network permission or runtime permission request. Android backup is disabled in the manifest. These are code-level facts; device/OS behavior still needs a real-device check.
 
-- Full Android CI [#295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039) passed: English/Bangla resource parity, debug APK compile, unit tests, Room schema export, emulator instrumentation tests, and APK/test-report artifact uploads.
-- The CI APK artifact is available from the run for controlled testing; it is not signed for private release.
-- CI does not verify migration from an actual earlier installation, physical-device reset/backup behavior, TalkBack traversal, real-screen layout, or a signed release.
+## Automated verification
 
-## Remaining release gates
+CI run [#300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330) passed the workflow job **Compile debug APK**. The workflow includes localization parity, debug compilation, unit tests, Room schema export, emulator instrumentation tests and artifact uploads. The run contains:
+- `bangladesh-skincare-ai-debug`
+- `bangladesh-skincare-ai-test-reports`
+- `bangladesh-skincare-ai-room-schema`
 
-1. Test upgrade from a pre-Room install containing legacy routine/progress data; verify one-time import, restart persistence and no duplicates.
-2. Test local reset on a physical device; confirm Routine/Progress are cleared and language preference remains.
-3. Verify Android backup/data-extraction behavior on device.
-4. Review TalkBack traversal, font scaling, contrast, touch targets and Bangla/English layout on real devices.
-5. Check a lower-memory device and a current Android version.
-6. Obtain qualified skincare/dermatology review of all 11 ingredient entries and sources.
-7. Only then build and verify a signed private APK. Keep the signing key and passwords outside GitHub and repository history.
+A CI debug APK is suitable for controlled installation/testing. It is not a signed release build. Debug signing keys can differ between CI runs, so a later APK may not install as an in-place update; back up anything important before replacing an installation.
+
+## Remaining owner checks
+
+1. Install the current debug APK on your Android phone and test each of the five sections.
+2. If you have an older app installation with saved legacy data, test upgrade without clearing app storage; verify import once, restart persistence and no duplicates.
+3. Test Profile reset; verify routine/progress are removed and language preference remains.
+4. Check TalkBack, larger font size, Bangla/English text layout and touch targets on your phone.
+5. Check offline launch and confirm no unexpected permission prompts.
+6. For a stable signed private APK, create and retain your own signing key securely. Never share its password or keystore in chat or commit it to GitHub.
+
+**No expert is required merely to install and use this as a personal tracker.** The ingredient guide remains general education, not clinically reviewed advice. Do not expand it into diagnosis, prescriptions, high-strength active recommendations or DIY formulations without appropriate qualified review. Public/commercial distribution would need a separate safety and legal review.
 
 ## Documentation
 
-- [Project state and session handoff](docs/PROJECT_STATE.md)
-- [Roadmap and readiness gates](docs/ROADMAP.md)
+- [Project state](docs/PROJECT_STATE.md)
+- [Roadmap](docs/ROADMAP.md)
 - [Implementation backlog](docs/IMPLEMENTATION_BACKLOG.md)
 - [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
 - [Test strategy](docs/TEST_STRATEGY.md)
 - [Private APK release runbook](docs/RELEASE_RUNBOOK.md)
 - [Product specification](docs/PRODUCT_SPEC.md)
-- [Safety and privacy requirements](docs/SAFETY_AND_PRIVACY.md)
-- [Threat model](docs/THREAT_MODEL.md)
-- [Bangladesh compliance review checklist](docs/BANGLADESH_COMPLIANCE_REVIEW.md)
-- [Change log](docs/CHANGELOG.md)
+- [Safety and privacy](docs/SAFETY_AND_PRIVACY.md)
+- [Safety case](docs/SAFETY_CASE.md)
 
-## Scope exclusions
+## Explicit exclusions
 
-No commercial/client workflows, accounts, analytics, cloud sync, AI diagnosis, photo capture/import, personalized prescriptions, whitening guarantees, DIY recipes or ingredient-mixing instructions are part of this personal-use release.
+No photo capture/analysis, AI diagnosis, personalized prescriptions, product marketplace, cloud accounts/sync, analytics, commercial/client workflows, whitening guarantees or DIY whitening recipes.
 
 ## Disclaimer
 
-This app is not medical advice. Educational ingredient content is not a treatment recommendation or approval of any home formulation. Do not present unreviewed content as professionally approved.
+This app is a personal record-keeping and general-education tool, not medical advice or a clinical record system. Stop using a product that causes a reaction. Seek appropriate medical care for severe, persistent, worsening or concerning symptoms.
