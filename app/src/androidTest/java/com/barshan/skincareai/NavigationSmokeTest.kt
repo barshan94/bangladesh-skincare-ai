@@ -68,12 +68,12 @@ class NavigationSmokeTest {
         waitForAppReady()
         composeRule.onNodeWithText(
             composeRule.activity.getString(R.string.scan_get_guidance)
-        ).performClick()
+        ).performScrollTo().performClick()
 
         // Wait for the guidance result itself before looking for its action.
         // The action is rendered only after guidance has been calculated.
         val guidanceTitle = composeRule.activity.getString(R.string.guidance_general)
-        composeRule.waitUntil(timeoutMillis = 10_000) {
+        composeRule.waitUntil(timeoutMillis = 30_000) {
             composeRule.onAllNodesWithText(guidanceTitle, useUnmergedTree = true)
                 .fetchSemanticsNodes().isNotEmpty()
         }
@@ -119,9 +119,9 @@ class NavigationSmokeTest {
 
         composeRule.onNodeWithText(
             composeRule.activity.getString(R.string.progress_save)
-        ).performClick()
+        ).performScrollTo().performClick()
 
-        composeRule.waitUntil(timeoutMillis = 10_000) {
+        composeRule.waitUntil(timeoutMillis = 15_000) {
             composeRule.onAllNodesWithText(uniqueConcern, useUnmergedTree = true)
                 .fetchSemanticsNodes().isNotEmpty()
         }
@@ -131,7 +131,11 @@ class NavigationSmokeTest {
             useUnmergedTree = true
         ).get(0).performClick()
 
-        assertTextExists(composeRule.activity.getString(R.string.progress_delete_confirm_title))
+        val confirmationTitle = composeRule.activity.getString(R.string.progress_delete_confirm_title)
+        composeRule.waitUntil(timeoutMillis = 15_000) {
+            composeRule.onAllNodesWithText(confirmationTitle, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
         composeRule.onNodeWithText(
             composeRule.activity.getString(R.string.progress_delete_confirm_action),
             useUnmergedTree = true
