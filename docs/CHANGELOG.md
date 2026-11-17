@@ -1,5 +1,13 @@
 # Project Change Log
 
+## 2026-11-17 — Daily routine reset
+- **Type:** Personal-use feature / UX / Localization
+- Routine completion keys now include the local calendar date, preventing yesterday's checked tasks from appearing complete today.
+- Existing database schema remains unchanged; older records are retained and not interpreted as today's completions.
+- Updated English and Bangla explanatory copy and added emulator coverage for stale completion IDs.
+- CI verification is pending.
+
+
 ## 2026-10-30 — Skin Scan save reliability and UI persistence test
 - **Type:** Reliability / QA / Localization
 - Prevented rapid repeat taps from creating duplicate Skin Scan progress entries.
