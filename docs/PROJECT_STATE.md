@@ -1,14 +1,14 @@
 # Current verified status — 2026-11-17
 
-- Latest branch commit: `eb70ebcfc9c512dde510612498588073f610c2b1`.
-- Latest full Android CI: [run #289](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44077648148) **passed**. Localization parity, debug APK compilation, unit tests, Room schema export, Android emulator navigation tests and artifact uploads all succeeded.
-- Run #287 also passed the Progress delete-confirmation UI regression. Run #289 additionally passed `failedRoomResetKeepsPrimaryRecordsAndCanBeRetried`.
-- User-data reset now clears the legacy preference snapshot before clearing Room inside a transaction. A forced Room deletion failure leaves primary Room records intact; the regression test then retries and verifies the reset.
-- This is still a **debug build**, not a signed private release. The draft PR remains open and unmerged.
-- Not verified by CI: upgrading a real installation containing legacy SharedPreferences data, physical-device data deletion/backup behavior, screen-reader/contrast review, and real-device layout/accessibility checks.
-- Ingredient catalogue remains educational and pending qualified expert review. Do not treat its entries as personalized medical advice or approved formulations.
+- Latest verified branch commit: `212b7e837a74bc6f76291bc36863eff4d8be92b4`.
+- Latest full Android CI: [run #294](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44085236566) **passed**. English/Bangla resource parity, debug APK compilation, unit tests, Room schema export, Android emulator navigation tests, test report upload and debug APK upload all succeeded.
+- Accessibility semantics update: Routine rows and Skin Scan self-report questions expose their labels as toggleable checkbox controls. The new `selfReportAndRoutineCheckboxesExposeCombinedAccessibleLabels` instrumentation test passed in run #294.
+- Reset reliability remains verified by run #289, including `failedRoomResetKeepsPrimaryRecordsAndCanBeRetried`.
+- The app currently has five sections: Skin Scan, My Routine, Progress, Ingredients and Profile. Routine and Progress use Room; startup imports legacy SharedPreferences data once.
+- This is still a **debug build**, not a signed private release. Draft PR #1 remains open and unmerged.
+- Still unverified on physical devices: upgrade from a populated legacy install, reset/backup behavior, TalkBack traversal, contrast, font scaling, touch-target usability, bilingual layout on real screens, and lower-memory/current-device compatibility.
+- Ingredient catalogue remains educational and pending qualified skincare/dermatology review. It is not personalized medical advice or approval of any home formulation.
 - Scope remains personal-use and offline-first. No accounts, analytics, cloud sync, photo upload, image diagnosis, DIY formulas, or commercial/client-delivery features are in scope.
-
 # Project State and Session Handoff
 
 ## 2026-11-17 — Progress history editing
