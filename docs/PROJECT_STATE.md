@@ -1,3 +1,14 @@
+# Current verified status — 2026-11-17
+
+- Latest branch commit: `eb70ebcfc9c512dde510612498588073f610c2b1`.
+- Latest full Android CI: [run #289](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44077648148) **passed**. Localization parity, debug APK compilation, unit tests, Room schema export, Android emulator navigation tests and artifact uploads all succeeded.
+- Run #287 also passed the Progress delete-confirmation UI regression. Run #289 additionally passed `failedRoomResetKeepsPrimaryRecordsAndCanBeRetried`.
+- User-data reset now clears the legacy preference snapshot before clearing Room inside a transaction. A forced Room deletion failure leaves primary Room records intact; the regression test then retries and verifies the reset.
+- This is still a **debug build**, not a signed private release. The draft PR remains open and unmerged.
+- Not verified by CI: upgrading a real installation containing legacy SharedPreferences data, physical-device data deletion/backup behavior, screen-reader/contrast review, and real-device layout/accessibility checks.
+- Ingredient catalogue remains educational and pending qualified expert review. Do not treat its entries as personalized medical advice or approved formulations.
+- Scope remains personal-use and offline-first. No accounts, analytics, cloud sync, photo upload, image diagnosis, DIY formulas, or commercial/client-delivery features are in scope.
+
 # Project State and Session Handoff
 
 ## 2026-11-17 — Progress history editing
