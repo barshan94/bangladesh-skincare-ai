@@ -82,6 +82,8 @@ import com.barshan.skincareai.domain.SkincareGuidance
 import com.barshan.skincareai.domain.GuidanceResult
 import com.barshan.skincareai.domain.IngredientCatalog
 import com.barshan.skincareai.domain.IngredientRisk
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 private val Sage = Color(0xFF486B5A)
@@ -348,6 +350,12 @@ private fun GuidanceResultCard(result: GuidanceResult) {
 private fun RoutineScreen(repository: RoomSkincareRepository) {
     val scope = rememberCoroutineScope()
     val done by repository.observeRoutineDone().collectAsState(initial = emptySet())
+    // Date-prefix completion IDs so yesterday's checks never appear completed today.
+    // Older records are retained for a possible future routine-history view.
+    val todayPrefix = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
+    val todayDoneIds = done.mapNotNull { storedId ->
+        storedId.takeIf { it.startsWith("$todayPrefix:") }?.substringAfter("$todayPrefix:")
+    }.toSet()
     val items = listOf(
         RoutineItem("morning_cleanse", R.string.routine_am_cleanse, R.string.routine_am_cleanse_body),
         RoutineItem("morning_moisturize", R.string.routine_am_moisturize, R.string.routine_am_moisturize_body),
@@ -356,12 +364,13 @@ private fun RoutineScreen(repository: RoomSkincareRepository) {
         RoutineItem("evening_moisturize", R.string.routine_pm_moisturize, R.string.routine_pm_moisturize_body)
     )
     Text(stringResource(R.string.routine_intro), color = Color(0xFF5D6962))
-    Text(stringResource(R.string.routine_completion, done.intersect(items.map { it.id }.toSet()).size, items.size), color = Sage, fontWeight = FontWeight.SemiBold)
+    Text(stringResource(R.string.routine_completion, todayDoneIds.intersect(items.map { it.id }.toSet()).size, items.size), color = Sage, fontWeight = FontWeight.SemiBold)
     items.forEach { item ->
+        val datedId = "$todayPrefix:${item.id}"
         Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
             Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(checked = item.id in done, onCheckedChange = { checked ->
-                    val updated = if (checked) done + item.id else done - item.id
+                Checkbox(checked = item.id in todayDoneIds, onCheckedChange = { checked ->
+                    val updated = if (checked) done + datedId else done - datedId
                     scope.launch { repository.setRoutineDone(updated) }
                 })
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
