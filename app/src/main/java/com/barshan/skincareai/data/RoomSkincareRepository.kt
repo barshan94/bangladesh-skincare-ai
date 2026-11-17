@@ -62,6 +62,23 @@ class RoomSkincareRepository(private val database: SkincareDatabase) {
         return created
     }
 
+    suspend fun updateProgressNote(
+        existing: ProgressNote,
+        concern: String,
+        note: String,
+        tolerance: String
+    ) {
+        database.progressNoteDao().insert(
+            ProgressNoteEntity(
+                id = existing.id,
+                createdAt = existing.createdAt,
+                concern = concern,
+                note = note,
+                tolerance = tolerance
+            )
+        )
+    }
+
     suspend fun deleteProgressNote(id: String) {
         database.progressNoteDao().deleteById(id)
     }
