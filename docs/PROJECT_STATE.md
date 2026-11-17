@@ -1,46 +1,53 @@
 # Project State — 2026-11-17
 
-## Verified repository state
+## Repository and CI
 
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Active branch: `implementation/m0-android-baseline`
 - Draft PR: [#1](https://github.com/barshan94/bangladesh-skincare-ai/pull/1), open and unmerged.
-- Latest source/documentation commit: `375fd5dcea7ceac5bdc94bdd1404b7150d0ec965`.
-- Latest full CI: [run #295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039), **passed**.
-- CI steps passed: English/Bangla resource parity, debug APK compilation, unit tests, Room schema export, Android emulator navigation/instrumentation tests, test-report upload and debug APK upload.
-- Debug APK artifact: `bangladesh-skincare-ai-debug`, SHA-256 `7edbd80f915df7afa1b1e7ed9a90c39e30b3db44f6ff06eb5abab176d202992a`. This is not a signed release APK.
+- Latest branch head before this documentation update: `4fc6e8992e50f8a1fc78a52a31bcef56d3c1aa2d`.
+- Latest full CI: [run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330), **success**.
+- Workflow job: Compile debug APK.
+- Uploaded artifacts: debug APK, test reports and Room schema.
 
-## Implemented
+## Implemented app
 
-- Five Compose sections: Skin Scan, My Routine, Progress, Ingredients and Profile.
-- English/Bangla localization and automated parity validation.
-- Self-reported, non-diagnostic Skin Scan with explicit save to Progress.
-- Room-backed Routine and Progress with one-time/idempotent legacy SharedPreferences import.
+Five Compose sections:
+1. Skin Scan — self-reported questionnaire and deterministic general guidance; no camera, image analysis, diagnosis or AI model.
+2. My Routine — local daily checklist.
+3. Progress — local text notes/check-ins with edit and confirmed delete.
+4. Ingredients — 11 educational entries, search, risk filters and publisher links; not professionally reviewed and not a treatment recommendation.
+5. Profile — English/Bangla preference, optional budget preference and local data reset.
+
+Other implemented controls:
+- Room-backed Routine and Progress.
+- One-time/idempotent legacy SharedPreferences import.
 - Daily routine completion identifiers.
-- Progress create/edit/delete, confirmation, localized error feedback and regression tests.
-- Ingredient catalogue with 11 educational entries, search, risk filters and source links; all entries remain pending qualified review.
-- Profile preferences and local data reset.
-- Accessible toggle semantics and combined checkbox labels for Skin Scan and Routine.
-- Android backup disabled in the manifest; app currently has no network permission, account or analytics.
+- Local data reset with failure handling and regression coverage.
+- English/Bangla resources and automated parity validation.
+- Accessibility semantics for Routine and Skin Scan checkbox rows.
+- Android backup disabled in manifest; no network permission, account, analytics, cloud sync or photo upload.
 
-## Remaining release blockers
+## What “finished” means for this personal-use scope
 
-1. Physical upgrade test from a prior installed version containing legacy preferences; verify one-time import, restart persistence and no duplicate records.
-2. Physical-device reset test; verify Routine/Progress are deleted and language preference remains.
-3. Verify Android backup/data-extraction behavior on device.
-4. Physical accessibility/layout checks: TalkBack, text scaling, contrast, touch targets and Bangla/English overflow.
-5. Test one lower-memory device and one current Android device.
-6. Qualified skincare/dermatology review of the 11 ingredient entries and their cited sources.
-7. After all above, create and verify signed private APK. Signing key/passphrase remain owner-controlled and outside GitHub.
+The app's current software scope is implemented and the latest full CI run passed. No expert is required just to install/use a local tracker. The ingredient catalogue is explicitly educational, unreviewed and non-prescriptive; it must not be presented as medical advice. Qualified review becomes necessary before adding diagnosis, individualized treatment plans, strong active-ingredient protocols, home formulations or public/commercial health claims.
 
-## Not implemented / intentionally deferred
+## Owner-side checks still required
 
-Photo capture/import, photo storage/timeline, image analysis, AI diagnosis or prescriptions, cloud/backend/accounts, analytics, product marketplace, DIY whitening recipes and commercial/client workflows. These are not hidden incomplete tasks for the current release; they are out of scope.
+These cannot be truthfully completed from GitHub or emulator CI:
+1. Install and smoke-test all five sections on the owner's Android phone.
+2. If upgrading an older installation with saved legacy preferences, verify one-time import, restart persistence and no duplicate records without clearing app storage.
+3. Verify Profile reset removes Routine/Progress but retains language preference.
+4. Check TalkBack, larger font, contrast, touch targets and Bangla/English overflow.
+5. Confirm offline launch and no unexpected permission prompts.
+6. For a stable signed private APK, use an owner-controlled signing key stored outside the repository; verify signature, package/version and artifact hash.
 
-## Important distinction
+## Release distinction
 
-Automated CI is green, but physical-device behavior, professional content approval and signed release are not verified. Do not call this release-ready or distribute the debug APK as a private release.
+- CI debug APK: usable for controlled testing and personal evaluation, but not a signed release artifact. A later CI debug build may have a different debug signing key.
+- Signed private APK: requires owner-controlled signing credentials and install/upgrade verification.
+- Public/commercial distribution or clinical functionality: outside current scope and requires separate safety, privacy and legal review.
 
-## Session handoff
+## Handoff
 
-Continue with code/documentation review that can be completed without user secrets or external approvals. Ask the owner to perform device-only checks when needed; do not fabricate results. Keep PR #1 draft until the release blockers are actually cleared.
+Continue by helping the owner install and test the CI APK on their Android phone. Never claim physical-device tests passed until the owner reports the observed results. Keep PR #1 draft/unmerged until the owner has reviewed the implementation and the intended release path is clear.
