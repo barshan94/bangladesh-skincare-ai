@@ -1,44 +1,44 @@
-# Private Android APK Release Runbook
+# Private Android APK Runbook
 
 - Last reviewed: 2026-11-17
-- Status: Procedure only. **Not yet cleared for release.**
+- Current workflow: [CI run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330) — success.
 
-## Current build status
+## Current artifact
 
-Latest full CI [#295](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44090947039) passed and uploaded a debug APK. The debug artifact is for controlled testing only; it is not a signed private release.
+The workflow uploaded `bangladesh-skincare-ai-debug`, test reports and Room schema. The debug APK can be installed for personal evaluation. It is not a signed release build. CI debug signing keys may differ between runs, so later debug APKs may not update an earlier installation in place. Back up important notes before replacing an installation.
 
-## Release prerequisites
+## Phone acceptance checklist
 
-Do not start signing/distribution until all conditions are true:
+On the owner's Android phone:
 
-- Physical upgrade from an earlier installed build with populated legacy SharedPreferences data passes; import is one-time and restart persistence is confirmed.
-- Physical reset clears Routine/Progress and legacy snapshots while retaining language preference.
-- Android backup/data-extraction behavior has been checked on supported devices.
-- TalkBack traversal, font scaling, contrast, touch targets and English/Bangla layouts have been reviewed on real devices.
-- At least one lower-memory and one current Android device pass smoke tests.
-- All 11 ingredient entries and sources receive qualified skincare/dermatology review; rejected or uncertain content is corrected or removed.
-- Product owner approves release scope and release notes.
-- No critical/high unresolved defects; dependency/secret/permission review is complete.
+1. Install the APK from the `bangladesh-skincare-ai-debug` artifact on run #300.
+2. Open each section: Skin Scan, My Routine, Progress, Ingredients and Profile.
+3. Create a routine tick and a Progress note; close/reopen the app and confirm they remain.
+4. Edit and delete a Progress note; verify the confirmation and result.
+5. Change language to Bangla and back to English; inspect text layout.
+6. Use Profile reset; confirm routine/progress are removed and language remains.
+7. Enable airplane mode and confirm the app still opens and local features work.
+8. If available, enable TalkBack and increase system font size; check labels, focus order and clipping.
 
-## Owner-controlled signing
+Do not clear app storage before testing migration from an older installation. If the phone already has an older version with data, test the upgrade path first.
 
-1. Generate or select an Android upload/release keystore on an owner-controlled secure device.
-2. Back up the keystore and recovery information securely. Never send the keystore or passwords in chat.
-3. Never commit keystore files, signing passwords or private keys to GitHub.
-4. Configure signing secrets only in the owner's protected build environment; prefer local release signing if CI secret handling has not been reviewed.
-5. Build the release variant from a clean, reviewed commit using the pinned toolchain.
-6. Verify application ID, version code/name, signature certificate fingerprint, permissions, network behavior and artifact SHA-256.
-7. Install the signed APK cleanly and upgrade from the prior supported signed version; test local migration, reset and offline behavior.
-8. Record source commit, build environment, signer fingerprint, artifact hash, test evidence and approval date. Do not publish the keystore or its passwords.
+## Stable signed private APK (optional next step)
 
-## Release record
+1. Generate/select an Android keystore on an owner-controlled device.
+2. Back up the keystore and recovery information securely.
+3. Never share the keystore or passwords in chat or commit them to GitHub.
+4. Configure signing only in a protected owner-controlled environment; local signing is acceptable.
+5. Build a release variant from the reviewed source commit.
+6. Verify application ID, version, signature certificate fingerprint, permissions and artifact SHA-256.
+7. Install the signed APK cleanly and test upgrade from the previous signed build.
+8. Record source commit, build environment, signer fingerprint, artifact hash and test evidence.
 
-Record: app version, source commit, CI run, artifact hash, signing certificate fingerprint, supported Android versions, review approvals, known limitations, migration behavior, backup caveats, support/incident contact and rollback plan.
+## Safety and distribution
 
-## Rollback and incident response
+No expert is required merely to use the current personal tracker. Ingredient entries are general education and are not clinically reviewed treatment recommendations. Do not use the app to diagnose or select treatment. If symptoms are severe, persistent, worsening or concerning, seek appropriate medical care.
 
-Retain the prior signed APK and its hash. Do not roll back to content known to contain a safety issue. If a content defect is found, withdraw/correct it with qualified review. For suspected privacy exposure, stop affected distribution, preserve only necessary evidence and follow the approved legal/privacy incident process.
+Adding clinical advice, image diagnosis, high-strength active protocols, home formulations or public/commercial distribution requires a separate qualified safety/privacy/legal review. Do not represent the current app as clinically validated or legally certified.
 
 ## Current decision
 
-**Not ready for signed private release.** CI success is necessary but does not replace physical-device testing, professional content review or signing verification.
+**Current personal-use software scope: implemented; latest CI passed.** Phone acceptance and a stable signed APK (if wanted) remain owner-side steps. The debug artifact is for evaluation, not public distribution.
