@@ -60,7 +60,7 @@
     <string name="guidance_safety">নিরাপত্তা আগে</string>
     <string name="guidance_limited">এই বিষয়ে বর্তমান নির্দেশনা নেই</string>
     <string name="guidance_disclaimer">শুধু সাধারণ তথ্য—রোগ নির্ণয় বা ব্যক্তিগত চিকিৎসা পরামর্শ নয়। জ্বালা সৃষ্টি করে এমন কিছু ব্যবহার বন্ধ করুন।</string>
-    <string name="routine_intro">প্রাথমিক যত্ন মনে রাখতে সহজ একটি তালিকা। এগুলো শিক্ষামূলক ধাপ, নির্ধারিত চিকিৎসা পরিকল্পনা নয়।</string>
+    <string name="routine_intro">প্রতিদিনের প্রাথমিক যত্ন মনে রাখতে সহজ একটি তালিকা। প্রতিদিন এটি নতুন করে শুরু হয়; তারিখসহ নোট রাখতে Progress ব্যবহার করুন। এগুলো শিক্ষামূলক ধাপ, নির্ধারিত চিকিৎসা পরিকল্পনা নয়।</string>
     <string name="routine_completion">%2$dটির মধ্যে %1$dটি ধাপ চিহ্নিত</string>
     <string name="routine_am_cleanse">সকাল · কোমলভাবে পরিষ্কার</string>
     <string name="routine_am_cleanse_body">প্রয়োজন হলে কোমল ক্লিনজার ব্যবহার করুন; ঘষাঘষি করবেন না।</string>
