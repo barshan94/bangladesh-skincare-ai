@@ -1,3 +1,12 @@
+## 2026-11-17 — Personal-use scope and release documentation correction
+
+- Confirmed CI run [#300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330) completed successfully on branch head `4fc6e8992e50f8a1fc78a52a31bcef56d3c1aa2d`.
+- Reconciled README, project state, backlog, roadmap, release runbook and safety documents with the actual personal-use app.
+- Removed the incorrect claim that a professional review is required merely to install/use a non-diagnostic personal tracker. Ingredient entries remain explicitly educational, unreviewed and non-prescriptive.
+- Clarified that the product currently has no AI model, camera analysis, diagnosis, prescriptions, cloud sync or DIY formulas.
+- Made physical phone acceptance and owner-controlled signing the remaining owner-side tasks. No physical-device test is claimed complete.
+- Kept PR #1 draft and unmerged.
+
 ## 2026-11-17 — Documentation reconciliation after full CI
 
 - **Type:** Documentation / Release readiness
