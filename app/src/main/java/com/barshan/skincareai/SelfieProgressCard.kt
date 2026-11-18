@@ -166,7 +166,7 @@ internal fun SelfieProgressCard() {
                                 contentScale = ContentScale.Fit
                             )
                         }
-                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             Text(
                                 SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
                                     .format(Date(record.capturedAt)),
