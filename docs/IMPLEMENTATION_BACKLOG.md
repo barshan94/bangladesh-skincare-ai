@@ -6,7 +6,7 @@
 
 ## Product boundary
 
-Personal-use, offline-first Android skincare tracker. No commercial/client workflows, accounts, cloud sync, analytics, photo capture/analysis, AI diagnosis, prescriptions or DIY whitening recipes.
+Personal-use, offline-first Android skincare companion. No commercial/client workflows, accounts, cloud sync, analytics, unvalidated photo analysis, AI diagnosis, prescriptions or unreviewed DIY whitening recipes.
 
 ## Implemented and CI-verified
 
@@ -20,6 +20,22 @@ Personal-use, offline-first Android skincare tracker. No commercial/client workf
 - **Reliability:** reset ordering and regression test for failed-reset recovery.
 
 Latest CI #44221154087 passed the complete workflow, including 24 emulator instrumentation tests (0 failed, 0 skipped) and artifact upload.
+
+## New brightening work — in progress
+
+- Added a dedicated sixth navigation destination: **Whitening & Brightening**.
+- Added English and Bangla educational guidance for post-acne marks, tanning and unexplained patches.
+- Added simple morning/evening routine foundations, sunscreen guidance, ingredient education, realistic timelines and warnings against unsafe whitening shortcuts.
+- This is not a personalized prescription, selfie analysis or a validated pigmentation measurement. Do not call the feature AI-powered.
+
+## Remaining core product work
+
+1. Guided selfie capture with private on-device photo storage and user-controlled deletion.
+2. Image-quality and repeatable framing checks; no pigmentation claims until independently validated.
+3. Personalized brightening routine engine based on user-reported concern, sensitivity, existing products, budget and safety exclusions.
+4. Photo timeline and progress comparison with explicit uncertainty; no skin-tone/fairness score.
+5. Validated home-cosmetic formulation library with exact formulation, stability/preservation and contamination review; no free-form AI recipes.
+6. Reviewed Bangla/English content, citations, privacy and safety review.
 
 ## Owner-side acceptance tests
 
