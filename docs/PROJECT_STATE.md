@@ -1,12 +1,12 @@
-# Project State — 2026-11-17
+# Project State — 2026-11-18
 
 ## Repository and CI
 
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Active branch: `implementation/m0-android-baseline`
 - Draft PR: [#1](https://github.com/barshan94/bangladesh-skincare-ai/pull/1), open and unmerged.
-- Latest branch head before this documentation update: `4fc6e8992e50f8a1fc78a52a31bcef56d3c1aa2d`.
-- Latest full CI: [run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330), **success**.
+- Latest verified branch head: `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8`.
+- Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), **success**. The emulator instrumentation suite executed 24 tests: 0 failed, 0 skipped.
 - Workflow job: Compile debug APK.
 - Uploaded artifacts: debug APK, test reports and Room schema.
 
@@ -30,7 +30,7 @@ Other implemented controls:
 
 ## What “finished” means for this personal-use scope
 
-The app's current software scope is implemented and the latest full CI run passed. No expert is required just to install/use a local tracker. The ingredient catalogue is explicitly educational, unreviewed and non-prescriptive; it must not be presented as medical advice. Qualified review becomes necessary before adding diagnosis, individualized treatment plans, strong active-ingredient protocols, home formulations or public/commercial health claims.
+The app's current software scope is implemented and the latest full CI run passed, including 24 emulator instrumentation tests (0 failed, 0 skipped). No expert is required just to install/use a local tracker. The ingredient catalogue is explicitly educational, unreviewed and non-prescriptive; it must not be presented as medical advice. Qualified review becomes necessary before adding diagnosis, individualized treatment plans, strong active-ingredient protocols, home formulations or public/commercial health claims.
 
 ## Owner-side checks still required
 
