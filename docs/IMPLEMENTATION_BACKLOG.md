@@ -1,8 +1,8 @@
 # Implementation Backlog — Current Status
 
-- Last reviewed: 2026-11-17
+- Last reviewed: 2026-11-18
 - Active branch: `implementation/m0-android-baseline`
-- Latest full CI: [run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330), success.
+- Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), success; emulator instrumentation: 24 tests, 0 failed, 0 skipped.
 
 ## Product boundary
 
@@ -19,7 +19,7 @@ Personal-use, offline-first Android skincare tracker. No commercial/client workf
 - **M6 — Accessibility baseline:** combined labels/toggle semantics for key checkbox rows.
 - **Reliability:** reset ordering and regression test for failed-reset recovery.
 
-Latest CI #300 passed the complete workflow, including emulator instrumentation and artifact upload.
+Latest CI #44221154087 passed the complete workflow, including 24 emulator instrumentation tests (0 failed, 0 skipped) and artifact upload.
 
 ## Owner-side acceptance tests
 
