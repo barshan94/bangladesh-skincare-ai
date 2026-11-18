@@ -261,5 +261,4 @@
     <string name="selfie_delete_title">Delete this selfie?</string>
     <string name="selfie_delete_body">The saved photo will be permanently deleted from this app.</string>
     <string name="selfie_deleted">Photo deleted.</string>
-    <string name="cancel">Cancel</string>
 </resources>
