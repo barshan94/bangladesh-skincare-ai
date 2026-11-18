@@ -72,6 +72,7 @@ internal fun BrighteningScreen() {
             }
         }
 
+        SelfieProgressCard()
         BrighteningInfoCard(
             R.string.brightening_morning_title,
             R.string.brightening_morning_body
