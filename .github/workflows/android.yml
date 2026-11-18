@@ -74,12 +74,12 @@ jobs:
       - name: Run Android navigation smoke tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           arch: x86_64
           profile: pixel_2
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 2048 -cores 2
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 4096 -cores 2
           emulator-boot-timeout: 900
-          script: adb wait-for-device && sleep 30 && adb shell cmd package list packages >/dev/null && gradle --no-daemon :app:connectedDebugAndroidTest
+          script: gradle --no-daemon :app:connectedDebugAndroidTest
       - name: Upload Android test reports
         if: always()
         uses: actions/upload-artifact@v4
