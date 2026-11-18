@@ -32,6 +32,17 @@ internal fun BrighteningScreen() {
 
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Text(
+            stringResource(R.string.brightening_title),
+            color = BrighteningInk,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            stringResource(R.string.brightening_body),
+            color = BrighteningMuted,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
             stringResource(R.string.brightening_intro),
             color = BrighteningMuted,
             style = MaterialTheme.typography.bodyMedium
