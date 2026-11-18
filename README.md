@@ -2,7 +2,7 @@
 
 A private, offline-first Android skincare tracker for personal use.
 
-> **Verified status (2026-11-17):** The latest branch head before this documentation update, `4fc6e8992e50f8a1fc78a52a31bcef56d3c1aa2d`, passed full Android CI in [run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330). The workflow produced a debug APK and test reports. This is not a signed release APK.
+> **Verified status (2026-11-18):** Branch head `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` passed full Android CI in [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087). The workflow produced a debug APK, test reports and Room schema; 24 emulator instrumentation tests passed (0 failed, 0 skipped). This is not a signed release APK.
 
 ## What the app actually does
 
@@ -22,7 +22,7 @@ The app works offline and currently has no account, analytics, cloud sync, photo
 
 ## Automated verification
 
-CI run [#300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330) passed the workflow job **Compile debug APK**. The workflow includes localization parity, debug compilation, unit tests, Room schema export, emulator instrumentation tests and artifact uploads. The run contains:
+CI run [#44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087) passed the workflow job **Compile debug APK**, including 24 emulator instrumentation tests (0 failed, 0 skipped). The workflow includes localization parity, debug compilation, unit tests, Room schema export, emulator instrumentation tests and artifact uploads. The run contains:
 - `bangladesh-skincare-ai-debug`
 - `bangladesh-skincare-ai-test-reports`
 - `bangladesh-skincare-ai-room-schema`
