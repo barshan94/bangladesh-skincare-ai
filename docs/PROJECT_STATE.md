@@ -1,57 +1,43 @@
 # Project State — 2026-11-18
 
-## Repository and CI
+## Repository and active work
 
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
-- Active branch: `implementation/m0-android-baseline`
-- Draft PR: [#1](https://github.com/barshan94/bangladesh-skincare-ai/pull/1), open and unmerged.
-- Latest CI-verified app-code revision: `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` (subsequent commits update documentation only).
-- Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), **success**. The emulator instrumentation suite executed 24 tests: 0 failed, 0 skipped.
-- Workflow job: Compile debug APK.
-- Uploaded artifacts: debug APK, test reports and Room schema.
+- Baseline branch: `implementation/m0-android-baseline`
+- Active feature branch: `feature/brightening-system`
+- Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open and unmerged.
+- Latest feature commit: `bccd4d32e3a71446d2fe548bec72a1d2f488b1aa`.
+- Latest CI for that commit: runs [#44236424998](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44236424998) and [#44236419080](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44236419080), both in progress at the time of this update. Do not claim full verification until both finish.
 
-## Implemented app
+## Baseline app capabilities
 
-Six Compose sections:
-1. Skin Scan — self-reported questionnaire and deterministic general guidance; no camera, image analysis, diagnosis or AI model.
-2. My Routine — local daily checklist.
-3. Progress — local text notes/check-ins with edit and confirmed delete.
-4. Ingredients — 11 educational entries, search, risk filters and publisher links; not professionally reviewed and not a treatment recommendation.
-5. Profile — English/Bangla preference, optional budget preference and local data reset.
+- Six Compose destinations on the feature branch: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
+- Skin Scan is a self-reported questionnaire with deterministic general education. It is not camera analysis, diagnosis, or an AI model.
+- My Routine and Progress use local Room storage.
+- Ingredients is an educational catalogue; entries are not professionally reviewed and are not treatment recommendations.
+- Profile includes English/Bangla language preference, optional budget preference and local data reset.
+- No account, analytics, cloud sync or photo upload is implemented.
 
-Other implemented controls:
-- Room-backed Routine and Progress.
-- One-time/idempotent legacy SharedPreferences import.
-- Daily routine completion identifiers.
-- Local data reset with failure handling and regression coverage.
-- English/Bangla resources and automated parity validation.
-- Accessibility semantics for Routine and Skin Scan checkbox rows.
-- Android backup disabled in manifest; no network permission, account, analytics, cloud sync or photo upload.
+## Brightening feature — implemented so far
 
-## Scope correction — 2026-11-18
+- Dedicated bilingual Whitening & Brightening destination.
+- General education for post-acne marks, tanning and persistent dark patches.
+- Gentle routine foundations, sunscreen guidance, ingredient education, realistic timelines and warnings against unsafe whitening shortcuts.
+- Guided selfie capture and private on-device photo timeline.
+- ML Kit face detection checks that one face is visible and reasonably framed. It does **not** detect acne, pigmentation, melasma, dark spots, skin tone or skin disease. It is not skin analysis and must not be marketed as AI analysis.
+- Photos are stored in app-private storage, with in-app deletion. No cloud upload.
 
-The earlier tracker-only completion claim was too broad relative to the approved product specification. A dedicated Whitening & Brightening screen has now been started on `feature/brightening-system`. This is an initial educational milestone only. Selfie capture/analysis, personalized routine logic, validated pigmentation measurement, and home-formulation tools remain unimplemented. No image feature is being represented as AI or as validated.
+## Remaining core product work
 
-## What “finished” means for this personal-use scope
+1. Get the latest CI runs green after the localized heading fix.
+2. Improve repeatable photo guidance and add a user-controlled visual comparison/timeline; do not infer diagnosis or a skin-tone/fairness score.
+3. Build a safe, transparent concern-intake and routine guidance flow with conservative rules and clear escalation advice.
+4. Build a curated home-ingredient safety and formulation education library. Do not generate arbitrary recipes. Exclude unsafe lightening shortcuts, unpreserved water-based DIY products and homemade sunscreen.
+5. Add regression coverage for photo capture/storage/deletion and all brightening flows.
+6. Complete owner-side physical-device checks and review Bangla/English accessibility and overflow.
 
-The app's current software scope is implemented and the latest full CI run passed, including 24 emulator instrumentation tests (0 failed, 0 skipped). No expert is required just to install/use a local tracker. The ingredient catalogue is explicitly educational, unreviewed and non-prescriptive; it must not be presented as medical advice. Qualified review becomes necessary before adding diagnosis, individualized treatment plans, strong active-ingredient protocols, home formulations or public/commercial health claims.
+## Safety and release boundary
 
-## Owner-side checks still required
+This is a personal-use educational companion, not a diagnostic or prescription tool. The goal is to address uneven tone and excess pigmentation safely, not change genetically determined natural skin colour. Mercury products, bleach, steroid misuse, harsh kitchen remedies and unsupervised prescription lighteners must remain excluded. Home formulations require validated ingredients, concentration, preservation, stability, hygiene and contamination guidance before being presented as usable recipes.
 
-These cannot be truthfully completed from GitHub or emulator CI:
-1. Install and smoke-test all five sections on the owner's Android phone.
-2. If upgrading an older installation with saved legacy preferences, verify one-time import, restart persistence and no duplicate records without clearing app storage.
-3. Verify Profile reset removes Routine/Progress but retains language preference.
-4. Check TalkBack, larger font, contrast, touch targets and Bangla/English overflow.
-5. Confirm offline launch and no unexpected permission prompts.
-6. For a stable signed private APK, use an owner-controlled signing key stored outside the repository; verify signature, package/version and artifact hash.
-
-## Release distinction
-
-- CI debug APK: usable for controlled testing and personal evaluation, but not a signed release artifact. A later CI debug build may have a different debug signing key.
-- Signed private APK: requires owner-controlled signing credentials and install/upgrade verification.
-- Public/commercial distribution or clinical functionality: outside current scope and requires separate safety, privacy and legal review.
-
-## Handoff
-
-Continue by helping the owner install and test the CI APK on their Android phone. Never claim physical-device tests passed until the owner reports the observed results. Keep PR #1 draft/unmerged until the owner has reviewed the implementation and the intended release path is clear.
+Do not merge the feature PR or call the app complete while CI is failing/pending or the core requested features remain unfinished.
