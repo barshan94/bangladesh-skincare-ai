@@ -261,5 +261,4 @@
     <string name="selfie_delete_title">এই সেলফিটি মুছবেন?</string>
     <string name="selfie_delete_body">সংরক্ষিত ছবিটি এই অ্যাপ থেকে স্থায়ীভাবে মুছে যাবে।</string>
     <string name="selfie_deleted">ছবি মুছে ফেলা হয়েছে।</string>
-    <string name="cancel">বাতিল</string>
 </resources>
