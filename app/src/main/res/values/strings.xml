@@ -243,4 +243,23 @@
     <string name="brightening_timeline_title">Realistic timeline</string>
     <string name="brightening_timeline_body">Dark marks often take 6–12 months to fade and deeper pigmentation can take longer. Progress is gradual, and new marks can appear if the trigger continues. The goal is a more even return toward your natural tone, not a guaranteed lighter complexion.</string>
     <string name="brightening_disclaimer">This is general educational guidance, not a diagnosis or a personalized treatment prescription. Seek medical advice for painful, itchy, rapidly changing, spreading or persistent patches, or if a product causes a significant reaction.</string>
+    <string name="selfie_title">Private selfie progress</string>
+    <string name="selfie_description">Take a consistent front-facing photo to keep a private visual timeline. Photos stay inside this app on this device.</string>
+    <string name="selfie_framing_only">On-device face detection checks that one face is visible and reasonably framed. It does not inspect pigmentation, diagnose skin conditions, or rate skin tone.</string>
+    <string name="selfie_capture">Take progress selfie</string>
+    <string name="selfie_checking">Checking face framing on this device…</string>
+    <string name="selfie_capture_cancelled">Camera capture was cancelled.</string>
+    <string name="selfie_face_count_error">A single face was not detected. Retake with only your face in the frame.</string>
+    <string name="selfie_framing_error">Move closer and center your face, then retake the photo.</string>
+    <string name="selfie_error">The photo could not be checked or saved. Please try again.</string>
+    <string name="selfie_saved">Photo saved privately. This is a progress record, not a skin analysis.</string>
+    <string name="selfie_privacy">Your photos are stored privately on this device.</string>
+    <string name="selfie_empty">No progress selfies saved yet.</string>
+    <string name="selfie_private_saved">Stored in this app only</string>
+    <string name="selfie_thumbnail_description">Saved progress selfie thumbnail</string>
+    <string name="selfie_delete">Delete</string>
+    <string name="selfie_delete_title">Delete this selfie?</string>
+    <string name="selfie_delete_body">The saved photo will be permanently deleted from this app.</string>
+    <string name="selfie_deleted">Photo deleted.</string>
+    <string name="cancel">Cancel</string>
 </resources>
