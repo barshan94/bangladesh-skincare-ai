@@ -10,7 +10,7 @@ on:
       - "gradle/**"
       - ".github/workflows/android.yml"
   pull_request:
-    branches: [main]
+    branches: [main, implementation/m0-android-baseline]
     paths:
       - "app/**"
       - "scripts/check_localization.py"
