@@ -261,4 +261,11 @@
     <string name="selfie_delete_title">এই সেলফিটি মুছবেন?</string>
     <string name="selfie_delete_body">সংরক্ষিত ছবিটি এই অ্যাপ থেকে স্থায়ীভাবে মুছে যাবে।</string>
     <string name="selfie_deleted">ছবি মুছে ফেলা হয়েছে।</string>
+    <string name="brightening_safety_check_title">কিছু ব্যবহারের আগে নিরাপত্তা যাচাই</string>
+    <string name="brightening_safety_check_body">নিচের কোনোটি আপনার ক্ষেত্রে প্রযোজ্য হলে নির্বাচন করুন। এটি সতর্কতা, রোগ নির্ণয় নয়। কোনোটিই প্রযোজ্য না হলে সাধারণ কোমল যত্ন চালিয়ে যান।</string>
+    <string name="brightening_broken_skin_option">ত্বকে কাটা, ক্ষত, কাঁচা ভাব বা খোসা ওঠা আছে</string>
+    <string name="brightening_concerning_change_option">দাগটি নতুন, পরিবর্তিত, ব্যথাযুক্ত, রক্তপাত হচ্ছে বা ছড়াচ্ছে</string>
+    <string name="brightening_safety_broken_result">ক্ষত বা জ্বালাযুক্ত ত্বকে ব্রাইটেনিং পণ্য ও ঘরে বানানো মিশ্রণ ব্যবহার বন্ধ রাখুন। কোমল যত্ন নিন। অবস্থা খারাপ হলে বা সংক্রমণের লক্ষণ থাকলে চিকিৎসকের পরামর্শ নিন।</string>
+    <string name="brightening_safety_concerning_result">এই স্থানে দাগ হালকা করার সক্রিয় উপাদান বা ঘরোয়া মিশ্রণ ব্যবহার করবেন না। যোগ্য স্বাস্থ্যকর্মীর কাছে সরাসরি পরীক্ষা করান।</string>
+    <string name="brightening_safety_clear_result">কোনো সতর্কতা নির্বাচন করা হয়নি। এতে ত্বকের সমস্যা নেই—এমন নিশ্চয়তা মেলে না; সন্দেহ থাকলে বা দাগ দীর্ঘস্থায়ী হলে পরামর্শ নিন।</string>
 </resources>
