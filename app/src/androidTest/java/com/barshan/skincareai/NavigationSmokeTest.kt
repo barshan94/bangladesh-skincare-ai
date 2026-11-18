@@ -283,4 +283,21 @@ class NavigationSmokeTest {
         assertTextExists(composeRule.activity.getString(R.string.ingredients_no_results))
     }
 
+    @Test
+    fun brighteningTabShowsLocalizedSafetyGuidance() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_brightening)
+        ).get(0).performClick()
+
+        assertTextExists(composeRule.activity.getString(R.string.brightening_title))
+        assertTextExists(composeRule.activity.getString(R.string.brightening_sunscreen_title))
+        assertTextExists(composeRule.activity.getString(R.string.brightening_avoid_title))
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.brightening_goal_acne)
+        ).performScrollTo().performClick()
+        assertTextExists(composeRule.activity.getString(R.string.brightening_goal_acne_body))
+    }
+
 }
