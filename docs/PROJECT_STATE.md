@@ -5,7 +5,7 @@
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
 - Active branch: `implementation/m0-android-baseline`
 - Draft PR: [#1](https://github.com/barshan94/bangladesh-skincare-ai/pull/1), open and unmerged.
-- Latest verified branch head: `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8`.
+- Latest CI-verified app-code revision: `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` (subsequent commits update documentation only).
 - Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), **success**. The emulator instrumentation suite executed 24 tests: 0 failed, 0 skipped.
 - Workflow job: Compile debug APK.
 - Uploaded artifacts: debug APK, test reports and Room schema.
