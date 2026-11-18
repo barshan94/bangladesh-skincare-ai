@@ -243,4 +243,23 @@
     <string name="brightening_timeline_title">বাস্তবসম্মত সময়সীমা</string>
     <string name="brightening_timeline_body">কালচে দাগ হালকা হতে প্রায়ই ৬–১২ মাস লাগে; ত্বকের গভীরের পিগমেন্টেশন আরও বেশি সময় নিতে পারে। পরিবর্তন ধীরে হয় এবং মূল কারণ চলতে থাকলে নতুন দাগ হতে পারে। লক্ষ্য হলো স্বাভাবিক ত্বকের রঙের দিকে আরও সমানভাবে ফিরে আসা, নিশ্চিতভাবে আরও ফর্সা হওয়া নয়।</string>
     <string name="brightening_disclaimer">এটি সাধারণ শিক্ষামূলক তথ্য; রোগ নির্ণয় বা ব্যক্তিগত চিকিৎসার প্রেসক্রিপশন নয়। ব্যথাযুক্ত, চুলকানিযুক্ত, দ্রুত পরিবর্তিত, ছড়িয়ে পড়া বা দীর্ঘস্থায়ী দাগ হলে, অথবা পণ্যে তীব্র প্রতিক্রিয়া হলে চিকিৎসকের পরামর্শ নিন।</string>
+    <string name="selfie_title">ব্যক্তিগত সেলফি অগ্রগতি</string>
+    <string name="selfie_description">একই ধরনের সামনের দিকের ছবি তুলে ব্যক্তিগত ভিজ্যুয়াল টাইমলাইন রাখুন। ছবিগুলো এই ডিভাইসে অ্যাপের ভেতরেই থাকবে।</string>
+    <string name="selfie_framing_only">ডিভাইসেই ফেস ডিটেকশন দেখে একটি মুখ আছে কি না এবং ফ্রেমে ঠিকভাবে আছে কি না। এটি পিগমেন্টেশন পরীক্ষা করে না, রোগ নির্ণয় করে না বা ত্বকের রঙের স্কোর দেয় না।</string>
+    <string name="selfie_capture">অগ্রগতির সেলফি তুলুন</string>
+    <string name="selfie_checking">এই ডিভাইসে মুখের ফ্রেম পরীক্ষা হচ্ছে…</string>
+    <string name="selfie_capture_cancelled">ক্যামেরা ব্যবহার বাতিল করা হয়েছে।</string>
+    <string name="selfie_face_count_error">একটি মাত্র মুখ শনাক্ত হয়নি। শুধু নিজের মুখ রেখে আবার ছবি তুলুন।</string>
+    <string name="selfie_framing_error">ক্যামেরার একটু কাছে আসুন এবং মুখটি মাঝখানে রেখে আবার ছবি তুলুন।</string>
+    <string name="selfie_error">ছবিটি পরীক্ষা বা সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।</string>
+    <string name="selfie_saved">ছবি ব্যক্তিগতভাবে সংরক্ষিত হয়েছে। এটি অগ্রগতির রেকর্ড, ত্বক বিশ্লেষণ নয়।</string>
+    <string name="selfie_privacy">আপনার ছবিগুলো শুধু এই ডিভাইসে ব্যক্তিগতভাবে সংরক্ষিত থাকবে।</string>
+    <string name="selfie_empty">এখনও কোনো অগ্রগতির সেলফি সংরক্ষণ করা হয়নি।</string>
+    <string name="selfie_private_saved">শুধু এই অ্যাপের ভেতরে সংরক্ষিত</string>
+    <string name="selfie_thumbnail_description">সংরক্ষিত অগ্রগতির সেলফির ছোট ছবি</string>
+    <string name="selfie_delete">মুছুন</string>
+    <string name="selfie_delete_title">এই সেলফিটি মুছবেন?</string>
+    <string name="selfie_delete_body">সংরক্ষিত ছবিটি এই অ্যাপ থেকে স্থায়ীভাবে মুছে যাবে।</string>
+    <string name="selfie_deleted">ছবি মুছে ফেলা হয়েছে।</string>
+    <string name="cancel">বাতিল</string>
 </resources>
