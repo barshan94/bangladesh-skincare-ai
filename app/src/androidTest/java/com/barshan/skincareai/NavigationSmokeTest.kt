@@ -300,4 +300,16 @@ class NavigationSmokeTest {
         assertTextExists(composeRule.activity.getString(R.string.brightening_goal_acne_body))
     }
 
+    @Test
+    fun brighteningTabOffersPrivateSelfieProgressWithoutClaimingSkinDiagnosis() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_brightening)
+        ).get(0).performClick()
+
+        assertTextExists(composeRule.activity.getString(R.string.selfie_title))
+        assertTextExists(composeRule.activity.getString(R.string.selfie_framing_only))
+        assertTextExists(composeRule.activity.getString(R.string.selfie_capture))
+    }
+
 }
