@@ -271,5 +271,6 @@
     <string name="selfie_compare_title">ছবির ভিজ্যুয়াল তুলনা</string>
     <string name="selfie_compare_earlier">আগের ছবি</string>
     <string name="selfie_compare_latest">সর্বশেষ ছবি</string>
+    <string name="selfie_compare_select_hint">তুলনার জন্য সংরক্ষিত যেকোনো দুটি আলাদা তারিখ বেছে নিন।</string>
     <string name="selfie_compare_note">শুধু ব্যক্তিগত ভিজ্যুয়াল রেকর্ড হিসেবে তুলনা করুন। আলো, ক্যামেরার দূরত্ব, কোণ ও এক্সপোজারের পার্থক্যে ত্বক দেখতে বদলে যেতে পারে। এই অ্যাপ পিগমেন্টেশন মাপে না বা চিকিৎসা কাজ করেছে কি না নির্ধারণ করে না।</string>
 </resources>
