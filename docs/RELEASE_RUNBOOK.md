@@ -1,17 +1,17 @@
 # Private Android APK Runbook
 
-- Last reviewed: 2026-11-17
-- Current workflow: [CI run #300](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44106499330) — success.
+- Last reviewed: 2026-11-18
+- Current workflow: [CI run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087) — success; 24 emulator instrumentation tests passed (0 failed, 0 skipped).
 
 ## Current artifact
 
-The workflow uploaded `bangladesh-skincare-ai-debug`, test reports and Room schema. The debug APK can be installed for personal evaluation. It is not a signed release build. CI debug signing keys may differ between runs, so later debug APKs may not update an earlier installation in place. Back up important notes before replacing an installation.
+The workflow uploaded `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and Room schema. The emulator suite executed 24 tests with 0 failures and 0 skips. The debug APK can be installed for personal evaluation. It is not a signed release build. CI debug signing keys may differ between runs, so later debug APKs may not update an earlier installation in place. Back up important notes before replacing an installation.
 
 ## Phone acceptance checklist
 
 On the owner's Android phone:
 
-1. Install the APK from the `bangladesh-skincare-ai-debug` artifact on run #300.
+1. Install the APK from the `bangladesh-skincare-ai-debug` artifact on run #44221154087.
 2. Open each section: Skin Scan, My Routine, Progress, Ingredients and Profile.
 3. Create a routine tick and a Progress note; close/reopen the app and confirm they remain.
 4. Edit and delete a Progress note; verify the confirmation and result.
