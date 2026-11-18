@@ -2,7 +2,7 @@ name: Android build
 
 on:
   push:
-    branches: [main, implementation/m0-android-baseline]
+    branches: [main, implementation/m0-android-baseline, feature/brightening-system]
     paths:
       - "app/**"
       - "scripts/check_localization.py"
