@@ -268,4 +268,8 @@
     <string name="brightening_safety_broken_result">ক্ষত বা জ্বালাযুক্ত ত্বকে ব্রাইটেনিং পণ্য ও ঘরে বানানো মিশ্রণ ব্যবহার বন্ধ রাখুন। কোমল যত্ন নিন। অবস্থা খারাপ হলে বা সংক্রমণের লক্ষণ থাকলে চিকিৎসকের পরামর্শ নিন।</string>
     <string name="brightening_safety_concerning_result">এই স্থানে দাগ হালকা করার সক্রিয় উপাদান বা ঘরোয়া মিশ্রণ ব্যবহার করবেন না। যোগ্য স্বাস্থ্যকর্মীর কাছে সরাসরি পরীক্ষা করান।</string>
     <string name="brightening_safety_clear_result">কোনো সতর্কতা নির্বাচন করা হয়নি। এতে ত্বকের সমস্যা নেই—এমন নিশ্চয়তা মেলে না; সন্দেহ থাকলে বা দাগ দীর্ঘস্থায়ী হলে পরামর্শ নিন।</string>
+    <string name="selfie_compare_title">ছবির ভিজ্যুয়াল তুলনা</string>
+    <string name="selfie_compare_earlier">আগের ছবি</string>
+    <string name="selfie_compare_latest">সর্বশেষ ছবি</string>
+    <string name="selfie_compare_note">শুধু ব্যক্তিগত ভিজ্যুয়াল রেকর্ড হিসেবে তুলনা করুন। আলো, ক্যামেরার দূরত্ব, কোণ ও এক্সপোজারের পার্থক্যে ত্বক দেখতে বদলে যেতে পারে। এই অ্যাপ পিগমেন্টেশন মাপে না বা চিকিৎসা কাজ করেছে কি না নির্ধারণ করে না।</string>
 </resources>
