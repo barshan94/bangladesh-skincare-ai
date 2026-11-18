@@ -1,73 +1,45 @@
-# Implementation Backlog — Execution After Explicit Authorization
+# Implementation Backlog — Current Status
 
-- Version: 1.0
-- Date: 2026-10-29
-- Status: Planned; no code started and implementation not yet authorized.
+- Last reviewed: 2026-11-18
+- Active branch: `implementation/m0-android-baseline`
+- Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), success; emulator instrumentation: 24 tests, 0 failed, 0 skipped.
 
-## Execution rules
-- Work in small independently testable milestones.
-- Do not implement unapproved scope or real skincare content.
-- Build UI/data plumbing with safe empty states until reviewed content exists.
-- Link each task to requirements, tests and documentation.
-- Update PROJECT_STATE, ROADMAP, CHANGELOG and affected technical docs after each milestone.
-- Report files, tests/results, commit/PR, unresolved risks and next step.
-- Never claim model validity from build/demo success.
-- Coding starts only after separate explicit user authorization.
+## Product boundary
 
-## Milestones
+Personal-use, offline-first Android skincare tracker. No commercial/client workflows, accounts, cloud sync, analytics, photo capture/analysis, AI diagnosis, prescriptions or DIY whitening recipes.
 
-### M0 — Repository/toolchain baseline
-Confirm visibility/branch policy; choose JDK/Gradle/Android SDK and minimum Android version; create native Kotlin/Jetpack Compose project only after authorization; add formatting/lint/unit tests/CI; define package/build variants/signing process.
-**Acceptance:** reproducible debug build, clean CI, no secrets, documented toolchain.
-**Dependencies:** repository visibility, target-device matrix, signing-key custody.
+## Implemented and CI-verified
 
-### M1 — App shell and localization
-Five-area navigation, accessible components, Bangla/English resources, onboarding/limits, adult-eligibility flow under approved policy, standard loading/empty/error/offline states.
-**Acceptance:** all areas navigable; localization/accessibility smoke tests; no fake data.
+- **M0 — Android baseline:** Kotlin, Jetpack Compose, pinned Gradle toolchain and debug APK workflow.
+- **M1 — App shell/localization:** five sections and English/Bangla resources with parity validation.
+- **M2 — Local persistence:** Room-backed Routine and Progress, one-time/idempotent legacy SharedPreferences import and schema export.
+- **M3 — Routine and Progress:** daily completion keys, create/edit/delete, confirmation and localized failure feedback.
+- **M4 — Skin check-in:** self-reported questions, deterministic non-diagnostic general guidance and explicit save to Progress.
+- **M5 — Ingredient education:** 11 general educational entries, search, safety filters and publisher source links; no treatment prescriptions.
+- **M6 — Accessibility baseline:** combined labels/toggle semantics for key checkbox rows.
+- **Reliability:** reset ordering and regression test for failed-reset recovery.
 
-### M2 — Local-first persistence and privacy
-Local database, app-private photo storage, migrations, deletion and backup configuration; local profile/progress/consent records for approved purposes.
-**Acceptance:** save/read/delete, interrupted-delete recovery, migration tests, documented backup behavior.
+Latest CI #44221154087 passed the complete workflow, including 24 emulator instrumentation tests (0 failed, 0 skipped) and artifact upload.
 
-### M3 — Onboarding and deterministic domain engine
-Adaptive questionnaire, versioned answers, eligibility/safety rules independent from UI, routine rendering only from approved structured content.
-**Acceptance:** missing/unknown safety facts block affected advice; safety property tests pass.
+## Owner-side acceptance tests
 
-### M4 — Skin Scan: private tracking and capture checks
-Guided capture/photo picker, private photo timeline and quality feedback. Begin with tracking; automated checks only after validation.
-**Acceptance:** denied-permission/poor-photo states safe; no photo network upload; deletion verified.
+1. Install current debug APK on the owner's Android phone; inspect all five sections.
+2. If a prior build contains legacy data, upgrade without clearing storage; verify import once, restart persistence and no duplicate import.
+3. Use Profile reset; verify Routine/Progress clear while language preference remains.
+4. Check TalkBack, font scaling, touch targets and English/Bangla layout.
+5. Launch in airplane mode and check for unexpected permission prompts.
+6. For stable long-term private distribution, create an owner-controlled signing key, build a signed APK and verify clean install/upgrade.
 
-### M5 — Progress and routine workflows
-Manual progress, dated photo comparison, optional adherence/tolerance, reaction report and material-change confirmation.
-**Acceptance:** non-comparable photos never produce improvement claims; photo alone never changes routine.
+These checks require the owner's device and must not be marked passed based only on emulator CI.
 
-### M6 — Reviewed knowledge catalogue and alternatives
-Versioned structured content, provenance, stale-price behavior and safety-filtered replacement. Ship only reviewed entries.
-**Acceptance:** draft/expired/withdrawn entries cannot be actionable; no fabricated prices.
+## Content boundary
 
-### M7 — Knowledge update and rollback
-Package schema, integrity/signature scheme, compatibility, staging, atomic activation, safe last-known-good and withdrawal.
-**Acceptance:** tamper/interruption tests pass; no partial activation.
+No professional review is required merely to use the current app as a personal tracker. The ingredient catalogue must remain clearly labelled as general education, with no individualized treatment advice, diagnosis, concentrations, mixing steps or claims of clinical approval. If the scope expands to treatment recommendations, home formulations, image diagnosis or public/commercial distribution, qualified safety and legal review becomes a release prerequisite.
 
-### M8 — Optional AI explanation
-Only if justified and approved; constrained to approved content. May be omitted if deterministic offline copy is sufficient.
-**Acceptance:** adversarial tests cannot produce unsupported actionable instructions; privacy reviewed.
+## Explicitly deferred
 
-### M9 — Feature-specific image analysis
-Integrate one selected/licensed model/runtime for one approved task at a time. Feature stays disabled until validation evidence and release approval.
-**Acceptance:** feature thresholds pass, subgroup/uncertainty/device results reviewed, disable/rollback tested. No need to implement every candidate.
+Photo capture/import/timeline, AI model integration, image diagnosis/scoring, cloud/backend/accounts/analytics, product marketplace/pricing, remote knowledge updates, DIY formulations and commercial workflows.
 
-### M10 — Hardening, pilot and APK
-Security/privacy, accessibility, localization, performance, migration, offline and incident response; private pilot only after expert/legal gates; signed APK and release notes.
-**Acceptance:** all gates in RELEASE_RUNBOOK pass.
+## Definition of done
 
-## External workstreams not to fabricate
-Bangladesh legal/privacy review; qualified skincare review; individual DIY formula validation; reference method/protocol approval for each image feature; lawful/consented/representative evaluation data; Bangla terminology/usability review; local price/availability sources.
-
-Use empty/disabled states while these remain unresolved.
-
-## Definition of Done per task
-Requirements linked; implementation/tests complete; no safety/privacy regression; accessibility/localization reviewed; failure/offline behavior verified; docs/state updated; diff reviewed; commit/PR linked; user receives concise completion summary.
-
-## Definition of Done for implementation readiness
-Approved spec/UX; architecture defaults accepted; repo visibility confirmed; no unresolved decision needed for first task; toolchain available; acceptance criteria defined; explicit user authorization. Expert gates remain attached to relevant feature activation and release.
+Implementation and automated tests are complete for the current personal-use feature scope. The remaining work is owner-side phone acceptance and (if a stable distributable build is wanted) owner-controlled signing and verification.

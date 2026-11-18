@@ -1,100 +1,61 @@
 # Bangladesh Skincare AI
 
-An Android-first, local-first skincare companion for adult women in Bangladesh. The product combines evidence-reviewed skincare guidance, affordable locally relevant options, private progress tracking and carefully gated AI-assisted observations.
+A private, offline-first Android skincare tracker for personal use.
 
-> **Current state:** Documentation and feasibility planning. No application code/scaffolding has been created or authorized.
->
-> **Source of truth:** This repository. See [Project State and Session Handoff](docs/PROJECT_STATE.md) at the start of future work.
+> **Verified status (2026-11-18):** App-code revision `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` passed full Android CI in [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087). The workflow produced a debug APK, test reports and Room schema; 24 emulator instrumentation tests passed (0 failed, 0 skipped). This is not a signed release APK.
 
-## Approved product decisions
+## What the app actually does
 
-- Broader product ambition with individual feature gates.
-- Adults only for the initial audience.
-- Photo tracking and validated capture checks first; skin-condition analysis only after feature-specific validation.
-- DIY formulas only if individually reviewed and validated.
-- Five main areas: Skin Scan, My Routine, Progress, Ingredients and Alternatives, Profile and Privacy.
-- Android-first, private installable APK, Bangla and English, free at launch.
-- Photos/history stored on-device by default. Cloud storage, cloud analysis and model training require separate informed consent.
-- No diagnosis from selfies, no beauty/fairness scores, no guaranteed whitening, no AI-generated formulas, and no photo-triggered automatic treatment changes.
+- **Skin Scan:** self-reported check-in with deterministic, general educational guidance. It does not scan skin, use a camera, diagnose, or use an AI model.
+- **My Routine:** local morning/evening reminder checklist.
+- **Progress:** private local text check-ins with edit and confirmed delete.
+- **Ingredients:** 11 educational ingredient summaries, safety notes, search, filters and publisher links. The entries are not professionally reviewed and are not treatment recommendations.
+- **Profile:** English/Bangla language preference, optional budget preference and local data reset.
 
-## Product principles
+The word “AI” is currently the product name only; AI functionality is not implemented. Do not rely on this app for diagnosis or individualized treatment.
 
-- Prioritize safe, evidence-supported and realistic improvement for the user's chosen concern.
-- Natural darker skin is not a defect.
-- “Natural” does not automatically mean safe; synthetic does not automatically mean harmful.
-- Safety decisions are deterministic and grounded in reviewed knowledge. Generative AI cannot override safety rules.
-- New, changing, painful, bleeding or otherwise concerning findings require appropriate professional-care guidance, not AI diagnosis.
-- Enable every image feature only after independent, feature-specific validation.
-- Inconclusive/poor-quality photos must not produce confident claims.
-- Do not invent Bangladeshi prices, availability, evidence or formula details.
-- No critical safety defect may be waived to meet a release date.
+## Privacy and technology
 
-## Documentation index
+Native Android, Kotlin, Jetpack Compose, Room/SQLite and SharedPreferences for small preferences and legacy migration. JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21, compile/target SDK 35 and minimum SDK 26.
 
-### Product and UX
-- [Product specification](docs/PRODUCT_SPEC.md)
-- [First-release scope and feature gates](docs/FIRST_RELEASE_SCOPE.md)
-- [Testable product requirements](docs/REQUIREMENTS.md)
-- [Screen-by-screen UX specification](docs/UX_SCREEN_SPEC.md)
-- [Screen-level acceptance criteria](docs/SCREEN_ACCEPTANCE_CRITERIA.md)
-- [Visual design system](docs/DESIGN_SYSTEM.md)
-- [Bangla/English localization and accessibility](docs/LOCALIZATION_ACCESSIBILITY.md)
-- [Consent/privacy copy draft — not legal-approved](docs/CONSENT_COPY_DRAFT.md)
+The app works offline and currently has no account, analytics, cloud sync, photo upload, network permission or runtime permission request. Android backup is disabled in the manifest. These are code-level facts; device/OS behavior still needs a real-device check.
 
-### Architecture and engineering
-- [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
-- [Engineering standards and proposed defaults](docs/ENGINEERING_STANDARDS.md)
-- [Logical data model and retention](docs/DATA_MODEL.md)
+## Automated verification
+
+CI run [#44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087) passed the workflow job **Compile debug APK**, including 24 emulator instrumentation tests (0 failed, 0 skipped). The workflow includes localization parity, debug compilation, unit tests, Room schema export, emulator instrumentation tests and artifact uploads. The run contains:
+- `bangladesh-skincare-ai-debug`
+- `bangladesh-skincare-ai-test-reports`
+- `bangladesh-skincare-ai-room-schema`
+
+A CI debug APK is suitable for controlled installation/testing. It is not a signed release build. Debug signing keys can differ between CI runs, so a later APK may not install as an in-place update; back up anything important before replacing an installation.
+
+## Remaining owner checks
+
+1. Install the current debug APK on your Android phone and test each of the five sections.
+2. If you have an older app installation with saved legacy data, test upgrade without clearing app storage; verify import once, restart persistence and no duplicates.
+3. Test Profile reset; verify routine/progress are removed and language preference remains.
+4. Check TalkBack, larger font size, Bangla/English text layout and touch targets on your phone.
+5. Check offline launch and confirm no unexpected permission prompts.
+6. For a stable signed private APK, create and retain your own signing key securely. Never share its password or keystore in chat or commit it to GitHub.
+
+**No expert is required merely to install and use this as a personal tracker.** The ingredient guide remains general education, not clinically reviewed advice. Do not expand it into diagnosis, prescriptions, high-strength active recommendations or DIY formulations without appropriate qualified review. Public/commercial distribution would need a separate safety and legal review.
+
+## Documentation
+
+- [Project state](docs/PROJECT_STATE.md)
+- [Roadmap](docs/ROADMAP.md)
 - [Implementation backlog](docs/IMPLEMENTATION_BACKLOG.md)
-- [Test strategy and quality gates](docs/TEST_STRATEGY.md)
+- [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
+- [Test strategy](docs/TEST_STRATEGY.md)
 - [Private APK release runbook](docs/RELEASE_RUNBOOK.md)
+- [Product specification](docs/PRODUCT_SPEC.md)
+- [Safety and privacy](docs/SAFETY_AND_PRIVACY.md)
+- [Safety case](docs/SAFETY_CASE.md)
 
-### Safety, privacy and evidence
-- [Safety and privacy requirements](docs/SAFETY_AND_PRIVACY.md)
-- [Safety case and hazard controls](docs/SAFETY_CASE.md)
-- [Privacy/security threat model](docs/THREAT_MODEL.md)
-- [Bangladesh compliance review checklist — not legal advice](docs/BANGLADESH_COMPLIANCE_REVIEW.md)
-- [Skincare knowledge base governance](docs/KNOWLEDGE_BASE_SPEC.md)
-- [Knowledge update and rollback protocol](docs/KNOWLEDGE_UPDATE_PROTOCOL.md)
-- [AI feasibility](docs/AI_FEASIBILITY.md)
-- [AI model feasibility assessment](docs/AI_MODEL_FEASIBILITY.md)
-- [Measurement validation plan](docs/MEASUREMENT_VALIDATION_PLAN.md)
+## Explicit exclusions
 
-### Project control
-- [Project state and session handoff](docs/PROJECT_STATE.md)
-- [Roadmap and gates](docs/ROADMAP.md)
-- [Decision log](docs/DECISIONS.md)
-- [Change log](docs/CHANGELOG.md)
-
-## Technical direction
-
-Recommended baseline: native Android with Kotlin and Jetpack Compose, a local-first app, structured local data, app-private photo storage, deterministic safety/routine logic and reviewed versioned knowledge. No backend, account provider, analytics SDK, cloud inference or skin-condition model is selected by default. See the architecture and engineering standards for provisional defaults and remaining gates.
-
-Face detection/landmarks do not validate skin-condition measurement. Capture checks must be validated for target devices/conditions. Any skin-feature measurement requires a defined task, suitable reference method, lawful/licensed data, pre-approved criteria, subgroup analysis, uncertainty handling and on-device performance evidence.
-
-## What is ready and what is not
-
-**Documented:** approved product direction, screen flows, requirements, data model, architecture baseline, engineering standards, knowledge/formula governance, safety hazards, threat model, tests, backlog, release process, localization/accessibility and session handoff.
-
-**Still requires qualified external evidence/review:** applicable Bangladesh legal/privacy and cosmetic-claims interpretation; skincare-content review; individual DIY formula validation; image-model licences/data provenance and feature-specific validation; adult eligibility handling; Bangla usability review. Documentation cannot replace these reviews.
-
-**Repository visibility:** A prior GitHub check reported this repository as public although private visibility was previously preferred. Verify and change the setting if needed before adding sensitive material.
-
-## Working agreement
-
-1. GitHub is the source of truth; fetch current docs before relying on chat memory.
-2. Update affected docs, roadmap, changelog and project state whenever decisions or work change.
-3. Record decisions with date, rationale, status and impact.
-4. Do not claim a feature validated until pre-defined acceptance criteria pass.
-5. Do not commit private data, identifiable skin photos, credentials, signing keys or unlicensed datasets.
-6. Do not claim background synchronization: documentation updates happen when project work is performed and the GitHub update succeeds.
-7. No application code or scaffolding until the user explicitly authorizes implementation.
-8. A successful build is not evidence of clinical or measurement validity.
-
-## Next action
-
-The documentation baseline has been assembled. Next, perform a final consistency/readability pass and confirm repository visibility. Then implementation can begin after the user's explicit authorization, following the backlog. External safety/legal/model gates remain mandatory before enabling the affected content or features.
+No photo capture/analysis, AI diagnosis, personalized prescriptions, product marketplace, cloud accounts/sync, analytics, commercial/client workflows, whitening guarantees or DIY whitening recipes.
 
 ## Disclaimer
 
-This project is under research and development; it is not medical advice and does not establish that any proposed AI feature or skincare formula is safe/effective. Actionable skincare content and every home-prepared formula require appropriate evidence and safety review before inclusion.
+This app is a personal record-keeping and general-education tool, not medical advice or a clinical record system. Stop using a product that causes a reaction. Seek appropriate medical care for severe, persistent, worsening or concerning symptoms.

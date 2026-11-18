@@ -1,98 +1,53 @@
-# Project State and Session Handoff
+# Project State — 2026-11-18
 
-- Last updated: 2026-10-29 (documentation baseline expansion)
+## Repository and CI
+
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
-- Default branch: main
-- Stage: Documentation and feasibility planning; application implementation has not started and is not authorized.
-- Source of truth: this repository, not chat history alone.
+- Active branch: `implementation/m0-android-baseline`
+- Draft PR: [#1](https://github.com/barshan94/bangladesh-skincare-ai/pull/1), open and unmerged.
+- Latest CI-verified app-code revision: `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` (subsequent commits update documentation only).
+- Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), **success**. The emulator instrumentation suite executed 24 tests: 0 failed, 0 skipped.
+- Workflow job: Compile debug APK.
+- Uploaded artifacts: debug APK, test reports and Room schema.
 
-## Approved decisions
-1. Broader product scope with individual feature gates.
-2. Adults only initially.
-3. Photo tracking and validated capture-quality checks first; skin-condition analysis only after feature-specific validation.
-4. DIY formulas only when individually reviewed and validated.
-5. Five areas: Skin Scan; My Routine; Progress; Ingredients and Alternatives; Profile and Privacy.
-6. Android-first, private APK initial distribution, Bangla/English, free at launch.
-7. Photos/progress on-device by default; cloud storage, cloud analysis and model training require separate affirmative consent.
-8. Safety rules are deterministic and cannot be overridden by generative AI.
-9. No diagnosis from selfies, beauty/fairness scores, guaranteed whitening, unreviewed recipes or photo-triggered automatic treatment changes.
-10. No coding until the user separately authorizes implementation.
+## Implemented app
 
-## Source-of-truth hierarchy
-1. Latest explicit user decisions.
-2. docs/DECISIONS.md — dated decision history and approval status.
-3. docs/PRODUCT_SPEC.md — product scope and principles.
-4. docs/REQUIREMENTS.md — testable functional/nonfunctional requirements.
-5. docs/UX_SCREEN_SPEC.md — screen flows and interaction behavior.
-6. docs/TECHNICAL_ARCHITECTURE.md and docs/DATA_MODEL.md — technical proposals.
-7. docs/SAFETY_CASE.md, docs/SAFETY_AND_PRIVACY.md, docs/THREAT_MODEL.md — risk controls.
-8. docs/KNOWLEDGE_BASE_SPEC.md and docs/KNOWLEDGE_UPDATE_PROTOCOL.md — content governance.
-9. docs/AI_MODEL_FEASIBILITY.md and docs/MEASUREMENT_VALIDATION_PLAN.md — image research/validation gates.
-10. docs/ROADMAP.md, docs/IMPLEMENTATION_BACKLOG.md and docs/RELEASE_RUNBOOK.md — execution/release.
-11. docs/CHANGELOG.md — material change history.
+Five Compose sections:
+1. Skin Scan — self-reported questionnaire and deterministic general guidance; no camera, image analysis, diagnosis or AI model.
+2. My Routine — local daily checklist.
+3. Progress — local text notes/check-ins with edit and confirmed delete.
+4. Ingredients — 11 educational entries, search, risk filters and publisher links; not professionally reviewed and not a treatment recommendation.
+5. Profile — English/Bangla preference, optional budget preference and local data reset.
 
-If documents conflict, do not silently choose. Record the conflict and resolve against the user's latest explicit decision.
+Other implemented controls:
+- Room-backed Routine and Progress.
+- One-time/idempotent legacy SharedPreferences import.
+- Daily routine completion identifiers.
+- Local data reset with failure handling and regression coverage.
+- English/Bangla resources and automated parity validation.
+- Accessibility semantics for Routine and Skin Scan checkbox rows.
+- Android backup disabled in manifest; no network permission, account, analytics, cloud sync or photo upload.
 
-## Documentation index
-- README.md
-- docs/PRODUCT_SPEC.md
-- docs/FIRST_RELEASE_SCOPE.md
-- docs/REQUIREMENTS.md
-- docs/UX_SCREEN_SPEC.md
-- docs/SCREEN_ACCEPTANCE_CRITERIA.md
-- docs/DESIGN_SYSTEM.md
-- docs/CONSENT_COPY_DRAFT.md
-- docs/ENGINEERING_STANDARDS.md
-- docs/TECHNICAL_ARCHITECTURE.md
-- docs/DATA_MODEL.md
-- docs/SAFETY_AND_PRIVACY.md
-- docs/SAFETY_CASE.md
-- docs/THREAT_MODEL.md
-- docs/KNOWLEDGE_BASE_SPEC.md
-- docs/KNOWLEDGE_UPDATE_PROTOCOL.md
-- docs/AI_FEASIBILITY.md
-- docs/AI_MODEL_FEASIBILITY.md
-- docs/MEASUREMENT_VALIDATION_PLAN.md
-- docs/BANGLADESH_COMPLIANCE_REVIEW.md
-- docs/LOCALIZATION_ACCESSIBILITY.md
-- docs/TEST_STRATEGY.md
-- docs/IMPLEMENTATION_BACKLOG.md
-- docs/RELEASE_RUNBOOK.md
-- docs/DECISIONS.md
-- docs/ROADMAP.md
-- docs/CHANGELOG.md
+## What “finished” means for this personal-use scope
 
-## External gates not to fake as completed
-- Confirm GitHub repository visibility and access expectations; previous check reported it public.
-- Qualified Bangladesh legal/privacy review of applicable data protection, adult eligibility, consent, retention/deletion, backups, cloud/cross-border processing, cosmetics/consumer claims and other applicable obligations.
-- Qualified skincare/dermatology review of actionable guidance, concern boundaries and escalation copy.
-- Individual qualified formulation review for each DIY formula, including relevant stability/preservation/microbiology evidence.
-- Model/data licences, reference methods, pre-approved thresholds, independent validation and subgroup results for each image feature.
-- Choose target Android API/device matrix based on feasibility.
-- Decide whether any backend/cloud/account feature is justified; local core does not require a backend.
-- Select final inference runtime after technical/licence/validation evaluation.
-- Choose knowledge-package integrity/signature design before remote update implementation.
-- Bangla terminology, accessibility and usability review.
-- Final privacy backup/deletion/export behavior based on actual implementation.
+The app's current software scope is implemented and the latest full CI run passed, including 24 emulator instrumentation tests (0 failed, 0 skipped). No expert is required just to install/use a local tracker. The ingredient catalogue is explicitly educational, unreviewed and non-prescriptive; it must not be presented as medical advice. Qualified review becomes necessary before adding diagnosis, individualized treatment plans, strong active-ingredient protocols, home formulations or public/commercial health claims.
 
-These gates can run alongside engineering where appropriate, but affected high-risk features/content cannot ship until resolved.
+## Owner-side checks still required
 
-## Session handoff/update routine
-Whenever project work is performed:
-1. Fetch current PROJECT_STATE.md, DECISIONS.md, ROADMAP.md and CHANGELOG.md before relying on memory.
-2. Treat GitHub as authoritative; memory is only a pointer.
-3. Record user decisions with date, rationale, status and impact.
-4. Update affected specification/requirements/UX/architecture/test docs in the same work session.
-5. Update ROADMAP.md with evidence-backed status only.
-6. Append CHANGELOG.md.
-7. Update this file with date, current milestone, latest commits, evidence and next action.
-8. Re-fetch changed files and verify actual GitHub contents.
-9. Tell the user exactly what changed and any failure. Never claim background sync or commits that did not happen.
+These cannot be truthfully completed from GitHub or emulator CI:
+1. Install and smoke-test all five sections on the owner's Android phone.
+2. If upgrading an older installation with saved legacy preferences, verify one-time import, restart persistence and no duplicate records without clearing app storage.
+3. Verify Profile reset removes Routine/Progress but retains language preference.
+4. Check TalkBack, larger font, contrast, touch targets and Bangla/English overflow.
+5. Confirm offline launch and no unexpected permission prompts.
+6. For a stable signed private APK, use an owner-controlled signing key stored outside the repository; verify signature, package/version and artifact hash.
 
-This routine is a working agreement for future project sessions; it does not itself run automatically in the background.
+## Release distinction
 
-## Current milestone
-Documentation coverage has been expanded to include requirements, logical data model, knowledge governance, safety case, threat model, testing, implementation backlog, release runbook, localization/accessibility and knowledge-update protocol. README, roadmap, engineering standards, design system, consent-copy draft and documentation index have been updated. The full file inventory was re-fetched from GitHub. The consistency pass is complete for the documentation index, core product/roadmap headings and screen acceptance criteria; all README document links were checked against the GitHub docs directory. Screen-level acceptance criteria are linked from both README and the UX specification. Repository visibility remains public and requires the owner's setting change. Then wait for explicit implementation authorization. Do not claim external legal, clinical, formula or model gates are complete.
+- CI debug APK: usable for controlled testing and personal evaluation, but not a signed release artifact. A later CI debug build may have a different debug signing key.
+- Signed private APK: requires owner-controlled signing credentials and install/upgrade verification.
+- Public/commercial distribution or clinical functionality: outside current scope and requires separate safety, privacy and legal review.
 
-## Implementation readiness
-The documentation should make initial engineering tasks executable without reopening product strategy. Before first code change: confirm repo visibility/branch access, target device/toolchain defaults, architecture choices needed for the first milestone, acceptance criteria/tests, and explicit user authorization. External expert gates remain attached to relevant feature activation and release.
+## Handoff
+
+Continue by helping the owner install and test the CI APK on their Android phone. Never claim physical-device tests passed until the owner reports the observed results. Keep PR #1 draft/unmerged until the owner has reviewed the implementation and the intended release path is clear.
