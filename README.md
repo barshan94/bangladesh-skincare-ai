@@ -2,7 +2,7 @@
 
 A private, offline-first Android skincare tracker for personal use.
 
-> **Verified status (2026-11-18):** Branch head `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` passed full Android CI in [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087). The workflow produced a debug APK, test reports and Room schema; 24 emulator instrumentation tests passed (0 failed, 0 skipped). This is not a signed release APK.
+> **Verified status (2026-11-18):** App-code revision `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` passed full Android CI in [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087). The workflow produced a debug APK, test reports and Room schema; 24 emulator instrumentation tests passed (0 failed, 0 skipped). This is not a signed release APK.
 
 ## What the app actually does
 
