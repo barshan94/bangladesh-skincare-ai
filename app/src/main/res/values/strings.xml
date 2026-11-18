@@ -216,4 +216,31 @@
     <string name="guidance_other_title">Get tailored advice</string>
     <string name="guidance_other_body">A qualified skincare professional can help assess the concern and suitable options.</string>
 
+    <string name="nav_brightening">Brightening</string>
+    <string name="brightening_title">Whitening &amp; Brightening</string>
+    <string name="brightening_body">A safer plan for uneven tone, tanning and dark marks</string>
+    <string name="brightening_status">General education only</string>
+    <string name="brightening_intro">This section focuses on fading excess pigmentation and preventing new dark marks. It does not try to change your natural skin colour or promise a particular shade.</string>
+    <string name="brightening_goal_prompt">What would you like to improve?</string>
+    <string name="brightening_goal_acne">Dark marks after pimples</string>
+    <string name="brightening_goal_tan">Sun tan / uneven tanning</string>
+    <string name="brightening_goal_patches">Persistent or patchy dark areas</string>
+    <string name="brightening_goal_unsure">I am not sure</string>
+    <string name="brightening_goal_acne_body">Dark marks after acne can take months to fade. Preventing new breakouts and avoiding irritation are important; harsh scrubs and aggressive spot treatments can make marks worse.</string>
+    <string name="brightening_goal_tan_body">Tanning is a response to UV exposure. Consistent sun protection is the foundation; a cosmetic product cannot reliably cancel ongoing unprotected sun exposure.</string>
+    <string name="brightening_goal_patches_body">Persistent, spreading, symmetric or recurring patches may have causes such as melasma or another skin condition. A selfie or this questionnaire cannot identify the cause; arrange a clinician or dermatologist assessment before using strong lightening treatments.</string>
+    <string name="brightening_goal_unsure_body">Start with gentle skin care and sun protection. If darkening is new, changing, widespread or unexplained, get it assessed rather than guessing with multiple products.</string>
+    <string name="brightening_morning_title">Morning foundation</string>
+    <string name="brightening_morning_body">Use a gentle cleanser if needed, then a moisturizer your skin tolerates. Avoid scrubbing or trying to peel the skin lighter.</string>
+    <string name="brightening_sunscreen_title">Daily sun and visible-light protection</string>
+    <string name="brightening_sunscreen_body">Use broad-spectrum SPF 30 or higher every morning on exposed skin. Reapply about every 2 hours outdoors and after swimming or heavy sweating. A tinted sunscreen containing iron oxides may help with visible-light-related pigmentation if you can find a shade that suits you. Hats and shade add protection.</string>
+    <string name="brightening_evening_title">Evening routine</string>
+    <string name="brightening_evening_body">Cleanse gently and moisturize. Keep the routine simple while your skin is irritated. Add no more than one new leave-on product at a time, follow its label, and stop if it burns, swells, or causes a rash.</string>
+    <string name="brightening_actives_title">Ingredients to research — not a prescription</string>
+    <string name="brightening_actives_body">Dermatology guidance lists options such as azelaic acid, vitamin C, glycolic acid, kojic acid and retinoids for selected dark spots. Suitability depends on the cause and your skin. Start only with a clearly labelled product from a reliable source; do not combine several strong actives or use prescription medicines without a clinician.</string>
+    <string name="brightening_avoid_title">Do not use dangerous whitening shortcuts</string>
+    <string name="brightening_avoid_body">Avoid mercury-containing or unlabelled fairness creams, liquid bleach, steroid-mixed fairness creams, unknown imported mixtures, lemon juice, baking soda and abrasive scrubs. Do not self-start hydroquinone or prescription retinoids. Mercury and inappropriate lightening products can cause serious or lasting harm.</string>
+    <string name="brightening_timeline_title">Realistic timeline</string>
+    <string name="brightening_timeline_body">Dark marks often take 6–12 months to fade and deeper pigmentation can take longer. Progress is gradual, and new marks can appear if the trigger continues. The goal is a more even return toward your natural tone, not a guaranteed lighter complexion.</string>
+    <string name="brightening_disclaimer">This is general educational guidance, not a diagnosis or a personalized treatment prescription. Seek medical advice for painful, itchy, rapidly changing, spreading or persistent patches, or if a product causes a significant reaction.</string>
 </resources>
