@@ -16,6 +16,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -151,7 +153,7 @@ internal fun SelfieProgressCard() {
                 Text(stringResource(R.string.selfie_empty), color = Color(0xFF5D6962))
             } else {
                 if (records.size >= 2) {
-                    SelfieComparisonCard(older = records.last(), newer = records.first())
+                    SelfieComparisonCard(records = records)
                 }
                 records.forEach { record ->
                     val image = remember(record.fileName) {
@@ -212,8 +214,24 @@ internal fun SelfieProgressCard() {
 
 
 @Composable
-private fun SelfieComparisonCard(older: SelfieRecord, newer: SelfieRecord) {
+private fun SelfieComparisonCard(records: List<SelfieRecord>) {
     val context = LocalContext.current
+    val recordIds = records.map { it.id }
+    var olderIndex by remember(recordIds) { mutableStateOf(records.lastIndex) }
+    var newerIndex by remember(recordIds) { mutableStateOf(0) }
+    var olderMenuExpanded by remember { mutableStateOf(false) }
+    var newerMenuExpanded by remember { mutableStateOf(false) }
+
+    // Keep the two selections distinct and valid if a photo is deleted.
+    olderIndex = olderIndex.coerceIn(records.indices)
+    newerIndex = newerIndex.coerceIn(records.indices)
+    if (olderIndex == newerIndex && records.size > 1) {
+        olderIndex = records.lastIndex
+        newerIndex = 0
+    }
+
+    val older = records[olderIndex]
+    val newer = records[newerIndex]
     val olderImage = remember(older.fileName) {
         BitmapFactory.decodeFile(
             SelfieProgressStore.file(context, older).absolutePath,
@@ -226,6 +244,7 @@ private fun SelfieComparisonCard(older: SelfieRecord, newer: SelfieRecord) {
             BitmapFactory.Options().apply { inSampleSize = 4 }
         )
     }
+    val dateFormat = remember { SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) }
 
     Card(
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF2F6F2)),
@@ -239,25 +258,62 @@ private fun SelfieComparisonCard(older: SelfieRecord, newer: SelfieRecord) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(stringResource(R.string.selfie_compare_earlier), fontWeight = FontWeight.SemiBold)
+                    TextButton(onClick = { olderMenuExpanded = true }) {
+                        Text(dateFormat.format(Date(older.capturedAt)))
+                    }
+                    DropdownMenu(
+                        expanded = olderMenuExpanded,
+                        onDismissRequest = { olderMenuExpanded = false }
+                    ) {
+                        records.forEachIndexed { index, record ->
+                            if (index != newerIndex) {
+                                DropdownMenuItem(
+                                    text = { Text(dateFormat.format(Date(record.capturedAt))) },
+                                    onClick = {
+                                        olderIndex = index
+                                        olderMenuExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
                     if (olderImage != null) Image(
                         bitmap = olderImage.asImageBitmap(),
                         contentDescription = stringResource(R.string.selfie_compare_earlier),
                         modifier = Modifier.fillMaxWidth().height(150.dp),
                         contentScale = ContentScale.Crop
                     )
-                    Text(SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(older.capturedAt)), color = Color(0xFF5D6962), fontSize = 11.sp)
                 }
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(stringResource(R.string.selfie_compare_latest), fontWeight = FontWeight.SemiBold)
+                    TextButton(onClick = { newerMenuExpanded = true }) {
+                        Text(dateFormat.format(Date(newer.capturedAt)))
+                    }
+                    DropdownMenu(
+                        expanded = newerMenuExpanded,
+                        onDismissRequest = { newerMenuExpanded = false }
+                    ) {
+                        records.forEachIndexed { index, record ->
+                            if (index != olderIndex) {
+                                DropdownMenuItem(
+                                    text = { Text(dateFormat.format(Date(record.capturedAt))) },
+                                    onClick = {
+                                        newerIndex = index
+                                        newerMenuExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
                     if (newerImage != null) Image(
                         bitmap = newerImage.asImageBitmap(),
                         contentDescription = stringResource(R.string.selfie_compare_latest),
                         modifier = Modifier.fillMaxWidth().height(150.dp),
                         contentScale = ContentScale.Crop
                     )
-                    Text(SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(newer.capturedAt)), color = Color(0xFF5D6962), fontSize = 11.sp)
                 }
             }
+            Text(stringResource(R.string.selfie_compare_select_hint), color = Color(0xFF5D6962))
             Text(stringResource(R.string.selfie_compare_note), color = Color(0xFF5D6962), fontSize = 12.sp)
         }
     }
