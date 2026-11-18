@@ -12,7 +12,7 @@
 
 ## Implemented app
 
-Five Compose sections:
+Six Compose sections:
 1. Skin Scan — self-reported questionnaire and deterministic general guidance; no camera, image analysis, diagnosis or AI model.
 2. My Routine — local daily checklist.
 3. Progress — local text notes/check-ins with edit and confirmed delete.
@@ -27,6 +27,10 @@ Other implemented controls:
 - English/Bangla resources and automated parity validation.
 - Accessibility semantics for Routine and Skin Scan checkbox rows.
 - Android backup disabled in manifest; no network permission, account, analytics, cloud sync or photo upload.
+
+## Scope correction — 2026-11-18
+
+The earlier tracker-only completion claim was too broad relative to the approved product specification. A dedicated Whitening & Brightening screen has now been started on `feature/brightening-system`. This is an initial educational milestone only. Selfie capture/analysis, personalized routine logic, validated pigmentation measurement, and home-formulation tools remain unimplemented. No image feature is being represented as AI or as validated.
 
 ## What “finished” means for this personal-use scope
 
