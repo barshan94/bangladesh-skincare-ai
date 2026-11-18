@@ -271,5 +271,6 @@
     <string name="selfie_compare_title">Visual comparison</string>
     <string name="selfie_compare_earlier">Earlier photo</string>
     <string name="selfie_compare_latest">Latest photo</string>
+    <string name="selfie_compare_select_hint">Choose any two different saved dates to compare.</string>
     <string name="selfie_compare_note">Compare only as a personal visual record. Different lighting, camera distance, angle and exposure can change how skin appears. This app does not measure pigmentation or determine whether a treatment worked.</string>
 </resources>
