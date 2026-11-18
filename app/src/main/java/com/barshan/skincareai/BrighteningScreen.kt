@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -83,6 +84,7 @@ internal fun BrighteningScreen() {
             }
         }
 
+        BrighteningSafetyCheckCard()
         SelfieProgressCard()
         BrighteningInfoCard(
             R.string.brightening_morning_title,
@@ -135,6 +137,61 @@ private fun BrighteningInfoCard(titleRes: Int, bodyRes: Int, warning: Boolean = 
                 fontWeight = FontWeight.Bold
             )
             Text(stringResource(bodyRes), color = BrighteningInk, fontSize = 14.sp)
+        }
+    }
+}
+
+
+@Composable
+private fun BrighteningSafetyCheckCard() {
+    var brokenSkin by rememberSaveable { mutableStateOf(false) }
+    var concerningChange by rememberSaveable { mutableStateOf(false) }
+
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF3EC)),
+        shape = RoundedCornerShape(18.dp)
+    ) {
+        Column(
+            Modifier.fillMaxWidth().padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(9.dp)
+        ) {
+            Text(
+                stringResource(R.string.brightening_safety_check_title),
+                color = Color(0xFF8B4B31),
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                stringResource(R.string.brightening_safety_check_body),
+                color = BrighteningInk,
+                fontSize = 13.sp
+            )
+            FilterChip(
+                selected = brokenSkin,
+                onClick = { brokenSkin = !brokenSkin },
+                label = { Text(stringResource(R.string.brightening_broken_skin_option)) }
+            )
+            FilterChip(
+                selected = concerningChange,
+                onClick = { concerningChange = !concerningChange },
+                label = { Text(stringResource(R.string.brightening_concerning_change_option)) }
+            )
+            if (brokenSkin || concerningChange) {
+                Text(
+                    stringResource(
+                        if (concerningChange) R.string.brightening_safety_concerning_result
+                        else R.string.brightening_safety_broken_result
+                    ),
+                    color = Color(0xFF8B4B31),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 13.sp
+                )
+            } else {
+                Text(
+                    stringResource(R.string.brightening_safety_clear_result),
+                    color = BrighteningAccent,
+                    fontSize = 13.sp
+                )
+            }
         }
     }
 }
