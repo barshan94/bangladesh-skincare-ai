@@ -6,8 +6,9 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open and unmerged.
-- Latest feature commit: `bccd4d32e3a71446d2fe548bec72a1d2f488b1aa`.
-- Latest CI for that commit: runs [#44236424998](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44236424998) and [#44236419080](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44236419080), both in progress at the time of this update. Do not claim full verification until both finish.
+- Latest feature commit: `3dcc5ee7095cc4600fea8b022fd0997628c68932`.
+- Latest confirmed green CI before the current photo-comparison change: [#44255199222](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44255199222), commit `fe5cfe66cab0e771d030ab20873278c6bfc6291c`.
+- CI for the photo-comparison change is running on the latest commit; do not claim it is verified until completion.
 
 ## Baseline app capabilities
 
@@ -26,11 +27,13 @@
 - Guided selfie capture and private on-device photo timeline.
 - ML Kit face detection checks that one face is visible and reasonably framed. It does **not** detect acne, pigmentation, melasma, dark spots, skin tone or skin disease. It is not skin analysis and must not be marketed as AI analysis.
 - Photos are stored in app-private storage, with in-app deletion. No cloud upload.
+- When at least two photos exist, the app shows the earliest and latest saved images side by side with capture dates. This is a visual record only; lighting, camera distance, angle and exposure can mislead. No automated pigmentation measurement or treatment-effect claim is made.
+- A bilingual safety check flags broken/irritated skin and new, changing, painful, bleeding or spreading spots with conservative advice.
 
 ## Remaining core product work
 
 1. Get the latest CI runs green after the localized heading fix.
-2. Improve repeatable photo guidance and add a user-controlled visual comparison/timeline; do not infer diagnosis or a skin-tone/fairness score.
+2. Improve repeatable photo guidance and add controls for selecting arbitrary comparison dates; do not infer diagnosis or a skin-tone/fairness score.
 3. Build a safe, transparent concern-intake and routine guidance flow with conservative rules and clear escalation advice.
 4. Build a curated home-ingredient safety and formulation education library. Do not generate arbitrary recipes. Exclude unsafe lightening shortcuts, unpreserved water-based DIY products and homemade sunscreen.
 5. Add regression coverage for photo capture/storage/deletion and all brightening flows.
