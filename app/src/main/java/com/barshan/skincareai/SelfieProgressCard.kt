@@ -149,6 +149,9 @@ internal fun SelfieProgressCard() {
             if (records.isEmpty()) {
                 Text(stringResource(R.string.selfie_empty), color = Color(0xFF5D6962))
             } else {
+                if (records.size >= 2) {
+                    SelfieComparisonCard(older = records.last(), newer = records.first())
+                }
                 records.forEach { record ->
                     val image = remember(record.fileName) {
                         val options = BitmapFactory.Options().apply { inSampleSize = 4 }
@@ -203,5 +206,58 @@ internal fun SelfieProgressCard() {
                 }
             }
         )
+    }
+}
+
+
+@Composable
+private fun SelfieComparisonCard(older: SelfieRecord, newer: SelfieRecord) {
+    val context = LocalContext.current
+    val olderImage = remember(older.fileName) {
+        BitmapFactory.decodeFile(
+            SelfieProgressStore.file(context, older).absolutePath,
+            BitmapFactory.Options().apply { inSampleSize = 4 }
+        )
+    }
+    val newerImage = remember(newer.fileName) {
+        BitmapFactory.decodeFile(
+            SelfieProgressStore.file(context, newer).absolutePath,
+            BitmapFactory.Options().apply { inSampleSize = 4 }
+        )
+    }
+
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF2F6F2)),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(
+            Modifier.fillMaxWidth().padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(stringResource(R.string.selfie_compare_title), color = Color(0xFF486B5A), fontWeight = FontWeight.Bold)
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Text(stringResource(R.string.selfie_compare_earlier), fontWeight = FontWeight.SemiBold)
+                    if (olderImage != null) Image(
+                        bitmap = olderImage.asImageBitmap(),
+                        contentDescription = stringResource(R.string.selfie_compare_earlier),
+                        modifier = Modifier.fillMaxWidth().height(150.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                    Text(SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(older.capturedAt)), color = Color(0xFF5D6962), fontSize = 11.sp)
+                }
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Text(stringResource(R.string.selfie_compare_latest), fontWeight = FontWeight.SemiBold)
+                    if (newerImage != null) Image(
+                        bitmap = newerImage.asImageBitmap(),
+                        contentDescription = stringResource(R.string.selfie_compare_latest),
+                        modifier = Modifier.fillMaxWidth().height(150.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                    Text(SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(newer.capturedAt)), color = Color(0xFF5D6962), fontSize = 11.sp)
+                }
+            }
+            Text(stringResource(R.string.selfie_compare_note), color = Color(0xFF5D6962), fontSize = 12.sp)
+        }
     }
 }
