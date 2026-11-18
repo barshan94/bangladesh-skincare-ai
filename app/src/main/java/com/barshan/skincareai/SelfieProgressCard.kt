@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -173,7 +174,7 @@ internal fun SelfieProgressCard() {
                                 color = Color(0xFF1E2924),
                                 fontWeight = FontWeight.SemiBold
                             )
-                            Text(stringResource(R.string.selfie_private_saved), color = Color(0xFF5D6962), fontSize = androidx.compose.ui.unit.TextUnit.Unspecified)
+                            Text(stringResource(R.string.selfie_private_saved), color = Color(0xFF5D6962))
                             TextButton(onClick = { deleteTarget = record }) {
                                 Text(stringResource(R.string.selfie_delete))
                             }
