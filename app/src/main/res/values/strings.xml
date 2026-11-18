@@ -261,4 +261,11 @@
     <string name="selfie_delete_title">Delete this selfie?</string>
     <string name="selfie_delete_body">The saved photo will be permanently deleted from this app.</string>
     <string name="selfie_deleted">Photo deleted.</string>
+    <string name="brightening_safety_check_title">Safety check before trying anything</string>
+    <string name="brightening_safety_check_body">Select either option if it applies. This is a precaution, not a diagnosis. If neither applies, continue with gentle general care.</string>
+    <string name="brightening_broken_skin_option">My skin is cut, wounded, raw or peeling</string>
+    <string name="brightening_concerning_change_option">A spot is new, changing, painful, bleeding or spreading</string>
+    <string name="brightening_safety_broken_result">Pause brightening products and homemade mixtures on broken or irritated skin. Keep care gentle. Get medical advice if it worsens or shows signs of infection.</string>
+    <string name="brightening_safety_concerning_result">Do not try to lighten or cover this area with active ingredients or DIY mixtures. Arrange an in-person assessment by a qualified healthcare professional.</string>
+    <string name="brightening_safety_clear_result">No warning selected. This does not rule out a skin condition; seek advice if you are unsure or the area persists.</string>
 </resources>
