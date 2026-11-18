@@ -2,9 +2,9 @@
 
 - **Version:** 3.1 planning baseline
 - **Status:** Product-planning choices approved; user explicitly authorized implementation on 2026-10-29. Final release remains gated by expert, privacy, safety and validation review.
-- **Last updated:** 2026-10-29
+- **Last updated:** 2026-11-18
 - **Platform:** Android-first
-- **Implementation status:** Not started
+- **Implementation status:** Core tracker exists; approved brightening, selfie and formulation features are being implemented in stages
 
 ## 1. Product goal
 
