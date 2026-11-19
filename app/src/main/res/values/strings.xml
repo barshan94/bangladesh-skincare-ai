@@ -273,4 +273,19 @@
     <string name="selfie_compare_latest">Latest photo</string>
     <string name="selfie_compare_select_hint">Choose any two different saved dates to compare.</string>
     <string name="selfie_compare_note">Compare only as a personal visual record. Different lighting, camera distance, angle and exposure can change how skin appears. This app does not measure pigmentation or determine whether a treatment worked.</string>
+
+    <string name="formulation_title">Home cosmetic safety check</string>
+    <string name="formulation_intro">Choose the type of product you were thinking of making. This guide checks common risks; it does not generate or approve a recipe.</string>
+    <string name="formulation_water_based">A mixture containing water, tea, aloe gel, juice or fresh plant material</string>
+    <string name="formulation_oil_based">An oil, butter or balm blend</string>
+    <string name="formulation_dry_powder">A dry powder, mask or scrub</string>
+    <string name="formulation_sunscreen">Sunscreen or sun-protection product</string>
+    <string name="formulation_unsure">I am not sure what type it is</string>
+    <string name="formulation_water_advice">High risk: water-based homemade mixtures can grow bacteria, yeast and mould. Without a validated preservative system, suitable pH, clean manufacturing and stability plus microbial testing, do not store or use them. Refrigeration and a short shelf life do not make them reliably safe.</string>
+    <string name="formulation_oil_advice">Lower water-related microbial risk does not mean risk-free. Oils and butters can oxidize, trigger allergy or irritate skin; raw kitchen oils are not standardized cosmetic ingredients. Do not add water, fresh herbs or food. Prefer a properly labelled finished product.</string>
+    <string name="formulation_powder_advice">Kitchen powders are not sterile or standardized. Scrubs can damage the skin barrier, and plant or food powders may irritate or trigger allergy. Do not use abrasive particles on the face or mix powders with water for storage.</string>
+    <string name="formulation_sunscreen_advice">Never make sunscreen at home. UV protection depends on validated filters, exact dispersion, formulation, testing and regulated labelling. Oils, zinc oxide powder or online recipes cannot provide a dependable SPF.</string>
+    <string name="formulation_unsure_advice">Do not apply an unknown mixture. Identify every ingredient and its cosmetic grade, concentration, compatibility, contamination risk and intended use first. If any of these are unknown, do not make it.</string>
+    <string name="formulation_non_recipe_note">No homemade whitening recipe is recommended here. Avoid lemon, baking soda, bleach, toothpaste, harsh scrubs, mercury products and steroid-mixed fairness creams. A patch test cannot prove a formula is safe.</string>
+
 </resources>
