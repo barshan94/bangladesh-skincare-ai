@@ -22,6 +22,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.barshan.skincareai.domain.CheckIn
+import com.barshan.skincareai.domain.GuidanceResult
+import com.barshan.skincareai.domain.SkinFeel
+import com.barshan.skincareai.domain.SkinGoal
+import com.barshan.skincareai.domain.SkincareGuidance
 
 private val BrighteningInk = Color(0xFF1E2924)
 private val BrighteningMuted = Color(0xFF5D6962)
@@ -32,47 +37,15 @@ internal fun BrighteningScreen() {
     var selectedGoal by rememberSaveable { mutableIntStateOf(R.string.brightening_goal_unsure) }
 
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Text(
-            stringResource(R.string.brightening_title),
-            color = BrighteningInk,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            stringResource(R.string.brightening_body),
-            color = BrighteningMuted,
-            style = MaterialTheme.typography.bodyMedium
-        )
-        Text(
-            stringResource(R.string.brightening_intro),
-            color = BrighteningMuted,
-            style = MaterialTheme.typography.bodyMedium
-        )
+        Text(stringResource(R.string.brightening_title), color = BrighteningInk, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.brightening_body), color = BrighteningMuted, style = MaterialTheme.typography.bodyMedium)
+        Text(stringResource(R.string.brightening_intro), color = BrighteningMuted, style = MaterialTheme.typography.bodyMedium)
 
-        Card(
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            shape = RoundedCornerShape(20.dp)
-        ) {
-            Column(
-                Modifier.fillMaxWidth().padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Text(
-                    stringResource(R.string.brightening_goal_prompt),
-                    color = BrighteningInk,
-                    fontWeight = FontWeight.SemiBold
-                )
-                listOf(
-                    R.string.brightening_goal_acne,
-                    R.string.brightening_goal_tan,
-                    R.string.brightening_goal_patches,
-                    R.string.brightening_goal_unsure
-                ).forEach { option ->
-                    FilterChip(
-                        selected = selectedGoal == option,
-                        onClick = { selectedGoal = option },
-                        label = { Text(stringResource(option)) }
-                    )
+        Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(20.dp)) {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(stringResource(R.string.brightening_goal_prompt), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
+                listOf(R.string.brightening_goal_acne, R.string.brightening_goal_tan, R.string.brightening_goal_patches, R.string.brightening_goal_unsure).forEach { option ->
+                    FilterChip(selected = selectedGoal == option, onClick = { selectedGoal = option }, label = { Text(stringResource(option)) })
                 }
                 val explanation = when (selectedGoal) {
                     R.string.brightening_goal_acne -> R.string.brightening_goal_acne_body
@@ -84,114 +57,92 @@ internal fun BrighteningScreen() {
             }
         }
 
-        BrighteningSafetyCheckCard()
+        BrighteningPersonalGuidanceCard(selectedGoal)
         SelfieProgressCard()
-        BrighteningInfoCard(
-            R.string.brightening_morning_title,
-            R.string.brightening_morning_body
+        BrighteningInfoCard(R.string.brightening_morning_title, R.string.brightening_morning_body)
+        BrighteningInfoCard(R.string.brightening_sunscreen_title, R.string.brightening_sunscreen_body)
+        BrighteningInfoCard(R.string.brightening_evening_title, R.string.brightening_evening_body)
+        BrighteningInfoCard(R.string.brightening_actives_title, R.string.brightening_actives_body)
+        BrighteningInfoCard(R.string.brightening_avoid_title, R.string.brightening_avoid_body, warning = true)
+        BrighteningInfoCard(R.string.brightening_timeline_title, R.string.brightening_timeline_body)
+        Text(stringResource(R.string.brightening_disclaimer), color = BrighteningMuted, fontSize = 12.sp)
+    }
+}
+
+@Composable
+private fun BrighteningPersonalGuidanceCard(selectedGoal: Int) {
+    var selectedFeel by rememberSaveable { mutableIntStateOf(4) }
+    var knownReaction by rememberSaveable { mutableStateOf(false) }
+    var brokenSkin by rememberSaveable { mutableStateOf(false) }
+    var concerningChange by rememberSaveable { mutableStateOf(false) }
+
+    val feelOptions = listOf(
+        SkinFeel.DRY to R.string.feel_dry,
+        SkinFeel.OILY to R.string.feel_oily,
+        SkinFeel.COMBINATION to R.string.feel_combination,
+        SkinFeel.SENSITIVE to R.string.feel_sensitive,
+        SkinFeel.UNSURE to R.string.feel_unsure
+    )
+    val goal = when (selectedGoal) {
+        R.string.brightening_goal_acne -> SkinGoal.ACNE
+        R.string.brightening_goal_tan, R.string.brightening_goal_patches -> SkinGoal.DARK_MARKS
+        else -> SkinGoal.OTHER
+    }
+    val result = SkincareGuidance.create(
+        CheckIn(
+            skinFeel = feelOptions[selectedFeel].first,
+            goal = goal,
+            knownReaction = knownReaction,
+            brokenSkin = brokenSkin,
+            concerningChange = concerningChange
         )
-        BrighteningInfoCard(
-            R.string.brightening_sunscreen_title,
-            R.string.brightening_sunscreen_body
-        )
-        BrighteningInfoCard(
-            R.string.brightening_evening_title,
-            R.string.brightening_evening_body
-        )
-        BrighteningInfoCard(
-            R.string.brightening_actives_title,
-            R.string.brightening_actives_body
-        )
-        BrighteningInfoCard(
-            R.string.brightening_avoid_title,
-            R.string.brightening_avoid_body,
-            warning = true
-        )
-        BrighteningInfoCard(
-            R.string.brightening_timeline_title,
-            R.string.brightening_timeline_body
-        )
-        Text(
-            stringResource(R.string.brightening_disclaimer),
-            color = BrighteningMuted,
-            fontSize = 12.sp
-        )
+    )
+    val safetyFirst = result.status == GuidanceResult.Status.SAFETY_FIRST
+
+    Card(
+        colors = CardDefaults.cardColors(containerColor = if (safetyFirst) Color(0xFFFFF3EC) else Color.White),
+        shape = RoundedCornerShape(18.dp)
+    ) {
+        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(9.dp)) {
+            Text(stringResource(R.string.brightening_safety_check_title), color = if (safetyFirst) Color(0xFF8B4B31) else BrighteningAccent, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.scan_feel_prompt), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
+            feelOptions.forEachIndexed { index, option ->
+                FilterChip(selected = selectedFeel == index, onClick = { selectedFeel = index }, label = { Text(stringResource(option.second)) })
+            }
+            Text(stringResource(R.string.scan_reaction_question), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
+            FilterChip(selected = knownReaction, onClick = { knownReaction = !knownReaction }, label = { Text(stringResource(if (knownReaction) R.string.scan_yes else R.string.scan_no)) })
+            Text(stringResource(R.string.scan_broken_skin_question), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
+            FilterChip(selected = brokenSkin, onClick = { brokenSkin = !brokenSkin }, label = { Text(stringResource(if (brokenSkin) R.string.scan_yes else R.string.scan_no)) })
+            Text(stringResource(R.string.scan_concerning_change_question), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
+            FilterChip(selected = concerningChange, onClick = { concerningChange = !concerningChange }, label = { Text(stringResource(if (concerningChange) R.string.scan_yes else R.string.scan_no)) })
+
+            Text(stringResource(when (result.status) {
+                GuidanceResult.Status.SAFETY_FIRST -> R.string.guidance_safety
+                GuidanceResult.Status.OUT_OF_SCOPE -> R.string.guidance_limited
+                GuidanceResult.Status.GENERAL_EDUCATION -> R.string.guidance_general
+            }), color = if (safetyFirst) Color(0xFF8B4B31) else BrighteningAccent, fontWeight = FontWeight.Bold)
+            Text(stringResource(result.summaryRes), color = BrighteningInk, fontSize = 14.sp)
+            result.cards.forEach { guidance ->
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text(stringResource(guidance.titleRes), color = BrighteningAccent, fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(guidance.explanationRes), color = BrighteningInk, fontSize = 13.sp)
+                    guidance.cautionRes?.let { Text(stringResource(it), color = Color(0xFF8B4B31), fontSize = 13.sp) }
+                }
+            }
+            if (result.seekProfessionalCare) {
+                Text(stringResource(R.string.guidance_get_help_body), color = Color(0xFF8B4B31), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
+            }
+            Text(stringResource(R.string.guidance_disclaimer), color = BrighteningMuted, fontSize = 12.sp)
+        }
     }
 }
 
 @Composable
 private fun BrighteningInfoCard(titleRes: Int, bodyRes: Int, warning: Boolean = false) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = if (warning) Color(0xFFFFF3EC) else Color.White
-        ),
-        shape = RoundedCornerShape(18.dp)
-    ) {
-        Column(
-            Modifier.fillMaxWidth().padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(7.dp)
-        ) {
-            Text(
-                stringResource(titleRes),
-                color = if (warning) Color(0xFF8B4B31) else BrighteningAccent,
-                fontWeight = FontWeight.Bold
-            )
+    Card(colors = CardDefaults.cardColors(containerColor = if (warning) Color(0xFFFFF3EC) else Color.White), shape = RoundedCornerShape(18.dp)) {
+        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
+            Text(stringResource(titleRes), color = if (warning) Color(0xFF8B4B31) else BrighteningAccent, fontWeight = FontWeight.Bold)
             Text(stringResource(bodyRes), color = BrighteningInk, fontSize = 14.sp)
-        }
-    }
-}
-
-
-@Composable
-private fun BrighteningSafetyCheckCard() {
-    var brokenSkin by rememberSaveable { mutableStateOf(false) }
-    var concerningChange by rememberSaveable { mutableStateOf(false) }
-
-    Card(
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF3EC)),
-        shape = RoundedCornerShape(18.dp)
-    ) {
-        Column(
-            Modifier.fillMaxWidth().padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(9.dp)
-        ) {
-            Text(
-                stringResource(R.string.brightening_safety_check_title),
-                color = Color(0xFF8B4B31),
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                stringResource(R.string.brightening_safety_check_body),
-                color = BrighteningInk,
-                fontSize = 13.sp
-            )
-            FilterChip(
-                selected = brokenSkin,
-                onClick = { brokenSkin = !brokenSkin },
-                label = { Text(stringResource(R.string.brightening_broken_skin_option)) }
-            )
-            FilterChip(
-                selected = concerningChange,
-                onClick = { concerningChange = !concerningChange },
-                label = { Text(stringResource(R.string.brightening_concerning_change_option)) }
-            )
-            if (brokenSkin || concerningChange) {
-                Text(
-                    stringResource(
-                        if (concerningChange) R.string.brightening_safety_concerning_result
-                        else R.string.brightening_safety_broken_result
-                    ),
-                    color = Color(0xFF8B4B31),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 13.sp
-                )
-            } else {
-                Text(
-                    stringResource(R.string.brightening_safety_clear_result),
-                    color = BrighteningAccent,
-                    fontSize = 13.sp
-                )
-            }
         }
     }
 }
