@@ -288,4 +288,22 @@
     <string name="formulation_unsure_advice">Do not apply an unknown mixture. Identify every ingredient and its cosmetic grade, concentration, compatibility, contamination risk and intended use first. If any of these are unknown, do not make it.</string>
     <string name="formulation_non_recipe_note">No homemade whitening recipe is recommended here. Avoid lemon, baking soda, bleach, toothpaste, harsh scrubs, mercury products and steroid-mixed fairness creams. A patch test cannot prove a formula is safe.</string>
 
+    <string name="ingredient_category_brightening_active">Dark-spot care active</string>
+    <string name="ingredient_azelaic_acid">Azelaic acid</string>
+    <string name="ingredient_azelaic_acid_body">An ingredient used in some finished skincare products. The American Academy of Dermatology lists azelaic acid among ingredients that may help fade existing dark spots; the cause of pigmentation still matters.</string>
+    <string name="ingredient_azelaic_acid_caution">Caution: finished products can still sting or irritate. Do not apply raw cosmetic or laboratory material. Introduce only one new active at a time and stop if irritation occurs.</string>
+    <string name="ingredient_glycolic_acid">Glycolic acid</string>
+    <string name="ingredient_glycolic_acid_body">An alpha-hydroxy acid used in some finished exfoliating products. Dermatologists list it as one possible ingredient for fading dark spots, but suitability depends on the skin and formulation.</string>
+    <string name="ingredient_glycolic_acid_caution">Caution: overuse or strong formulations can irritate skin and worsen post-inflammatory marks. Avoid DIY acid peels and raw ingredients; use sun protection and stop if burning or persistent irritation occurs.</string>
+    <string name="ingredient_kojic_acid">Kojic acid</string>
+    <string name="ingredient_kojic_acid_body">A cosmetic ingredient used in some products marketed for uneven tone. The American Academy of Dermatology lists it among ingredients that may help fade dark spots.</string>
+    <string name="ingredient_kojic_acid_caution">Caution: it can cause irritation or contact allergy in some people. Use only a properly labelled finished cosmetic product; do not mix powders or improvise a home formula.</string>
+    <string name="ingredient_retinoids">Retinoids (retinol and related ingredients)</string>
+    <string name="ingredient_retinoids_body">A family of vitamin-A-related ingredients used in skincare. Some retinoids are listed by dermatologists as options that may help fade dark spots, but different members have different strengths and legal/medical status.</string>
+    <string name="ingredient_retinoids_caution">Caution: dryness, peeling and irritation are possible and can worsen dark marks. Do not self-start prescription retinoids; avoid topical retinoids during pregnancy and ask a clinician if pregnant, planning pregnancy or breastfeeding.</string>
+    <string name="ingredient_vitamin_c">Vitamin C</string>
+    <string name="ingredient_vitamin_c_body">An antioxidant ingredient used in finished skincare products. The American Academy of Dermatology lists vitamin C among ingredients that may help fade existing dark spots.</string>
+    <string name="ingredient_vitamin_c_caution">Caution: vitamin C products differ in form, stability and acidity; some irritate skin. Do not make or store homemade vitamin C mixtures, and stop if irritation occurs.</string>
+    <string name="ingredient_dark_spot_note">These are possible ingredients in finished products, not a prescription or a promise of results. First address irritation or the underlying cause and use sun protection. All entries still require qualified review.</string>
+
 </resources>
