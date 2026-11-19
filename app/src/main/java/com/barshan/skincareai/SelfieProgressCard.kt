@@ -222,16 +222,15 @@ private fun SelfieComparisonCard(records: List<SelfieRecord>) {
     var olderMenuExpanded by remember { mutableStateOf(false) }
     var newerMenuExpanded by remember { mutableStateOf(false) }
 
-    // Keep the two selections distinct and valid if a photo is deleted.
-    olderIndex = olderIndex.coerceIn(records.indices)
-    newerIndex = newerIndex.coerceIn(records.indices)
-    if (olderIndex == newerIndex && records.size > 1) {
-        olderIndex = records.lastIndex
-        newerIndex = 0
-    }
+    // Derive safe selections without writing Compose state during composition.
+    // The selection state is reset when the saved record IDs change.
+    val safeOlderIndex = olderIndex.coerceIn(records.indices)
+    val safeNewerIndex = newerIndex.coerceIn(records.indices)
+    val effectiveOlderIndex = if (safeOlderIndex == safeNewerIndex) records.lastIndex else safeOlderIndex
+    val effectiveNewerIndex = if (safeOlderIndex == safeNewerIndex) 0 else safeNewerIndex
 
-    val older = records[olderIndex]
-    val newer = records[newerIndex]
+    val older = records[effectiveOlderIndex]
+    val newer = records[effectiveNewerIndex]
     val olderImage = remember(older.fileName) {
         BitmapFactory.decodeFile(
             SelfieProgressStore.file(context, older).absolutePath,
@@ -266,7 +265,7 @@ private fun SelfieComparisonCard(records: List<SelfieRecord>) {
                         onDismissRequest = { olderMenuExpanded = false }
                     ) {
                         records.forEachIndexed { index, record ->
-                            if (index != newerIndex) {
+                            if (index != effectiveNewerIndex) {
                                 DropdownMenuItem(
                                     text = { Text(dateFormat.format(Date(record.capturedAt))) },
                                     onClick = {
@@ -294,7 +293,7 @@ private fun SelfieComparisonCard(records: List<SelfieRecord>) {
                         onDismissRequest = { newerMenuExpanded = false }
                     ) {
                         records.forEachIndexed { index, record ->
-                            if (index != olderIndex) {
+                            if (index != effectiveOlderIndex) {
                                 DropdownMenuItem(
                                     text = { Text(dateFormat.format(Date(record.capturedAt))) },
                                     onClick = {
