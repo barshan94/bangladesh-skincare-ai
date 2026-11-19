@@ -6,42 +6,32 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open and unmerged.
-- Latest feature commit: `5488d2e2bc0c088fce058c35d3deadbbfa6f97a6`.
-- Confirmed green CI for selectable comparison: [#44312769454](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44312769454), commit `944d76ae152beb70ac0e0a71f95129ef5eaf8de6` (debug APK compile, unit tests, navigation smoke tests and resource-parity check passed).
-- A follow-up Compose state-safety fix is committed as `5488d2e`; its CI runs [#44442838290](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44442838290) and [#44442845892](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44442845892) are still running at the time of this update.
+- Latest implementation: home-formulation safety decision guide added to the Ingredients screen, with English and Bangla copy.
+- Latest CI for the concern-intake revision: run [#44447672282](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44447672282) passed on push, while PR run [#44447678236](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44447678236) failed in Android navigation smoke tests. APK compilation and unit tests passed in that PR run. The failure occurred around emulator/ADB shutdown with exit code 224; the exact test-level cause is not established.
+- CI for the new home-formulation guide is running; do not claim it passed until completed.
 
-## Baseline app capabilities
+## Current capabilities
 
-- Six Compose destinations on the feature branch: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
-- Skin Scan is a self-reported questionnaire with deterministic general education. It is not camera analysis, diagnosis, or an AI model.
+- Six Compose destinations: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
+- Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. They are not AI, diagnosis, or camera skin analysis.
 - My Routine and Progress use local Room storage.
-- Ingredients is an educational catalogue; entries are not professionally reviewed and are not treatment recommendations.
-- Profile includes English/Bangla language preference, optional budget preference and local data reset.
+- Private selfie capture uses on-device face detection only for one-face/framing checks; photos are stored in app-private storage and can be deleted. It does not analyse acne, pigmentation, melasma, dark spots, skin tone or disease.
+- Side-by-side saved-photo comparison is a visual record only; lighting, camera distance, angle and exposure can mislead.
+- Ingredients catalogue explains common ingredients and their cautions. The new home-formulation safety guide classifies water-based, oil-based, dry-powder and sunscreen ideas and explains why unsafe or unvalidated DIY mixtures should not be made. It does not generate recipes or certify ingredients/formulas as safe.
+- English and Bangla resource-key parity was checked after adding the formulation guidance; no missing keys were found.
 - No account, analytics, cloud sync or photo upload is implemented.
-
-## Brightening feature — implemented so far
-
-- Dedicated bilingual Whitening & Brightening destination.
-- General education for post-acne marks, tanning and persistent dark patches.
-- Gentle routine foundations, sunscreen guidance, ingredient education, realistic timelines and warnings against unsafe whitening shortcuts.
-- Guided selfie capture and private on-device photo timeline.
-- ML Kit face detection checks that one face is visible and reasonably framed. It does **not** detect acne, pigmentation, melasma, dark spots, skin tone or skin disease. It is not skin analysis and must not be marketed as AI analysis.
-- Photos are stored in app-private storage, with in-app deletion. No cloud upload.
-- When at least two photos exist, the app shows two selectable saved dates side by side. A follow-up fix removes direct Compose state writes during rendering; this fix is awaiting CI. This is a visual record only; lighting, camera distance, angle and exposure can mislead. No automated pigmentation measurement or treatment-effect claim is made.
-- A bilingual safety check flags broken/irritated skin and new, changing, painful, bleeding or spreading spots with conservative advice.
 
 ## Remaining core product work
 
-1. Confirm CI for commit `5488d2e` is green; resolve any failure before moving on.
-2. Improve repeatable photo guidance and test photo capture/storage/deletion; do not infer diagnosis or a skin-tone/fairness score.
-3. Build a safe, transparent concern-intake and routine guidance flow with conservative rules and clear escalation advice. Existing `SkincareGuidance` domain logic is not yet fully connected to a complete user-facing intake flow.
-4. Expand the curated home-ingredient safety and formulation education library. Do not generate arbitrary recipes. Exclude unsafe lightening shortcuts, unpreserved water-based DIY products and homemade sunscreen.
-5. Genuine selfie skin analysis remains unimplemented. It needs a validated model/dataset, standardized capture, calibration, performance evaluation across varied skin tones and lighting, on-device inference/privacy design, and transparent limits. Face detection alone is not a substitute.
-6. Add regression coverage for photo capture/storage/deletion and all brightening flows.
-7. Complete owner-side physical-device checks and review Bangla/English accessibility and overflow.
+1. Confirm latest CI for the formulation guide, including APK compilation, unit tests and Android navigation smoke tests. Diagnose emulator/ADB test instability separately from code assertions.
+2. Expand the ingredient catalogue with evidence-backed cosmetic-grade ingredient profiles, compatibility limits and sourcing cautions. Do not invent household recipes or concentrations.
+3. Build a practical formulation education module only where safety can be responsibly explained: ingredient grade, concentration, pH, preservation, stability, hygiene, packaging and microbial testing. Do not present unpreserved water-based mixtures as usable products; never offer homemade sunscreen.
+4. Genuine selfie skin-feature/pigmentation analysis remains unimplemented. It requires a validated model/dataset, standardized capture, calibration, evaluation across varied skin tones and lighting, on-device inference/privacy design, and transparent limitations. Face detection is not skin analysis.
+5. Add regression coverage for selfie capture/storage/deletion, the concern-intake flow and formulation safety decisions.
+6. Complete owner-side physical-device checks and review Bangla/English accessibility, readability and overflow.
 
 ## Safety and release boundary
 
-This is a personal-use educational companion, not a diagnostic or prescription tool. The goal is to address uneven tone and excess pigmentation safely, not change genetically determined natural skin colour. Mercury products, bleach, steroid misuse, harsh kitchen remedies and unsupervised prescription lighteners must remain excluded. Home formulations require validated ingredients, concentration, preservation, stability, hygiene and contamination guidance before being presented as usable recipes.
+This is a personal-use educational companion, not a diagnostic or prescription tool. The goal is to address uneven tone and excess pigmentation safely, not change genetically determined natural skin colour. Mercury products, bleach, steroid misuse, harsh kitchen remedies and unsupervised prescription lighteners must remain excluded. Patch testing cannot prove an unsafe or contaminated formula is safe.
 
 Do not merge the feature PR or call the app complete while CI is failing/pending or the core requested features remain unfinished.
