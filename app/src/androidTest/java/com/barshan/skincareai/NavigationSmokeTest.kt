@@ -257,14 +257,21 @@ class NavigationSmokeTest {
 
         composeRule.onNodeWithText(
             composeRule.activity.getString(R.string.ingredients_filter_avoid)
-        ).performClick()
+        ).performScrollTo().performClick()
 
-        assertTextExists(composeRule.activity.getString(R.string.ingredient_lemon))
-        val generalIngredient = composeRule.onAllNodesWithText(
-            composeRule.activity.getString(R.string.ingredient_glycerin),
-            useUnmergedTree = true
-        ).fetchSemanticsNodes()
-        assert(generalIngredient.isEmpty()) {
+        val lemonLabel = composeRule.activity.getString(R.string.ingredient_lemon)
+        val glycerinLabel = composeRule.activity.getString(R.string.ingredient_glycerin)
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(lemonLabel, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty() &&
+                composeRule.onAllNodesWithText(glycerinLabel, useUnmergedTree = true)
+                    .fetchSemanticsNodes().isEmpty()
+        }
+        assertTextExists(lemonLabel)
+        assert(
+            composeRule.onAllNodesWithText(glycerinLabel, useUnmergedTree = true)
+                .fetchSemanticsNodes().isEmpty()
+        ) {
             "Avoid-direct-use filter must not show general-caution ingredients."
         }
     }
