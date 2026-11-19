@@ -1,4 +1,4 @@
-# Project State — 2026-11-18
+# Project State — 2026-11-19
 
 ## Repository and active work
 
@@ -6,9 +6,9 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open and unmerged.
-- Latest feature commit: `3dcc5ee7095cc4600fea8b022fd0997628c68932`.
-- Latest confirmed green CI before the current photo-comparison change: [#44255199222](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44255199222), commit `fe5cfe66cab0e771d030ab20873278c6bfc6291c`.
-- CI for the photo-comparison change is running on the latest commit; do not claim it is verified until completion.
+- Latest feature commit: `5488d2e2bc0c088fce058c35d3deadbbfa6f97a6`.
+- Confirmed green CI for selectable comparison: [#44312769454](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44312769454), commit `944d76ae152beb70ac0e0a71f95129ef5eaf8de6` (debug APK compile, unit tests, navigation smoke tests and resource-parity check passed).
+- A follow-up Compose state-safety fix is committed as `5488d2e`; its CI runs [#44442838290](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44442838290) and [#44442845892](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44442845892) are still running at the time of this update.
 
 ## Baseline app capabilities
 
@@ -27,17 +27,18 @@
 - Guided selfie capture and private on-device photo timeline.
 - ML Kit face detection checks that one face is visible and reasonably framed. It does **not** detect acne, pigmentation, melasma, dark spots, skin tone or skin disease. It is not skin analysis and must not be marketed as AI analysis.
 - Photos are stored in app-private storage, with in-app deletion. No cloud upload.
-- When at least two photos exist, the app shows the earliest and latest saved images side by side with capture dates. This is a visual record only; lighting, camera distance, angle and exposure can mislead. No automated pigmentation measurement or treatment-effect claim is made.
+- When at least two photos exist, the app shows two selectable saved dates side by side. A follow-up fix removes direct Compose state writes during rendering; this fix is awaiting CI. This is a visual record only; lighting, camera distance, angle and exposure can mislead. No automated pigmentation measurement or treatment-effect claim is made.
 - A bilingual safety check flags broken/irritated skin and new, changing, painful, bleeding or spreading spots with conservative advice.
 
 ## Remaining core product work
 
-1. Get the latest CI runs green after the localized heading fix.
-2. Improve repeatable photo guidance and add controls for selecting arbitrary comparison dates; do not infer diagnosis or a skin-tone/fairness score.
-3. Build a safe, transparent concern-intake and routine guidance flow with conservative rules and clear escalation advice.
-4. Build a curated home-ingredient safety and formulation education library. Do not generate arbitrary recipes. Exclude unsafe lightening shortcuts, unpreserved water-based DIY products and homemade sunscreen.
-5. Add regression coverage for photo capture/storage/deletion and all brightening flows.
-6. Complete owner-side physical-device checks and review Bangla/English accessibility and overflow.
+1. Confirm CI for commit `5488d2e` is green; resolve any failure before moving on.
+2. Improve repeatable photo guidance and test photo capture/storage/deletion; do not infer diagnosis or a skin-tone/fairness score.
+3. Build a safe, transparent concern-intake and routine guidance flow with conservative rules and clear escalation advice. Existing `SkincareGuidance` domain logic is not yet fully connected to a complete user-facing intake flow.
+4. Expand the curated home-ingredient safety and formulation education library. Do not generate arbitrary recipes. Exclude unsafe lightening shortcuts, unpreserved water-based DIY products and homemade sunscreen.
+5. Genuine selfie skin analysis remains unimplemented. It needs a validated model/dataset, standardized capture, calibration, performance evaluation across varied skin tones and lighting, on-device inference/privacy design, and transparent limits. Face detection alone is not a substitute.
+6. Add regression coverage for photo capture/storage/deletion and all brightening flows.
+7. Complete owner-side physical-device checks and review Bangla/English accessibility and overflow.
 
 ## Safety and release boundary
 
