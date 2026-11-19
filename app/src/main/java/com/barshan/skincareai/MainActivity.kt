@@ -678,6 +678,7 @@ private fun IngredientsScreen() {
             }
         }
     }
+    Text(stringResource(R.string.ingredient_dark_spot_note), color = Color(0xFF5D6962), fontSize = 12.sp)
     Text(stringResource(R.string.ingredients_review_note), color = Color(0xFF5D6962), fontSize = 12.sp)
 }
 
