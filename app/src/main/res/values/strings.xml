@@ -300,7 +300,7 @@
     <string name="ingredient_kojic_acid_caution">Caution: it can cause irritation or contact allergy in some people. Use only a properly labelled finished cosmetic product; do not mix powders or improvise a home formula.</string>
     <string name="ingredient_retinoids">Retinoids (retinol and related ingredients)</string>
     <string name="ingredient_retinoids_body">A family of vitamin-A-related ingredients used in skincare. Some retinoids are listed by dermatologists as options that may help fade dark spots, but different members have different strengths and legal/medical status.</string>
-    <string name="ingredient_retinoids_caution">Caution: dryness, peeling and irritation are possible and can worsen dark marks. Do not self-start prescription retinoids; avoid topical retinoids during pregnancy and ask a clinician if pregnant, planning pregnancy or breastfeeding.</string>
+    <string name="ingredient_retinoids_caution">Caution: dryness, peeling and irritation are possible and can worsen dark marks. Do not self-start prescription retinoids; avoid topical retinoids during pregnancy and ask a clinician if pregnant or planning pregnancy.</string>
     <string name="ingredient_vitamin_c">Vitamin C</string>
     <string name="ingredient_vitamin_c_body">An antioxidant ingredient used in finished skincare products. The American Academy of Dermatology lists vitamin C among ingredients that may help fade existing dark spots.</string>
     <string name="ingredient_vitamin_c_caution">Caution: vitamin C products differ in form, stability and acidity; some irritate skin. Do not make or store homemade vitamin C mixtures, and stop if irritation occurs.</string>
