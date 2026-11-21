@@ -322,4 +322,5 @@
     <string name="formulation_release_title">Personal-use decision</string>
     <string name="formulation_release_body">Without ingredient documentation, a complete formula, validated preservation where needed, suitable testing and a qualified review, do not make or apply a homemade cosmetic. This app intentionally provides no mixing instructions, percentages, shelf-life claims or sunscreen recipes.</string>
 
+    <string name="selfie_capture_consistency">For more comparable progress photos: use the same camera and distance, face the camera straight on, use soft even light, avoid flash, direct sunlight and filters, and keep the time of day similar. These steps improve consistency but cannot turn photos into a skin analysis.</string>
 </resources>
