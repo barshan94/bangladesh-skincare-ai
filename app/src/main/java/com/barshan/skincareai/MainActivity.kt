@@ -34,6 +34,7 @@ import androidx.compose.material.icons.outlined.Spa
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.TipsAndUpdates
+import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -107,7 +108,8 @@ private val destinations = listOf(
     AppDestination(R.string.nav_routine, Icons.Outlined.FavoriteBorder, R.string.routine_title, R.string.routine_body, R.string.routine_status),
     AppDestination(R.string.nav_progress, Icons.Outlined.Insights, R.string.progress_title, R.string.progress_body, R.string.progress_status),
     AppDestination(R.string.nav_ingredients, Icons.Outlined.Spa, R.string.ingredients_title, R.string.ingredients_body, R.string.ingredients_status),
-    AppDestination(R.string.nav_profile, Icons.Outlined.PersonOutline, R.string.profile_title, R.string.profile_body, R.string.profile_status)
+    AppDestination(R.string.nav_profile, Icons.Outlined.PersonOutline, R.string.profile_title, R.string.profile_body, R.string.profile_status),
+    AppDestination(R.string.nav_brightening, Icons.Outlined.WbSunny, R.string.brightening_title, R.string.brightening_body, R.string.brightening_status)
 )
 
 class MainActivity : ComponentActivity() {
@@ -215,6 +217,7 @@ private fun SkincareApp(repository: RoomSkincareRepository) {
                 2 -> ProgressScreen(repository)
                 3 -> IngredientsScreen()
                 4 -> ProfileScreen(repository)
+                5 -> BrighteningScreen()
             }
         }
     }
@@ -580,6 +583,8 @@ private fun IngredientsScreen() {
     var query by rememberSaveable { mutableStateOf("") }
     var selectedRisk by rememberSaveable { mutableStateOf<IngredientRisk?>(null) }
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
+    HomeFormulationSafetyCard()
+    FormulationEducationCard()
     OutlinedTextField(
         value = query,
         onValueChange = { query = it },
@@ -674,6 +679,7 @@ private fun IngredientsScreen() {
             }
         }
     }
+    Text(stringResource(R.string.ingredient_dark_spot_note), color = Color(0xFF5D6962), fontSize = 12.sp)
     Text(stringResource(R.string.ingredients_review_note), color = Color(0xFF5D6962), fontSize = 12.sp)
 }
 

@@ -1,53 +1,37 @@
-# Project State — 2026-11-18
+# Project State — 2026-11-19
 
-## Repository and CI
+## Repository and active work
 
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
-- Active branch: `implementation/m0-android-baseline`
-- Draft PR: [#1](https://github.com/barshan94/bangladesh-skincare-ai/pull/1), open and unmerged.
-- Latest CI-verified app-code revision: `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` (subsequent commits update documentation only).
-- Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), **success**. The emulator instrumentation suite executed 24 tests: 0 failed, 0 skipped.
-- Workflow job: Compile debug APK.
-- Uploaded artifacts: debug APK, test reports and Room schema.
+- Baseline branch: `implementation/m0-android-baseline`
+- Active feature branch: `feature/brightening-system`
+- Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open and unmerged.
+- Latest implementation: ingredient catalogue expanded with five dermatologist-listed dark-spot ingredient profiles and a bilingual formulation-education card covering ingredient identity/grade, concentration and compatibility, pH measurement, validated preservation, stability, packaging and microbial testing. No recipes or mixing quantities are supplied; all ingredient entries remain pending expert review.
+- Latest CI for the concern-intake revision: run [#44447672282](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44447672282) passed on push, while PR run [#44447678236](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44447678236) failed in Android navigation smoke tests. APK compilation and unit tests passed in that PR run. The failure occurred around emulator/ADB shutdown with exit code 224; the exact test-level cause is not established.
+- Latest CI for ingredient catalogue commit `13a08e9` passed on both push run [#44541762639](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44541762639) and PR run [#44541770774](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44541770774), including APK compilation, unit tests, resource parity and Android navigation smoke tests.
 
-## Implemented app
+## Current capabilities
 
-Five Compose sections:
-1. Skin Scan — self-reported questionnaire and deterministic general guidance; no camera, image analysis, diagnosis or AI model.
-2. My Routine — local daily checklist.
-3. Progress — local text notes/check-ins with edit and confirmed delete.
-4. Ingredients — 11 educational entries, search, risk filters and publisher links; not professionally reviewed and not a treatment recommendation.
-5. Profile — English/Bangla preference, optional budget preference and local data reset.
+- Six Compose destinations: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
+- Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. They are not AI, diagnosis, or camera skin analysis.
+- My Routine and Progress use local Room storage.
+- Private selfie capture uses on-device face detection only for one-face/framing checks; photos are stored in app-private storage and can be deleted. It does not analyse acne, pigmentation, melasma, dark spots, skin tone or disease.
+- Side-by-side saved-photo comparison is a visual record only; lighting, camera distance, angle and exposure can mislead. Capture guidance now encourages the same camera/distance, even light, no flash/direct sun/filters and similar time of day; this improves consistency but is not image analysis.
+- Ingredients catalogue explains common ingredients and their cautions. The new home-formulation safety guide classifies water-based, oil-based, dry-powder and sunscreen ideas and explains why unsafe or unvalidated DIY mixtures should not be made. It does not generate recipes or certify ingredients/formulas as safe.
+- English and Bangla resource-key parity was checked after adding the formulation guidance; no missing keys were found.
+- No account, analytics, cloud sync or photo upload is implemented.
 
-Other implemented controls:
-- Room-backed Routine and Progress.
-- One-time/idempotent legacy SharedPreferences import.
-- Daily routine completion identifiers.
-- Local data reset with failure handling and regression coverage.
-- English/Bangla resources and automated parity validation.
-- Accessibility semantics for Routine and Skin Scan checkbox rows.
-- Android backup disabled in manifest; no network permission, account, analytics, cloud sync or photo upload.
+## Remaining core product work
 
-## What “finished” means for this personal-use scope
+1. Confirm latest CI for the formulation guide, including APK compilation, unit tests and Android navigation smoke tests. Diagnose emulator/ADB test instability separately from code assertions.
+2. Add ingredient-specific compatibility and evidence-review fields, then obtain qualified review before any entry becomes actionable. Current dark-spot profiles are educational only and contain no recommended concentrations or formulas.
+3. Expand formulation education with professional references and ingredient-specific compatibility; no DIY formulas until qualified safety and stability review is available. Current card explains grade, concentration, pH, preservation, stability, packaging and microbial testing.
+4. Genuine selfie skin-feature/pigmentation analysis remains unimplemented. It requires a validated model/dataset, standardized capture, calibration, evaluation across varied skin tones and lighting, on-device inference/privacy design, and transparent limitations. Face detection is not skin analysis.
+5. Add regression coverage for selfie capture/storage/deletion, the concern-intake flow and formulation safety decisions.
+6. Complete owner-side physical-device checks and review Bangla/English accessibility, readability and overflow.
 
-The app's current software scope is implemented and the latest full CI run passed, including 24 emulator instrumentation tests (0 failed, 0 skipped). No expert is required just to install/use a local tracker. The ingredient catalogue is explicitly educational, unreviewed and non-prescriptive; it must not be presented as medical advice. Qualified review becomes necessary before adding diagnosis, individualized treatment plans, strong active-ingredient protocols, home formulations or public/commercial health claims.
+## Safety and release boundary
 
-## Owner-side checks still required
+This is a personal-use educational companion, not a diagnostic or prescription tool. The goal is to address uneven tone and excess pigmentation safely, not change genetically determined natural skin colour. Mercury products, bleach, steroid misuse, harsh kitchen remedies and unsupervised prescription lighteners must remain excluded. Patch testing cannot prove an unsafe or contaminated formula is safe.
 
-These cannot be truthfully completed from GitHub or emulator CI:
-1. Install and smoke-test all five sections on the owner's Android phone.
-2. If upgrading an older installation with saved legacy preferences, verify one-time import, restart persistence and no duplicate records without clearing app storage.
-3. Verify Profile reset removes Routine/Progress but retains language preference.
-4. Check TalkBack, larger font, contrast, touch targets and Bangla/English overflow.
-5. Confirm offline launch and no unexpected permission prompts.
-6. For a stable signed private APK, use an owner-controlled signing key stored outside the repository; verify signature, package/version and artifact hash.
-
-## Release distinction
-
-- CI debug APK: usable for controlled testing and personal evaluation, but not a signed release artifact. A later CI debug build may have a different debug signing key.
-- Signed private APK: requires owner-controlled signing credentials and install/upgrade verification.
-- Public/commercial distribution or clinical functionality: outside current scope and requires separate safety, privacy and legal review.
-
-## Handoff
-
-Continue by helping the owner install and test the CI APK on their Android phone. Never claim physical-device tests passed until the owner reports the observed results. Keep PR #1 draft/unmerged until the owner has reviewed the implementation and the intended release path is clear.
+Do not merge the feature PR or call the app complete while CI is failing/pending or the core requested features remain unfinished.

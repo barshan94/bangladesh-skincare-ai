@@ -1,18 +1,19 @@
 # Bangladesh Skincare AI
 
-A private, offline-first Android skincare tracker for personal use.
+A private, offline-first Android skincare companion for personal use.
 
 > **Verified status (2026-11-18):** App-code revision `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` passed full Android CI in [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087). The workflow produced a debug APK, test reports and Room schema; 24 emulator instrumentation tests passed (0 failed, 0 skipped). This is not a signed release APK.
 
 ## What the app actually does
 
-- **Skin Scan:** self-reported check-in with deterministic, general educational guidance. It does not scan skin, use a camera, diagnose, or use an AI model.
+- **Skin Scan:** self-reported check-in with deterministic, general educational guidance. Selfie analysis is not implemented yet.
+- **Whitening & Brightening:** a new dedicated educational section for uneven tone, tanning and post-acne marks, with a cautious routine foundation and ingredient safety warnings. It does not promise a lighter natural skin colour or diagnose pigmentation.
 - **My Routine:** local morning/evening reminder checklist.
 - **Progress:** private local text check-ins with edit and confirmed delete.
 - **Ingredients:** 11 educational ingredient summaries, safety notes, search, filters and publisher links. The entries are not professionally reviewed and are not treatment recommendations.
 - **Profile:** English/Bangla language preference, optional budget preference and local data reset.
 
-The word “AI” is currently the product name only; AI functionality is not implemented. Do not rely on this app for diagnosis or individualized treatment.
+The word “AI” is currently the product name only; AI functionality and selfie-based skin analysis are not implemented yet. Do not rely on this app for diagnosis or individualized treatment.
 
 ## Privacy and technology
 
@@ -54,7 +55,7 @@ A CI debug APK is suitable for controlled installation/testing. It is not a sign
 
 ## Explicit exclusions
 
-No photo capture/analysis, AI diagnosis, personalized prescriptions, product marketplace, cloud accounts/sync, analytics, commercial/client workflows, whitening guarantees or DIY whitening recipes.
+No validated selfie analysis yet, AI diagnosis, personalized prescriptions, product marketplace, cloud accounts/sync, analytics, commercial/client workflows, whitening guarantees or unvalidated DIY whitening recipes.
 
 ## Disclaimer
 

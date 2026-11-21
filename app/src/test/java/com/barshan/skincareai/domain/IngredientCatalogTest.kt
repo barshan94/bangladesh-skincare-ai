@@ -48,6 +48,16 @@ class IngredientCatalogTest {
     }
 
     @Test
+    fun darkSpotIngredientsArePresentAndRemainUnapprovedPendingReview() {
+        val expected = setOf("azelaic_acid", "glycolic_acid", "kojic_acid", "retinoids", "vitamin_c")
+        val actual = IngredientCatalog.entries.filter { it.id in expected }
+        assertEquals(expected, actual.map { it.id }.toSet())
+        assertTrue(actual.all { it.sources.any { source -> source.url.contains("aad.org") } })
+        assertTrue(actual.all { it.reviewStatus == IngredientReviewStatus.PENDING_EXPERT_REVIEW })
+        assertTrue(actual.all { it.risk == IngredientRisk.GENERAL_CAUTION })
+    }
+
+    @Test
     fun householdLemonAndRawUvFilterHaveStricterSafetyClassification() {
         val lemon = IngredientCatalog.entries.single { it.id == "lemon_juice" }
         val zincOxide = IngredientCatalog.entries.single { it.id == "zinc_oxide" }

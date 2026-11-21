@@ -257,16 +257,37 @@ class NavigationSmokeTest {
 
         composeRule.onNodeWithText(
             composeRule.activity.getString(R.string.ingredients_filter_avoid)
-        ).performClick()
+        ).performScrollTo().performClick()
 
-        assertTextExists(composeRule.activity.getString(R.string.ingredient_lemon))
-        val generalIngredient = composeRule.onAllNodesWithText(
-            composeRule.activity.getString(R.string.ingredient_glycerin),
-            useUnmergedTree = true
-        ).fetchSemanticsNodes()
-        assert(generalIngredient.isEmpty()) {
+        val lemonLabel = composeRule.activity.getString(R.string.ingredient_lemon)
+        val glycerinLabel = composeRule.activity.getString(R.string.ingredient_glycerin)
+        composeRule.waitUntil(timeoutMillis = 10_000) {
+            composeRule.onAllNodesWithText(lemonLabel, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty() &&
+                composeRule.onAllNodesWithText(glycerinLabel, useUnmergedTree = true)
+                    .fetchSemanticsNodes().isEmpty()
+        }
+        assertTextExists(lemonLabel)
+        assert(
+            composeRule.onAllNodesWithText(glycerinLabel, useUnmergedTree = true)
+                .fetchSemanticsNodes().isEmpty()
+        ) {
             "Avoid-direct-use filter must not show general-caution ingredients."
         }
+    }
+
+    @Test
+    fun formulationEducationExplainsCoreSafetyRequirements() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_ingredients)
+        ).get(0).performClick()
+
+        assertTextExists(composeRule.activity.getString(R.string.formulation_education_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_quality_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_preservation_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_stability_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_release_title))
     }
 
     @Test
@@ -281,6 +302,36 @@ class NavigationSmokeTest {
         ).performTextInput("no ingredient should match this phrase")
 
         assertTextExists(composeRule.activity.getString(R.string.ingredients_no_results))
+    }
+
+    @Test
+    fun brighteningTabShowsLocalizedSafetyGuidance() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_brightening)
+        ).get(0).performClick()
+
+        assertTextExists(composeRule.activity.getString(R.string.brightening_title))
+        assertTextExists(composeRule.activity.getString(R.string.brightening_sunscreen_title))
+        assertTextExists(composeRule.activity.getString(R.string.brightening_avoid_title))
+
+        composeRule.onNodeWithText(
+            composeRule.activity.getString(R.string.brightening_goal_acne)
+        ).performScrollTo().performClick()
+        assertTextExists(composeRule.activity.getString(R.string.brightening_goal_acne_body))
+    }
+
+    @Test
+    fun brighteningTabOffersPrivateSelfieProgressWithoutClaimingSkinDiagnosis() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_brightening)
+        ).get(0).performClick()
+
+        assertTextExists(composeRule.activity.getString(R.string.selfie_title))
+        assertTextExists(composeRule.activity.getString(R.string.selfie_framing_only))
+        assertTextExists(composeRule.activity.getString(R.string.selfie_capture_consistency))
+        assertTextExists(composeRule.activity.getString(R.string.selfie_capture))
     }
 
 }

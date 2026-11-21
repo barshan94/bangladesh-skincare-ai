@@ -2,7 +2,7 @@ name: Android build
 
 on:
   push:
-    branches: [main, implementation/m0-android-baseline]
+    branches: [main, implementation/m0-android-baseline, feature/brightening-system]
     paths:
       - "app/**"
       - "scripts/check_localization.py"
@@ -10,7 +10,7 @@ on:
       - "gradle/**"
       - ".github/workflows/android.yml"
   pull_request:
-    branches: [main]
+    branches: [main, implementation/m0-android-baseline]
     paths:
       - "app/**"
       - "scripts/check_localization.py"
@@ -34,6 +34,8 @@ jobs:
     env:
       ANDROID_HOME: /usr/local/lib/android/sdk
       ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+      # GitHub-hosted Linux runners may lack KVM; explicitly allow the emulator's TCG software fallback.
+      ANDROID_I_WANT_MY_TCG: "yes"
     steps:
       - name: Check out source
         uses: actions/checkout@v4

@@ -1,9 +1,9 @@
 # AI Model Feasibility Assessment
 
-**Status:** Initial desk research; not a model selection or validation result  
-**Reviewed:** 2026-10-29  
+**Status:** Desk research updated for current implementation; no skin-analysis model selected or validated  
+**Reviewed:** 2026-11-21  
 **Project:** Bangladesh Skincare AI  
-**Implementation status:** No app code or model integration started
+**Implementation status:** App includes private selfie capture and ML Kit face/framing checks only. No pigmentation/acne/skin-condition model or inference pipeline is implemented.
 
 ## Executive conclusion
 
@@ -115,7 +115,7 @@ No model should be selected by demo quality alone. For each candidate, record:
 5. Evaluate suitable custom models only after their task, training data, license and reference method are documented.
 6. Complete expert safety review, privacy review and applicable Bangladesh regulatory review before release claims are finalized.
 
-No application implementation should start until the user explicitly approves the product specification and design gates.
+The user has explicitly requested implementation. Safe capture and progress-tracking foundations are already implemented. Do not implement or expose a skin-condition prediction until model rights, reference labels, subgroup evaluation, repeatability and privacy gates are met.
 
 ## References
 
