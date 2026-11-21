@@ -584,6 +584,7 @@ private fun IngredientsScreen() {
     var selectedRisk by rememberSaveable { mutableStateOf<IngredientRisk?>(null) }
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
     HomeFormulationSafetyCard()
+    FormulationEducationCard()
     OutlinedTextField(
         value = query,
         onValueChange = { query = it },
