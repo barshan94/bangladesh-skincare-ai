@@ -127,6 +127,7 @@ internal fun SelfieProgressCard() {
             Text(stringResource(R.string.selfie_title), fontWeight = FontWeight.Bold, color = Color(0xFF486B5A))
             Text(stringResource(R.string.selfie_description), color = Color(0xFF1E2924))
             Text(stringResource(R.string.selfie_framing_only), color = Color(0xFF5D6962))
+            Text(stringResource(R.string.selfie_capture_consistency), color = Color(0xFF5D6962))
             Button(
                 onClick = {
                     runCatching {
