@@ -306,4 +306,20 @@
     <string name="ingredient_vitamin_c_caution">Caution: vitamin C products differ in form, stability and acidity; some irritate skin. Do not make or store homemade vitamin C mixtures, and stop if irritation occurs.</string>
     <string name="ingredient_dark_spot_note">These are possible ingredients in finished products, not a prescription or a promise of results. First address irritation or the underlying cause and use sun protection. All entries still require qualified review.</string>
 
+
+    <string name="formulation_education_title">What responsible cosmetic formulation actually requires</string>
+    <string name="formulation_education_intro">A safe cosmetic is a tested system, not just a list of natural ingredients. These are the checks a qualified formulator must document before a product is used on skin.</string>
+    <string name="formulation_quality_title">1. Ingredient identity and grade</string>
+    <string name="formulation_quality_body">Confirm the exact INCI or chemical identity, cosmetic-use grade, supplier traceability, batch number, specification and certificate of analysis. Food-grade, kitchen or unknown powders are not automatically suitable for cosmetics.</string>
+    <string name="formulation_concentration_title">2. Concentration and compatibility</string>
+    <string name="formulation_concentration_body">A percentage is meaningful only for a specific ingredient, grade, product type and complete formula. Check supplier limits, applicable cosmetic rules, interactions and total exposure. Do not estimate amounts from online recipes or combine multiple strong actives.</string>
+    <string name="formulation_ph_title">3. pH and measurement</string>
+    <string name="formulation_ph_body">For water-containing products, pH can affect preservative performance, ingredient stability and skin tolerability. It must be measured with calibrated equipment using a validated method; guessing by colour or household strips is not a release test.</string>
+    <string name="formulation_preservation_title">4. Preservation and contamination control</string>
+    <string name="formulation_preservation_body">Water-based products need a preservative system demonstrated to work in that exact formula and package. A preservative name or a supplier's typical use range alone does not prove protection. Hygiene, water quality and manufacturing controls also matter.</string>
+    <string name="formulation_stability_title">5. Stability, packaging and microbial tests</string>
+    <string name="formulation_stability_body">A qualified lab must assess physical and chemical stability, package compatibility and appropriate microbial quality/preservative-efficacy testing over the intended shelf life. Smell, appearance, refrigeration or a patch test cannot establish product safety.</string>
+    <string name="formulation_release_title">Personal-use decision</string>
+    <string name="formulation_release_body">Without ingredient documentation, a complete formula, validated preservation where needed, suitable testing and a qualified review, do not make or apply a homemade cosmetic. This app intentionally provides no mixing instructions, percentages, shelf-life claims or sunscreen recipes.</string>
+
 </resources>
