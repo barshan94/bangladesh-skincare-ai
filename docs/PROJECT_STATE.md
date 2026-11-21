@@ -16,7 +16,7 @@
 - Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. They are not AI, diagnosis, or camera skin analysis.
 - My Routine and Progress use local Room storage.
 - Private selfie capture uses on-device face detection only for one-face/framing checks; photos are stored in app-private storage and can be deleted. It does not analyse acne, pigmentation, melasma, dark spots, skin tone or disease.
-- Side-by-side saved-photo comparison is a visual record only; lighting, camera distance, angle and exposure can mislead.
+- Side-by-side saved-photo comparison is a visual record only; lighting, camera distance, angle and exposure can mislead. Capture guidance now encourages the same camera/distance, even light, no flash/direct sun/filters and similar time of day; this improves consistency but is not image analysis.
 - Ingredients catalogue explains common ingredients and their cautions. The new home-formulation safety guide classifies water-based, oil-based, dry-powder and sunscreen ideas and explains why unsafe or unvalidated DIY mixtures should not be made. It does not generate recipes or certify ingredients/formulas as safe.
 - English and Bangla resource-key parity was checked after adding the formulation guidance; no missing keys were found.
 - No account, analytics, cloud sync or photo upload is implemented.
