@@ -277,6 +277,20 @@ class NavigationSmokeTest {
     }
 
     @Test
+    fun formulationEducationExplainsCoreSafetyRequirements() {
+        waitForAppReady()
+        composeRule.onAllNodesWithText(
+            composeRule.activity.getString(R.string.nav_ingredients)
+        ).get(0).performClick()
+
+        assertTextExists(composeRule.activity.getString(R.string.formulation_education_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_quality_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_preservation_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_stability_title))
+        assertTextExists(composeRule.activity.getString(R.string.formulation_release_title))
+    }
+
+    @Test
     fun ingredientSearchShowsLocalizedEmptyStateWhenNothingMatches() {
         waitForAppReady()
         composeRule.onAllNodesWithText(
