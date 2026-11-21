@@ -1,61 +1,37 @@
 # Implementation Backlog — Current Status
 
-- Last reviewed: 2026-11-18
-- Active branch: `implementation/m0-android-baseline`
-- Latest full CI: [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087), success; emulator instrumentation: 24 tests, 0 failed, 0 skipped.
+- Last reviewed: 2026-11-21
+- Repository: `barshan94/bangladesh-skincare-ai`
+- Active branch: `feature/brightening-system`
+- Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open and unmerged.
+- Latest completed CI before the formulation-education addition: [push #44541762639](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44541762639) and [PR #44541770774](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44541770774), both passed compilation, unit tests, resource parity and Android navigation smoke tests. Newer CI is running for the latest formulation-education changes; do not mark it passed until both workflows finish.
 
-## Product boundary
+## Implemented
 
-Personal-use, offline-first Android skincare companion. No commercial/client workflows, accounts, cloud sync, analytics, unvalidated photo analysis, AI diagnosis, prescriptions or unreviewed DIY whitening recipes.
+- Kotlin + Jetpack Compose Android app with six destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
+- Room-backed routine and progress data with legacy preference migration.
+- Self-reported skin questionnaire and deterministic, non-diagnostic guidance.
+- Brightening guidance for post-acne marks, tanning and unexplained patches, with safety exclusions and realistic expectations.
+- Private selfie capture, one-face/framing check using ML Kit Face Detection, local app-private storage, photo deletion and side-by-side visual comparison. These features do **not** analyse pigmentation, acne, melasma, skin tone or disease.
+- Ingredient catalogue with 16 educational entries, including azelaic acid, glycolic acid, kojic acid, retinoids and vitamin C. Entries are pending expert review; no prescriptions, concentrations or recipes.
+- Home-formulation risk guide for water-based, oil-based, powder and sunscreen concepts.
+- New bilingual formulation-education card explaining ingredient identity/grade, concentration and compatibility, pH measurement, validated preservation, stability, packaging and microbial testing. It deliberately provides no mixing instructions, formula percentages or shelf-life claims.
+- English/Bangla resource parity validation and regression coverage for catalogue safety and navigation.
 
-## Implemented and CI-verified
+## Remaining product work — not complete
 
-- **M0 — Android baseline:** Kotlin, Jetpack Compose, pinned Gradle toolchain and debug APK workflow.
-- **M1 — App shell/localization:** five sections and English/Bangla resources with parity validation.
-- **M2 — Local persistence:** Room-backed Routine and Progress, one-time/idempotent legacy SharedPreferences import and schema export.
-- **M3 — Routine and Progress:** daily completion keys, create/edit/delete, confirmation and localized failure feedback.
-- **M4 — Skin check-in:** self-reported questions, deterministic non-diagnostic general guidance and explicit save to Progress.
-- **M5 — Ingredient education:** 11 general educational entries, search, safety filters and publisher source links; no treatment prescriptions.
-- **M6 — Accessibility baseline:** combined labels/toggle semantics for key checkbox rows.
-- **Reliability:** reset ordering and regression test for failed-reset recovery.
+1. **Real selfie analysis:** not implemented. Needs a narrowly defined visual feature, legally usable model/data, qualified reference labels, representative Bangladeshi skin-tone and device/lighting evaluation, repeatability thresholds, on-device inference and privacy review. Do not substitute pixel heuristics or face detection and call it AI analysis.
+2. **Capture consistency:** improve repeatable lighting/distance/pose guidance and record capture conditions. Any automated quality gate needs its own test evidence.
+3. **Personalized brightening plan:** strengthen rules using concern, sensitivity, reaction history, current products, budget and contraindications; clinician referral for uncertain or concerning patches. No prescription or natural-skin-colour alteration.
+4. **Formulation knowledge:** expand sourced ingredient profiles and compatibility education only after qualified review. No DIY water-based product recipes without validated preservation, pH, stability and microbial testing; never offer homemade sunscreen.
+5. **Regression and privacy:** add automated coverage for selfie capture, file storage, deletion, metadata integrity, and error/recovery paths.
+6. **Owner device acceptance:** test on the owner's Android phone, including camera, storage, TalkBack, font scaling, Bangla layout, airplane mode and upgrade behavior. Emulator CI cannot replace this.
+7. **Release signing:** owner-controlled signing key and signed APK only if/when the owner wants stable distribution. Do not commit signing secrets.
 
-Latest CI #44221154087 passed the complete workflow, including 24 emulator instrumentation tests (0 failed, 0 skipped) and artifact upload.
+## Safety boundary
 
-## New brightening work — in progress
+The product goal is safer care for uneven tone and excess pigmentation, not changing genetically determined natural skin colour. No mercury, bleach, steroid misuse, harsh kitchen remedies, unsupervised prescription lighteners, diagnosis or fairness scoring. A patch test does not make an unsafe or contaminated formula safe.
 
-- Added a dedicated sixth navigation destination: **Whitening & Brightening**.
-- Added English and Bangla educational guidance for post-acne marks, tanning and unexplained patches.
-- Added simple morning/evening routine foundations, sunscreen guidance, ingredient education, realistic timelines and warnings against unsafe whitening shortcuts.
-- This is not a personalized prescription, selfie analysis or a validated pigmentation measurement. Do not call the feature AI-powered.
+## Completion rule
 
-## Remaining core product work
-
-1. Guided selfie capture with private on-device photo storage and user-controlled deletion.
-2. Image-quality and repeatable framing checks; no pigmentation claims until independently validated.
-3. Personalized brightening routine engine based on user-reported concern, sensitivity, existing products, budget and safety exclusions.
-4. Photo timeline and progress comparison with explicit uncertainty; no skin-tone/fairness score.
-5. Validated home-cosmetic formulation library with exact formulation, stability/preservation and contamination review; no free-form AI recipes.
-6. Reviewed Bangla/English content, citations, privacy and safety review.
-
-## Owner-side acceptance tests
-
-1. Install current debug APK on the owner's Android phone; inspect all five sections.
-2. If a prior build contains legacy data, upgrade without clearing storage; verify import once, restart persistence and no duplicate import.
-3. Use Profile reset; verify Routine/Progress clear while language preference remains.
-4. Check TalkBack, font scaling, touch targets and English/Bangla layout.
-5. Launch in airplane mode and check for unexpected permission prompts.
-6. For stable long-term private distribution, create an owner-controlled signing key, build a signed APK and verify clean install/upgrade.
-
-These checks require the owner's device and must not be marked passed based only on emulator CI.
-
-## Content boundary
-
-No professional review is required merely to use the current app as a personal tracker. The ingredient catalogue must remain clearly labelled as general education, with no individualized treatment advice, diagnosis, concentrations, mixing steps or claims of clinical approval. If the scope expands to treatment recommendations, home formulations, image diagnosis or public/commercial distribution, qualified safety and legal review becomes a release prerequisite.
-
-## Explicitly deferred
-
-Photo capture/import/timeline, AI model integration, image diagnosis/scoring, cloud/backend/accounts/analytics, product marketplace/pricing, remote knowledge updates, DIY formulations and commercial workflows.
-
-## Definition of done
-
-Implementation and automated tests are complete for the current personal-use feature scope. The remaining work is owner-side phone acceptance and (if a stable distributable build is wanted) owner-controlled signing and verification.
+Do not merge PR #2 or call the app complete until latest CI is green, the owner has reviewed the APK on the actual phone, and the remaining selfie-analysis decision is explicitly represented as either a validated feature or a clearly disclosed limitation. The requested real selfie-analysis feature is currently still missing.
