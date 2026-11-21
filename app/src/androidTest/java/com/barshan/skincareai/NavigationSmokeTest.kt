@@ -330,6 +330,7 @@ class NavigationSmokeTest {
 
         assertTextExists(composeRule.activity.getString(R.string.selfie_title))
         assertTextExists(composeRule.activity.getString(R.string.selfie_framing_only))
+        assertTextExists(composeRule.activity.getString(R.string.selfie_capture_consistency))
         assertTextExists(composeRule.activity.getString(R.string.selfie_capture))
     }
 
