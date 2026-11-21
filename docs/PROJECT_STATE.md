@@ -6,9 +6,9 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open and unmerged.
-- Latest implementation: ingredient catalogue expanded with five dermatologist-listed dark-spot ingredient profiles (azelaic acid, glycolic acid, kojic acid, retinoids and vitamin C), each with English/Bangla cautions and an AAD source link. All remain pending expert review and are not prescriptions or DIY formulas.
+- Latest implementation: ingredient catalogue expanded with five dermatologist-listed dark-spot ingredient profiles and a bilingual formulation-education card covering ingredient identity/grade, concentration and compatibility, pH measurement, validated preservation, stability, packaging and microbial testing. No recipes or mixing quantities are supplied; all ingredient entries remain pending expert review.
 - Latest CI for the concern-intake revision: run [#44447672282](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44447672282) passed on push, while PR run [#44447678236](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44447678236) failed in Android navigation smoke tests. APK compilation and unit tests passed in that PR run. The failure occurred around emulator/ADB shutdown with exit code 224; the exact test-level cause is not established.
-- Latest CI for commit `d6ce8f4` passed on both push run [#44480719628](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44480719628) and PR run [#44480727626](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44480727626). This confirms the previous ingredient-filter smoke-test synchronization change.
+- Latest CI for ingredient catalogue commit `13a08e9` passed on both push run [#44541762639](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44541762639) and PR run [#44541770774](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44541770774), including APK compilation, unit tests, resource parity and Android navigation smoke tests.
 
 ## Current capabilities
 
@@ -25,7 +25,7 @@
 
 1. Confirm latest CI for the formulation guide, including APK compilation, unit tests and Android navigation smoke tests. Diagnose emulator/ADB test instability separately from code assertions.
 2. Add ingredient-specific compatibility and evidence-review fields, then obtain qualified review before any entry becomes actionable. Current dark-spot profiles are educational only and contain no recommended concentrations or formulas.
-3. Build a practical formulation education module only where safety can be responsibly explained: ingredient grade, concentration, pH, preservation, stability, hygiene, packaging and microbial testing. Do not present unpreserved water-based mixtures as usable products; never offer homemade sunscreen.
+3. Expand formulation education with professional references and ingredient-specific compatibility; no DIY formulas until qualified safety and stability review is available. Current card explains grade, concentration, pH, preservation, stability, packaging and microbial testing.
 4. Genuine selfie skin-feature/pigmentation analysis remains unimplemented. It requires a validated model/dataset, standardized capture, calibration, evaluation across varied skin tones and lighting, on-device inference/privacy design, and transparent limitations. Face detection is not skin analysis.
 5. Add regression coverage for selfie capture/storage/deletion, the concern-intake flow and formulation safety decisions.
 6. Complete owner-side physical-device checks and review Bangla/English accessibility, readability and overflow.
