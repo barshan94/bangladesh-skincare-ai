@@ -17,6 +17,8 @@ internal object SelfieProgressStore {
     private const val KEY_RECORDS = "records"
     private const val MAX_RECORDS = 30
 
+    private fun directory(context: Context): File = File(context.filesDir, "selfie-progress")
+
     fun list(context: Context): List<SelfieRecord> {
         val json = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .getString(KEY_RECORDS, "[]") ?: "[]"
@@ -24,23 +26,40 @@ internal object SelfieProgressStore {
             val array = JSONArray(json)
             (0 until array.length()).mapNotNull { index ->
                 val item = array.optJSONObject(index) ?: return@mapNotNull null
-                SelfieRecord(
-                    id = item.optString("id"),
-                    fileName = item.optString("fileName"),
-                    capturedAt = item.optLong("capturedAt")
-                ).takeIf { it.id.isNotBlank() && it.fileName.isNotBlank() && it.capturedAt > 0L }
-            }.sortedByDescending { it.capturedAt }
+                val id = item.optString("id")
+                val fileName = item.optString("fileName")
+                val capturedAt = item.optLong("capturedAt")
+                // Records may only address files created by this store. Reject malformed
+                // metadata rather than allowing arbitrary paths inside the app sandbox.
+                SelfieRecord(id, fileName, capturedAt).takeIf {
+                    runCatching { UUID.fromString(id) }.isSuccess &&
+                        fileName == "$id.jpg" && capturedAt > 0L
+                }
+            }.filter { file(context, it).isFile }
+                .sortedByDescending { it.capturedAt }
         }.getOrDefault(emptyList())
     }
 
     fun save(context: Context, source: File): SelfieRecord {
-        require(source.exists() && source.length() > 0L) { "Captured image is missing or empty." }
-        val directory = File(context.filesDir, "selfie-progress").apply {
+        require(source.exists() && source.isFile && source.length() > 0L) {
+            "Captured image is missing, not a file, or empty."
+        }
+        val directory = directory(context).apply {
             check(exists() || mkdirs()) { "Cannot create private photo directory." }
+            check(isDirectory) { "Private photo path is not a directory." }
         }
         val id = UUID.randomUUID().toString()
         val target = File(directory, "$id.jpg")
-        source.copyTo(target, overwrite = false)
+        val staging = File(directory, ".$id.tmp")
+        try {
+            source.copyTo(staging, overwrite = false)
+            check(staging.renameTo(target)) { "Could not finalize private photo file." }
+        } catch (failure: Throwable) {
+            staging.delete()
+            target.delete()
+            throw failure
+        }
+
         val record = SelfieRecord(id, target.name, System.currentTimeMillis())
         val updated = (list(context) + record).sortedByDescending { it.capturedAt }
         val retained = updated.take(MAX_RECORDS)
@@ -65,10 +84,12 @@ internal object SelfieProgressStore {
     }
 
     fun file(context: Context, record: SelfieRecord): File =
-        File(File(context.filesDir, "selfie-progress"), record.fileName)
+        File(directory(context), record.fileName)
 
     fun delete(context: Context, record: SelfieRecord) {
-        file(context, record).delete()
+        val photo = file(context, record)
+        check(!photo.exists() || photo.delete()) { "Could not delete private photo file." }
+
         val retained = list(context).filterNot { it.id == record.id }
         val array = JSONArray()
         retained.forEach { item ->
@@ -79,7 +100,9 @@ internal object SelfieProgressStore {
                     .put("capturedAt", item.capturedAt)
             )
         }
-        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-            .edit().putString(KEY_RECORDS, array.toString()).apply()
+        check(
+            context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .edit().putString(KEY_RECORDS, array.toString()).commit()
+        ) { "Could not update private photo metadata." }
     }
 }
