@@ -316,7 +316,7 @@
     <string name="formulation_ph_title">3. pH and measurement</string>
     <string name="formulation_ph_body">For water-containing products, pH can affect preservative performance, ingredient stability and skin tolerability. It must be measured with calibrated equipment using a validated method; guessing by colour or household strips is not a release test.</string>
     <string name="formulation_preservation_title">4. Preservation and contamination control</string>
-    <string name="formulation_preservation_body">Water-based products need a preservative system demonstrated to work in that exact formula and package. A preservative name or a supplier's typical use range alone does not prove protection. Hygiene, water quality and manufacturing controls also matter.</string>
+    <string name="formulation_preservation_body">Water-based products require a preservative system proven effective in the exact formula and package. A preservative name or typical supplier use range alone does not prove protection. Hygiene, water quality and manufacturing controls also matter.</string>
     <string name="formulation_stability_title">5. Stability, packaging and microbial tests</string>
     <string name="formulation_stability_body">A qualified lab must assess physical and chemical stability, package compatibility and appropriate microbial quality/preservative-efficacy testing over the intended shelf life. Smell, appearance, refrigeration or a patch test cannot establish product safety.</string>
     <string name="formulation_release_title">Personal-use decision</string>
