@@ -54,7 +54,7 @@ internal object SelfieProgressStore {
         try {
             source.copyTo(staging, overwrite = false)
             check(staging.renameTo(target)) { "Could not finalize private photo file." }
-        } catch (failure: Throwable) {
+        } catch (failure: Exception) {
             staging.delete()
             target.delete()
             throw failure
@@ -83,8 +83,12 @@ internal object SelfieProgressStore {
         return record
     }
 
-    fun file(context: Context, record: SelfieRecord): File =
-        File(directory(context), record.fileName)
+    fun file(context: Context, record: SelfieRecord): File {
+        require(runCatching { UUID.fromString(record.id) }.isSuccess && record.fileName == "${record.id}.jpg") {
+            "Invalid private photo record."
+        }
+        return File(directory(context), record.fileName)
+    }
 
     fun delete(context: Context, record: SelfieRecord) {
         val photo = file(context, record)
