@@ -60,8 +60,15 @@ internal object SelfieProgressStore {
             throw failure
         }
 
-        val record = SelfieRecord(id, target.name, System.currentTimeMillis())
-        val updated = (list(context) + record).sortedByDescending { it.capturedAt }
+        val existing = list(context)
+        // Millisecond timestamps can collide during rapid captures. Keep ordering
+        // strictly monotonic so the newest photo is never pruned as the oldest.
+        val capturedAt = maxOf(
+            System.currentTimeMillis(),
+            (existing.maxOfOrNull { it.capturedAt } ?: 0L) + 1L
+        )
+        val record = SelfieRecord(id, target.name, capturedAt)
+        val updated = (existing + record).sortedByDescending { it.capturedAt }
         val retained = updated.take(MAX_RECORDS)
         val array = JSONArray()
         retained.forEach { item ->
@@ -81,6 +88,16 @@ internal object SelfieProgressStore {
         updated.drop(MAX_RECORDS).forEach { old -> file(context, old).delete() }
         source.delete()
         return record
+    }
+
+    fun clearAll(context: Context) {
+        val photoDirectory = directory(context)
+        check(!photoDirectory.exists() || photoDirectory.deleteRecursively()) {
+            "Could not delete all private selfie photos."
+        }
+        val cleared = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit().clear().commit()
+        check(cleared) { "Could not clear private selfie metadata." }
     }
 
     fun file(context: Context, record: SelfieRecord): File {
