@@ -129,7 +129,8 @@ internal fun HomemadeLabCard() {
                             Text(stringResource(R.string.lab_result_line, amount.ingredient, amount.percentage, amount.grams), color = Color(0xFF1E2924))
                         }
                         Text(stringResource(R.string.lab_result_total, calculation.totalPercentage), fontWeight = FontWeight.Bold)
-                        val prices = inputs.map { IngredientPrice(it.pricePer100g.toDoubleOrNull() ?: Double.NaN) }
+                        val activeInputs = inputs.filter { it.name.isNotBlank() || it.percentage.isNotBlank() }
+                        val prices = activeInputs.map { IngredientPrice(it.pricePer100g.toDoubleOrNull() ?: Double.NaN) }
                         val estimatedCost = FormulaCostCalculator.calculate(calculation.amounts, prices)
                         if (estimatedCost == null) {
                             Text(stringResource(R.string.lab_cost_enter_prices), color = Color(0xFF765126))
