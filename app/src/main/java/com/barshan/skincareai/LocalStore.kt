@@ -109,5 +109,7 @@ object LocalStore {
             .remove(SKIN_FEEL_KEY)
             .commit()
         check(committed) { "Could not confirm local preference deletion" }
+        // A full reset must also remove private selfie files and their metadata.
+        SelfieProgressStore.clearAll(context)
     }
 }
