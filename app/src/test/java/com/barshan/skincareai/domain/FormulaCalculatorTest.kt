@@ -26,6 +26,19 @@ class FormulaCalculatorTest {
         assertEquals(FormulaError.EMPTY_INGREDIENT, FormulaCalculator.calculate(30.0, listOf(FormulaLine(" ", 100.0))).error)
     }
 
+    @Test fun estimatesRawMaterialCostFromPricePer100Grams() {
+        val amounts = listOf(FormulaAmount("Oil A", 60.0, 18.0), FormulaAmount("Wax B", 40.0, 12.0))
+        val cost = FormulaCostCalculator.calculate(amounts, listOf(IngredientPrice(200.0), IngredientPrice(500.0)))
+        assertEquals(96.0, cost!!, 0.001)
+    }
+
+    @Test fun rejectsMissingOrInvalidIngredientPrices() {
+        val amounts = listOf(FormulaAmount("Oil A", 100.0, 30.0))
+        assertNull(FormulaCostCalculator.calculate(amounts, emptyList()))
+        assertNull(FormulaCostCalculator.calculate(amounts, listOf(IngredientPrice(Double.NaN))))
+        assertNull(FormulaCostCalculator.calculate(amounts, listOf(IngredientPrice(-1.0))))
+    }
+
     @Test fun waterProductsAndSunscreenAreNotEligibleForHomeDraftCalculation() {
         assertEquals(false, HomeProductType.WATER_BASED_SERUM.canCalculateDraft)
         assertEquals(false, HomeProductType.CREAM_OR_LOTION.canCalculateDraft)

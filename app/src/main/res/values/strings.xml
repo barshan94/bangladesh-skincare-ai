@@ -350,4 +350,9 @@
     <string name="lab_result_total">Total: %1$.2f%%</string>
     <string name="lab_disclaimer">CRITICAL: This is arithmetic, not a validated formula. It does not check compatibility, concentration limits, oxidation, contamination, stability, skin tolerance or brightening effectiveness. Do not apply an unreviewed draft. No shelf-life estimate is provided.</string>
 
+
+    <string name="lab_price_per_100g">Ingredient price per 100 g</string>
+    <string name="lab_cost_enter_prices">Enter a valid price for every ingredient to estimate raw-material cost.</string>
+    <string name="lab_cost_result">Estimated raw-material cost: BDT %1$.2f</string>
+    <string name="lab_cost_excludes">Estimate only. Excludes packaging, tools, transport, wastage and labour. Use actual supplier prices.</string>
 </resources>

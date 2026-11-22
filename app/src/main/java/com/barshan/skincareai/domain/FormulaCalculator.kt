@@ -53,3 +53,15 @@ object FormulaCalculator {
         )
     }
 }
+
+
+data class IngredientPrice(val pricePer100Grams: Double)
+
+/** Raw-material estimate only; excludes packaging, tools, labour and waste. */
+object FormulaCostCalculator {
+    fun calculate(amounts: List<FormulaAmount>, prices: List<IngredientPrice>): Double? {
+        if (amounts.isEmpty() || amounts.size != prices.size) return null
+        if (prices.any { !it.pricePer100Grams.isFinite() || it.pricePer100Grams < 0.0 }) return null
+        return amounts.indices.sumOf { amounts[it].grams * prices[it].pricePer100Grams / 100.0 }
+    }
+}

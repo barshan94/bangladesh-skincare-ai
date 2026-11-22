@@ -27,15 +27,17 @@ import androidx.compose.ui.unit.dp
 import com.barshan.skincareai.domain.FormulaCalculator
 import com.barshan.skincareai.domain.FormulaError
 import com.barshan.skincareai.domain.FormulaLine
+import com.barshan.skincareai.domain.FormulaCostCalculator
+import com.barshan.skincareai.domain.IngredientPrice
 import com.barshan.skincareai.domain.HomeProductType
 
-private data class FormulaInput(val name: String, val percentage: String)
+private data class FormulaInput(val name: String, val percentage: String, val pricePer100g: String = "")
 
 @Composable
 internal fun HomemadeLabCard() {
     var productType by rememberSaveable { mutableStateOf(HomeProductType.ANHYDROUS_BALM.name) }
     var batchText by rememberSaveable { mutableStateOf("30") }
-    var inputs by remember { mutableStateOf(listOf(FormulaInput("", ""), FormulaInput("", ""), FormulaInput("", ""))) }
+    var inputs by remember { mutableStateOf(listOf(FormulaInput("", "", ""), FormulaInput("", "", ""), FormulaInput("", "", ""))) }
     var showResult by rememberSaveable { mutableStateOf(false) }
     val selected = HomeProductType.valueOf(productType)
     val parsedLines = inputs.filter { it.name.isNotBlank() || it.percentage.isNotBlank() }.map {
@@ -91,6 +93,14 @@ internal fun HomemadeLabCard() {
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true
                         )
+                        OutlinedTextField(
+                            value = input.pricePer100g,
+                            onValueChange = { value -> inputs = inputs.toMutableList().also { it[index] = input.copy(pricePer100g = value) }; showResult = false },
+                            label = { Text(stringResource(R.string.lab_price_per_100g)) },
+                            suffix = { Text("BDT") },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
+                        )
                     }
                 }
                 if (inputs.size < 8) {
@@ -119,6 +129,14 @@ internal fun HomemadeLabCard() {
                             Text(stringResource(R.string.lab_result_line, amount.ingredient, amount.percentage, amount.grams), color = Color(0xFF1E2924))
                         }
                         Text(stringResource(R.string.lab_result_total, calculation.totalPercentage), fontWeight = FontWeight.Bold)
+                        val prices = inputs.map { IngredientPrice(it.pricePer100g.toDoubleOrNull() ?: Double.NaN) }
+                        val estimatedCost = FormulaCostCalculator.calculate(calculation.amounts, prices)
+                        if (estimatedCost == null) {
+                            Text(stringResource(R.string.lab_cost_enter_prices), color = Color(0xFF765126))
+                        } else {
+                            Text(stringResource(R.string.lab_cost_result, estimatedCost), fontWeight = FontWeight.Bold, color = Color(0xFF486B5A))
+                            Text(stringResource(R.string.lab_cost_excludes), color = Color(0xFF5D6962), style = MaterialTheme.typography.bodySmall)
+                        }
                     }
                 }
             }
