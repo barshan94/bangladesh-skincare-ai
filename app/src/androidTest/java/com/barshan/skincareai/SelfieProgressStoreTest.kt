@@ -68,7 +68,7 @@ class SelfieProgressStoreTest {
 
     @Test
     fun storeRetainsOnlyTheNewestThirtyPhotos() {
-        repeat(31) { index ->
+        val savedRecords = (0 until 31).map { index ->
             SelfieProgressStore.save(
                 context,
                 sourceFile(byteArrayOf(index.toByte(), 7, 8))
@@ -76,10 +76,27 @@ class SelfieProgressStoreTest {
         }
 
         val retained = SelfieProgressStore.list(context)
+        assertEquals("The most recently saved photo must remain first.", savedRecords.last(), retained.first())
+        assertFalse(
+            "The oldest photo must be pruned.",
+            SelfieProgressStore.file(context, savedRecords.first()).exists()
+        )
         assertEquals(30, retained.size)
         assertTrue(retained.all { SelfieProgressStore.file(context, it).isFile })
         val directory = File(context.filesDir, "selfie-progress")
         assertEquals(30, directory.listFiles()?.count { it.isFile } ?: 0)
+    }
+
+    @Test
+    fun fullLocalDataResetDeletesPrivateSelfiesAndMetadata() {
+        val saved = SelfieProgressStore.save(context, sourceFile())
+        val savedFile = SelfieProgressStore.file(context, saved)
+        assertTrue(savedFile.exists())
+
+        LocalStore.clearUserData(context)
+
+        assertFalse("Full reset must remove selfie image files.", savedFile.exists())
+        assertTrue("Full reset must remove selfie metadata.", SelfieProgressStore.list(context).isEmpty())
     }
 
     @Test
