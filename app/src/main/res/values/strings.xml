@@ -323,4 +323,31 @@
     <string name="formulation_release_body">Without ingredient documentation, a complete formula, validated preservation where needed, suitable testing and a qualified review, do not make or apply a homemade cosmetic. This app intentionally provides no mixing instructions, percentages, shelf-life claims or sunscreen recipes.</string>
 
     <string name="selfie_capture_consistency">For more comparable progress photos: use the same camera and distance, face the camera straight on, use soft even light, avoid flash, direct sunlight and filters, and keep the time of day similar. These steps improve consistency but cannot turn photos into a skin analysis.</string>
+
+    <string name="lab_title">Personal Homemade Cosmetics Lab</string>
+    <string name="lab_intro">A private formulation worksheet for learning the arithmetic of a small batch. It does not recommend a recipe or verify ingredient safety.</string>
+    <string name="lab_product_type">Choose product type</string>
+    <string name="lab_anhydrous">Water-free oil / balm</string>
+    <string name="lab_water_serum">Water-based serum</string>
+    <string name="lab_cream">Cream / lotion</string>
+    <string name="lab_sunscreen">Sunscreen</string>
+    <string name="lab_anhydrous_notice">Only the water-free worksheet is enabled. Water-free does not automatically mean safe: use only documented cosmetic-grade materials and obtain qualified formulation review before applying.</string>
+    <string name="lab_water_block">Water-based serums and creams are disabled for home formulation here. They need a validated preservative system, measured pH, controlled manufacturing, stability and microbial testing for the exact formula and package.</string>
+    <string name="lab_sunscreen_block">DIY sunscreen formulation is disabled. Never rely on homemade sunscreen, oils or loose UV-filter powders for sun protection.</string>
+    <string name="lab_batch_size">Batch size</string>
+    <string name="lab_ingredient_rows">Enter your documented ingredients and percentages</string>
+    <string name="lab_ingredient_name">Ingredient name / INCI</string>
+    <string name="lab_percentage">Your proposed percentage</string>
+    <string name="lab_add_ingredient">Add another ingredient</string>
+    <string name="lab_total">Entered total: %1$.2f%% (must equal 100%%)</string>
+    <string name="lab_calculate">Calculate batch quantities</string>
+    <string name="lab_error_batch">Enter a batch size greater than 0 and no more than 500 g.</string>
+    <string name="lab_error_lines">Enter between 1 and 8 complete ingredient rows.</string>
+    <string name="lab_error_name">Every ingredient needs a name.</string>
+    <string name="lab_error_percentage">Each percentage must be greater than 0 and no more than 100.</string>
+    <string name="lab_error_total">The percentages must total exactly 100%% (allowing a 0.01%% rounding tolerance).</string>
+    <string name="lab_result_line">%1$s — %2$.2f%% = %3$.2f g</string>
+    <string name="lab_result_total">Total: %1$.2f%%</string>
+    <string name="lab_disclaimer">CRITICAL: This is arithmetic, not a validated formula. It does not check compatibility, concentration limits, oxidation, contamination, stability, skin tolerance or brightening effectiveness. Do not apply an unreviewed draft. No shelf-life estimate is provided.</string>
+
 </resources>

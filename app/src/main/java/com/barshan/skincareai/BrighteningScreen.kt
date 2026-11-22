@@ -58,6 +58,7 @@ internal fun BrighteningScreen() {
         }
 
         BrighteningPersonalGuidanceCard(selectedGoal)
+        HomemadeLabCard()
         SelfieProgressCard()
         BrighteningInfoCard(R.string.brightening_morning_title, R.string.brightening_morning_body)
         BrighteningInfoCard(R.string.brightening_sunscreen_title, R.string.brightening_sunscreen_body)
