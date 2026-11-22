@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -34,7 +35,7 @@ private data class FormulaInput(val name: String, val percentage: String)
 internal fun HomemadeLabCard() {
     var productType by rememberSaveable { mutableStateOf(HomeProductType.ANHYDROUS_BALM.name) }
     var batchText by rememberSaveable { mutableStateOf("30") }
-    var inputs by rememberSaveable { mutableStateOf(listOf(FormulaInput("", ""), FormulaInput("", ""), FormulaInput("", ""))) }
+    var inputs by remember { mutableStateOf(listOf(FormulaInput("", ""), FormulaInput("", ""), FormulaInput("", ""))) }
     var showResult by rememberSaveable { mutableStateOf(false) }
     val selected = HomeProductType.valueOf(productType)
     val parsedLines = inputs.filter { it.name.isNotBlank() || it.percentage.isNotBlank() }.map {
