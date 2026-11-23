@@ -1,5 +1,7 @@
 package com.barshan.skincareai
 
+import com.barshan.skincareai.domain.HomeProductType
+
 import android.content.Context
 import org.json.JSONArray
 import org.json.JSONObject
