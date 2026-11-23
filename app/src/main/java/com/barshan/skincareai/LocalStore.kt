@@ -111,5 +111,6 @@ object LocalStore {
         check(committed) { "Could not confirm local preference deletion" }
         // A full reset must also remove private selfie files and their metadata.
         SelfieProgressStore.clearAll(context)
+        check(FormulaDraftStore.clear(context)) { "Could not confirm formula draft deletion" }
     }
 }

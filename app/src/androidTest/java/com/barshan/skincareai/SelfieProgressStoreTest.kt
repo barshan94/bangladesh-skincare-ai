@@ -100,6 +100,37 @@ class SelfieProgressStoreTest {
     }
 
     @Test
+    fun fullLocalDataResetAlsoDeletesSavedFormulaDraft() {
+        val draft = FormulaDraft(
+            productType = com.barshan.skincareai.domain.HomeProductType.ANHYDROUS_BALM.name,
+            batchGrams = "30",
+            lines = listOf(FormulaDraftLine("Cosmetic-grade oil", "100", "250"))
+        )
+        assertTrue(FormulaDraftStore.save(context, draft))
+        assertEquals(draft, FormulaDraftStore.load(context))
+
+        LocalStore.clearUserData(context)
+
+        assertEquals(null, FormulaDraftStore.load(context))
+    }
+
+    @Test
+    fun formulaDraftStoreRoundTripsPrivateDraft() {
+        val draft = FormulaDraft(
+            productType = com.barshan.skincareai.domain.HomeProductType.ANHYDROUS_BALM.name,
+            batchGrams = "45",
+            lines = listOf(
+                FormulaDraftLine("Ingredient A", "70", "120"),
+                FormulaDraftLine("Ingredient B", "30", "500")
+            )
+        )
+        assertTrue(FormulaDraftStore.save(context, draft))
+        assertEquals(draft, FormulaDraftStore.load(context))
+        assertTrue(FormulaDraftStore.clear(context))
+        assertEquals(null, FormulaDraftStore.load(context))
+    }
+
+    @Test
     fun emptyCaptureIsRejectedWithoutCreatingMetadata() {
         val empty = sourceFile(byteArrayOf())
 
