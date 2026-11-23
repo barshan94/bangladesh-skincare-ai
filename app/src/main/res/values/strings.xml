@@ -355,4 +355,9 @@
     <string name="lab_cost_enter_prices">Enter a valid price for every ingredient to estimate raw-material cost.</string>
     <string name="lab_cost_result">Estimated raw-material cost: BDT %1$.2f</string>
     <string name="lab_cost_excludes">Estimate only. Excludes packaging, tools, transport, wastage and labour. Use actual supplier prices.</string>
+    <string name="lab_save_draft">Save draft</string>
+    <string name="lab_load_draft">Load saved draft</string>
+    <string name="lab_draft_saved">Your latest formula draft was saved on this device.</string>
+    <string name="lab_draft_loaded">Saved formula draft loaded.</string>
+    <string name="lab_draft_error">Could not save or load the draft. Check the formula and try again.</string>
 </resources>

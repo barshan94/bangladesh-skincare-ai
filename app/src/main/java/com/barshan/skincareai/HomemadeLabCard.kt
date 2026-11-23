@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -39,6 +40,9 @@ internal fun HomemadeLabCard() {
     var batchText by rememberSaveable { mutableStateOf("30") }
     var inputs by remember { mutableStateOf(listOf(FormulaInput("", "", ""), FormulaInput("", "", ""), FormulaInput("", "", ""))) }
     var showResult by rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
+    var draftSaved by rememberSaveable { mutableStateOf(FormulaDraftStore.load(context) != null) }
+    var draftMessage by rememberSaveable { mutableStateOf(0) }
     val selected = HomeProductType.valueOf(productType)
     val parsedLines = inputs.filter { it.name.isNotBlank() || it.percentage.isNotBlank() }.map {
         FormulaLine(it.name, it.percentage.toDoubleOrNull() ?: Double.NaN)
@@ -103,6 +107,45 @@ internal fun HomemadeLabCard() {
                         )
                     }
                 }
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(
+                        onClick = {
+                            val valid = calculation.error == null && selected == HomeProductType.ANHYDROUS_BALM
+                            if (valid) {
+                                val draft = FormulaDraft(
+                                    productType = selected.name,
+                                    batchGrams = batchText,
+                                    lines = inputs.filter { it.name.isNotBlank() || it.percentage.isNotBlank() }.map {
+                                        FormulaDraftLine(it.name, it.percentage, it.pricePer100g)
+                                    }
+                                )
+                                draftMessage = if (FormulaDraftStore.save(context, draft)) 1 else 3
+                                draftSaved = draftMessage == 1
+                            } else draftMessage = 3
+                        },
+                        enabled = calculation.error == null && selected == HomeProductType.ANHYDROUS_BALM,
+                        modifier = Modifier.weight(1f)
+                    ) { Text(stringResource(R.string.lab_save_draft)) }
+                    Button(
+                        onClick = {
+                            val draft = FormulaDraftStore.load(context)
+                            if (draft != null) {
+                                productType = draft.productType
+                                batchText = draft.batchGrams
+                                inputs = draft.lines.map { FormulaInput(it.name, it.percentage, it.pricePer100g) }
+                                showResult = false
+                                draftMessage = 2
+                            } else draftMessage = 3
+                        },
+                        enabled = draftSaved,
+                        modifier = Modifier.weight(1f)
+                    ) { Text(stringResource(R.string.lab_load_draft)) }
+                }
+                if (draftMessage != 0) Text(stringResource(when (draftMessage) {
+                    1 -> R.string.lab_draft_saved
+                    2 -> R.string.lab_draft_loaded
+                    else -> R.string.lab_draft_error
+                }), color = if (draftMessage == 3) Color(0xFF8B4B31) else Color(0xFF486B5A))
                 if (inputs.size < 8) {
                     Button(onClick = { inputs = inputs + FormulaInput("", ""); showResult = false }, modifier = Modifier.fillMaxWidth()) {
                         Text(stringResource(R.string.lab_add_ingredient))
