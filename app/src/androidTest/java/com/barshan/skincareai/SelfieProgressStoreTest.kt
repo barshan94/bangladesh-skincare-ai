@@ -22,12 +22,14 @@ class SelfieProgressStoreTest {
     @Before
     fun clearStoreBeforeTest() {
         preferences.edit().clear().commit()
+        FormulaDraftStore.clear(context)
         File(context.filesDir, "selfie-progress").deleteRecursively()
     }
 
     @After
     fun clearStoreAfterTest() {
         preferences.edit().clear().commit()
+        FormulaDraftStore.clear(context)
         File(context.filesDir, "selfie-progress").deleteRecursively()
     }
 

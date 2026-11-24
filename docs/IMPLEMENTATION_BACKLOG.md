@@ -1,10 +1,10 @@
 # Implementation Backlog — Current Status
 
-- Last reviewed: 2026-11-22
+- Last reviewed: 2026-11-24
 - Repository: `barshan94/bangladesh-skincare-ai`
 - Active branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest implementation commit before this documentation update: `2e6efa564b24c7798c735cffebc01d75e57fe15d`.
+- Recent implementation commits: `c69b4cc31f0bebd55a63c1303a24e0f17ea68be0` (formula draft persistence) and `d9893bc46f5c47b6b67bfa3ca2447b219ec2bc1e` (draft deletion).
 - Latest push CI [#44977709002](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44977709002) and PR CI [#44977714807](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44977714807) both passed: resource parity, debug APK compilation, unit tests, Room schema export, Android navigation smoke tests, reports and APK artifact upload.
 
 ## Implemented
@@ -18,6 +18,7 @@
 - Full local-data reset now removes selfie images and metadata as well as other local user data.
 - Ingredient catalogue with educational profiles for common skincare and dark-spot ingredients. Entries remain pending expert review; no prescriptions, concentrations or recipes.
 - Home-formulation risk guide for water-based, oil-based, powder and sunscreen concepts.
+- Homemade Lab arithmetic worksheet for anhydrous balm batch sizes, percentage-to-gram calculations and approximate BDT raw-material cost; one private draft can be saved, loaded and deleted. Full local-data reset removes it. This is not a safe-formula validator or a recipe recommendation.
 - Bilingual formulation-education card explaining ingredient identity/grade, concentration and compatibility, pH measurement, validated preservation, stability, packaging and microbial testing. It deliberately provides no mixing instructions, formula percentages or shelf-life claims.
 - English/Bangla resource parity validation and automated unit/navigation regression coverage.
 
@@ -28,7 +29,8 @@
 3. **Personalized brightening plan:** strengthen rules using concern, sensitivity, reaction history, current products and budget; refer uncertain or concerning patches for clinical assessment. No prescription or natural-skin-colour alteration.
 4. **Formulation knowledge:** expand sourced ingredient profiles and compatibility education only after qualified review. No DIY water-based product recipes without validated preservation, pH, stability and microbial testing; never offer homemade sunscreen.
 5. **Owner device acceptance:** test on the owner's Android phone, including camera, storage, full reset, TalkBack, font scaling, Bangla layout, airplane mode and upgrade behavior. Emulator CI cannot replace this.
-6. **Release signing:** owner-controlled signing key and signed APK only if/when the owner wants stable distribution. Do not commit signing secrets.
+6. **Formula lab safety and usefulness:** the worksheet currently accepts user-entered ingredients and percentages and only checks arithmetic. It needs a reviewed, source-backed ingredient catalogue and expert-verified compatibility/range rules before it can safely guide formulation. Do not turn it into a recipe generator based on guesses.
+7. **Release signing:** owner-controlled signing key and signed APK only if/when the owner wants stable distribution. Do not commit signing secrets.
 
 ## Safety boundary
 
