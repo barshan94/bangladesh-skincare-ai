@@ -141,9 +141,19 @@ internal fun HomemadeLabCard() {
                         modifier = Modifier.weight(1f)
                     ) { Text(stringResource(R.string.lab_load_draft)) }
                 }
+                if (draftSaved) {
+                    Button(
+                        onClick = {
+                            draftMessage = if (FormulaDraftStore.clear(context)) 4 else 3
+                            draftSaved = draftMessage != 4
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) { Text(stringResource(R.string.lab_delete_draft)) }
+                }
                 if (draftMessage != 0) Text(stringResource(when (draftMessage) {
                     1 -> R.string.lab_draft_saved
                     2 -> R.string.lab_draft_loaded
+                    4 -> R.string.lab_draft_deleted
                     else -> R.string.lab_draft_error
                 }), color = if (draftMessage == 3) Color(0xFF8B4B31) else Color(0xFF486B5A))
                 if (inputs.size < 8) {

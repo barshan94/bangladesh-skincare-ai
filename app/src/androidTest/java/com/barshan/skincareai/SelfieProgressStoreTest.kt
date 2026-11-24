@@ -115,6 +115,18 @@ class SelfieProgressStoreTest {
     }
 
     @Test
+    fun formulaDraftStoreCanDeleteSavedDraft() {
+        val draft = FormulaDraft(
+            productType = com.barshan.skincareai.domain.HomeProductType.ANHYDROUS_BALM.name,
+            batchGrams = "30",
+            lines = listOf(FormulaDraftLine("Ingredient", "100", "200"))
+        )
+        assertTrue(FormulaDraftStore.save(context, draft))
+        assertTrue(FormulaDraftStore.clear(context))
+        assertEquals(null, FormulaDraftStore.load(context))
+    }
+
+    @Test
     fun formulaDraftStoreRoundTripsPrivateDraft() {
         val draft = FormulaDraft(
             productType = com.barshan.skincareai.domain.HomeProductType.ANHYDROUS_BALM.name,

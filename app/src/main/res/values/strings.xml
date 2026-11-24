@@ -360,4 +360,6 @@
     <string name="lab_draft_saved">Your latest formula draft was saved on this device.</string>
     <string name="lab_draft_loaded">Saved formula draft loaded.</string>
     <string name="lab_draft_error">Could not save or load the draft. Check the formula and try again.</string>
+    <string name="lab_delete_draft">Delete saved draft</string>
+    <string name="lab_draft_deleted">Saved formula draft deleted from this device.</string>
 </resources>
