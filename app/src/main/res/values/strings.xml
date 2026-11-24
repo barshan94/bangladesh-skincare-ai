@@ -362,4 +362,20 @@
     <string name="lab_draft_error">Could not save or load the draft. Check the formula and try again.</string>
     <string name="lab_delete_draft">Delete saved draft</string>
     <string name="lab_draft_deleted">Saved formula draft deleted from this device.</string>
+
+    <string name="ingredient_category_medical">Medical treatment — clinician guidance</string>
+    <string name="ingredient_category_restricted">Prohibited / toxic substance</string>
+    <string name="ingredient_risk_clinician">Clinician guidance only — never add to a homemade cosmetic</string>
+    <string name="ingredient_risk_do_not_use">Do not use in skincare products</string>
+    <string name="ingredients_filter_clinician">Clinician guidance only</string>
+    <string name="ingredients_filter_do_not_use">Do not use</string>
+    <string name="ingredient_hydroquinone">Hydroquinone</string>
+    <string name="ingredient_hydroquinone_body">Hydroquinone is a medicine used for selected pigment disorders. A dermatologist must first identify the cause of the pigmentation and decide whether a medicine is appropriate. This app does not recommend or calculate its use.</string>
+    <string name="ingredient_hydroquinone_caution">Do not buy unlabelled or over-the-counter whitening creams containing hydroquinone, and never add it to a homemade cosmetic. It can cause serious skin reactions and, in some cases, persistent dark discoloration. Discuss treatment, risks and duration with a qualified dermatologist.</string>
+    <string name="ingredient_topical_steroids">Topical corticosteroids</string>
+    <string name="ingredient_topical_steroids_body">Topical corticosteroids are medicines for specific inflammatory skin conditions, not cosmetic brightening ingredients.</string>
+    <string name="ingredient_topical_steroids_caution">Never use steroid creams as fairness or dark-spot treatments, and never mix them into homemade cosmetics. Unsupervised facial use can cause skin thinning, acne-like eruptions, rashes and discoloration. Use only when prescribed for a diagnosed condition and follow the prescriber's directions.</string>
+    <string name="ingredient_mercury">Mercury and mercury compounds</string>
+    <string name="ingredient_mercury_body">Mercury is a toxic metal sometimes found in illegally marketed skin-lightening products. It is not a skincare ingredient.</string>
+    <string name="ingredient_mercury_caution">Do not use products containing mercury, mercurous chloride, calomel, mercuric or mercurio. Repeated skin exposure can harm the kidneys and nervous system. If you suspect exposure, stop using the product and seek advice from a healthcare professional.</string>
 </resources>

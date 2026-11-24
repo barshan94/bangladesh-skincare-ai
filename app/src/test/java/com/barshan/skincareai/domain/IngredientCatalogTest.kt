@@ -57,6 +57,24 @@ class IngredientCatalogTest {
         assertTrue(actual.all { it.risk == IngredientRisk.GENERAL_CAUTION })
     }
 
+
+    @Test
+    fun hydroquinoneAndTopicalSteroidsRequireClinicianGuidance() {
+        val hydroquinone = IngredientCatalog.entries.single { it.id == "hydroquinone" }
+        val steroids = IngredientCatalog.entries.single { it.id == "topical_steroids" }
+        assertEquals(IngredientRisk.CLINICIAN_GUIDANCE_ONLY, hydroquinone.risk)
+        assertEquals(IngredientRisk.CLINICIAN_GUIDANCE_ONLY, steroids.risk)
+        assertTrue(hydroquinone.sources.any { it.url.contains("fda.gov") })
+        assertTrue(steroids.sources.any { it.url.contains("aad.org") })
+    }
+
+    @Test
+    fun mercuryIsExplicitlyClassifiedAsDoNotUse() {
+        val mercury = IngredientCatalog.entries.single { it.id == "mercury" }
+        assertEquals(IngredientRisk.DO_NOT_USE, mercury.risk)
+        assertTrue(mercury.sources.any { it.url.contains("fda.gov") })
+    }
+
     @Test
     fun householdLemonAndRawUvFilterHaveStricterSafetyClassification() {
         val lemon = IngredientCatalog.entries.single { it.id == "lemon_juice" }

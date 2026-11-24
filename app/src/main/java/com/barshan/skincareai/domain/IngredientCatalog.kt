@@ -5,7 +5,9 @@ import com.barshan.skincareai.R
 enum class IngredientRisk {
     GENERAL_CAUTION,
     AVOID_DIRECT_APPLICATION,
-    FINISHED_SUNSCREEN_ONLY
+    FINISHED_SUNSCREEN_ONLY,
+    CLINICIAN_GUIDANCE_ONLY,
+    DO_NOT_USE
 }
 
 enum class IngredientReviewStatus {
@@ -70,6 +72,18 @@ object IngredientCatalog {
         "Journal of Drugs in Dermatology — moisturizer ingredient review",
         "https://s3.amazonaws.com/dl.jddonline.com/pdfs/23-6_eJDD.pdf"
     )
+    private val aadMelasma = IngredientSource(
+        "American Academy of Dermatology — melasma treatment",
+        "https://www.aad.org/public/diseases/a-z/melasma-treatment"
+    )
+    private val fdaSkinProductSafety = IngredientSource(
+        "US FDA — skin product safety",
+        "https://www.fda.gov/consumers/skin-facts-what-you-need-know-about-skin-lightening-products/skin-product-safety"
+    )
+    private val aadDarkSpotSafety = IngredientSource(
+        "American Academy of Dermatology — fading dark spots and unsafe products",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+    )
 
     val entries = listOf(
         IngredientEntry("glycerin", R.string.ingredient_glycerin, R.string.ingredient_category_humectant, R.string.ingredient_glycerin_body, R.string.ingredient_glycerin_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDrySkin, dermnetBarrier)),
@@ -87,6 +101,9 @@ object IngredientCatalog {
         IngredientEntry("glycolic_acid", R.string.ingredient_glycolic_acid, R.string.ingredient_category_brightening_active, R.string.ingredient_glycolic_acid_body, R.string.ingredient_glycolic_acid_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
         IngredientEntry("kojic_acid", R.string.ingredient_kojic_acid, R.string.ingredient_category_brightening_active, R.string.ingredient_kojic_acid_body, R.string.ingredient_kojic_acid_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
         IngredientEntry("retinoids", R.string.ingredient_retinoids, R.string.ingredient_category_brightening_active, R.string.ingredient_retinoids_body, R.string.ingredient_retinoids_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
-        IngredientEntry("vitamin_c", R.string.ingredient_vitamin_c, R.string.ingredient_category_brightening_active, R.string.ingredient_vitamin_c_body, R.string.ingredient_vitamin_c_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots))
+        IngredientEntry("vitamin_c", R.string.ingredient_vitamin_c, R.string.ingredient_category_brightening_active, R.string.ingredient_vitamin_c_body, R.string.ingredient_vitamin_c_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
+        IngredientEntry("hydroquinone", R.string.ingredient_hydroquinone, R.string.ingredient_category_medical, R.string.ingredient_hydroquinone_body, R.string.ingredient_hydroquinone_caution, IngredientRisk.CLINICIAN_GUIDANCE_ONLY, listOf(aadMelasma, fdaSkinProductSafety)),
+        IngredientEntry("topical_steroids", R.string.ingredient_topical_steroids, R.string.ingredient_category_medical, R.string.ingredient_topical_steroids_body, R.string.ingredient_topical_steroids_caution, IngredientRisk.CLINICIAN_GUIDANCE_ONLY, listOf(aadDarkSpotSafety)),
+        IngredientEntry("mercury", R.string.ingredient_mercury, R.string.ingredient_category_restricted, R.string.ingredient_mercury_body, R.string.ingredient_mercury_caution, IngredientRisk.DO_NOT_USE, listOf(fdaSkinProductSafety))
     )
 }

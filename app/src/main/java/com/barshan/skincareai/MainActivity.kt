@@ -608,6 +608,18 @@ private fun IngredientsScreen() {
         }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             FilterChip(
+                selected = selectedRisk == IngredientRisk.CLINICIAN_GUIDANCE_ONLY,
+                onClick = { selectedRisk = IngredientRisk.CLINICIAN_GUIDANCE_ONLY },
+                label = { Text(stringResource(R.string.ingredients_filter_clinician)) }
+            )
+            FilterChip(
+                selected = selectedRisk == IngredientRisk.DO_NOT_USE,
+                onClick = { selectedRisk = IngredientRisk.DO_NOT_USE },
+                label = { Text(stringResource(R.string.ingredients_filter_do_not_use)) }
+            )
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            FilterChip(
                 selected = selectedRisk == IngredientRisk.AVOID_DIRECT_APPLICATION,
                 onClick = { selectedRisk = IngredientRisk.AVOID_DIRECT_APPLICATION },
                 label = { Text(stringResource(R.string.ingredients_filter_avoid)) }
@@ -628,6 +640,8 @@ private fun IngredientsScreen() {
             IngredientRisk.GENERAL_CAUTION -> R.string.ingredient_risk_caution
             IngredientRisk.AVOID_DIRECT_APPLICATION -> R.string.ingredient_risk_avoid_direct
             IngredientRisk.FINISHED_SUNSCREEN_ONLY -> R.string.ingredient_risk_finished_sunscreen
+            IngredientRisk.CLINICIAN_GUIDANCE_ONLY -> R.string.ingredient_risk_clinician
+            IngredientRisk.DO_NOT_USE -> R.string.ingredient_risk_do_not_use
         })
         val matchesQuery = query.isBlank() ||
             title.contains(query.trim(), ignoreCase = true) ||
@@ -650,6 +664,8 @@ private fun IngredientsScreen() {
             IngredientRisk.GENERAL_CAUTION -> R.string.ingredient_risk_caution
             IngredientRisk.AVOID_DIRECT_APPLICATION -> R.string.ingredient_risk_avoid_direct
             IngredientRisk.FINISHED_SUNSCREEN_ONLY -> R.string.ingredient_risk_finished_sunscreen
+            IngredientRisk.CLINICIAN_GUIDANCE_ONLY -> R.string.ingredient_risk_clinician
+            IngredientRisk.DO_NOT_USE -> R.string.ingredient_risk_do_not_use
         })
         val review = stringResource(R.string.ingredient_review_pending)
         Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
