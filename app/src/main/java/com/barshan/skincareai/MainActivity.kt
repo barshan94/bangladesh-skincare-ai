@@ -578,13 +578,58 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
     }
 }
 @Composable
-private fun IngredientsScreen() {
+private 
+@Composable
+private fun IngredientLabelCheckerCard() {
+    var labelText by rememberSaveable { mutableStateOf("") }
+    val matches = com.barshan.skincareai.domain.IngredientLabelChecker.check(labelText)
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = RoundedCornerShape(18.dp)
+    ) {
+        Column(
+            Modifier.fillMaxWidth().padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(stringResource(R.string.label_checker_title), fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+            Text(stringResource(R.string.label_checker_intro), color = Color(0xFF5D6962))
+            OutlinedTextField(
+                value = labelText,
+                onValueChange = { labelText = it.take(5000) },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text(stringResource(R.string.label_checker_input)) },
+                minLines = 3
+            )
+            if (labelText.isNotBlank()) {
+                if (matches.isEmpty()) {
+                    Text(stringResource(R.string.label_checker_no_match), color = Color(0xFF8B4B31), fontWeight = FontWeight.SemiBold)
+                } else {
+                    Text(stringResource(R.string.label_checker_warning), color = Color(0xFF9A3F2F), fontWeight = FontWeight.SemiBold)
+                    matches.forEach { match ->
+                        val riskText = when (match.risk) {
+                            com.barshan.skincareai.domain.LabelIngredientRisk.DO_NOT_USE ->
+                                stringResource(R.string.label_checker_mercury, match.matchedAlias)
+                            com.barshan.skincareai.domain.LabelIngredientRisk.CLINICIAN_GUIDANCE_ONLY ->
+                                stringResource(R.string.label_checker_medical, match.matchedAlias)
+                        }
+                        Text("• $riskText", color = Color(0xFF8B4B31))
+                    }
+                }
+            }
+            Text(stringResource(R.string.label_checker_limits), color = Color(0xFF5D6962), fontSize = 12.sp)
+        }
+    }
+}
+
+@Composable
+fun IngredientsScreen() {
     val context = LocalContext.current
     var query by rememberSaveable { mutableStateOf("") }
     var selectedRisk by rememberSaveable { mutableStateOf<IngredientRisk?>(null) }
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
     HomeFormulationSafetyCard()
     FormulationEducationCard()
+    IngredientLabelCheckerCard()
     OutlinedTextField(
         value = query,
         onValueChange = { query = it },

@@ -378,4 +378,13 @@
     <string name="ingredient_mercury">Mercury and mercury compounds</string>
     <string name="ingredient_mercury_body">Mercury is a toxic metal sometimes found in illegally marketed skin-lightening products. It is not a skincare ingredient.</string>
     <string name="ingredient_mercury_caution">Do not use products containing mercury, mercurous chloride, calomel, mercuric or mercurio. Repeated skin exposure can harm the kidneys and nervous system. If you suspect exposure, stop using the product and seek advice from a healthcare professional.</string>
+
+    <string name="label_checker_title">Ingredient label red-flag checker</string>
+    <string name="label_checker_intro">Paste the ingredient list from a product label. The checker looks only for a limited set of known names associated with mercury, hydroquinone and topical steroids.</string>
+    <string name="label_checker_input">Paste ingredient list / INCI</string>
+    <string name="label_checker_no_match">No known red-flag name matched this text. This does NOT mean the product is safe.</string>
+    <string name="label_checker_warning">Potential high-risk ingredient name found:</string>
+    <string name="label_checker_mercury">%1$s — mercury-related name. Do not use this product.</string>
+    <string name="label_checker_medical">%1$s — medicine-related ingredient. Do not use it as a cosmetic brightener or add it to homemade products; seek clinician advice.</string>
+    <string name="label_checker_limits">Limitations: labels may be incomplete, misspelled, hidden or counterfeit. This is a keyword screen, not laboratory testing, product authentication or a complete safety assessment. An unrecognized ingredient is not cleared as safe.</string>
 </resources>

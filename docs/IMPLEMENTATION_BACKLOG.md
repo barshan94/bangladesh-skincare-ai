@@ -9,6 +9,8 @@
 
 ## Implemented
 
+- Ingredient-label red-flag keyword checker for a limited list of mercury, hydroquinone and topical-steroid aliases, with English/Bangla warnings and explicit no-clearance disclaimer.
+
 - Kotlin + Jetpack Compose Android app with six destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
 - Room-backed routine and progress data with legacy preference migration.
 - Self-reported skin questionnaire and deterministic, non-diagnostic guidance.

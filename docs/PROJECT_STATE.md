@@ -12,6 +12,8 @@
 
 ## Current capabilities
 
+- Added an English/Bangla ingredient-label red-flag keyword checker for a limited list of mercury, hydroquinone and topical-steroid names. A match prompts avoidance or clinician advice; no match is explicitly not a safety clearance. It is not lab testing or product authentication.
+
 - Six Compose destinations: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
 - Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. They are not AI, diagnosis, or camera skin analysis.
 - My Routine and Progress use local Room storage.
