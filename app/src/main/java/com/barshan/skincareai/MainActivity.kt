@@ -578,8 +578,6 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
     }
 }
 @Composable
-private 
-@Composable
 private fun IngredientLabelCheckerCard() {
     var labelText by rememberSaveable { mutableStateOf("") }
     val matches = com.barshan.skincareai.domain.IngredientLabelChecker.check(labelText)
