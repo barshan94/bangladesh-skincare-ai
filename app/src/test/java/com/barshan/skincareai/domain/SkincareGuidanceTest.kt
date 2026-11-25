@@ -78,6 +78,22 @@ class SkincareGuidanceTest {
     }
 
     @Test
+    fun prescribedTreatmentAddsDoNotChangeMedicationCaution() {
+        val result = SkincareGuidance.create(
+            CheckIn(
+                SkinFeel.SENSITIVE,
+                SkinGoal.DARK_MARKS,
+                usingPrescribedSkinTreatment = true
+            )
+        )
+        val card = result.cards.firstOrNull {
+            it.titleRes == R.string.guidance_prescribed_treatment_title
+        }
+        assertTrue(card != null)
+        assertEquals(R.string.guidance_prescribed_treatment_body, card?.explanationRes)
+    }
+
+    @Test
     fun safetyFlagsOverridePersonalizedRoutineReminders() {
         val result = SkincareGuidance.create(
             CheckIn(

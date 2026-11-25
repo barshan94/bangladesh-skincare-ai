@@ -16,7 +16,8 @@ data class CheckIn(
     val brokenSkin: Boolean = false,
     val concerningChange: Boolean = false,
     val regularSunProtection: Boolean = false,
-    val usingMultipleActives: Boolean = false
+    val usingMultipleActives: Boolean = false,
+    val usingPrescribedSkinTreatment: Boolean = false
 )
 
 data class GuidanceCard(
@@ -100,6 +101,15 @@ object SkincareGuidance {
                 GuidanceCard(
                     R.string.guidance_multiple_actives_title,
                     R.string.guidance_multiple_actives_body
+                )
+            )
+        }
+
+        if (checkIn.usingPrescribedSkinTreatment) {
+            cards.add(
+                GuidanceCard(
+                    R.string.guidance_prescribed_treatment_title,
+                    R.string.guidance_prescribed_treatment_body
                 )
             )
         }

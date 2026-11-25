@@ -317,6 +317,7 @@ class NavigationSmokeTest {
         assertTextExists(composeRule.activity.getString(R.string.brightening_avoid_title))
         assertTextExists(composeRule.activity.getString(R.string.brightening_sunscreen_habit_question))
         assertTextExists(composeRule.activity.getString(R.string.brightening_multiple_actives_question))
+        assertTextExists(composeRule.activity.getString(R.string.brightening_prescribed_treatment_question))
 
         composeRule.onNodeWithText(
             composeRule.activity.getString(R.string.brightening_goal_acne)
