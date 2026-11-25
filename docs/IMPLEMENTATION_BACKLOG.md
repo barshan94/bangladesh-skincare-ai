@@ -3,39 +3,38 @@
 - Last reviewed: 2026-11-25
 - Repository: `barshan94/bangladesh-skincare-ai`
 - Active branch: `feature/brightening-system`
-- Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest code commit verified by CI: `244eecc84a381a4dc8f8a2b3df23e4eaaed63ad2` (documentation commits follow it).
-- Latest CI [#45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) passed on code commit `244eecc`, including compilation, unit tests, emulator navigation smoke tests and artifact uploads.
+- Active PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
+- Latest app-code commit: `d46aea6f409aa602b9bfacf0f3443ea4296450ec`.
+- Latest full CI: [#45566453626](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45566453626), success. Compile, unit tests, Room schema, emulator navigation tests and artifact uploads all passed.
 
-## Implemented
+## Implemented for current personal-use scope
 
-- Latest verified build: [CI run #45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) passed all steps on code commit `244eecc`; debug APK, test reports and Room schema artifacts are available until 2026-12-09.
+- Six Android destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
+- Local Room-backed routine/progress data and legacy preference migration.
+- Rule-based, non-diagnostic check-ins with skin feel, prior reaction, broken skin, concerning changes, sunscreen habits, multiple strong actives and prescribed-treatment safety prompts.
+- Dedicated brightening concern education for tanning, post-acne marks and unexplained/persistent patches; patchy concerns trigger professional assessment guidance.
+- Private selfie capture, ML Kit one-face/framing checks, app-private storage, local timeline, deletion and visual side-by-side comparison. This is not skin analysis.
+- Hardened selfie storage: staged writes, metadata validation, synchronous commits, checked deletion, maximum 30-photo retention and monotonic timestamps.
+- Full local reset clears private selfie data and saved formula draft.
+- Ingredient education, sources, search/filtering and bilingual limited red-flag label keyword checks for mercury, hydroquinone and topical steroids. A no-match is not a safety clearance.
+- Homemade Lab arithmetic for anhydrous balm only: batch size, percentage-to-gram calculations, estimated BDT raw-material cost and local save/load/delete of one draft.
+- Water-based products, creams/lotions and sunscreen are blocked from home formulation. Educational guidance explains identity/grade, compatibility, pH, validated preservation, stability, packaging and microbial testing.
+- English/Bangla strings and automated localization parity, unit and navigation regression coverage.
 
-- Kotlin + Jetpack Compose Android app with six destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
-- Room-backed routine and progress data with legacy preference migration.
-- Self-reported skin questionnaire and deterministic, non-diagnostic guidance. Brightening check-in adapts reminders to skin feel, previous reactions, broken/irritated skin, concerning changes, sunscreen use, multiple strong actives and whether a clinician-prescribed skin medicine is in use.
-- Brightening guidance for post-acne marks, tanning and unexplained patches, with safety exclusions and realistic expectations.
-- Private selfie capture, ML Kit one-face/framing check, app-private storage, deletion and side-by-side visual comparison. These features do **not** analyse pigmentation, acne, melasma, skin tone or disease.
-- Hardened photo storage: staged writes, metadata validation, synchronous metadata commits, checked deletion, maximum 30-photo retention and monotonic capture timestamps.
-- Full local-data reset removes selfie images and metadata and deletes the saved formula draft.
-- Ingredient catalogue with educational profiles, safety notes, search/filtering and publisher links. Entries remain pending expert review.
-- English/Bangla ingredient-label red-flag keyword checker for a limited list of mercury, hydroquinone and topical-steroid aliases. No-match is not a safety clearance.
-- Home-formulation risk guide and bilingual education on ingredient identity/grade, compatibility, pH, validated preservation, stability, packaging and microbial testing.
-- Homemade Lab arithmetic worksheet for anhydrous balm batch size, percentage-to-gram calculations and approximate BDT raw-material cost; one private draft can be saved, loaded and deleted. It is not a recipe recommendation or safety validator. Water-based products, creams/lotions and sunscreen are blocked.
-- English/Bangla resource parity validation and automated unit/navigation regression coverage, including the prescribed-treatment warning.
+## Explicitly deferred by owner
 
-## Remaining product work — not complete
+**Selfie-based skin analysis is deferred for now.** Do not implement face pigmentation scores, AI diagnosis or unvalidated image heuristics as a substitute. It can be reconsidered only after data rights, expert labels, representative Bangladeshi skin-tone coverage, device/lighting evaluation, repeatability/accuracy criteria, on-device privacy design and validation are satisfied.
 
-1. **Real selfie analysis:** not implemented. Needs a narrowly defined visual feature, legally usable and relevant data, qualified reference labels, representative Bangladeshi skin-tone and device/lighting evaluation, repeatability thresholds, on-device inference and privacy review. Do not substitute face detection or unvalidated pixel heuristics and call it AI skin analysis.
-2. **Owner device acceptance:** test on the owner's Android phone, including camera, storage, full reset, TalkBack, font scaling, Bangla layout, airplane mode and upgrade behavior. Emulator CI cannot replace this.
-3. **Personalized brightening plan:** strengthen rules using concern, sensitivity, reaction history, current products and budget; refer uncertain or concerning patches for clinical assessment. No prescription or natural-skin-colour alteration.
-4. **Formulation knowledge:** expand sourced ingredient profiles and compatibility education only after qualified review. No DIY water-based product recipes without validated preservation, pH, stability and microbial testing; never offer homemade sunscreen.
-5. **Release signing:** owner-controlled signing key and signed APK only if/when the owner wants stable distribution. Do not commit signing secrets.
+## Remaining release gates (not code tasks that can be truthfully completed remotely)
+
+1. **Physical-device acceptance:** owner must install and test the debug APK on the target Android phone: camera capture, timeline, delete, full reset, offline mode, TalkBack, font scaling, Bangla layout and upgrade behavior. Emulator CI is not a substitute.
+2. **Signed private APK (optional):** requires an owner-controlled signing key. Never request or store the key/password in chat or commit them to GitHub.
+3. **Qualified content review:** ingredient catalogue and formulation education are general education and pending expert review. No validated formula recipes, concentration recommendations, shelf-life claims or safety approvals are supplied.
 
 ## Safety boundary
 
-The product goal is safer care for uneven tone and excess pigmentation, not changing genetically determined natural skin colour. No mercury, bleach, steroid misuse, harsh kitchen remedies, unsupervised prescription lighteners, diagnosis or fairness scoring. A patch test does not make an unsafe or contaminated formula safe.
+The app addresses uneven tone and excess pigmentation safely, not genetically determined natural skin colour. No mercury, bleach, steroid misuse, harsh kitchen remedies, unsupervised prescription lighteners, diagnosis or fairness scoring. No homemade sunscreen or unpreserved water-based DIY products. A patch test does not make an unsafe or contaminated formula safe.
 
-## Completion rule
+## Definition of done for this phase
 
-Do not merge PR #2 or call the app complete until the owner has reviewed the APK on the actual phone and the requested selfie-analysis feature is either implemented with credible validation or explicitly deferred by the owner. The current app is not production-ready as a real selfie skin analyzer.
+The implemented personal-use software scope is CI-green. Selfie analysis is explicitly deferred. The app is **not yet owner-accepted or a signed release** until physical-device checks and, if desired, owner-controlled signing are completed. Keep PR #2 draft and unmerged pending owner review.
