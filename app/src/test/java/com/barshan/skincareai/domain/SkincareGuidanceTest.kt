@@ -45,6 +45,14 @@ class SkincareGuidanceTest {
     }
 
     @Test
+    fun persistentOrPatchyDarkAreasRecommendProfessionalAssessment() {
+        val result = SkincareGuidance.create(CheckIn(SkinFeel.UNSURE, SkinGoal.OTHER))
+        assertEquals(GuidanceResult.Status.OUT_OF_SCOPE, result.status)
+        assertTrue(result.seekProfessionalCare)
+        assertTrue(result.cards.any { it.titleRes == R.string.guidance_other_title })
+    }
+
+    @Test
     fun priorReactionAddsSpecificCaution() {
         val result = SkincareGuidance.create(
             CheckIn(SkinFeel.SENSITIVE, SkinGoal.BASIC_CARE, knownReaction = true)
