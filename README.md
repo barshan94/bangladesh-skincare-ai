@@ -2,7 +2,7 @@
 
 A private, offline-first Android skincare companion for personal use.
 
-> **Latest verified CI (2026-11-24):** Commit `023cd07445942e4e41fb45c1b4e9273f2671908c` passed [Android workflow run #45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538). Debug APK compilation, unit tests, Room schema export, Android navigation smoke tests, localization parity and artifact uploads all succeeded. This is a CI debug APK, not a signed release APK or proof of real-device acceptance.
+> **Latest verified CI (2026-11-25):** Commit `e9834abe78f3560c8721d5202c3c47995f8e2e21` passed [Android workflow run #45536876141](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45536876141). Debug APK compilation, unit tests, Room schema export, Android navigation smoke tests, localization parity and artifact uploads all succeeded. This is a CI debug APK, not a signed release APK or proof of real-device acceptance.
 
 ## What the app actually does
 
@@ -25,7 +25,7 @@ Routine, progress, formula draft and selfie data are stored locally. Selfies rem
 
 ## Automated verification
 
-[CI run #45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538) on the prior code revision passed:
+[CI run #45536876141](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45536876141) on commit `e9834ab` passed:
 - English/Bangla resource parity
 - Debug APK compilation
 - Unit tests
@@ -35,7 +35,7 @@ Routine, progress, formula draft and selfie data are stored locally. Selfies rem
 
 Artifacts include `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and `bangladesh-skincare-ai-room-schema`. GitHub Actions artifacts are temporary and expire; this is not a signed release. Debug signing keys may differ between CI runs, so a later APK may not install as an in-place update. Back up anything important before replacing an installation.
 
-Latest app-code revision is `5c200e0a487121f73d5a7458c2e00af44e1a3410`; CI run [#45534561002](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534561002) is pending/running. The earlier successful run does not verify this newer code.
+Latest workflow and app-code revision is `e9834abe78f3560c8721d5202c3c47995f8e2e21`; the workflow-only Gradle download change is included in the successful run above. The debug APK artifact is available for 14 days from the run date.
 
 ## Remaining work before release
 
