@@ -7,7 +7,7 @@ A private, offline-first Android skincare companion for personal use.
 ## What the app actually does
 
 - **Skin Scan:** self-reported check-in with deterministic, general educational guidance. It does not diagnose or use AI skin analysis.
-- **Whitening & Brightening:** educational guidance for uneven tone, tanning and post-acne marks. A rule-based check-in adapts reminders to skin feel, previous reactions, broken/irritated skin, concerning changes, sunscreen habits and use of multiple strong actives. It is not a diagnosis or treatment prescription.
+- **Whitening & Brightening:** educational guidance for uneven tone, tanning and post-acne marks. A rule-based check-in adapts reminders to skin feel, previous reactions, broken/irritated skin, concerning changes, sunscreen habits, use of multiple strong actives and current clinician-prescribed skin medicine. It warns users not to change prescribed treatment based on the app. It is not a diagnosis or treatment prescription.
 - **Selfie progress:** captures photos privately, uses on-device face detection only for basic one-face/framing checks, and provides a timeline and side-by-side visual comparison. It does **not** detect acne, pigmentation, melasma, dark spots, skin tone or disease. Lighting and camera differences can make comparisons misleading.
 - **Homemade Lab:** an educational worksheet for anhydrous-balm batch arithmetic, percentage-to-gram calculations, estimated BDT raw-material cost and one locally saved formula draft. It is a calculator, not a recipe generator, formula safety validator, compatibility checker or efficacy assessor. Water-based products, creams/lotions and sunscreen are not enabled for DIY formulation.
 - **My Routine:** local morning/evening routine checklist.
