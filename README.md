@@ -7,7 +7,7 @@ A private, offline-first Android skincare companion for personal use.
 ## What the app actually does
 
 - **Skin Scan:** self-reported check-in with deterministic, general educational guidance. It does not diagnose or use AI skin analysis.
-- **Whitening & Brightening:** educational guidance for uneven tone, tanning and post-acne marks, with cautious routine foundations and ingredient safety warnings. It does not promise a lighter natural skin colour or diagnose pigmentation.
+- **Whitening & Brightening:** educational guidance for uneven tone, tanning and post-acne marks. A rule-based check-in adapts reminders to skin feel, previous reactions, broken/irritated skin, concerning changes, sunscreen habits and use of multiple strong actives. It is not a diagnosis or treatment prescription.
 - **Selfie progress:** captures photos privately, uses on-device face detection only for basic one-face/framing checks, and provides a timeline and side-by-side visual comparison. It does **not** detect acne, pigmentation, melasma, dark spots, skin tone or disease. Lighting and camera differences can make comparisons misleading.
 - **Homemade Lab:** an educational worksheet for anhydrous-balm batch arithmetic, percentage-to-gram calculations, estimated BDT raw-material cost and one locally saved formula draft. It is a calculator, not a recipe generator, formula safety validator, compatibility checker or efficacy assessor. Water-based products, creams/lotions and sunscreen are not enabled for DIY formulation.
 - **My Routine:** local morning/evening routine checklist.
@@ -25,7 +25,7 @@ Routine, progress, formula draft and selfie data are stored locally. Selfies rem
 
 ## Automated verification
 
-[CI run #45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538) passed:
+[CI run #45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538) on the prior code revision passed:
 - English/Bangla resource parity
 - Debug APK compilation
 - Unit tests
@@ -34,6 +34,8 @@ Routine, progress, formula draft and selfie data are stored locally. Selfies rem
 - Debug APK and test-report artifact uploads
 
 Artifacts include `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and `bangladesh-skincare-ai-room-schema`. GitHub Actions artifacts are temporary and expire; this is not a signed release. Debug signing keys may differ between CI runs, so a later APK may not install as an in-place update. Back up anything important before replacing an installation.
+
+Latest personalization code is commit `c6d70adc878e25cf695037a9c7ff58e15ef1d95c`; CI run [#45534413323](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534413323) is in progress. Do not treat the earlier successful run as verification of this newer code.
 
 ## Remaining work before release
 

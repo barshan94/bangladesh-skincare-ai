@@ -6,14 +6,14 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest feature commit: `023cd07445942e4e41fb45c1b4e9273f2671908c`.
-- Latest push CI [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538) passed all workflow steps: English/Bangla resource parity, debug APK compilation, unit tests, Room schema export, Android navigation smoke tests, test-report upload and debug APK upload.
+- Latest feature commit: `c6d70adc878e25cf695037a9c7ff58e15ef1d95c`.
+- Prior code commit `023cd07` passed push CI [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538). The newer personalization work on `c6d70ad` is under CI in [run #45534413323](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534413323); it has not passed yet.
 - CI artifacts were uploaded: `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports`, and `bangladesh-skincare-ai-room-schema`. They are temporary GitHub Actions artifacts, not signed releases.
 
 ## Current capabilities
 
 - Six Compose destinations: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
-- Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. They are not AI, diagnosis, or camera skin analysis.
+- Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. Brightening rules now account for skin feel, prior reactions, broken/irritated skin, concerning changes, regular sunscreen habits and multiple strong actives. They are not AI, diagnosis, or camera skin analysis.
 - My Routine and Progress use local Room storage.
 - Private selfie capture uses on-device face detection only for one-face/framing checks. Photos remain in app-private storage; users can compare and delete them. No acne, pigmentation, melasma, dark-spot, skin-tone or disease analysis is implemented.
 - Side-by-side saved-photo comparison is visual-only; lighting, camera distance, angle and exposure can mislead.

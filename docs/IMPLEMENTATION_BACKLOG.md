@@ -4,14 +4,14 @@
 - Repository: `barshan94/bangladesh-skincare-ai`
 - Active branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest feature commit: `023cd07445942e4e41fb45c1b4e9273f2671908c`.
-- Latest CI [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538) passed resource parity, debug APK compilation, unit tests, Room schema export, Android navigation smoke tests and artifact uploads.
+- Latest feature commit: `c6d70adc878e25cf695037a9c7ff58e15ef1d95c`.
+- Prior commit `023cd07` passed CI [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538). Latest personalization code is being checked in [CI #45534413323](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534413323); result pending.
 
 ## Implemented
 
 - Kotlin + Jetpack Compose Android app with six destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
 - Room-backed routine and progress data with legacy preference migration.
-- Self-reported skin questionnaire and deterministic, non-diagnostic guidance.
+- Self-reported skin questionnaire and deterministic, non-diagnostic guidance. Brightening check-in adapts reminders to skin feel, previous reactions, broken/irritated skin, concerning changes, sunscreen use and multiple strong actives.
 - Brightening guidance for post-acne marks, tanning and unexplained patches, with safety exclusions and realistic expectations.
 - Private selfie capture, ML Kit one-face/framing check, app-private storage, deletion and side-by-side visual comparison. These features do **not** analyse pigmentation, acne, melasma, skin tone or disease.
 - Hardened photo storage: staged writes, metadata validation, synchronous metadata commits, checked deletion, maximum 30-photo retention and monotonic capture timestamps.
