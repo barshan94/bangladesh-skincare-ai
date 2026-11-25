@@ -11,7 +11,7 @@
 
 - Kotlin + Jetpack Compose Android app with six destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
 - Room-backed routine and progress data with legacy preference migration.
-- Self-reported skin questionnaire and deterministic, non-diagnostic guidance. Brightening check-in adapts reminders to skin feel, previous reactions, broken/irritated skin, concerning changes, sunscreen use and multiple strong actives.
+- Self-reported skin questionnaire and deterministic, non-diagnostic guidance. Brightening check-in adapts reminders to skin feel, previous reactions, broken/irritated skin, concerning changes, sunscreen use, multiple strong actives and whether a clinician-prescribed skin medicine is in use.
 - Brightening guidance for post-acne marks, tanning and unexplained patches, with safety exclusions and realistic expectations.
 - Private selfie capture, ML Kit one-face/framing check, app-private storage, deletion and side-by-side visual comparison. These features do **not** analyse pigmentation, acne, melasma, skin tone or disease.
 - Hardened photo storage: staged writes, metadata validation, synchronous metadata commits, checked deletion, maximum 30-photo retention and monotonic capture timestamps.
