@@ -40,6 +40,7 @@ class SkincareGuidanceTest {
         val result = SkincareGuidance.create(CheckIn(SkinFeel.UNSURE, SkinGoal.DARK_MARKS))
         assertEquals(GuidanceResult.Status.OUT_OF_SCOPE, result.status)
         assertEquals(R.string.guidance_summary_dark_marks, result.summaryRes)
+        assertFalse(result.seekProfessionalCare)
         assertTrue(result.cards.any { it.titleRes == R.string.guidance_dark_marks_title })
     }
 
