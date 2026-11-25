@@ -13,7 +13,7 @@
 ## Current capabilities
 
 - Six Compose destinations: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
-- Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. Brightening rules now account for skin feel, prior reactions, broken/irritated skin, concerning changes, regular sunscreen habits and multiple strong actives. They are not AI, diagnosis, or camera skin analysis.
+- Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. Brightening rules now account for skin feel, prior reactions, broken/irritated skin, concerning changes, regular sunscreen habits, multiple strong actives and current clinician-prescribed skin medicine. Users are reminded not to change prescribed treatment based on the app. They are not AI, diagnosis, or camera skin analysis.
 - My Routine and Progress use local Room storage.
 - Private selfie capture uses on-device face detection only for one-face/framing checks. Photos remain in app-private storage; users can compare and delete them. No acne, pigmentation, melasma, dark-spot, skin-tone or disease analysis is implemented.
 - Side-by-side saved-photo comparison is visual-only; lighting, camera distance, angle and exposure can mislead.
