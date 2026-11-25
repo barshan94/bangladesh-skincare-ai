@@ -6,7 +6,7 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest feature commit: `c6d70adc878e25cf695037a9c7ff58e15ef1d95c`.
+- Latest feature commit: `5c200e0a487121f73d5a7458c2e00af44e1a3410`.
 - Prior code commit `023cd07` passed push CI [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538). The newer personalization work on `c6d70ad` is under CI in [run #45534413323](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534413323); it has not passed yet.
 - CI artifacts were uploaded: `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports`, and `bangladesh-skincare-ai-room-schema`. They are temporary GitHub Actions artifacts, not signed releases.
 

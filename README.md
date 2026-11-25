@@ -35,7 +35,7 @@ Routine, progress, formula draft and selfie data are stored locally. Selfies rem
 
 Artifacts include `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and `bangladesh-skincare-ai-room-schema`. GitHub Actions artifacts are temporary and expire; this is not a signed release. Debug signing keys may differ between CI runs, so a later APK may not install as an in-place update. Back up anything important before replacing an installation.
 
-Latest personalization code is commit `c6d70adc878e25cf695037a9c7ff58e15ef1d95c`; CI run [#45534413323](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534413323) is in progress. Do not treat the earlier successful run as verification of this newer code.
+Latest app-code revision is `5c200e0a487121f73d5a7458c2e00af44e1a3410`; CI run [#45534561002](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534561002) is pending/running. The earlier successful run does not verify this newer code.
 
 ## Remaining work before release
 
