@@ -4,10 +4,12 @@
 - Repository: `barshan94/bangladesh-skincare-ai`
 - Active branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest feature commit: `e9834abe78f3560c8721d5202c3c47995f8e2e21`.
-- Latest CI [#45536876141](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45536876141) passed on `e9834ab`, including compilation, unit tests, emulator navigation smoke tests and artifact uploads.
+- Latest code commit verified by CI: `244eecc84a381a4dc8f8a2b3df23e4eaaed63ad2` (documentation commits follow it).
+- Latest CI [#45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) passed on code commit `244eecc`, including compilation, unit tests, emulator navigation smoke tests and artifact uploads.
 
 ## Implemented
+
+- Latest verified build: [CI run #45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) passed all steps on code commit `244eecc`; debug APK, test reports and Room schema artifacts are available until 2026-12-09.
 
 - Kotlin + Jetpack Compose Android app with six destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
 - Room-backed routine and progress data with legacy preference migration.
@@ -20,7 +22,7 @@
 - English/Bangla ingredient-label red-flag keyword checker for a limited list of mercury, hydroquinone and topical-steroid aliases. No-match is not a safety clearance.
 - Home-formulation risk guide and bilingual education on ingredient identity/grade, compatibility, pH, validated preservation, stability, packaging and microbial testing.
 - Homemade Lab arithmetic worksheet for anhydrous balm batch size, percentage-to-gram calculations and approximate BDT raw-material cost; one private draft can be saved, loaded and deleted. It is not a recipe recommendation or safety validator. Water-based products, creams/lotions and sunscreen are blocked.
-- English/Bangla resource parity validation and automated unit/navigation regression coverage.
+- English/Bangla resource parity validation and automated unit/navigation regression coverage, including the prescribed-treatment warning.
 
 ## Remaining product work — not complete
 
