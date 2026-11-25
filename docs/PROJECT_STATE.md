@@ -1,43 +1,33 @@
 # Project State — 2026-11-25
 
-## Repository and active work
+## Repository and verified build
 
 - Repository: https://github.com/barshan94/bangladesh-skincare-ai
-- Baseline branch: `implementation/m0-android-baseline`
-- Active feature branch: `feature/brightening-system`
-- Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest code commit verified by CI: `244eecc84a381a4dc8f8a2b3df23e4eaaed63ad2` (documentation commits follow it).
-- Latest CI [run #45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) passed on `244eecc`: localization parity, Gradle/Android SDK setup, debug APK compilation, unit tests, Room schema export, emulator navigation smoke tests and artifact uploads.
-- Artifacts `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and `bangladesh-skincare-ai-room-schema` are available until 2026-12-09. They are temporary CI artifacts, not signed releases.
+- Active branch: `feature/brightening-system`
+- PR [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2) remains open, draft and unmerged.
+- Latest app-code commit: `d46aea6f409aa602b9bfacf0f3443ea4296450ec`.
+- Latest full CI [#45566453626](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45566453626) passed every step: localization parity, toolchain/SDK setup, debug APK compilation, unit tests, Room schema export, emulator navigation smoke tests and artifact uploads.
+- Debug APK, test-report and Room schema artifacts are available until 2026-12-09. They are temporary CI artifacts, not signed release assets.
 
 ## Current capabilities
 
-- Six Compose destinations: Skin Scan, My Routine, Progress, Ingredients, Profile, and Whitening & Brightening.
-- Skin Scan and Brightening use self-reported questionnaires and deterministic educational guidance. Brightening rules now account for skin feel, prior reactions, broken/irritated skin, concerning changes, regular sunscreen habits, multiple strong actives and current clinician-prescribed skin medicine. Users are reminded not to change prescribed treatment based on the app. They are not AI, diagnosis, or camera skin analysis.
-- My Routine and Progress use local Room storage.
-- Private selfie capture uses on-device face detection only for one-face/framing checks. Photos remain in app-private storage; users can compare and delete them. No acne, pigmentation, melasma, dark-spot, skin-tone or disease analysis is implemented.
-- Side-by-side saved-photo comparison is visual-only; lighting, camera distance, angle and exposure can mislead.
-- Selfie storage stages image writes before finalizing, validates record IDs/file names, commits metadata synchronously, limits retention to 30 photos and checks deletion failures.
-- Full local-data reset deletes private selfie files/metadata and the saved formula draft. Capture timestamps are forced to be strictly increasing.
-- Homemade Lab supports anhydrous-balm worksheet arithmetic, percentage-to-gram calculations, estimated BDT raw-material costs, and local save/load/delete of one draft. It is arithmetic only, not a recipe, safety validator, compatibility checker, concentration-limit checker or efficacy assessor. Water-based products, creams/lotions and sunscreen remain blocked.
-- Ingredient catalogue and home-formulation safety guidance are educational. The bilingual formulation card covers ingredient identity/grade, concentration and compatibility, pH, validated preservation, stability, packaging and microbial testing.
-- English/Bangla ingredient-label red-flag checker flags a limited list of mercury, hydroquinone and topical-steroid names. A no-match is not a safety clearance; it is not lab testing or product authentication.
-- No account, analytics, cloud sync or photo upload is implemented.
+- Six Compose destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
+- Rule-based non-diagnostic guidance; brightening safety prompts cover skin feel, prior reaction, broken/irritated skin, concerning changes, sunscreen habits, multiple strong actives and current clinician-prescribed skin medicine.
+- Local Room-backed routine and progress records.
+- Private selfie capture with ML Kit one-face/framing check, app-private storage, local timeline, delete and side-by-side visual comparison. No pigmentation/acne/melasma/dark-spot/skin-tone/disease analysis.
+- Selfie storage includes staged writes, metadata validation, synchronous commits, checked deletion, 30-photo retention and monotonic timestamps.
+- Homemade Lab: anhydrous-balm arithmetic only, percentage-to-gram calculations, estimated BDT raw-material cost and local save/load/delete of one draft. Not a recipe or safety validator. Water-based products, creams/lotions and sunscreen are blocked.
+- Ingredient catalogue, source links, bilingual education and limited English/Bangla red-flag label keyword checker. No-match is not proof of safety; entries remain pending expert review.
+- Full local reset includes selfie files/metadata and formula draft. No account, analytics, cloud sync or photo upload.
 
-## Verification
+## Deferred by owner
 
-Latest CI run [#45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) on code commit `244eecc` passed Gradle installation, Android SDK setup, debug compilation, unit tests, Room schema export, emulator navigation smoke tests, localization parity and artifact uploads. Debug APK, test reports and Room schema artifacts were uploaded. This validates the CI environment only; it does not replace owner-side device testing.
+Selfie-based skin analysis is explicitly deferred for now. Do not replace it with face detection, skin-tone scoring or unvalidated pixel heuristics. Reconsider only after legal data rights, qualified reference labels, representative Bangladeshi skin tones, device/lighting validation, repeatability/accuracy testing, on-device inference and privacy review.
 
-## Remaining core product work
+## Release gates
 
-1. **Genuine selfie skin analysis — not implemented.** Requires a legally usable and suitable dataset, expert/reference labels, a narrowly defined feature, representative Bangladeshi skin tones, device/lighting evaluation, repeatability and accuracy testing, on-device inference and privacy review. Face detection or simple pixel heuristics must not be presented as skin analysis.
-2. Complete physical-device acceptance on the owner's Android phone: camera, storage/reset, TalkBack, font scaling, Bangla layout, airplane mode and upgrade behavior.
-3. Strengthen brightening guidance using concern, sensitivity, reaction history, current products and budget, while retaining clinician referral for concerning or unexplained patches.
-4. Expand sourced ingredient evidence and compatibility information; qualified review is required before actionable formulation guidance. No unpreserved water-based DIY recipes and no homemade sunscreen. The current worksheet is only a calculator, not a formulation recommendation.
-5. Decide whether to provide a signed release APK after owner review; signing keys must remain owner-controlled.
+1. Owner-side physical-device acceptance on the target Android phone: camera, photo timeline/deletion, reset, offline mode, TalkBack, font scaling, Bangla layout and upgrade behavior.
+2. Optional signed private APK using an owner-controlled key. The key/password must never be shared in chat or committed.
+3. Qualified review before adding actionable ingredient/formulation claims or recipe recommendations.
 
-## Safety and release boundary
-
-This is a personal-use educational companion, not a diagnostic or prescription tool. The goal is to address uneven tone and excess pigmentation safely, not change genetically determined natural skin colour. Exclude mercury, bleach, steroid misuse, harsh kitchen remedies and unsupervised prescription lighteners. Patch testing cannot prove an unsafe or contaminated formula safe.
-
-Do not merge PR #2 or call the app complete while genuine requested selfie analysis remains absent or owner-side device acceptance is outstanding.
+The code and emulator CI are green, but this is not a signed release and physical-device acceptance has not been performed. Keep PR #2 draft/unmerged until owner review.
