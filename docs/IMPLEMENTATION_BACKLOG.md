@@ -1,15 +1,13 @@
 # Implementation Backlog — Current Status
 
-- Last reviewed: 2026-11-24
+- Last reviewed: 2026-11-25
 - Repository: `barshan94/bangladesh-skincare-ai`
 - Active branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Recent implementation commits: `c69b4cc31f0bebd55a63c1303a24e0f17ea68be0` (formula draft persistence) and `d9893bc46f5c47b6b67bfa3ca2447b219ec2bc1e` (draft deletion).
-- Latest push CI [#44977709002](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44977709002) and PR CI [#44977714807](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44977714807) both passed: resource parity, debug APK compilation, unit tests, Room schema export, Android navigation smoke tests, reports and APK artifact upload.
+- Latest feature commit: `023cd07445942e4e41fb45c1b4e9273f2671908c`.
+- Latest CI [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538) passed resource parity, debug APK compilation, unit tests, Room schema export, Android navigation smoke tests and artifact uploads.
 
 ## Implemented
-
-- Ingredient-label red-flag keyword checker for a limited list of mercury, hydroquinone and topical-steroid aliases, with English/Bangla warnings and explicit no-clearance disclaimer.
 
 - Kotlin + Jetpack Compose Android app with six destinations: Skin Scan, My Routine, Progress, Ingredients, Profile and Whitening & Brightening.
 - Room-backed routine and progress data with legacy preference migration.
@@ -17,22 +15,20 @@
 - Brightening guidance for post-acne marks, tanning and unexplained patches, with safety exclusions and realistic expectations.
 - Private selfie capture, ML Kit one-face/framing check, app-private storage, deletion and side-by-side visual comparison. These features do **not** analyse pigmentation, acne, melasma, skin tone or disease.
 - Hardened photo storage: staged writes, metadata validation, synchronous metadata commits, checked deletion, maximum 30-photo retention and monotonic capture timestamps.
-- Full local-data reset now removes selfie images and metadata as well as other local user data.
-- Ingredient catalogue with educational profiles for common skincare and dark-spot ingredients. Entries remain pending expert review; no prescriptions, concentrations or recipes.
-- Home-formulation risk guide for water-based, oil-based, powder and sunscreen concepts.
-- Homemade Lab arithmetic worksheet for anhydrous balm batch sizes, percentage-to-gram calculations and approximate BDT raw-material cost; one private draft can be saved, loaded and deleted. Full local-data reset removes it. This is not a safe-formula validator or a recipe recommendation.
-- Bilingual formulation-education card explaining ingredient identity/grade, concentration and compatibility, pH measurement, validated preservation, stability, packaging and microbial testing. It deliberately provides no mixing instructions, formula percentages or shelf-life claims.
+- Full local-data reset removes selfie images and metadata and deletes the saved formula draft.
+- Ingredient catalogue with educational profiles, safety notes, search/filtering and publisher links. Entries remain pending expert review.
+- English/Bangla ingredient-label red-flag keyword checker for a limited list of mercury, hydroquinone and topical-steroid aliases. No-match is not a safety clearance.
+- Home-formulation risk guide and bilingual education on ingredient identity/grade, compatibility, pH, validated preservation, stability, packaging and microbial testing.
+- Homemade Lab arithmetic worksheet for anhydrous balm batch size, percentage-to-gram calculations and approximate BDT raw-material cost; one private draft can be saved, loaded and deleted. It is not a recipe recommendation or safety validator. Water-based products, creams/lotions and sunscreen are blocked.
 - English/Bangla resource parity validation and automated unit/navigation regression coverage.
 
 ## Remaining product work — not complete
 
 1. **Real selfie analysis:** not implemented. Needs a narrowly defined visual feature, legally usable and relevant data, qualified reference labels, representative Bangladeshi skin-tone and device/lighting evaluation, repeatability thresholds, on-device inference and privacy review. Do not substitute face detection or unvalidated pixel heuristics and call it AI skin analysis.
-2. **Photo-quality assistance:** capture currently checks face count and framing only. Blur/exposure checks remain a candidate and must be validated separately before being relied upon.
+2. **Owner device acceptance:** test on the owner's Android phone, including camera, storage, full reset, TalkBack, font scaling, Bangla layout, airplane mode and upgrade behavior. Emulator CI cannot replace this.
 3. **Personalized brightening plan:** strengthen rules using concern, sensitivity, reaction history, current products and budget; refer uncertain or concerning patches for clinical assessment. No prescription or natural-skin-colour alteration.
 4. **Formulation knowledge:** expand sourced ingredient profiles and compatibility education only after qualified review. No DIY water-based product recipes without validated preservation, pH, stability and microbial testing; never offer homemade sunscreen.
-5. **Owner device acceptance:** test on the owner's Android phone, including camera, storage, full reset, TalkBack, font scaling, Bangla layout, airplane mode and upgrade behavior. Emulator CI cannot replace this.
-6. **Formula lab safety and usefulness:** the worksheet currently accepts user-entered ingredients and percentages and only checks arithmetic. It needs a reviewed, source-backed ingredient catalogue and expert-verified compatibility/range rules before it can safely guide formulation. Do not turn it into a recipe generator based on guesses.
-7. **Release signing:** owner-controlled signing key and signed APK only if/when the owner wants stable distribution. Do not commit signing secrets.
+5. **Release signing:** owner-controlled signing key and signed APK only if/when the owner wants stable distribution. Do not commit signing secrets.
 
 ## Safety boundary
 
