@@ -90,7 +90,7 @@ private fun BrighteningPersonalGuidanceCard(selectedGoal: Int) {
         R.string.brightening_goal_acne,
         R.string.brightening_goal_tan,
         R.string.brightening_goal_patches -> SkinGoal.DARK_MARKS
-        else -> SkinGoal.OTHER
+        else -> SkinGoal.BASIC_CARE
     }
     val result = SkincareGuidance.create(
         CheckIn(
