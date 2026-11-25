@@ -6,9 +6,9 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest feature commit: `5c200e0a487121f73d5a7458c2e00af44e1a3410`.
-- Prior code commit `023cd07` passed push CI [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538). The newer personalization work on `c6d70ad` is under CI in [run #45534413323](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45534413323); it has not passed yet.
-- CI artifacts were uploaded: `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports`, and `bangladesh-skincare-ai-room-schema`. They are temporary GitHub Actions artifacts, not signed releases.
+- Latest feature commit: `e9834abe78f3560c8721d5202c3c47995f8e2e21`.
+- Latest CI [run #45536876141](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45536876141) passed on `e9834ab`: Gradle install, Android SDK setup, debug APK compilation, unit tests, Room schema export, emulator navigation smoke tests and artifact uploads.
+- Artifacts `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and `bangladesh-skincare-ai-room-schema` are available until 2026-12-09. They are temporary CI artifacts, not signed releases.
 
 ## Current capabilities
 
@@ -26,7 +26,7 @@
 
 ## Verification
 
-Latest CI run [#45437693538](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45437693538) on commit `023cd07` passed compilation, unit tests, schema export, Android navigation smoke tests, localization parity and artifact uploads. This validates the CI environment only; it does not replace owner-side device testing.
+Latest CI run [#45536876141](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45536876141) on commit `e9834ab` passed Gradle installation, Android SDK setup, debug compilation, unit tests, Room schema export, emulator navigation smoke tests, localization parity and artifact uploads. This validates the CI environment only; it does not replace owner-side device testing.
 
 ## Remaining core product work
 
