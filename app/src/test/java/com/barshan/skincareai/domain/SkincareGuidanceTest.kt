@@ -53,6 +53,46 @@ class SkincareGuidanceTest {
     }
 
     @Test
+    fun missingSunProtectionAddsSunProtectionPriority() {
+        val result = SkincareGuidance.create(
+            CheckIn(SkinFeel.UNSURE, SkinGoal.DARK_MARKS, regularSunProtection = false)
+        )
+        assertTrue(result.cards.any { it.titleRes == R.string.guidance_sun_habit_title })
+    }
+
+    @Test
+    fun consistentSunProtectionDoesNotRepeatTheAdditionalReminder() {
+        val result = SkincareGuidance.create(
+            CheckIn(SkinFeel.UNSURE, SkinGoal.DARK_MARKS, regularSunProtection = true)
+        )
+        assertFalse(result.cards.any { it.titleRes == R.string.guidance_sun_habit_title })
+    }
+
+    @Test
+    fun multipleStrongActivesAddsSimplificationCaution() {
+        val result = SkincareGuidance.create(
+            CheckIn(SkinFeel.SENSITIVE, SkinGoal.DARK_MARKS, usingMultipleActives = true)
+        )
+        assertTrue(result.cards.any { it.titleRes == R.string.guidance_multiple_actives_title })
+    }
+
+    @Test
+    fun safetyFlagsOverridePersonalizedRoutineReminders() {
+        val result = SkincareGuidance.create(
+            CheckIn(
+                SkinFeel.SENSITIVE,
+                SkinGoal.DARK_MARKS,
+                concerningChange = true,
+                regularSunProtection = false,
+                usingMultipleActives = true
+            )
+        )
+        assertEquals(GuidanceResult.Status.SAFETY_FIRST, result.status)
+        assertTrue(result.cards.none { it.titleRes == R.string.guidance_sun_habit_title })
+        assertTrue(result.cards.none { it.titleRes == R.string.guidance_multiple_actives_title })
+    }
+
+    @Test
     fun everySkinFeelHasLocalizedMoisturizerCopy() {
         SkinFeel.entries.forEach { feel ->
             val result = SkincareGuidance.create(CheckIn(feel, SkinGoal.BASIC_CARE))

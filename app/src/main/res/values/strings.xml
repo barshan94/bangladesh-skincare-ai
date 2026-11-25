@@ -387,4 +387,10 @@
     <string name="label_checker_mercury">%1$s — mercury-related name. Do not use this product.</string>
     <string name="label_checker_medical">%1$s — medicine-related ingredient. Do not use it as a cosmetic brightener or add it to homemade products; seek clinician advice.</string>
     <string name="label_checker_limits">Limitations: labels may be incomplete, misspelled, hidden or counterfeit. This is a keyword screen, not laboratory testing, product authentication or a complete safety assessment. An unrecognized ingredient is not cleared as safe.</string>
+    <string name="brightening_sunscreen_habit_question">Do you use broad-spectrum sunscreen most mornings?</string>
+    <string name="brightening_multiple_actives_question">Are you currently layering more than one strong exfoliating or brightening product?</string>
+    <string name="guidance_sun_habit_title">Make sun protection the first priority</string>
+    <string name="guidance_sun_habit_body">You selected that sunscreen is not part of most mornings. Before adding a dark-spot product, build a consistent habit with a labelled broad-spectrum SPF 30+ sunscreen, shade and clothing. Reapply as the label directs when outdoors. If sunscreen is unaffordable or unavailable, prioritize shade and protective clothing rather than relying on a brightening active.</string>
+    <string name="guidance_multiple_actives_title">Simplify instead of adding another active</string>
+    <string name="guidance_multiple_actives_body">You selected that you already layer multiple strong products. Do not add another brightening active. Consider pausing non-essential exfoliating products and keep to gentle cleansing and a moisturizer you tolerate; seek professional advice if irritation persists. Do not abruptly stop a prescribed medicine without asking its prescriber.</string>
 </resources>

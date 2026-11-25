@@ -14,7 +14,9 @@ data class CheckIn(
     val goal: SkinGoal,
     val knownReaction: Boolean = false,
     val brokenSkin: Boolean = false,
-    val concerningChange: Boolean = false
+    val concerningChange: Boolean = false,
+    val regularSunProtection: Boolean = false,
+    val usingMultipleActives: Boolean = false
 )
 
 data class GuidanceCard(
@@ -80,6 +82,24 @@ object SkincareGuidance {
                     R.string.guidance_prior_reaction_title,
                     R.string.guidance_prior_reaction_body,
                     R.string.guidance_prior_reaction_caution
+                )
+            )
+        }
+
+        if (!checkIn.regularSunProtection) {
+            cards.add(
+                GuidanceCard(
+                    R.string.guidance_sun_habit_title,
+                    R.string.guidance_sun_habit_body
+                )
+            )
+        }
+
+        if (checkIn.usingMultipleActives) {
+            cards.add(
+                GuidanceCard(
+                    R.string.guidance_multiple_actives_title,
+                    R.string.guidance_multiple_actives_body
                 )
             )
         }

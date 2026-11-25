@@ -76,6 +76,8 @@ private fun BrighteningPersonalGuidanceCard(selectedGoal: Int) {
     var knownReaction by rememberSaveable { mutableStateOf(false) }
     var brokenSkin by rememberSaveable { mutableStateOf(false) }
     var concerningChange by rememberSaveable { mutableStateOf(false) }
+    var regularSunProtection by rememberSaveable { mutableStateOf(false) }
+    var usingMultipleActives by rememberSaveable { mutableStateOf(false) }
 
     val feelOptions = listOf(
         SkinFeel.DRY to R.string.feel_dry,
@@ -95,7 +97,9 @@ private fun BrighteningPersonalGuidanceCard(selectedGoal: Int) {
             goal = goal,
             knownReaction = knownReaction,
             brokenSkin = brokenSkin,
-            concerningChange = concerningChange
+            concerningChange = concerningChange,
+            regularSunProtection = regularSunProtection,
+            usingMultipleActives = usingMultipleActives
         )
     )
     val safetyFirst = result.status == GuidanceResult.Status.SAFETY_FIRST
@@ -116,6 +120,11 @@ private fun BrighteningPersonalGuidanceCard(selectedGoal: Int) {
             FilterChip(selected = brokenSkin, onClick = { brokenSkin = !brokenSkin }, label = { Text(stringResource(if (brokenSkin) R.string.scan_yes else R.string.scan_no)) })
             Text(stringResource(R.string.scan_concerning_change_question), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
             FilterChip(selected = concerningChange, onClick = { concerningChange = !concerningChange }, label = { Text(stringResource(if (concerningChange) R.string.scan_yes else R.string.scan_no)) })
+
+            Text(stringResource(R.string.brightening_sunscreen_habit_question), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
+            FilterChip(selected = regularSunProtection, onClick = { regularSunProtection = !regularSunProtection }, label = { Text(stringResource(if (regularSunProtection) R.string.scan_yes else R.string.scan_no)) })
+            Text(stringResource(R.string.brightening_multiple_actives_question), color = BrighteningInk, fontWeight = FontWeight.SemiBold)
+            FilterChip(selected = usingMultipleActives, onClick = { usingMultipleActives = !usingMultipleActives }, label = { Text(stringResource(if (usingMultipleActives) R.string.scan_yes else R.string.scan_no)) })
 
             Text(stringResource(when (result.status) {
                 GuidanceResult.Status.SAFETY_FIRST -> R.string.guidance_safety
