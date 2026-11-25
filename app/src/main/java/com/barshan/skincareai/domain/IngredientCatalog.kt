@@ -5,7 +5,9 @@ import com.barshan.skincareai.R
 enum class IngredientRisk {
     GENERAL_CAUTION,
     AVOID_DIRECT_APPLICATION,
-    FINISHED_SUNSCREEN_ONLY
+    FINISHED_SUNSCREEN_ONLY,
+    CLINICIAN_GUIDANCE_ONLY,
+    DO_NOT_USE
 }
 
 enum class IngredientReviewStatus {
@@ -62,9 +64,25 @@ object IngredientCatalog {
         "DermNet — sunscreen allergy",
         "https://dermnetnz.org/topics/sunscreen-allergy"
     )
+    private val aadDarkSpots = IngredientSource(
+        "American Academy of Dermatology — fading dark spots",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
+    )
     private val moisturizerReview = IngredientSource(
         "Journal of Drugs in Dermatology — moisturizer ingredient review",
         "https://s3.amazonaws.com/dl.jddonline.com/pdfs/23-6_eJDD.pdf"
+    )
+    private val aadMelasma = IngredientSource(
+        "American Academy of Dermatology — melasma treatment",
+        "https://www.aad.org/public/diseases/a-z/melasma-treatment"
+    )
+    private val fdaSkinProductSafety = IngredientSource(
+        "US FDA — skin product safety",
+        "https://www.fda.gov/consumers/skin-facts-what-you-need-know-about-skin-lightening-products/skin-product-safety"
+    )
+    private val aadDarkSpotSafety = IngredientSource(
+        "American Academy of Dermatology — fading dark spots and unsafe products",
+        "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots"
     )
 
     val entries = listOf(
@@ -78,6 +96,14 @@ object IngredientCatalog {
         IngredientEntry("fragrance", R.string.ingredient_fragrance, R.string.ingredient_category_fragrance, R.string.ingredient_fragrance_body, R.string.ingredient_fragrance_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDrySkin, contactDermatitis)),
         IngredientEntry("lemon_juice", R.string.ingredient_lemon, R.string.ingredient_category_household, R.string.ingredient_lemon_body, R.string.ingredient_lemon_caution, IngredientRisk.AVOID_DIRECT_APPLICATION, listOf(lemonContact, contactDermatitis)),
         IngredientEntry("zinc_oxide", R.string.ingredient_zinc_oxide, R.string.ingredient_category_uv_filter, R.string.ingredient_zinc_oxide_body, R.string.ingredient_zinc_oxide_caution, IngredientRisk.FINISHED_SUNSCREEN_ONLY, listOf(aadSunscreen, dermnetSunscreen)),
-        IngredientEntry("sunscreen", R.string.ingredient_sunscreen, R.string.ingredient_category_sun_protection, R.string.ingredient_sunscreen_body, R.string.ingredient_sunscreen_caution, IngredientRisk.FINISHED_SUNSCREEN_ONLY, listOf(aadSunscreen))
+        IngredientEntry("sunscreen", R.string.ingredient_sunscreen, R.string.ingredient_category_sun_protection, R.string.ingredient_sunscreen_body, R.string.ingredient_sunscreen_caution, IngredientRisk.FINISHED_SUNSCREEN_ONLY, listOf(aadSunscreen)),
+        IngredientEntry("azelaic_acid", R.string.ingredient_azelaic_acid, R.string.ingredient_category_brightening_active, R.string.ingredient_azelaic_acid_body, R.string.ingredient_azelaic_acid_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
+        IngredientEntry("glycolic_acid", R.string.ingredient_glycolic_acid, R.string.ingredient_category_brightening_active, R.string.ingredient_glycolic_acid_body, R.string.ingredient_glycolic_acid_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
+        IngredientEntry("kojic_acid", R.string.ingredient_kojic_acid, R.string.ingredient_category_brightening_active, R.string.ingredient_kojic_acid_body, R.string.ingredient_kojic_acid_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
+        IngredientEntry("retinoids", R.string.ingredient_retinoids, R.string.ingredient_category_brightening_active, R.string.ingredient_retinoids_body, R.string.ingredient_retinoids_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
+        IngredientEntry("vitamin_c", R.string.ingredient_vitamin_c, R.string.ingredient_category_brightening_active, R.string.ingredient_vitamin_c_body, R.string.ingredient_vitamin_c_caution, IngredientRisk.GENERAL_CAUTION, listOf(aadDarkSpots)),
+        IngredientEntry("hydroquinone", R.string.ingredient_hydroquinone, R.string.ingredient_category_medical, R.string.ingredient_hydroquinone_body, R.string.ingredient_hydroquinone_caution, IngredientRisk.CLINICIAN_GUIDANCE_ONLY, listOf(aadMelasma, fdaSkinProductSafety)),
+        IngredientEntry("topical_steroids", R.string.ingredient_topical_steroids, R.string.ingredient_category_medical, R.string.ingredient_topical_steroids_body, R.string.ingredient_topical_steroids_caution, IngredientRisk.CLINICIAN_GUIDANCE_ONLY, listOf(aadDarkSpotSafety)),
+        IngredientEntry("mercury", R.string.ingredient_mercury, R.string.ingredient_category_restricted, R.string.ingredient_mercury_body, R.string.ingredient_mercury_caution, IngredientRisk.DO_NOT_USE, listOf(fdaSkinProductSafety))
     )
 }

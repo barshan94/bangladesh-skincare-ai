@@ -34,6 +34,7 @@ import androidx.compose.material.icons.outlined.Spa
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.TipsAndUpdates
+import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -107,7 +108,8 @@ private val destinations = listOf(
     AppDestination(R.string.nav_routine, Icons.Outlined.FavoriteBorder, R.string.routine_title, R.string.routine_body, R.string.routine_status),
     AppDestination(R.string.nav_progress, Icons.Outlined.Insights, R.string.progress_title, R.string.progress_body, R.string.progress_status),
     AppDestination(R.string.nav_ingredients, Icons.Outlined.Spa, R.string.ingredients_title, R.string.ingredients_body, R.string.ingredients_status),
-    AppDestination(R.string.nav_profile, Icons.Outlined.PersonOutline, R.string.profile_title, R.string.profile_body, R.string.profile_status)
+    AppDestination(R.string.nav_profile, Icons.Outlined.PersonOutline, R.string.profile_title, R.string.profile_body, R.string.profile_status),
+    AppDestination(R.string.nav_brightening, Icons.Outlined.WbSunny, R.string.brightening_title, R.string.brightening_body, R.string.brightening_status)
 )
 
 class MainActivity : ComponentActivity() {
@@ -215,6 +217,7 @@ private fun SkincareApp(repository: RoomSkincareRepository) {
                 2 -> ProgressScreen(repository)
                 3 -> IngredientsScreen()
                 4 -> ProfileScreen(repository)
+                5 -> BrighteningScreen()
             }
         }
     }
@@ -575,11 +578,56 @@ private fun ProgressScreen(repository: RoomSkincareRepository) {
     }
 }
 @Composable
-private fun IngredientsScreen() {
+private fun IngredientLabelCheckerCard() {
+    var labelText by rememberSaveable { mutableStateOf("") }
+    val matches = com.barshan.skincareai.domain.IngredientLabelChecker.check(labelText)
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = RoundedCornerShape(18.dp)
+    ) {
+        Column(
+            Modifier.fillMaxWidth().padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(stringResource(R.string.label_checker_title), fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+            Text(stringResource(R.string.label_checker_intro), color = Color(0xFF5D6962))
+            OutlinedTextField(
+                value = labelText,
+                onValueChange = { labelText = it.take(5000) },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text(stringResource(R.string.label_checker_input)) },
+                minLines = 3
+            )
+            if (labelText.isNotBlank()) {
+                if (matches.isEmpty()) {
+                    Text(stringResource(R.string.label_checker_no_match), color = Color(0xFF8B4B31), fontWeight = FontWeight.SemiBold)
+                } else {
+                    Text(stringResource(R.string.label_checker_warning), color = Color(0xFF9A3F2F), fontWeight = FontWeight.SemiBold)
+                    matches.forEach { match ->
+                        val riskText = when (match.risk) {
+                            com.barshan.skincareai.domain.LabelIngredientRisk.DO_NOT_USE ->
+                                stringResource(R.string.label_checker_mercury, match.matchedAlias)
+                            com.barshan.skincareai.domain.LabelIngredientRisk.CLINICIAN_GUIDANCE_ONLY ->
+                                stringResource(R.string.label_checker_medical, match.matchedAlias)
+                        }
+                        Text("• $riskText", color = Color(0xFF8B4B31))
+                    }
+                }
+            }
+            Text(stringResource(R.string.label_checker_limits), color = Color(0xFF5D6962), fontSize = 12.sp)
+        }
+    }
+}
+
+@Composable
+fun IngredientsScreen() {
     val context = LocalContext.current
     var query by rememberSaveable { mutableStateOf("") }
     var selectedRisk by rememberSaveable { mutableStateOf<IngredientRisk?>(null) }
     Text(stringResource(R.string.ingredients_intro), color = Color(0xFF5D6962))
+    HomeFormulationSafetyCard()
+    FormulationEducationCard()
+    IngredientLabelCheckerCard()
     OutlinedTextField(
         value = query,
         onValueChange = { query = it },
@@ -599,6 +647,18 @@ private fun IngredientsScreen() {
                 selected = selectedRisk == IngredientRisk.GENERAL_CAUTION,
                 onClick = { selectedRisk = IngredientRisk.GENERAL_CAUTION },
                 label = { Text(stringResource(R.string.ingredients_filter_caution)) }
+            )
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            FilterChip(
+                selected = selectedRisk == IngredientRisk.CLINICIAN_GUIDANCE_ONLY,
+                onClick = { selectedRisk = IngredientRisk.CLINICIAN_GUIDANCE_ONLY },
+                label = { Text(stringResource(R.string.ingredients_filter_clinician)) }
+            )
+            FilterChip(
+                selected = selectedRisk == IngredientRisk.DO_NOT_USE,
+                onClick = { selectedRisk = IngredientRisk.DO_NOT_USE },
+                label = { Text(stringResource(R.string.ingredients_filter_do_not_use)) }
             )
         }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -623,6 +683,8 @@ private fun IngredientsScreen() {
             IngredientRisk.GENERAL_CAUTION -> R.string.ingredient_risk_caution
             IngredientRisk.AVOID_DIRECT_APPLICATION -> R.string.ingredient_risk_avoid_direct
             IngredientRisk.FINISHED_SUNSCREEN_ONLY -> R.string.ingredient_risk_finished_sunscreen
+            IngredientRisk.CLINICIAN_GUIDANCE_ONLY -> R.string.ingredient_risk_clinician
+            IngredientRisk.DO_NOT_USE -> R.string.ingredient_risk_do_not_use
         })
         val matchesQuery = query.isBlank() ||
             title.contains(query.trim(), ignoreCase = true) ||
@@ -645,6 +707,8 @@ private fun IngredientsScreen() {
             IngredientRisk.GENERAL_CAUTION -> R.string.ingredient_risk_caution
             IngredientRisk.AVOID_DIRECT_APPLICATION -> R.string.ingredient_risk_avoid_direct
             IngredientRisk.FINISHED_SUNSCREEN_ONLY -> R.string.ingredient_risk_finished_sunscreen
+            IngredientRisk.CLINICIAN_GUIDANCE_ONLY -> R.string.ingredient_risk_clinician
+            IngredientRisk.DO_NOT_USE -> R.string.ingredient_risk_do_not_use
         })
         val review = stringResource(R.string.ingredient_review_pending)
         Card(colors = CardDefaults.cardColors(containerColor = Color.White), shape = RoundedCornerShape(18.dp)) {
@@ -674,6 +738,7 @@ private fun IngredientsScreen() {
             }
         }
     }
+    Text(stringResource(R.string.ingredient_dark_spot_note), color = Color(0xFF5D6962), fontSize = 12.sp)
     Text(stringResource(R.string.ingredients_review_note), color = Color(0xFF5D6962), fontSize = 12.sp)
 }
 

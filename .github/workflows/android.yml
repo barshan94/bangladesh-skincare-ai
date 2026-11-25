@@ -2,7 +2,7 @@ name: Android build
 
 on:
   push:
-    branches: [main, implementation/m0-android-baseline]
+    branches: [main, implementation/m0-android-baseline, feature/brightening-system]
     paths:
       - "app/**"
       - "scripts/check_localization.py"
@@ -10,7 +10,7 @@ on:
       - "gradle/**"
       - ".github/workflows/android.yml"
   pull_request:
-    branches: [main]
+    branches: [main, implementation/m0-android-baseline]
     paths:
       - "app/**"
       - "scripts/check_localization.py"
@@ -34,6 +34,8 @@ jobs:
     env:
       ANDROID_HOME: /usr/local/lib/android/sdk
       ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+      # GitHub-hosted Linux runners may lack KVM; explicitly allow the emulator's TCG software fallback.
+      ANDROID_I_WANT_MY_TCG: "yes"
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -44,10 +46,13 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.11.1"
+      - name: Install Gradle 8.11.1
+        run: |
+          mkdir -p "$RUNNER_TEMP/gradle"
+          curl --http1.1 --fail --location --silent --show-error --retry 8 --retry-all-errors --retry-delay 5 "https://downloads.gradle.org/distributions/gradle-8.11.1-bin.zip" -o "$RUNNER_TEMP/gradle/gradle.zip"
+          unzip -q "$RUNNER_TEMP/gradle/gradle.zip" -d "$RUNNER_TEMP/gradle"
+          echo "$RUNNER_TEMP/gradle/gradle-8.11.1/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/gradle/gradle-8.11.1/bin/gradle" --version
       - name: Install Android command-line tools and SDK packages
         run: |
           mkdir -p "$ANDROID_HOME/cmdline-tools" "$RUNNER_TEMP/android-cli"

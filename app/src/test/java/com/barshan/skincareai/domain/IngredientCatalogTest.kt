@@ -48,6 +48,34 @@ class IngredientCatalogTest {
     }
 
     @Test
+    fun darkSpotIngredientsArePresentAndRemainUnapprovedPendingReview() {
+        val expected = setOf("azelaic_acid", "glycolic_acid", "kojic_acid", "retinoids", "vitamin_c")
+        val actual = IngredientCatalog.entries.filter { it.id in expected }
+        assertEquals(expected, actual.map { it.id }.toSet())
+        assertTrue(actual.all { it.sources.any { source -> source.url.contains("aad.org") } })
+        assertTrue(actual.all { it.reviewStatus == IngredientReviewStatus.PENDING_EXPERT_REVIEW })
+        assertTrue(actual.all { it.risk == IngredientRisk.GENERAL_CAUTION })
+    }
+
+
+    @Test
+    fun hydroquinoneAndTopicalSteroidsRequireClinicianGuidance() {
+        val hydroquinone = IngredientCatalog.entries.single { it.id == "hydroquinone" }
+        val steroids = IngredientCatalog.entries.single { it.id == "topical_steroids" }
+        assertEquals(IngredientRisk.CLINICIAN_GUIDANCE_ONLY, hydroquinone.risk)
+        assertEquals(IngredientRisk.CLINICIAN_GUIDANCE_ONLY, steroids.risk)
+        assertTrue(hydroquinone.sources.any { it.url.contains("fda.gov") })
+        assertTrue(steroids.sources.any { it.url.contains("aad.org") })
+    }
+
+    @Test
+    fun mercuryIsExplicitlyClassifiedAsDoNotUse() {
+        val mercury = IngredientCatalog.entries.single { it.id == "mercury" }
+        assertEquals(IngredientRisk.DO_NOT_USE, mercury.risk)
+        assertTrue(mercury.sources.any { it.url.contains("fda.gov") })
+    }
+
+    @Test
     fun householdLemonAndRawUvFilterHaveStricterSafetyClassification() {
         val lemon = IngredientCatalog.entries.single { it.id == "lemon_juice" }
         val zincOxide = IngredientCatalog.entries.single { it.id == "zinc_oxide" }

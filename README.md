@@ -1,61 +1,48 @@
 # Bangladesh Skincare AI
 
-A private, offline-first Android skincare tracker for personal use.
+A private, offline-first Android skincare companion for personal use in Bangladesh.
 
-> **Verified status (2026-11-18):** App-code revision `acbc86e85d3663a6e1e5ff6485cb03ca165c8fb8` passed full Android CI in [run #44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087). The workflow produced a debug APK, test reports and Room schema; 24 emulator instrumentation tests passed (0 failed, 0 skipped). This is not a signed release APK.
+> **Latest verified app-code commit:** `d46aea6f409aa602b9bfacf0f3443ea4296450ec`. Android CI run [#45566453626](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45566453626) passed all steps on this commit, including English/Bangla parity, debug APK compilation, unit tests, Room schema export, emulator navigation smoke tests and artifact uploads. The APK is a CI debug build, not a signed release or proof of physical-device acceptance.
 
-## What the app actually does
+## Features
 
-- **Skin Scan:** self-reported check-in with deterministic, general educational guidance. It does not scan skin, use a camera, diagnose, or use an AI model.
-- **My Routine:** local morning/evening reminder checklist.
-- **Progress:** private local text check-ins with edit and confirmed delete.
-- **Ingredients:** 11 educational ingredient summaries, safety notes, search, filters and publisher links. The entries are not professionally reviewed and are not treatment recommendations.
-- **Profile:** English/Bangla language preference, optional budget preference and local data reset.
+- **Skin Scan:** self-reported check-in with deterministic, general educational guidance; no diagnosis or AI skin analysis.
+- **Whitening & Brightening:** educational guidance for uneven tone, tanning and post-acne marks. A rule-based safety check adapts to skin feel, prior reactions, broken/irritated skin, concerning changes, sunscreen habits, multiple strong actives and current clinician-prescribed skin medicine. It is not a diagnosis or treatment prescription.
+- **Selfie progress (not analysis):** private camera capture, on-device one-face/framing checks, local photo timeline, deletion and side-by-side comparison. It does not analyse pigmentation, acne, melasma, dark spots, skin tone or disease. Lighting and camera differences can mislead visual comparisons.
+- **Homemade Lab:** personal-use worksheet for anhydrous-balm arithmetic, percentage-to-gram calculations, estimated BDT raw-material cost and one locally saved formula draft. It is a calculator, not a recipe generator or safety/compatibility/stability validator. Water-based products, creams/lotions and sunscreen are blocked from DIY formulation.
+- **Ingredients:** educational profiles, safety notes, search/filtering, publisher links and a limited English/Bangla red-flag label keyword checker. A no-match result does not establish safety.
+- **My Routine and Progress:** local Room-backed routine checklist and text check-ins.
+- **Profile:** English/Bangla preference, optional budget preference and local data reset.
 
-The word “AI” is currently the product name only; AI functionality is not implemented. Do not rely on this app for diagnosis or individualized treatment.
+## Explicitly deferred
+
+The owner has asked to defer genuine selfie-based skin analysis for now. No face/pigmentation score, AI diagnosis or pixel-heuristic substitute is included. Reconsider only with a legally usable dataset, qualified reference labels, representative Bangladeshi skin tones, device/lighting validation, repeatability/accuracy testing, on-device inference and privacy review.
 
 ## Privacy and technology
 
-Native Android, Kotlin, Jetpack Compose, Room/SQLite and SharedPreferences for small preferences and legacy migration. JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.9.2, Kotlin 2.0.21, compile/target SDK 35 and minimum SDK 26.
-
-The app works offline and currently has no account, analytics, cloud sync, photo upload, network permission or runtime permission request. Android backup is disabled in the manifest. These are code-level facts; device/OS behavior still needs a real-device check.
+Native Android, Kotlin, Jetpack Compose, Room/SQLite, SharedPreferences and ML Kit face detection. Routine, progress, formula draft and selfie data are stored locally; selfies remain in app-private storage. No account, analytics, cloud sync or photo upload is implemented. The app is designed to work offline. These are code-level properties, not physical-device acceptance results.
 
 ## Automated verification
 
-CI run [#44221154087](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/44221154087) passed the workflow job **Compile debug APK**, including 24 emulator instrumentation tests (0 failed, 0 skipped). The workflow includes localization parity, debug compilation, unit tests, Room schema export, emulator instrumentation tests and artifact uploads. The run contains:
-- `bangladesh-skincare-ai-debug`
-- `bangladesh-skincare-ai-test-reports`
-- `bangladesh-skincare-ai-room-schema`
+[CI run #45566453626](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45566453626) passed:
+- English/Bangla resource parity
+- Gradle 8.11.1 and Android SDK setup
+- Debug APK compilation
+- Unit tests
+- Room schema export
+- Android emulator navigation smoke tests
+- Debug APK and test-report artifact uploads
 
-A CI debug APK is suitable for controlled installation/testing. It is not a signed release build. Debug signing keys can differ between CI runs, so a later APK may not install as an in-place update; back up anything important before replacing an installation.
+Artifacts: `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and `bangladesh-skincare-ai-room-schema`. GitHub Actions artifacts are temporary and expire on 2026-12-09. This is not a signed release APK; CI debug signing keys may differ between builds.
 
-## Remaining owner checks
+## Remaining before a stable private release
 
-1. Install the current debug APK on your Android phone and test each of the five sections.
-2. If you have an older app installation with saved legacy data, test upgrade without clearing app storage; verify import once, restart persistence and no duplicates.
-3. Test Profile reset; verify routine/progress are removed and language preference remains.
-4. Check TalkBack, larger font size, Bangla/English text layout and touch targets on your phone.
-5. Check offline launch and confirm no unexpected permission prompts.
-6. For a stable signed private APK, create and retain your own signing key securely. Never share its password or keystore in chat or commit it to GitHub.
+1. Owner-side physical-device acceptance: camera capture, photo timeline/deletion, full reset, TalkBack, font scaling, Bangla layout, airplane mode and upgrade behavior.
+2. Optional owner-controlled signing key and signed private APK. Never commit the keystore or password.
+3. Qualified review before expanding ingredient/formulation claims or adding actionable recipes.
 
-**No expert is required merely to install and use this as a personal tracker.** The ingredient guide remains general education, not clinically reviewed advice. Do not expand it into diagnosis, prescriptions, high-strength active recommendations or DIY formulations without appropriate qualified review. Public/commercial distribution would need a separate safety and legal review.
+Do not claim production-ready clinical analysis. Keep PR #2 draft and unmerged until the owner has reviewed the app on-device.
 
-## Documentation
+## Safety boundary
 
-- [Project state](docs/PROJECT_STATE.md)
-- [Roadmap](docs/ROADMAP.md)
-- [Implementation backlog](docs/IMPLEMENTATION_BACKLOG.md)
-- [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
-- [Test strategy](docs/TEST_STRATEGY.md)
-- [Private APK release runbook](docs/RELEASE_RUNBOOK.md)
-- [Product specification](docs/PRODUCT_SPEC.md)
-- [Safety and privacy](docs/SAFETY_AND_PRIVACY.md)
-- [Safety case](docs/SAFETY_CASE.md)
-
-## Explicit exclusions
-
-No photo capture/analysis, AI diagnosis, personalized prescriptions, product marketplace, cloud accounts/sync, analytics, commercial/client workflows, whitening guarantees or DIY whitening recipes.
-
-## Disclaimer
-
-This app is a personal record-keeping and general-education tool, not medical advice or a clinical record system. Stop using a product that causes a reaction. Seek appropriate medical care for severe, persistent, worsening or concerning symptoms.
+The goal is safer care for uneven tone and excess pigmentation, not changing genetically determined natural skin colour. Exclude mercury, bleach, steroid misuse, harsh kitchen remedies and unsupervised prescription lighteners. No homemade sunscreen and no unpreserved water-based DIY recipes. A patch test does not make an unsafe or contaminated formula safe. This is a personal-use educational companion, not medical advice.
