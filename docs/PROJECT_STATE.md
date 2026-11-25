@@ -6,8 +6,8 @@
 - Baseline branch: `implementation/m0-android-baseline`
 - Active feature branch: `feature/brightening-system`
 - Active draft PR: [#2](https://github.com/barshan94/bangladesh-skincare-ai/pull/2), open, draft and unmerged.
-- Latest feature commit: `e9834abe78f3560c8721d5202c3c47995f8e2e21`.
-- Latest CI [run #45536876141](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45536876141) passed on `e9834ab`: Gradle install, Android SDK setup, debug APK compilation, unit tests, Room schema export, emulator navigation smoke tests and artifact uploads.
+- Latest code commit verified by CI: `244eecc84a381a4dc8f8a2b3df23e4eaaed63ad2` (documentation commits follow it).
+- Latest CI [run #45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) passed on `244eecc`: localization parity, Gradle/Android SDK setup, debug APK compilation, unit tests, Room schema export, emulator navigation smoke tests and artifact uploads.
 - Artifacts `bangladesh-skincare-ai-debug`, `bangladesh-skincare-ai-test-reports` and `bangladesh-skincare-ai-room-schema` are available until 2026-12-09. They are temporary CI artifacts, not signed releases.
 
 ## Current capabilities
@@ -26,7 +26,7 @@
 
 ## Verification
 
-Latest CI run [#45536876141](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45536876141) on commit `e9834ab` passed Gradle installation, Android SDK setup, debug compilation, unit tests, Room schema export, emulator navigation smoke tests, localization parity and artifact uploads. This validates the CI environment only; it does not replace owner-side device testing.
+Latest CI run [#45556948012](https://github.com/barshan94/bangladesh-skincare-ai/actions/runs/45556948012) on code commit `244eecc` passed Gradle installation, Android SDK setup, debug compilation, unit tests, Room schema export, emulator navigation smoke tests, localization parity and artifact uploads. Debug APK, test reports and Room schema artifacts were uploaded. This validates the CI environment only; it does not replace owner-side device testing.
 
 ## Remaining core product work
 
